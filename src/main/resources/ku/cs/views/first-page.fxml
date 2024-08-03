@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="1024.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.FirstPageController">
+   <children>
+      <ImageView fx:id="logoImage" fitHeight="138.0" fitWidth="531.0" layoutX="495.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../img/Screenshot_2567-07-27_at_20.41.56-removebg-preview%201.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="leftImage" fitHeight="357.0" fitWidth="403.0" layoutX="-3.0" layoutY="671.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../img/Group%2033625.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="rightImage" fitHeight="337.0" fitWidth="399.0" layoutX="1074.0" layoutY="-16.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../img/Group%2033624.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="599.0" layoutY="602.0" mnemonicParsing="false" onAction="#onStartButtonClick" prefHeight="66.0" prefWidth="334.0" style="-fx-background-radius: 10; -fx-background-color: #6EB1FF;" text="Get Started -&gt;">
+         <font>
+            <Font name="System Italic" size="20.0" />
+         </font>
+      </Button>
+      <ImageView fx:id="kulogo" fitHeight="218.0" fitWidth="219.0" layoutX="31.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../img/KU_SubLogo_Thai.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
