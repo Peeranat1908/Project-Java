@@ -8,51 +8,51 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.LoginController">
    <children>
-      <Button layoutX="129.0" layoutY="579.0" mnemonicParsing="false" onAction="#onBLoginButtonClick" prefHeight="58.0" prefWidth="466.0" style="-fx-background-color: #6EB1FF; -fx-background-radius: 10;" text="Login" textAlignment="CENTER">
+      <Button layoutX="148.0" layoutY="416.0" mnemonicParsing="false" onAction="#onLoginButtonClick" prefHeight="52.0" prefWidth="458.0" style="-fx-background-color: #6EB1FF; -fx-background-radius: 10;" text="Login" textAlignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Label layoutX="129.0" layoutY="336.0" text="Username:">
+      <Label layoutX="143.0" layoutY="231.0" text="Username:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField layoutX="128.0" layoutY="383.0" prefHeight="40.0" prefWidth="385.0" />
-      <Label layoutX="131.0" layoutY="439.0" text="Password:">
+      <TextField layoutX="143.0" layoutY="270.0" prefHeight="35.0" prefWidth="260.0" style="-fx-background-radius: 10;" />
+      <Label layoutX="144.0" layoutY="322.0" text="Password:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField layoutX="129.0" layoutY="483.0" prefHeight="40.0" prefWidth="385.0" />
-      <ImageView fx:id="Laptop" fitHeight="1027.0" fitWidth="686.0" layoutX="764.0" pickOnBounds="true" preserveRatio="true">
+      <TextField layoutX="144.0" layoutY="360.0" prefHeight="35.0" prefWidth="260.0" style="-fx-background-radius: 10;" />
+      <ImageView fx:id="Laptop" fitHeight="739.0" fitWidth="488.0" layoutX="792.0" layoutY="-14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../images/laptop.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="Logo" fitHeight="134.0" fitWidth="623.0" layoutX="162.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="Logo" fitHeight="134.0" fitWidth="623.0" layoutX="128.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../images/logo.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="235.0" fitWidth="285.0" layoutY="791.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="186.0" fitWidth="205.0" layoutX="-3.0" layoutY="549.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../images/rectangleLeft.png" />
          </image>
       </ImageView>
-      <Label layoutX="143.0" layoutY="650.0" text="Don't have an account?">
+      <Label layoutX="146.0" layoutY="495.0" text="Don't have an account?">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="337.0" layoutY="648.0" mnemonicParsing="false" onAction="#onRegisterButtonClick" style="-fx-background-color: #6EB1FF; -fx-background-radius: 10;" text="Register">
+      <Button layoutX="332.0" layoutY="491.0" mnemonicParsing="false" onAction="#onRegisterButtonClick" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;" text="Register">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Button>
-      <Button layoutX="468.0" layoutY="648.0" mnemonicParsing="false" style="-fx-background-color: #6EB1FF; -fx-background-radius: 10;" text="Reset Password">
+      <Button layoutX="463.0" layoutY="492.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;" text="Reset Password">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
