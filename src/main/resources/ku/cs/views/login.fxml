@@ -12,7 +12,7 @@
    <children>
       <Button layoutX="148.0" layoutY="416.0" mnemonicParsing="false" onAction="#onLoginButtonClick" prefHeight="52.0" prefWidth="458.0" style="-fx-background-color: #6EB1FF; -fx-background-radius: 10;" text="Login" textAlignment="CENTER">
          <font>
-            <Font size="18.0" />
+            <Font name="System Bold" size="22.0" />
          </font>
       </Button>
       <Label layoutX="143.0" layoutY="231.0" text="Username:">
@@ -20,13 +20,13 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField layoutX="143.0" layoutY="270.0" prefHeight="35.0" prefWidth="260.0" style="-fx-background-radius: 10;" />
+      <TextField layoutX="143.0" layoutY="270.0" prefHeight="38.0" prefWidth="299.0" style="-fx-background-radius: 10;" />
       <Label layoutX="144.0" layoutY="322.0" text="Password:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField layoutX="144.0" layoutY="360.0" prefHeight="35.0" prefWidth="260.0" style="-fx-background-radius: 10;" />
+      <TextField layoutX="144.0" layoutY="360.0" prefHeight="38.0" prefWidth="298.0" style="-fx-background-radius: 10;" />
       <ImageView fx:id="Laptop" fitHeight="739.0" fitWidth="488.0" layoutX="792.0" layoutY="-14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../images/laptop.png" />
@@ -47,14 +47,14 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="332.0" layoutY="491.0" mnemonicParsing="false" onAction="#onRegisterButtonClick" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;" text="Register">
+      <Button layoutX="333.0" layoutY="489.0" mnemonicParsing="false" onAction="#onRegisterButtonClick" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;" text="Register" textFill="#6eb1ff">
          <font>
-            <Font name="System Bold" size="16.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button layoutX="463.0" layoutY="492.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;" text="Reset Password">
+      <Button layoutX="450.0" layoutY="489.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;" text="Reset Password" textFill="#6eb1ff">
          <font>
-            <Font name="System Bold" size="16.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
       </Button>
    </children>

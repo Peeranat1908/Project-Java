@@ -15,7 +15,7 @@ public class LoginController {
     @FXML
     public void onLoginButtonClick() {
         try {
-            FXRouter.goTo("hello");
+            FXRouter.goTo("student");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
