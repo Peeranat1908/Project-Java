@@ -13,9 +13,16 @@ import java.io.IOException;
 public class LoginController {
 
     @FXML
-    protected void onBLoginuttonClick() {
+    protected void onBLoginButtonClick() {
         try {
             FXRouter.goTo("hello");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    protected void onRegisterButtonClick() {
+        try {
+            FXRouter.goTo("register");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

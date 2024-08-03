@@ -10,7 +10,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.LoginController">
    <children>
-      <Button layoutX="129.0" layoutY="579.0" mnemonicParsing="false" onAction="#onBLoginuttonClick" prefHeight="58.0" prefWidth="466.0" text="Login" textAlignment="CENTER">
+      <Button layoutX="129.0" layoutY="579.0" mnemonicParsing="false" onAction="#onBLoginButtonClick" prefHeight="58.0" prefWidth="466.0" style="-fx-background-color: #6EB1FF; -fx-background-radius: 10;" text="Login" textAlignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>
@@ -42,27 +42,17 @@
             <Image url="@../../../images/rectangleLeft.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="34.0" fitWidth="339.0" layoutX="143.0" layoutY="486.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/password.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="34.0" fitWidth="466.0" layoutX="141.0" layoutY="388.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/username.png" />
-         </image>
-      </ImageView>
       <Label layoutX="143.0" layoutY="650.0" text="Don't have an account?">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="337.0" layoutY="648.0" mnemonicParsing="false" text="Register">
+      <Button layoutX="337.0" layoutY="648.0" mnemonicParsing="false" onAction="#onRegisterButtonClick" style="-fx-background-color: #6EB1FF; -fx-background-radius: 10;" text="Register">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Button>
-      <Button layoutX="468.0" layoutY="648.0" mnemonicParsing="false" text="Reset Password">
+      <Button layoutX="468.0" layoutY="648.0" mnemonicParsing="false" style="-fx-background-color: #6EB1FF; -fx-background-radius: 10;" text="Reset Password">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
