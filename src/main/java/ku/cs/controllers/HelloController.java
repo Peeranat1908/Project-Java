@@ -8,6 +8,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import java.io.IOException;
+import ku.cs.services.FXRouter;
 
 public class HelloController {
     @FXML private VBox root;
@@ -23,6 +25,13 @@ public class HelloController {
             root.getChildren().add(createPane());
             welcomeText.setText("Happy Coding!");
         }
+
+            try {
+                FXRouter.goTo("loginpage");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
     }
 
     private Pane createPane() {
