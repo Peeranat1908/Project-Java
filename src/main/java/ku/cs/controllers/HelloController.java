@@ -8,14 +8,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-<<<<<<< HEAD
 import java.io.IOException;
 import ku.cs.services.FXRouter;
-=======
 import ku.cs.services.FXRouter;
 
 import java.io.IOException;
->>>>>>> feature/Register-Page
 
 public class HelloController {
 //    @FXML private VBox root;
