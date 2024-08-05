@@ -8,7 +8,7 @@ public class RegisterController {
     @FXML
     public void onLoginButtonClick() {
         try {
-            FXRouter.goTo("hello");
+            FXRouter.goTo("login-page");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -16,7 +16,7 @@ public class RegisterController {
     @FXML
     public void onRegisterButtonClick() {
         try {
-            FXRouter.goTo("hello");
+            FXRouter.goTo("student");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -39,7 +39,7 @@ public class MyteamController {
     @FXML
     public void onBackButtonClick() {
         try {
-            FXRouter.goTo("hello");
+            FXRouter.goTo("student");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
