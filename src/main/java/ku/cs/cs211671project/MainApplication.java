@@ -20,12 +20,9 @@ public class MainApplication extends Application {
     private void configRoutes() {
         String viewPath = "ku/cs/views/";
         FXRouter.when("hello", viewPath + "hello-view.fxml");
-<<<<<<< HEAD
         FXRouter.when("first-page", viewPath + "first-page.fxml");
         FXRouter.when("loginpage", viewPath + "login.fxml");
-=======
         FXRouter.when("register", viewPath + "register.fxml");
->>>>>>> feature/Register-Page
     }
 
     public static void main(String[] args) {
