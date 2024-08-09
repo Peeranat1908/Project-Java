@@ -1,6 +1,6 @@
 # CS211 Project ภาคต้น 2567
 
-## ชื่อทีม Monday I Missyou
+## ชื่อทีม monday-i-miss-you
 
 ### สมาชิกในทีม
 |  รหัสนิสิต  |    ชื่อ-นามสกุล (ชื่อเล่น)     |  GitHub username  |
