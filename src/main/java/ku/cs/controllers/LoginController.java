@@ -6,9 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import ku.cs.services.FXRouter;
 import java.io.IOException;
-import ku.cs.services.FXRouter;
 
-import java.io.IOException;
 
 public class LoginController {
 
@@ -27,5 +25,11 @@ public class LoginController {
             throw new RuntimeException(e);
         }
     }
-
+    public void onResetPasswordButton() {
+        try {
+            FXRouter.goTo("resetPassword");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

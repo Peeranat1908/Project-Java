@@ -24,6 +24,7 @@ public class MainApplication extends Application {
         FXRouter.when("register", viewPath + "register.fxml");
         FXRouter.when("student", viewPath + "main-student.fxml");
         FXRouter.when("my-team", viewPath + "my-team.fxml");
+        FXRouter.when("resetPassword", viewPath + "resetpassword.fxml");
     }
 
     public static void main(String[] args) {
