@@ -3,6 +3,7 @@ package ku.cs.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import ku.cs.models.StudentList;
 import ku.cs.services.FXRouter;
@@ -17,8 +18,8 @@ public class RegisterController {
     @FXML private TextField usernameTextField;
     @FXML private TextField emailTextField;
     @FXML private TextField idTextField;
-    @FXML private TextField passwordTextField;
-    @FXML private TextField confirmPasswordTextField;
+    @FXML private PasswordField passwordTextField;
+    @FXML private PasswordField confirmPasswordTextField;
     private StudentList studentList;
 
 
