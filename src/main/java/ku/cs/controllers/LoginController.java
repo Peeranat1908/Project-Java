@@ -5,7 +5,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import ku.cs.models.UserCredential;
-import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
 import ku.cs.services.UserCredentialsListFileDatasource;
 import ku.cs.models.UserCredentialList;
