@@ -30,6 +30,7 @@ public class MainApplication extends Application {
         FXRouter.when("request-page", viewPath + "request-page.fxml");
         FXRouter.when("student-appeal", viewPath + "student-appeal.fxml");
         FXRouter.when("normal-appeal", viewPath + "normal-appeal.fxml");
+        FXRouter.when("main-admin", viewPath + "main-admin.fxml");
     }
 
     public static void main(String[] args) {
