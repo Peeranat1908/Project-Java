@@ -68,7 +68,9 @@ public class ResetPasswordController {
 
         if (!isUserFound) {
             errorLabel.setText("Username or old password is incorrect. Please try again.");
+            return;
         }
+        FXRouter.goTo("login-page");
     }
 }
 

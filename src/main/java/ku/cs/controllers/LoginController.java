@@ -52,7 +52,7 @@ public class LoginController {
     }
 
     private void navigateByRole(String role) throws IOException {
-        switch (role.toLowerCase()) {
+        switch (role) {
             case "student":
                 FXRouter.goTo("student");
                 break;
