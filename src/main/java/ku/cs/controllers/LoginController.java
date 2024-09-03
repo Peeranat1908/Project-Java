@@ -62,10 +62,10 @@ public class LoginController {
             case "advisor":
                 FXRouter.goTo("advisor");
                 break;
-            case "facultystaff":
+            case "facultyStaff":
                 FXRouter.goTo("facultyStaff");
                 break;
-            case "departmentstaff":
+            case "departmentStaff":
                 FXRouter.goTo("departmentStaff");
                 break;
             default:
