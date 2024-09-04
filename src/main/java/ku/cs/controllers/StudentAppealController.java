@@ -18,6 +18,15 @@ public class StudentAppealController {
             throw new RuntimeException(e);
         }
     }
+    @FXML
+    public void onNormalAppealClick() {
+        try {
+            FXRouter.goTo("normal-appeal");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 
 }

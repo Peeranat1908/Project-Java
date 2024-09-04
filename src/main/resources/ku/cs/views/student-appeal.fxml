@@ -31,7 +31,7 @@
       </Pane>
       <Pane layoutX="365.0" layoutY="148.0">
          <children>
-            <Button minHeight="65.0" minWidth="552.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;" text="คำร้องทั่วไป">
+            <Button minHeight="65.0" minWidth="552.0" mnemonicParsing="false" onAction="#onNormalAppealClick" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;" text="คำร้องทั่วไป">
                <font>
                   <Font size="16.0" />
                </font>
