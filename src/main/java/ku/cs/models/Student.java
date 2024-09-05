@@ -9,6 +9,9 @@ public class Student {
     private String email;
     private String password;
 
+    private String faculty;
+    private String major;
+
     public Student(String name, String surname, String id, String username, String email, String password){
         this.name = name;
         this.surname = surname;
@@ -51,6 +54,14 @@ public class Student {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getFaculty() {
+        return faculty;
+    }
+
+    public String getMajor() {
+        return major;
     }
 
     public String toCsv(){
