@@ -102,7 +102,7 @@ public class UserCredentialsListFileDatasource implements Datasource<UserCredent
         try {
             // สร้าง csv ของ UserCredential และเขียนลงในไฟล์ทีละบรรทัด
             for (UserCredential user : data.getUsers()) {
-                String line = user.getUsernameName() + "," + user.getPassword() + "," + user.getRole(); // เพิ่ม role เข้าไปในบรรทัดนี้
+                String line = user.getUsernameName() + "," + user.getPassword() + "," + user.getRole();
                 buffer.append(line);
                 buffer.append("\n");
             }

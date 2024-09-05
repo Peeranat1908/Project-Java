@@ -5,11 +5,11 @@ public class UserCredential {
     private String password;
     private String role;
 
-    public UserCredential(String username,String password){
+    public UserCredential(String username, String password){
         this.username = username;
         this.password = password;
     }
-    public UserCredential(String username,String password,String role){
+    public UserCredential(String username, String password, String role){
         this.username = username;
         this.password = password;
         this.role = role;
