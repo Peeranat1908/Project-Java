@@ -25,11 +25,9 @@ public class MainApplication extends Application {
         FXRouter.when("register", viewPath + "register.fxml");
         FXRouter.when("student", viewPath + "main-student.fxml");
         FXRouter.when("my-team", viewPath + "my-team.fxml");
-<<<<<<< HEAD
         FXRouter.when("resetPassword", viewPath + "resetpassword.fxml");
-=======
         FXRouter.when("main-advisor", viewPath + "main-advisor.fxml");
->>>>>>> ca46a76 (add-advisor)
+        FXRouter.when("request-page", viewPath + "request-page.fxml");
     }
 
     public static void main(String[] args) {

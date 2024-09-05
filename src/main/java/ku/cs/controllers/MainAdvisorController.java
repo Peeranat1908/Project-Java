@@ -74,6 +74,15 @@ public class MainAdvisorController {
         }
     }
 
+    @FXML
+    public void onRequestButtonClick(){
+        try {
+            FXRouter.goTo("request-page");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 //    @FXML
 //    public void onRequestButton(){
 //        try{
