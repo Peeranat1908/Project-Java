@@ -101,8 +101,7 @@ public final class FXRouter {
     private static void loadNewRoute(RouteScene route) throws IOException {
         currentRoute = route;
         String scenePath = "/" + route.scenePath;
-        Parent resource = (Parent)FXMLLoader.load((new Object() {
-        }).getClass().getResource(scenePath));
+        Parent resource = (Parent)FXMLLoader.load((new Object() {}).getClass().getResource(scenePath));
         window.setTitle(route.windowTitle);
         window.setScene(new Scene(resource, route.sceneWidth, route.sceneHeight));
         window.show();

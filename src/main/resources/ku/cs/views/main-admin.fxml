@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.MainAdminController">
+   <children>
+      <Pane layoutX="2.0" layoutY="-1.0" prefHeight="80.0" prefWidth="1275.0" style="-fx-background-color: EAF4FF;">
+         <children>
+            <Button layoutX="-7.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="124.0" style="-fx-background-color: #2F80ED; -fx-background-radius: 0;" textFill="WHITE" />
+            <Label layoutX="1065.0" layoutY="17.0" text="Admin">
+               <font>
+                  <Font name="System Bold" size="33.0" />
+               </font>
+            </Label>
+            <Button layoutX="135.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="HOME">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <Button layoutX="211.0" layoutY="19.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="LIST">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <Button layoutX="273.0" layoutY="19.0" mnemonicParsing="false" onAction="#onMyTeamButtonClick" style="-fx-background-color: EAF4FF;" text="MY TEAM">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <Group layoutX="134.0" layoutY="28.0">
+               <children>
+                  <Line endX="-51.0" startX="-100.0" stroke="WHITE" strokeWidth="3.0" />
+                  <Line endX="-51.0" layoutY="11.0" startX="-100.0" stroke="WHITE" strokeWidth="3.0" />
+                  <Line endX="-51.857139587402344" layoutX="1.0" layoutY="21.0" startX="-100.85713958740234" stroke="WHITE" strokeWidth="3.0" />
+               </children>
+            </Group>
+            <ImageView fitHeight="69.0" fitWidth="68.0" layoutX="1190.0" layoutY="7.0">
+               <image>
+                  <Image url="@../../../images/admin.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="362.0" layoutY="18.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="จัดการข้อมูลคณะและภาควิชา">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Button>
+            <Button layoutX="596.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Button>
+            <Button layoutX="856.0" layoutY="21.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="dashboard">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <Label layoutX="565.0" layoutY="122.0" text="ชื่อผู้ใช้ระบบ">
+         <font>
+            <Font name="System Bold" size="32.0" />
+         </font>
+      </Label>
+      <TextField layoutX="525.0" layoutY="176.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <TableView layoutX="122.0" layoutY="237.0" prefHeight="428.0" prefWidth="1056.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
+      <Button layoutX="1206.0" layoutY="677.0" mnemonicParsing="false" onAction="#onLogOutButtonClick" text="logout" />
+   </children>
+</AnchorPane>

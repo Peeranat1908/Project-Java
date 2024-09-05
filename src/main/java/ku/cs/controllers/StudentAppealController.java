@@ -1,32 +1,32 @@
 package ku.cs.controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import ku.cs.services.FXRouter;
 import java.io.IOException;
 
-public class StudentController
 
-{
+public class StudentAppealController {
     @FXML
-    public void onMyTeamButtonClick() {
+    public void onBackButtonClick() {
         try {
-            FXRouter.goTo("my-team");
+            FXRouter.goTo("student");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void onNormalAppealClick() {
+        try {
+            FXRouter.goTo("normal-appeal");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    @FXML
-    public void selectAppealButtonClick() {
-        try {
-            FXRouter.goTo("student-appeal");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 
 }

@@ -56,7 +56,7 @@
       </ImageView>
       <Pane layoutX="344.0" layoutY="244.0" prefHeight="245.0" prefWidth="605.0" style="-fx-background-color: BEDCFE; -fx-background-radius: 20;">
          <children>
-            <Button layoutX="25.0" layoutY="40.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="563.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10;" text="เลือกประเภทคำร้อง">
+            <Button layoutX="25.0" layoutY="40.0" mnemonicParsing="false" onAction="#selectAppealButtonClick" prefHeight="66.0" prefWidth="563.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10;" text="เลือกประเภทคำร้อง">
                <font>
                   <Font name="System Italic" size="16.0" />
                </font>
