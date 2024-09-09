@@ -67,7 +67,7 @@
             <Font size="25.0" />
          </font>
       </Label>
-      <Button layoutX="839.0" layoutY="176.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="68.0" style="-fx-background-radius: 10;" text="Button" />
+      <Button fx:id="searchButtonClick" layoutX="839.0" layoutY="176.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="68.0" style="-fx-background-radius: 10;" text="Search" />
       <TableView fx:id="studentAdvisorTableView" layoutX="166.0" layoutY="250.0" prefHeight="426.0" prefWidth="895.0" style="-fx-background-radius: 10;">
         <columns>
           <TableColumn prefWidth="75.0" text="C1" />

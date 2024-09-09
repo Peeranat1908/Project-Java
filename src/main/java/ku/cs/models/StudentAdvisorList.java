@@ -23,6 +23,16 @@ public class StudentAdvisorList {
         return null;
     }
 
+    public StudentAdvisor findStudentByName(String name){
+        for (StudentAdvisor studentAdvisor1 : studentAdvisor){
+            if (studentAdvisor1.getName().equalsIgnoreCase(name.trim())){
+                return studentAdvisor1;
+            }
+        }
+        return null;
+    }
+
+
     public ArrayList<StudentAdvisor> getStudentAdvisor() {
         return studentAdvisor;
     }

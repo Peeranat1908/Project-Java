@@ -1,6 +1,7 @@
 package ku.cs.controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -21,15 +22,22 @@ public class MainAdvisorController {
     @FXML
     private TextField searchTextField;
 
+    @FXML
+    private Button searchButtonClick;
+
     private StudentAdvisorList studentAdvisorList;
 
     private Datasource<StudentAdvisorList> datasource;
+
+
 
     @FXML
     public void initialize() {
         datasource = new StudentListFileAdvisorDatasource("data", "studentAdvisor.csv");
         studentAdvisorList = datasource.readData();
         showTable(studentAdvisorList);
+
+        searchButtonClick.setOnAction(actionEvent -> searchStudent());
     }
         private void showTable(StudentAdvisorList studentAdvisorList) {
             // กำหนด column ให้มี title ว่า ID และใช้ค่าจาก getter id ของ object Student
@@ -60,6 +68,26 @@ public class MainAdvisorController {
             }
         }
 
+        private void searchStudent(){
+        String searchQuery = searchTextField.getText().trim();
+        if (searchQuery.isEmpty()){
+            studentAdvisorTableView.getItems().setAll(studentAdvisorList.getStudentAdvisor());
+            return;
+        }
+
+        StudentAdvisor fondStudent = studentAdvisorList.findStudentById(searchQuery);
+        if (fondStudent == null){
+            fondStudent = studentAdvisorList.findStudentByName(searchQuery);
+        }
+
+        if (fondStudent != null){
+            studentAdvisorTableView.getItems().setAll(fondStudent);
+        }
+        else {
+            studentAdvisorTableView.getItems().clear();
+        }
+        }
+        
     @FXML
     public void onMyTeamButtonClick() throws RuntimeException {
 //        Object temp = FXRouter.getData();
@@ -82,6 +110,9 @@ public class MainAdvisorController {
             throw new RuntimeException(e);
         }
     }
+
+
+
 
 //    @FXML
 //    public void onRequestButton(){

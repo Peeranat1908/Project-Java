@@ -16,18 +16,18 @@
             <Font name="Arial Bold" size="24.0" />
          </font>
       </Label>
-      <TableView layoutX="342.0" layoutY="116.0" prefHeight="362.0" prefWidth="634.0" style="-fx-background-radius: 10;">
+      <TableView fx:id="tableView" layoutX="342.0" layoutY="116.0" prefHeight="362.0" prefWidth="634.0" style="-fx-background-radius: 10;">
         <columns>
           <TableColumn prefWidth="75.0" text="C1" />
           <TableColumn prefWidth="75.0" text="C2" />
         </columns>
       </TableView>
-      <Button layoutX="476.0" layoutY="607.0" mnemonicParsing="false" style="-fx-background-color: #ABFF9D; -fx-background-radius: 10;" text="อนุมัติ" textFill="#317127">
+      <Button fx:id="acceptButtonClick" layoutX="476.0" layoutY="607.0" mnemonicParsing="false" style="-fx-background-color: #ABFF9D; -fx-background-radius: 10;" text="อนุมัติ" textFill="#317127">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <Button layoutX="731.0" layoutY="607.0" mnemonicParsing="false" style="-fx-background-color: #FFB1B1; -fx-background-radius: 10;" text="ไม่อนุมัติ" textFill="RED">
+      <Button fx:id="rejectButtonClick" layoutX="731.0" layoutY="607.0" mnemonicParsing="false" style="-fx-background-color: #FFB1B1; -fx-background-radius: 10;" text="ไม่อนุมัติ" textFill="RED">
          <font>
             <Font size="20.0" />
          </font>
