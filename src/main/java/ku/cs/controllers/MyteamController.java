@@ -10,6 +10,7 @@ import ku.cs.services.FXRouter;
 import java.io.IOException;
 
 public class MyteamController {
+    private final String thisPage = "my-team";
     @FXML private ImageView backImage;
     @FXML private ImageView groupImage;
     @FXML private ImageView augustyouthImage;
@@ -39,9 +40,13 @@ public class MyteamController {
     @FXML
     public void onBackButtonClick() {
         try {
-            FXRouter.goTo("student");
+            FXRouter.goTo("student", getThispage());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public String getThispage() {
+        return thisPage;
     }
 }
