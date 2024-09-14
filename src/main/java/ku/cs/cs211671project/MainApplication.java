@@ -14,7 +14,7 @@ public class MainApplication extends Application {
         FXRouter.bind(this, stage, "CS211 Project", 1280, 720);
         configRoutes();
         //FXRouter.goTo("first-page");
-        FXRouter.goTo("main-advisor");
+        FXRouter.goTo("first-page");
     }
 
     private void configRoutes() {

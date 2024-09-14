@@ -32,7 +32,8 @@ public class LoginController {
         String password = PasswordTextField.getText();
 
         if (username.isEmpty() && password.isEmpty()) {
-            return;
+            errorLabel.setText("Please enter your data.");
+            throw new IOException("Invalid username or password");
         }
 
         boolean isAuthenticated = false;
@@ -57,7 +58,7 @@ public class LoginController {
                 FXRouter.goTo("student");
                 break;
             case "admin":
-                FXRouter.goTo("admin");
+                FXRouter.goTo("main-admin");
                 break;
             case "advisor":
                 FXRouter.goTo("advisor");
@@ -78,7 +79,6 @@ public class LoginController {
     public void onLoginButtonClick() {
         try {
             checkLogin();
-            FXRouter.goTo("main-admin");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -87,7 +87,6 @@ public class LoginController {
     @FXML
     public void onRegisterButtonClick() {
         try {
-            checkLogin();
             FXRouter.goTo("register");
         } catch (IOException e) {
             throw new RuntimeException(e);

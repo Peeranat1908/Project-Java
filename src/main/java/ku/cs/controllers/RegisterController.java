@@ -6,9 +6,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import ku.cs.models.StudentList;
+import ku.cs.models.UserCredentialList;
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
 import ku.cs.services.StudentListFileDatasource;
+import ku.cs.services.UserCredentialsListFileDatasource;
 
 import java.io.IOException;
 
@@ -21,9 +23,13 @@ public class RegisterController {
     @FXML private TextField idTextField;
     @FXML private PasswordField passwordTextField;
     @FXML private PasswordField confirmPasswordTextField;
-    private StudentList studentList;
+    @FXML private StudentList studentList;
+    @FXML private UserCredentialList userCredentialList;
 
-
+    @FXML
+    private void initialize() {
+        errorLabel.setText("");
+    }
     @FXML
     public void onLoginButtonClick() {
         try {
@@ -37,10 +43,12 @@ public class RegisterController {
         checkRegister();
     }
 
-
     private void checkRegister()  {
-        Datasource<StudentList> datasource = new StudentListFileDatasource("data", "student-info.csv");
-        studentList = datasource.readData();
+        Datasource<StudentList> studentDatasource = new StudentListFileDatasource("data", "student-info.csv");
+        studentList = studentDatasource.readData();
+
+        Datasource<UserCredentialList> userCredentialDatasource = new UserCredentialsListFileDatasource("data", "UserCredentials.csv");
+        userCredentialList = userCredentialDatasource.readData();
 
         errorLabel.setText("");
         String name = nameTextField.getText();
@@ -51,26 +59,42 @@ public class RegisterController {
         String password = passwordTextField.getText();
         String confirmPassword = confirmPasswordTextField.getText();
 
-        if (nameTextField.getText().isEmpty() || surnameTextField.getText().isEmpty() || usernameTextField.getText().isEmpty() || idTextField.getText().isEmpty() || emailTextField.getText().isEmpty() || passwordTextField.getText().isEmpty() || confirmPasswordTextField.getText().isEmpty())
-        {
+        if (name.isEmpty() || surname.isEmpty() || username.isEmpty() || id.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             errorLabel.setText("Please enter your data.");
             return;
         }
 
-        if(studentList.isExists(username, id)){
+        if (!password.equals(confirmPassword)) {
+            errorLabel.setText("Passwords do not match.");
+            return;
+        }
+
+        if(studentList.isExists(username, id)) {
             errorLabel.setText("The data has been used!");
             return;
         }
 
-        studentList.addNewStudent(name, surname,id, username, email, password);
-        datasource.writeData(studentList);
+        studentList.addNewStudent(name, surname, id, username, email, password);
+        studentDatasource.writeData(studentList);
+
+        userCredentialList.addNewUser(username, password, "student");
+        userCredentialDatasource.writeData(userCredentialList);
+
         onRegisterButtonClick();
     }
+
     @FXML
     public void onRegisterButtonClick() {
         try {
-            errorLabel.setText("Your data has been saved!");
             FXRouter.goTo("student");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    private void onBackButton() {
+        try {
+            FXRouter.goTo("login-page");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

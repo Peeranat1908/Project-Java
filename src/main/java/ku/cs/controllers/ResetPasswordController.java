@@ -1,6 +1,7 @@
 package ku.cs.controllers;
 
 import javafx.fxml.FXML;
+import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
 import java.io.IOException;
 import javafx.scene.control.Label;
@@ -33,6 +34,15 @@ public class ResetPasswordController {
             errorLabel.setText("An error occurred. Please try again.");
         }
     }
+    @FXML
+    private void onBackButton() {
+        try {
+            FXRouter.goTo("login-page");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     private void resetPassword() throws IOException {
         Datasource<UserCredentialList> datasource = new UserCredentialsListFileDatasource("data", "UserCredentials.csv");
