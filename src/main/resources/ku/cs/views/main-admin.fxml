@@ -50,14 +50,14 @@
                   <Image url="@../../../images/admin.png" />
                </image>
             </ImageView>
-            <Button layoutX="362.0" layoutY="18.0" mnemonicParsing="false" onAction="#onFacultyButtonClick" style="-fx-background-color: EAF4FF;" text="จัดการข้อมูลคณะและภาควิชา">
+            <Button layoutX="362.0" layoutY="18.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="จัดการข้อมูลคณะและภาควิชา">
                <font>
-                  <Font name="Arial Bold" size="17.0" />
+                  <Font name="Arial" size="17.0" />
                </font>
             </Button>
             <Button layoutX="596.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
                <font>
-                  <Font name="Arial Bold" size="17.0" />
+                  <Font name="Arial" size="17.0" />
                </font>
             </Button>
             <Button layoutX="856.0" layoutY="21.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="dashboard">
@@ -72,22 +72,17 @@
             <Font name="Arial" size="32.0" />
          </font>
       </Label>
-      <TextField layoutX="525.0" layoutY="176.0" promptText="Search" style="-fx-background-radius: 10px;">
+      <TextField layoutX="525.0" layoutY="176.0">
          <font>
             <Font size="20.0" />
          </font>
       </TextField>
       <TableView layoutX="122.0" layoutY="237.0" prefHeight="428.0" prefWidth="1056.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Name" />
-          <TableColumn prefWidth="75.0" text="Username" />
-            <TableColumn prefWidth="75.0" text="Time" />
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
         </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
       </TableView>
       <Button layoutX="1206.0" layoutY="677.0" mnemonicParsing="false" onAction="#onLogOutButtonClick" text="logout" />
-      <Button layoutX="780.0" layoutY="176.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="67.0" style="-fx-background-radius: 10px;" text="Search" />
    </children>
 </AnchorPane>

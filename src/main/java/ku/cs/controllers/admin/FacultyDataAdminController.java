@@ -23,7 +23,7 @@ public class FacultyDataAdminController {
     private Datasource<FaculyList> datasource;
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         datasource = new FacultyListFileDatasource("data", "Faculty.csv");
         faculyList = datasource.readData();
         showTable(faculyList);
@@ -31,11 +31,12 @@ public class FacultyDataAdminController {
         facultyDataAdminTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Faculty>() {
             @Override
             public void changed(ObservableValue observableValue, Faculty oldValue, Faculty newValue) {
-                if (newValue != null){
+                if (newValue != null) {
                 }
             }
         });
     }
+
 
     private void showTable(FaculyList faculyList){
         // กำหนด column ให้มี title ว่า ID และใช้ค่าจาก attribute id ของ object Student
@@ -58,7 +59,17 @@ public class FacultyDataAdminController {
         }
     }
 
+    @FXML
+    public void onMyTeamButtonClick(){
+        try{
+            FXRouter.goTo("my-team");
+        } catch (IOException e) {
 
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
     public void onHomeButtonClick() {
         try {
             FXRouter.goTo("main-admin");
@@ -67,6 +78,14 @@ public class FacultyDataAdminController {
         }
     }
 
+    @FXML
+    public void onLogOutButtonClick(){
+        try {
+            FXRouter.goTo("main-admin");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
 }

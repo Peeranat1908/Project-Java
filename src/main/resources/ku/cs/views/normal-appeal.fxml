@@ -15,24 +15,24 @@
    <children>
       <Label layoutX="582.0" layoutY="54.0" text="คำร้องทั่วไป">
          <font>
-            <Font name="Arial Bold" size="24.0" />
+            <Font name="System Bold" size="24.0" />
          </font>
       </Label>
       <Label layoutX="371.0" layoutY="102.0" text="เรื่อง:">
          <font>
-            <Font name="Arial" size="16.0" />
+            <Font name="System Bold" size="16.0" />
          </font>
       </Label>
       <TextField fx:id="subjectTextField" layoutX="369.0" layoutY="127.0" prefHeight="65.0" prefWidth="544.0" style="-fx-background-radius: 10;" />
       <TextField fx:id="requestTextField" alignment="TOP_LEFT" layoutX="371.0" layoutY="238.0" prefHeight="131.0" prefWidth="544.0" style="-fx-background-radius: 10;" />
       <Label layoutX="371.0" layoutY="209.0" text="มีความประสงค์คึอ:">
          <font>
-            <Font name="Arial Bold" size="16.0" />
+            <Font name="System Bold" size="16.0" />
          </font>
       </Label>
       <Label layoutX="371.0" layoutY="382.0" text="วัน/เดือน/ปี:">
          <font>
-            <Font name="Arial" size="16.0" />
+            <Font name="System Bold" size="16.0" />
          </font>
       </Label>
       <Group layoutX="377.0" layoutY="418.0">
@@ -44,7 +44,7 @@
       </Group>
       <Label layoutX="371.0" layoutY="492.0" text="ลงนามนิสิต/ผู้ดำเนินการแทน:">
          <font>
-            <Font name="Arial" size="16.0" />
+            <Font name="System Bold" size="16.0" />
          </font>
       </Label>
       <TextField fx:id="signatureTextField" layoutX="371.0" layoutY="522.0" prefHeight="65.0" prefWidth="544.0" style="-fx-background-radius: 10;" />
