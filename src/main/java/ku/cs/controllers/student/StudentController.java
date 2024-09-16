@@ -25,4 +25,14 @@ public class StudentController
         }
     }
 
+    @FXML
+    public void onAppealTrackingClick(){
+        try {
+            FXRouter.goTo("appeal-tracking");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }

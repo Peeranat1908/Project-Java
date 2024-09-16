@@ -12,7 +12,11 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
+<<<<<<< HEAD
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.FacultyDataAdminController">
+=======
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.FacultyDataAdminController">
+>>>>>>> feature/student-system-2-1
     <children>
         <Pane layoutX="2.0" layoutY="-1.0" prefHeight="80.0" prefWidth="1275.0" style="-fx-background-color: EAF4FF;">
             <children>
@@ -22,7 +26,7 @@
                         <Font name="System Bold" size="33.0" />
                     </font>
                 </Label>
-                <Button fx:id="onHomeButtonClick" layoutX="135.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="HOME">
+                <Button layoutX="135.0" layoutY="20.0" mnemonicParsing="false" onAction="#onHomeButtonClick" style="-fx-background-color: EAF4FF;" text="HOME">
                     <font>
                         <Font name="System Bold" size="16.0" />
                     </font>

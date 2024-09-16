@@ -1,15 +1,22 @@
 package ku.cs.controllers;
 
 import javafx.fxml.FXML;
+<<<<<<< HEAD
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
 import java.io.IOException;
+=======
+>>>>>>> feature/student-system-2-1
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import ku.cs.services.UserCredentialsListFileDatasource;
-import ku.cs.models.UserCredential;
-import ku.cs.models.UserCredentialList;
 import javafx.scene.control.TextField;
+import ku.cs.models.UserAccount;
+import ku.cs.models.UserAccountList;
+import ku.cs.services.Datasource;
+import ku.cs.services.FXRouter;
+import ku.cs.services.UserAccountsListFileDatasource;
+
+import java.io.IOException;
 
 public class ResetPasswordController {
 
@@ -19,7 +26,7 @@ public class ResetPasswordController {
     @FXML private PasswordField newPasswordTextfield;
     @FXML private PasswordField confirmPasswordTextfield;
 
-    private UserCredentialList userList;
+    private UserAccountList userList;
 
     @FXML
     private void initialize() {
@@ -35,8 +42,17 @@ public class ResetPasswordController {
         }
     }
 
+    @FXML
+    private void onBackButton() {
+        try {
+            FXRouter.goTo("login-page");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private void resetPassword() throws IOException {
-        Datasource<UserCredentialList> datasource = new UserCredentialsListFileDatasource("data", "UserCredentials.csv");
+        Datasource<UserAccountList> datasource = new UserAccountsListFileDatasource("data", "userAccount.csv");
         userList = datasource.readData();
 
         String username = usernameTextfield.getText();
@@ -51,8 +67,8 @@ public class ResetPasswordController {
 
         boolean isUserFound = false;
 
-        for (UserCredential user : userList.getUsers()) {
-            if (user.getUsernameName().equals(username) && user.getPassword().equals(oldPassword)) {
+        for (UserAccount user : userList.getUsers()) {
+            if (user.getUsername().equals(username) && user.getPassword().equals(oldPassword)) {
                 if (!newPassword.equals(confirmPassword)) {
                     errorLabel.setText("New passwords do not match. Please try again.");
                     return;
@@ -70,7 +86,7 @@ public class ResetPasswordController {
             errorLabel.setText("Username or old password is incorrect. Please try again.");
             return;
         }
+
         FXRouter.goTo("login-page");
     }
 }
-

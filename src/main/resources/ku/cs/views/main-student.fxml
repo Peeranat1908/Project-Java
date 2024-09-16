@@ -58,12 +58,12 @@
          <children>
             <Button layoutX="25.0" layoutY="40.0" mnemonicParsing="false" onAction="#selectAppealButtonClick" prefHeight="66.0" prefWidth="563.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10;" text="เลือกประเภทคำร้อง">
                <font>
-                  <Font name="System Italic" size="16.0" />
+                  <Font name="Arial" size="16.0" />
                </font>
             </Button>
             <Button layoutX="25.0" layoutY="134.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="563.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10;" text="สร้างแบบคำร้องใหม่">
                <font>
-                  <Font size="16.0" />
+                  <Font name="Arial" size="16.0" />
                </font>
             </Button>
          </children>
@@ -73,5 +73,20 @@
             <Image url="@../../../images/nisit_ku.png" />
          </image>
       </ImageView>
+      <Pane layoutX="1112.0" layoutY="95.0">
+         <children>
+            <ImageView layoutX="22.0">
+               <image>
+                  <Image url="@../../../images/appeal-history.png" />
+               </image>
+            </ImageView>
+            <Label layoutY="49.0" text="ติดตามคำร้อง">
+               <font>
+                  <Font name="Arial Bold" size="16.0" />
+               </font>
+            </Label>
+            <Button layoutX="19.0" mnemonicParsing="false" onAction="#onAppealTrackingClick" opacity="0.0" prefHeight="51.0" prefWidth="60.0" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
