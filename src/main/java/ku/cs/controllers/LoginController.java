@@ -4,12 +4,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import ku.cs.models.UserCredential;
+import ku.cs.models.UserAccount;
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
-import ku.cs.services.UserCredentialsListFileDatasource;
-import ku.cs.models.UserCredentialList;
-
+import ku.cs.services.UserAccountsListFileDatasource;
+import ku.cs.models.UserAccountList;
 import java.io.IOException;
 
 public class LoginController {
@@ -17,7 +16,7 @@ public class LoginController {
     @FXML private TextField UsernameTextField;
     @FXML private PasswordField PasswordTextField;
 
-    private UserCredentialList userList;
+    private UserAccountList userList;
 
     @FXML
     private void initialize() {
@@ -25,20 +24,26 @@ public class LoginController {
     }
 
     private void checkLogin() throws IOException {
-        Datasource<UserCredentialList> datasource = new UserCredentialsListFileDatasource("data", "UserCredentials.csv");
+        Datasource<UserAccountList> datasource = new UserAccountsListFileDatasource("data", "userAccount.csv");
         userList = datasource.readData();
 
         String username = UsernameTextField.getText();
         String password = PasswordTextField.getText();
 
-        if (username.isEmpty() && password.isEmpty()) {
-            return;
+        if (username.isEmpty() || password.isEmpty()) {
+            errorLabel.setText("Please enter your data.");
+            throw new IOException("Invalid username or password");
         }
 
         boolean isAuthenticated = false;
 
-        for (UserCredential user : userList.getUsers()) {
-            if (user.getUsernameName().equals(username) && user.getPassword().equals(password)) {
+        for (UserAccount user : userList.getUsers()) {
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+
+                userList.updateLastLogin(username);
+
+                datasource.writeData(userList);
+
                 navigateByRole(user.getRole());
                 isAuthenticated = true;
                 break;
@@ -57,7 +62,7 @@ public class LoginController {
                 FXRouter.goTo("student");
                 break;
             case "admin":
-                FXRouter.goTo("admin");
+                FXRouter.goTo("main-admin");
                 break;
             case "advisor":
                 FXRouter.goTo("advisor");
@@ -78,7 +83,6 @@ public class LoginController {
     public void onLoginButtonClick() {
         try {
             checkLogin();
-            FXRouter.goTo("main-admin");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -87,7 +91,6 @@ public class LoginController {
     @FXML
     public void onRegisterButtonClick() {
         try {
-            checkLogin();
             FXRouter.goTo("register");
         } catch (IOException e) {
             throw new RuntimeException(e);
