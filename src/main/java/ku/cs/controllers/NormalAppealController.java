@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import ku.cs.models.NormalAppeal;
 import ku.cs.models.NormalAppealList;
 import java.time.LocalDate;
+import ku.cs.services.AppealSharedData;
 
 public class NormalAppealController {
     @FXML
@@ -46,7 +47,7 @@ public class NormalAppealController {
             throw new RuntimeException(e);
         }
     }
-
+    @FXML
     public void onApplyAppealClick() {
         String subject = subjectTextField.getText();
         String request = requestTextField.getText();
@@ -58,9 +59,15 @@ public class NormalAppealController {
 
         NormalAppeal appeal = new NormalAppeal(subject, request, date, studentSignature);
 
-        normalAppealList.addAppeal(appeal);
+        AppealSharedData.getNormalAppealList().addAppeal(appeal);
         clearFields();
     }
+
+    @FXML
+    public void onResetAppealClick() {
+        clearFields();
+    }
+
 
     private void clearFields() {
         subjectTextField.clear();
