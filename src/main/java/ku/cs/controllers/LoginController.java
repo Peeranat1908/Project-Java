@@ -78,7 +78,7 @@ public class LoginController {
     public void onLoginButtonClick() {
         try {
             checkLogin();
-            FXRouter.goTo("main-admin");
+            FXRouter.goTo("student");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
