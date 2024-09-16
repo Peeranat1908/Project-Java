@@ -4,12 +4,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import ku.cs.models.UserCredential;
+import ku.cs.models.User;
+import ku.cs.models.Student;
+import ku.cs.models.Admin;
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
-import ku.cs.services.UserCredentialsListFileDatasource;
-import ku.cs.models.UserCredentialList;
-
+import ku.cs.services.UserAccountsListFileDatasource;
+import ku.cs.models.UserAccountList;
 import java.io.IOException;
 
 public class LoginController {
@@ -17,7 +18,7 @@ public class LoginController {
     @FXML private TextField UsernameTextField;
     @FXML private PasswordField PasswordTextField;
 
-    private UserCredentialList userList;
+    private UserAccountList userList;
 
     @FXML
     private void initialize() {
@@ -25,22 +26,27 @@ public class LoginController {
     }
 
     private void checkLogin() throws IOException {
-        Datasource<UserCredentialList> datasource = new UserCredentialsListFileDatasource("data", "UserCredentials.csv");
+        Datasource<UserAccountList> datasource = new UserAccountsListFileDatasource("data", "userAccount.csv");
         userList = datasource.readData();
 
         String username = UsernameTextField.getText();
         String password = PasswordTextField.getText();
 
-        if (username.isEmpty() && password.isEmpty()) {
+        if (username.isEmpty() || password.isEmpty()) {
             errorLabel.setText("Please enter your data.");
             throw new IOException("Invalid username or password");
         }
 
         boolean isAuthenticated = false;
 
-        for (UserCredential user : userList.getUsers()) {
-            if (user.getUsernameName().equals(username) && user.getPassword().equals(password)) {
-                navigateByRole(user.getRole());
+        for (User user : userList.getUsers()) {
+            if (user.check(username, password)) {
+                // Update last login and save data
+                userList.updateLastLogin(username);
+                datasource.writeData(userList);
+
+                // Navigate based on role and pass user data
+                navigateByRole(user);
                 isAuthenticated = true;
                 break;
             }
@@ -52,22 +58,22 @@ public class LoginController {
         }
     }
 
-    private void navigateByRole(String role) throws IOException {
-        switch (role) {
+    private void navigateByRole(User user) throws IOException {
+        switch (user.getRole()) {
             case "student":
-                FXRouter.goTo("student");
+                FXRouter.goTo("student", user);
                 break;
             case "admin":
-                FXRouter.goTo("main-admin");
+                FXRouter.goTo("main-admin", user);
                 break;
             case "advisor":
-                FXRouter.goTo("advisor");
+                FXRouter.goTo("advisor", user);
                 break;
             case "facultyStaff":
-                FXRouter.goTo("facultyStaff");
+                FXRouter.goTo("facultyStaff", user);
                 break;
             case "departmentStaff":
-                FXRouter.goTo("departmentStaff");
+                FXRouter.goTo("departmentStaff", user);
                 break;
             default:
                 errorLabel.setText("Invalid role. Please contact the administrator.");

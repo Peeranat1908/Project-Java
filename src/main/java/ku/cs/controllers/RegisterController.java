@@ -1,16 +1,15 @@
 package ku.cs.controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import ku.cs.models.StudentList;
-import ku.cs.models.UserCredentialList;
+import ku.cs.models.UserAccountList;
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
 import ku.cs.services.StudentListFileDatasource;
-import ku.cs.services.UserCredentialsListFileDatasource;
+import ku.cs.services.UserAccountsListFileDatasource;
 
 import java.io.IOException;
 
@@ -23,8 +22,8 @@ public class RegisterController {
     @FXML private TextField idTextField;
     @FXML private PasswordField passwordTextField;
     @FXML private PasswordField confirmPasswordTextField;
-    @FXML private StudentList studentList;
-    @FXML private UserCredentialList userCredentialList;
+    private StudentList studentList;
+    private UserAccountList userCredentialList;
 
     @FXML
     private void initialize() {
@@ -38,16 +37,20 @@ public class RegisterController {
             throw new RuntimeException(e);
         }
     }
-
-    public void onRegisterButtonClick(ActionEvent event) {
-        checkRegister();
+    @FXML
+    private void onBackButton() {
+        try {
+            FXRouter.goTo("login-page");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private void checkRegister()  {
+    private void checkRegister() {
         Datasource<StudentList> studentDatasource = new StudentListFileDatasource("data", "student-info.csv");
         studentList = studentDatasource.readData();
 
-        Datasource<UserCredentialList> userCredentialDatasource = new UserCredentialsListFileDatasource("data", "UserCredentials.csv");
+        Datasource<UserAccountList> userCredentialDatasource = new UserAccountsListFileDatasource("data", "userAccount.csv");
         userCredentialList = userCredentialDatasource.readData();
 
         errorLabel.setText("");
@@ -69,7 +72,7 @@ public class RegisterController {
             return;
         }
 
-        if(studentList.isExists(username, id)) {
+        if (studentList.isExists(username, id)) {
             errorLabel.setText("The data has been used!");
             return;
         }
@@ -80,23 +83,15 @@ public class RegisterController {
         userCredentialList.addNewUser(username, password, "student");
         userCredentialDatasource.writeData(userCredentialList);
 
-        onRegisterButtonClick();
-    }
-
-    @FXML
-    public void onRegisterButtonClick() {
-        try {
-            FXRouter.goTo("student");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    @FXML
-    private void onBackButton() {
         try {
             FXRouter.goTo("login-page");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @FXML
+    public void onRegisterButtonClick() {
+        checkRegister();
     }
 }

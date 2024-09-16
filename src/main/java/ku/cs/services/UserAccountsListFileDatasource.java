@@ -2,15 +2,18 @@ package ku.cs.services;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
-import ku.cs.models.UserCredential;
-import ku.cs.models.UserCredentialList;
+import ku.cs.models.UserAccount;
+import ku.cs.models.UserAccountList;
 
-public class UserCredentialsListFileDatasource implements Datasource<UserCredentialList> {
+public class UserAccountsListFileDatasource implements Datasource<UserAccountList> {
     private String directoryName;
     private String fileName;
 
-    public UserCredentialsListFileDatasource(String directoryName, String fileName) {
+    public UserAccountsListFileDatasource(String directoryName, String fileName) {
         this.directoryName = directoryName;
         this.fileName = fileName;
         checkFileIsExisted();
@@ -34,8 +37,8 @@ public class UserCredentialsListFileDatasource implements Datasource<UserCredent
     }
 
     @Override
-    public UserCredentialList readData() {
-        UserCredentialList admins = new UserCredentialList();
+    public UserAccountList readData() {
+        UserAccountList users = new UserAccountList();
         String filePath = directoryName + File.separator + fileName;
         File file = new File(filePath);
 
@@ -55,6 +58,8 @@ public class UserCredentialsListFileDatasource implements Datasource<UserCredent
         BufferedReader buffer = new BufferedReader(inputStreamReader);
 
         String line = "";
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         try {
             // ใช้ while loop เพื่ออ่านข้อมูลรอบละบรรทัด
             while ((line = buffer.readLine()) != null) {
@@ -68,19 +73,21 @@ public class UserCredentialsListFileDatasource implements Datasource<UserCredent
                 String username = data[0].trim();
                 String password = data[1].trim();
                 String role = data[2].trim();
+                LocalDate lastLoginDate = data.length > 3 ? LocalDate.parse(data[3].trim(), dateFormatter) : null;
+                LocalTime lastLoginTime = data.length > 4 ? LocalTime.parse(data[4].trim(), timeFormatter) : null;
 
-                // เพิ่มข้อมูลลงใน list
-                admins.addNewUser(username, password, role);
+                UserAccount user = new UserAccount(username, password, role, lastLoginDate, lastLoginTime);
+                users.addNewUser(username, password, role);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        return admins;
+        return users;
     }
 
     @Override
-    public void writeData(UserCredentialList data) {
+    public void writeData(UserAccountList data) {
         String filePath = directoryName + File.separator + fileName;
         File file = new File(filePath);
 
@@ -101,8 +108,12 @@ public class UserCredentialsListFileDatasource implements Datasource<UserCredent
 
         try {
             // สร้าง csv ของ UserCredential และเขียนลงในไฟล์ทีละบรรทัด
-            for (UserCredential user : data.getUsers()) {
-                String line = user.getUsernameName() + "," + user.getPassword() + "," + user.getRole();
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+            for (UserAccount user : data.getUsers()) {
+                String line = user.getUsername() + "," + user.getPassword() + "," + user.getRole() + "," +
+                        (user.getLastLoginDate() != null ? user.getLastLoginDate().format(dateFormatter) : "") + "," +
+                        (user.getLastLoginTime() != null ? user.getLastLoginTime().format(timeFormatter) : "");
                 buffer.append(line);
                 buffer.append("\n");
             }
