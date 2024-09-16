@@ -4,9 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import ku.cs.models.User;
-import ku.cs.models.Student;
-import ku.cs.models.Admin;
+import ku.cs.models.UserAccount;
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
 import ku.cs.services.UserAccountsListFileDatasource;
@@ -39,14 +37,14 @@ public class LoginController {
 
         boolean isAuthenticated = false;
 
-        for (User user : userList.getUsers()) {
-            if (user.check(username, password)) {
-                // Update last login and save data
+        for (UserAccount user : userList.getUsers()) {
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+
                 userList.updateLastLogin(username);
+
                 datasource.writeData(userList);
 
-                // Navigate based on role and pass user data
-                navigateByRole(user);
+                navigateByRole(user.getRole());
                 isAuthenticated = true;
                 break;
             }
@@ -58,22 +56,22 @@ public class LoginController {
         }
     }
 
-    private void navigateByRole(User user) throws IOException {
-        switch (user.getRole()) {
+    private void navigateByRole(String role) throws IOException {
+        switch (role) {
             case "student":
-                FXRouter.goTo("student", user);
+                FXRouter.goTo("student");
                 break;
             case "admin":
-                FXRouter.goTo("main-admin", user);
+                FXRouter.goTo("main-admin");
                 break;
             case "advisor":
-                FXRouter.goTo("advisor", user);
+                FXRouter.goTo("advisor");
                 break;
             case "facultyStaff":
-                FXRouter.goTo("facultyStaff", user);
+                FXRouter.goTo("facultyStaff");
                 break;
             case "departmentStaff":
-                FXRouter.goTo("departmentStaff", user);
+                FXRouter.goTo("departmentStaff");
                 break;
             default:
                 errorLabel.setText("Invalid role. Please contact the administrator.");
