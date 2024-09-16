@@ -62,6 +62,11 @@ public class RegisterController {
             return;
         }
 
+        if(!confirmPassword.equals(password)){
+            errorLabel.setText("Password doesn't match!");
+            return;
+        }
+
         studentList.addNewStudent(name, surname,id, username, email, password);
         datasource.writeData(studentList);
         onRegisterButtonClick();

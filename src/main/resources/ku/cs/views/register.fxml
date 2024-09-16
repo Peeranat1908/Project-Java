@@ -115,7 +115,7 @@
             <Font size="14.0" />
          </font>
       </TextField>
-      <Label fx:id="errorLabel" layoutX="669.0" layoutY="571.0" text="errorLabel" textFill="RED" />
+      <Label fx:id="errorLabel" layoutX="669.0" layoutY="571.0" textFill="RED" />
       <PasswordField fx:id="passwordTextField" layoutX="671.0" layoutY="453.0" prefHeight="37.0" prefWidth="396.0" />
       <PasswordField fx:id="confirmPasswordTextField" layoutX="670.0" layoutY="533.0" prefHeight="37.0" prefWidth="396.0" />
    </children>
