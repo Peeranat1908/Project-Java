@@ -17,6 +17,8 @@ public class MainApplication extends Application {
         //FXRouter.goTo("main-advisor");
         //FXRouter.goTo("faculty-data-admin");
         FXRouter.goTo("main-admin");
+//        FXRouter.goTo("main-advisor");
+        //FXRouter.goTo("student");
     }
 
     private void configRoutes() {
@@ -35,6 +37,7 @@ public class MainApplication extends Application {
         FXRouter.when("main-admin", viewPath + "main-admin.fxml");
         FXRouter.when("faculty-data-admin", viewPath + "faculty-data-admin.fxml");
 
+        FXRouter.when("appeal-tracking", viewPath + "appeal-list.fxml");
     }
 
 
