@@ -3,8 +3,9 @@ package ku.cs.models;
 public class Major extends Faculty{
     private String majorName;
     private String majorId;
-    public Major(String facultyName, String facultyId, String majorName, String majorId) {
-        super(facultyName, facultyId);
+
+    public Major(int facultyNumber, String facultyId, String facultyName, String majorName, String majorId) {
+        super(facultyNumber, facultyId, facultyName);
         this.majorName = majorName;
         this.majorId = majorId;
     }

@@ -26,7 +26,12 @@ public class FacultyDataAdminController {
     public void initialize() {
         datasource = new FacultyListFileDatasource("data", "Faculty.csv");
         faculyList = datasource.readData();
-        showTable(faculyList);
+        if (faculyList != null){
+            showTable(faculyList);
+        }
+        else {
+            System.out.println("Failed to load faculty list");
+        }
 
         facultyDataAdminTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Faculty>() {
             @Override
@@ -39,16 +44,19 @@ public class FacultyDataAdminController {
 
 
     private void showTable(FaculyList faculyList){
+        TableColumn<Faculty, String> numberColumn = new TableColumn<>("Faculty Number");
+        numberColumn.setCellValueFactory(new PropertyValueFactory<>("facultyNumber"));
         // กำหนด column ให้มี title ว่า ID และใช้ค่าจาก attribute id ของ object Student
         TableColumn<Faculty, String> idColumn = new TableColumn<>("Faculty ID");
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));//เรียกมาจาก getter
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("facultyId"));//เรียกมาจาก getter
 
         // กำหนด column ให้มี title ว่า Name และใช้ค่าจาก attribute name ของ object Student
         TableColumn<Faculty, String> nameColumn = new TableColumn<>("Faculty Name");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("facultyName"));
 
         // ล้าง column เดิมทั้งหมดที่มีอยู่ใน table แล้วเพิ่ม column ใหม่
         facultyDataAdminTableView.getColumns().clear();
+        facultyDataAdminTableView.getColumns().add(numberColumn);
         facultyDataAdminTableView.getColumns().add(idColumn);
         facultyDataAdminTableView.getColumns().add(nameColumn);
         facultyDataAdminTableView.getItems().clear();

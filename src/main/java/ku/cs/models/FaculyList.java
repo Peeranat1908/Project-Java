@@ -7,7 +7,7 @@ public class FaculyList {
 
     public FaculyList() {faculties = new ArrayList<>();}
 
-    public void addNewFaculty(String facultyId, String facultyName){
+    public void addNewFaculty(int facultyNumber, String facultyId, String facultyName){
         facultyName = facultyName.trim();
         facultyId = facultyId.trim();
 
@@ -15,8 +15,8 @@ public class FaculyList {
             if (faculty1.getFacultyName().equalsIgnoreCase(facultyName)){
                 return;
             }
-            faculties.add(new Faculty(facultyId.trim(), facultyName.trim()));
         }
+        faculties.add(new Faculty(facultyNumber, facultyId.trim(), facultyName.trim()));
     }
 
     public void addNewMajor(String major, String majorId){

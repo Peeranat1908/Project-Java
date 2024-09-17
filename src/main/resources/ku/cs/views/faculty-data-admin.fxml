@@ -73,6 +73,7 @@
         </Label>
         <TableView fx:id="facultyDataAdminTableView" layoutX="122.0" layoutY="203.0" prefHeight="462.0" prefWidth="1056.0">
          <columns>
+            <TableColumn prefWidth="75.0" text="No" />
             <TableColumn prefWidth="75.0" text="Faculty ID" />
             <TableColumn prefWidth="75.0" text="Faculty Name" />
          </columns>

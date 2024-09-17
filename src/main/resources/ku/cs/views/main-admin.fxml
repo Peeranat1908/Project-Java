@@ -50,17 +50,17 @@
                   <Image url="@../../../images/admin.png" />
                </image>
             </ImageView>
-            <Button layoutX="362.0" layoutY="18.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="จัดการข้อมูลคณะและภาควิชา">
+            <Button layoutX="362.0" layoutY="18.0" mnemonicParsing="false" onAction="#onFacultyButtonClick" style="-fx-background-color: EAF4FF;" text="จัดการข้อมูลคณะและภาควิชา">
                <font>
-                  <Font name="Arial" size="17.0" />
+                  <Font name="Arial Bold" size="17.0" />
                </font>
             </Button>
             <Button layoutX="596.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
                <font>
-                  <Font name="Arial" size="17.0" />
+                  <Font name="Arial Bold" size="17.0" />
                </font>
             </Button>
-            <Button layoutX="856.0" layoutY="21.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="dashboard">
+            <Button layoutX="857.0" layoutY="19.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="dashboard">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>

@@ -63,16 +63,17 @@ public class FacultyListFileDatasource implements Datasource<FaculyList>{
                 String[] data = line.split(",");
 
                 // อ่านข้อมูลตาม index แล้วจัดการประเภทของข้อมูลให้เหมาะสม
-                String facultyName = data[0].trim();
+                int facultyNumber = Integer.parseInt(data[0]);
                 String facultyId = data[1].trim();
+                String facultyName = data[2].trim();
 
                 // เพิ่มข้อมูลลงใน list
-                faculyList.addNewFaculty(facultyName, facultyId);
+                faculyList.addNewFaculty(facultyNumber, facultyId, facultyName);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return null;
+        return faculyList;
     }
 
     @Override
