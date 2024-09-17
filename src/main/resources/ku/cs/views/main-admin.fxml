@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.MainAdminController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.MainAdminController">
    <children>
       <Pane layoutX="2.0" layoutY="-1.0" prefHeight="80.0" prefWidth="1275.0" style="-fx-background-color: EAF4FF;">
          <children>
@@ -50,17 +50,17 @@
                   <Image url="@../../../images/admin.png" />
                </image>
             </ImageView>
-            <Button layoutX="362.0" layoutY="18.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="จัดการข้อมูลคณะและภาควิชา">
+            <Button layoutX="362.0" layoutY="18.0" mnemonicParsing="false" onAction="#onFacultyButtonClick" style="-fx-background-color: EAF4FF;" text="จัดการข้อมูลคณะและภาควิชา">
                <font>
-                  <Font name="System Bold" size="17.0" />
+                  <Font name="Arial Bold" size="17.0" />
                </font>
             </Button>
             <Button layoutX="596.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
                <font>
-                  <Font name="System Bold" size="17.0" />
+                  <Font name="Arial Bold" size="17.0" />
                </font>
             </Button>
-            <Button layoutX="856.0" layoutY="21.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="dashboard">
+            <Button layoutX="857.0" layoutY="19.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="dashboard">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -69,7 +69,7 @@
       </Pane>
       <Label layoutX="565.0" layoutY="122.0" text="ชื่อผู้ใช้ระบบ">
          <font>
-            <Font name="System Bold" size="32.0" />
+            <Font name="Arial" size="32.0" />
          </font>
       </Label>
       <TextField layoutX="525.0" layoutY="176.0">

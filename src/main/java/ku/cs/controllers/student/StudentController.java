@@ -1,21 +1,12 @@
-package ku.cs.controllers;
+package ku.cs.controllers.student;
 
 import javafx.fxml.FXML;
 import ku.cs.services.FXRouter;
-
 import java.io.IOException;
 
-public class MainAdminController {
+public class StudentController
 
-    @FXML
-    public void onLogOutButtonClick() {
-        try {
-            FXRouter.goTo("login-page");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
+{
     @FXML
     public void onMyTeamButtonClick() {
         try {
@@ -24,4 +15,14 @@ public class MainAdminController {
             throw new RuntimeException(e);
         }
     }
+
+    @FXML
+    public void selectAppealButtonClick() {
+        try {
+            FXRouter.goTo("student-appeal");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

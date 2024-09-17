@@ -1,19 +1,18 @@
 package ku.cs.services;
 
-import ku.cs.models.StudentAdvisor;
-import ku.cs.models.StudentAdvisorList;
+import ku.cs.models.Faculty;
+import ku.cs.models.FaculyList;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
-public class StudentListFileAdvisorDatasource implements Datasource<StudentAdvisorList>{
+public class FacultyListFileDatasource implements Datasource<FaculyList>{
     private String directoryName;
     private String fileName;
 
-    public StudentListFileAdvisorDatasource(String directoryName, String fileName){
+    public FacultyListFileDatasource(String directoryName, String fileName) {
         this.directoryName = directoryName;
         this.fileName = fileName;
-        checkFileIsExisted();
     }
 
     // ตรวจสอบว่ามีไฟล์ให้อ่านหรือไม่ ถ้าไม่มีให้สร้างไฟล์เปล่า
@@ -33,14 +32,11 @@ public class StudentListFileAdvisorDatasource implements Datasource<StudentAdvis
         }
     }
 
-
-
     @Override
-    public StudentAdvisorList readData() {
-        StudentAdvisorList studentAdvisorList = new StudentAdvisorList();
+    public FaculyList readData() {
+        FaculyList faculyList = new FaculyList();
         String filePath = directoryName + File.separator + fileName;
         File file = new File(filePath);
-
         // เตรียม object ที่ใช้ในการอ่านไฟล์
         FileInputStream fileInputStream = null;
 
@@ -67,24 +63,21 @@ public class StudentListFileAdvisorDatasource implements Datasource<StudentAdvis
                 String[] data = line.split(",");
 
                 // อ่านข้อมูลตาม index แล้วจัดการประเภทของข้อมูลให้เหมาะสม
-                String id = data[0].trim();
-                String name = data[1].trim();
-                String faculty = data[2].trim();
-                String major = data[3].trim();
+                int facultyNumber = Integer.parseInt(data[0]);
+                String facultyId = data[1].trim();
+                String facultyName = data[2].trim();
 
                 // เพิ่มข้อมูลลงใน list
-                studentAdvisorList.addNewStudent(id, name, faculty, major);
-
+                faculyList.addNewFaculty(facultyNumber, facultyId, facultyName);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        return studentAdvisorList;
+        return faculyList;
     }
 
     @Override
-    public void writeData(StudentAdvisorList data) {
+    public void writeData(FaculyList data) {
         String filePath = directoryName + File.separator + fileName;
         File file = new File(filePath);
 
@@ -102,12 +95,12 @@ public class StudentListFileAdvisorDatasource implements Datasource<StudentAdvis
                 StandardCharsets.UTF_8
         );
         BufferedWriter buffer = new BufferedWriter(outputStreamWriter);
-
         try {
-            for (StudentAdvisor studentAdvisor : data.getStudentAdvisor()){
-                String line = studentAdvisor.getName() + "," + studentAdvisor.getId() + "," + studentAdvisor.getFaculty() + "," + studentAdvisor.getMajor();
+            for (Faculty faculty : data.getFaculties()){
+                String line = faculty.getFacultyName() + "," + faculty.getFacultyId();
                 buffer.append(line);
                 buffer.append("\n");
+
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

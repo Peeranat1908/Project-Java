@@ -1,10 +1,6 @@
-package ku.cs.controllers;
+package ku.cs.controllers.student;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import ku.cs.services.FXRouter;
 import java.io.IOException;
 
