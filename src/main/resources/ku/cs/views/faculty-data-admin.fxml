@@ -71,11 +71,11 @@
                 <Font name="Arial" size="32.0" />
             </font>
         </Label>
-        <TableView fx:id="facultyDataAdminTableView" layoutX="122.0" layoutY="203.0" prefHeight="462.0" prefWidth="1056.0">
+        <TableView fx:id="facultyDataAdminTableView" layoutX="122.0" layoutY="203.0" prefHeight="462.0" prefWidth="1056.0" styleClass="tableview" stylesheets="@../style/Style.css">
          <columns>
-            <TableColumn prefWidth="75.0" text="No" />
-            <TableColumn prefWidth="75.0" text="Faculty ID" />
-            <TableColumn prefWidth="75.0" text="Faculty Name" />
+            <TableColumn prefWidth="75.0" styleClass="table-row-cell" text="No" />
+            <TableColumn prefWidth="75.0" styleClass="table-row-cell" text="Faculty ID" />
+            <TableColumn prefWidth="75.0" styleClass="table-row-cell" text="Faculty Name" />
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

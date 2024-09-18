@@ -57,7 +57,7 @@
             </Button>
             </children>
         </Pane>
-      <TextField fx:id="searchTextField" layoutX="403.0" layoutY="176.0" prefHeight="48.0" prefWidth="431.0" promptText="Search" style="-fx-background-radius: 10;">
+      <TextField fx:id="searchTextField" layoutX="403.0" layoutY="176.0" prefHeight="48.0" prefWidth="431.0" promptText="Search" style="-fx-background-radius: 10;" styleClass="textfile-container" stylesheets="@../style/Style.css">
          <font>
             <Font size="18.0" />
          </font>
@@ -68,10 +68,10 @@
          </font>
       </Label>
       <Button fx:id="searchButtonClick" layoutX="839.0" layoutY="176.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="68.0" style="-fx-background-radius: 10;" text="Search" />
-      <TableView fx:id="studentAdvisorTableView" layoutX="166.0" layoutY="250.0" prefHeight="426.0" prefWidth="895.0" style="-fx-background-radius: 10;">
+      <TableView fx:id="studentAdvisorTableView" layoutX="166.0" layoutY="250.0" prefHeight="426.0" prefWidth="895.0" style="-fx-background-radius: 10;" styleClass="tableview" stylesheets="@../style/Style.css">
         <columns>
-          <TableColumn prefWidth="75.0" text="Student ID" />
-          <TableColumn prefWidth="75.0" text="Student Name" />
+          <TableColumn prefWidth="75.0" styleClass="table-column-header" text="Student ID" />
+          <TableColumn prefWidth="75.0" styleClass="table-column-header" text="Student Name" />
             <TableColumn prefWidth="75.0" text="Faculty" />
             <TableColumn prefWidth="75.0" text="Major" />
         </columns>
