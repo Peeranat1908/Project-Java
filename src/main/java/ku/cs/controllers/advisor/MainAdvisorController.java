@@ -90,6 +90,8 @@ public class MainAdvisorController {
             return;
         }
 
+        errorLabel.setText("");
+
         StudentAdvisor fondStudent = studentAdvisorList.findStudentById(searchQuery);
         if (fondStudent == null) {
             fondStudent = studentAdvisorList.findStudentByName(searchQuery);

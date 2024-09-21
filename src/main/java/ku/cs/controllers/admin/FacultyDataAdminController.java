@@ -3,8 +3,10 @@ package ku.cs.controllers.admin;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import ku.cs.models.Faculty;
 import ku.cs.models.FaculyList;
@@ -14,6 +16,7 @@ import ku.cs.services.FXRouter;
 import ku.cs.services.FacultyListFileDatasource;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class FacultyDataAdminController {
     @FXML private TableView<Faculty> facultyDataAdminTableView;
@@ -30,13 +33,18 @@ public class FacultyDataAdminController {
             showTable(faculyList);
         }
         else {
-            System.out.println("Failed to load faculty list");
+            System.out.println("Failed to load faculty list.");
         }
 
         facultyDataAdminTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Faculty>() {
             @Override
             public void changed(ObservableValue observableValue, Faculty oldValue, Faculty newValue) {
                 if (newValue != null) {
+                    try{
+                        FXRouter.goTo("major-data-admin", newValue.getFacultyId());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         });
@@ -90,6 +98,15 @@ public class FacultyDataAdminController {
     public void onLogOutButtonClick(){
         try {
             FXRouter.goTo("main-admin");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void onEditFacultyButtonClick(){
+        try {
+            FXRouter.goTo("edit-data-faculty");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
