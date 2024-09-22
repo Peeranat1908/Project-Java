@@ -63,12 +63,11 @@ public class FacultyListFileDatasource implements Datasource<FaculyList>{
                 String[] data = line.split(",");
 
                 // อ่านข้อมูลตาม index แล้วจัดการประเภทของข้อมูลให้เหมาะสม
-                int facultyNumber = Integer.parseInt(data[0]);
-                String facultyId = data[1].trim();
-                String facultyName = data[2].trim();
+                String facultyId = data[0].trim();
+                String facultyName = data[1].trim();
 
                 // เพิ่มข้อมูลลงใน list
-                faculyList.addNewFaculty(facultyNumber, facultyId, facultyName);
+                faculyList.addNewFaculty(facultyId, facultyName);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -97,7 +96,7 @@ public class FacultyListFileDatasource implements Datasource<FaculyList>{
         BufferedWriter buffer = new BufferedWriter(outputStreamWriter);
         try {
             for (Faculty faculty : data.getFaculties()){
-                String line = faculty.getFacultyName() + "," + faculty.getFacultyId();
+                String line = faculty.getFacultyId() + "," + faculty.getFacultyName();
                 buffer.append(line);
                 buffer.append("\n");
 
