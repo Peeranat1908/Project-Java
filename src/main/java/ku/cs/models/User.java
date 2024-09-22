@@ -3,7 +3,7 @@ package ku.cs.models;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class User {
+public class User implements Comparable<User> {
     protected String name;
     protected String surname;
     protected String username;
@@ -16,7 +16,7 @@ public class User {
     protected String faculty;
     protected String department;
 
-    public User(String name, String surname, String username, String password, LocalDate lastLoginDate, LocalTime lastLoginTime, String role, String profilePicturePath, boolean banned ,String faculty, String department) {
+    public User(String name, String surname, String username, String password, LocalDate lastLoginDate, LocalTime lastLoginTime, String role, String profilePicturePath, boolean banned, String faculty, String department) {
         this.name = name;
         this.surname = surname;
         this.username = username;
@@ -31,7 +31,7 @@ public class User {
     }
 
     public User(String name, String surname, String username, String password, String role, String profilePicturePath) {
-        this(name, surname, username, password, null, null, role, profilePicturePath   , false,null,null);
+        this(name, surname, username, password, null, null, role, profilePicturePath, false, null, null);
     }
 
     public boolean isSuspended() {
@@ -126,8 +126,12 @@ public class User {
         return this.username.equals(username) && this.password.equals(password);
     }
 
-    // เปลี่ยน toCsv ให้ไม่ใช่ abstract
-    public String toCsv() {
-        return String.join(",", username, password, role, name, surname, lastLoginDate.toString(), lastLoginTime.toString(), profilePicturePath);
+    @Override
+    public int compareTo(User other) {
+        int dateComparison = other.lastLoginDate.compareTo(this.lastLoginDate);
+        if (dateComparison != 0) {
+            return dateComparison;
+        }
+        return other.lastLoginTime.compareTo(this.lastLoginTime);
     }
 }

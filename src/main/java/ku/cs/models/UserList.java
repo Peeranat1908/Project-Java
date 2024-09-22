@@ -3,6 +3,9 @@ package ku.cs.models;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
+
+import ku.cs.services.LastLoginComparator;
 import org.mindrot.jbcrypt.BCrypt;
 public class UserList {
     private ArrayList<User> users;
@@ -61,7 +64,9 @@ public class UserList {
         return false; //not found
     }
 
-
+    public void sortUsersByLastLogin() {
+        Collections.sort(users, new LastLoginComparator());
+    }
     public ArrayList<User> getUsers() {
         return users;
     }

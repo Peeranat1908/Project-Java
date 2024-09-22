@@ -65,38 +65,38 @@
          </children>
       </Pane>
       <Button layoutX="1206.0" layoutY="677.0" mnemonicParsing="false" onAction="#onLogoutButtonClick" text="logout" />
-      <Label fx:id="userTextLabel" layoutX="530.0" layoutY="135.0" text="ข้อมูลuser">
+      <Label fx:id="userTextLabel" layoutX="600.0" layoutY="150.0" text="ข้อมูลuser">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <Label fx:id="nameLabel" layoutX="530.0" layoutY="346.0" text="ข้อมูลuser">
+      <Label fx:id="nameLabel" layoutX="600.0" layoutY="346.0" text="ข้อมูลuser">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <Label fx:id="usernameLabel" layoutX="530.0" layoutY="404.0" text="ข้อมูลuser">
+      <Label fx:id="usernameLabel" layoutX="600.0" layoutY="404.0" text="ข้อมูลuser">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <Label fx:id="facultyLabel" layoutX="532.0" layoutY="462.0" text="ข้อมูลuser">
+      <Label fx:id="facultyLabel" layoutX="600.0" layoutY="462.0" text="ข้อมูลuser">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <Label fx:id="IdorDepartmentLabel" layoutX="532.0" layoutY="523.0" text="ข้อมูลuser">
+      <Label fx:id="IdorDepartmentLabel" layoutX="600.0" layoutY="523.0" text="ข้อมูลuser">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <ImageView fx:id="profilePidctureImageview" fitHeight="150.0" fitWidth="200.0" layoutX="480.0" layoutY="188.0" pickOnBounds="true" preserveRatio="true" />
-      <Button layoutX="498.0" layoutY="596.0" mnemonicParsing="false" onAction="#suspendbuttonclick" text="ระงับบัญชีผู้ใช้" textFill="RED">
+      <ImageView fx:id="profilePidctureImageview" fitHeight="150.0" fitWidth="200.0" layoutX="551.0" layoutY="188.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="579.0" layoutY="594.0" mnemonicParsing="false" onAction="#suspendbuttonclick" text="ระงับบัญชีผู้ใช้" textFill="RED">
          <font>
             <Font name="System Bold Italic" size="22.0" />
          </font>
       </Button>
-      <Label fx:id="suspendlabel" layoutX="528.0" layoutY="663.0" text="suspendlabel" textFill="#ea1010">
+      <Label fx:id="suspendlabel" layoutX="600.0" layoutY="663.0" text="suspendlabel" textFill="#ea1010">
          <font>
             <Font size="18.0" />
          </font>

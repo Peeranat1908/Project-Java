@@ -69,18 +69,20 @@ public class UserDetailController {
         }
 
 
-//        String profilePicPath = user.getProfilePicturePath();
-//        if (profilePicPath == null || profilePicPath.isEmpty()) {
-//            profilePicPath = "images/profileDeafault2.png";  // ใช้รูป default ถ้าไม่มีรูปโปรไฟล์
-//        }
-//
-//        profilePidctureImageview.setImage(new Image(profilePicPath));
-//        profilePidctureImageview.setFitWidth(200);
-//        profilePidctureImageview.setFitHeight(150);
-//        profilePidctureImageview.setPreserveRatio(true);
-//
-//        Circle clip = new Circle(100, 75, 75); // centerX, centerY, radius
-//        profilePidctureImageview.setClip(clip);
+        String profilePicPath = user.getProfilePicturePath();
+        if (profilePicPath == null || profilePicPath.isEmpty()) {
+            profilePicPath = "/images/profileDeafault2.png";  // ใช้รูป default ถ้าไม่มีรูปโปรไฟล์
+        }
+
+        Image profileImage = new Image(getClass().getResourceAsStream(profilePicPath));
+        profilePidctureImageview.setImage(profileImage);
+        profilePidctureImageview.setFitWidth(200);
+        profilePidctureImageview.setFitHeight(150);
+        profilePidctureImageview.setPreserveRatio(true);
+
+        Circle clip = new Circle(100, 75, 75); // centerX, centerY, radius
+        profilePidctureImageview.setClip(clip);
+
     }
     @FXML
     public void suspendbuttonclick() {

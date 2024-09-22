@@ -62,7 +62,9 @@ public class MainAdminController {
     }
 
     private void showTable(UserList userList) {
-        // Create columns
+
+        userList.sortUsersByLastLogin();
+
         TableColumn<User, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
