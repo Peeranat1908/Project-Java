@@ -12,7 +12,7 @@ public class User {
     protected LocalTime lastLoginTime;
     protected String role;
     protected String profilePicturePath;  // เพิ่ม field สำหรับเก็บรูปภาพ
-    protected boolean banned;
+    protected boolean suspend;
     protected String faculty;
     protected String department;
 
@@ -25,7 +25,7 @@ public class User {
         this.lastLoginTime = lastLoginTime;
         this.role = role;
         this.profilePicturePath = profilePicturePath;
-        this.banned = banned;
+        this.suspend = banned;
         this.faculty = faculty;
         this.department = department;
     }
@@ -34,12 +34,12 @@ public class User {
         this(name, surname, username, password, null, null, role, profilePicturePath   , false,null,null);
     }
 
-    public boolean isBanned() {
-        return banned;
+    public boolean isSuspended() {
+        return suspend;
     }
 
-    public void setBanned(boolean banned) {
-        this.banned = banned;
+    public void setSuspended(boolean suspended) {
+        this.suspend = suspended;
     }
 
     public String getProfilePicturePath() {

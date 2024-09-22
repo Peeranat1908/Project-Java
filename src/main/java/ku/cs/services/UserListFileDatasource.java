@@ -69,11 +69,11 @@ public class UserListFileDatasource implements Datasource<UserList> {
                 }
                 String role = data.length > 6 ? data[6].trim() : null;
                 String profilePicturePath = data[7].trim();
-                boolean banned = data.length > 8 ? Boolean.parseBoolean(data[8].trim()) : false;
+                boolean suspended = data.length > 8 ? Boolean.parseBoolean(data[8].trim()) : false;
                 String faculty = data.length > 9 ? data[9].trim() : null;
                 String department = data.length > 10 ? data[10].trim() : null;
 
-                User user = new User(name, surname, username, password, lastLoginDate, lastLoginTime, role, profilePicturePath,banned,faculty,department);
+                User user = new User(name, surname, username, password, lastLoginDate, lastLoginTime, role, profilePicturePath,suspended,faculty,department);
                 userList.addUser(user);
             }
         } catch (IOException e) {
@@ -93,7 +93,7 @@ public class UserListFileDatasource implements Datasource<UserList> {
             DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
             for (User user : userList.getUsers()) {
-                String profilePicturePath = user.getProfilePicturePath() != null ? user.getProfilePicturePath() : "/images/default-profile-pic.jpg";
+                String profilePicturePath = user.getProfilePicturePath() != null ? user.getProfilePicturePath() : "/images/profileDeafault2.png";
 
                 String line = String.join(",",
                         user.getUsername(),
@@ -104,8 +104,8 @@ public class UserListFileDatasource implements Datasource<UserList> {
                         user.getLastLoginTime() != null ? user.getLastLoginTime().format(timeFormatter) : "",
                         user.getRole(),
                         profilePicturePath,
-                        String.valueOf(user.isBanned())
-                        user.getDepartment()
+                        String.valueOf(user.isSuspended()),
+                        user.getDepartment(),
                         user.getFaculty()
                 );
                 buffer.write(line);

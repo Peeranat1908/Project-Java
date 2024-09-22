@@ -4,11 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import ku.cs.models.UserAccount;
-import ku.cs.models.UserAccountList;
-import ku.cs.services.Datasource;
-import ku.cs.services.FXRouter;
-import ku.cs.services.UserAccountsListFileDatasource;
+import ku.cs.models.*;
+import ku.cs.services.*;
+import org.mindrot.jbcrypt.BCrypt;
+
 
 import java.io.IOException;
 
@@ -20,11 +19,18 @@ public class ResetPasswordController {
     @FXML private PasswordField newPasswordTextfield;
     @FXML private PasswordField confirmPasswordTextfield;
 
-    private UserAccountList userList;
+    private UserList userList;
+    private StudentList studentList;
+
 
     @FXML
     private void initialize() {
         errorLabel.setText("");
+
+        // Load user data from user.csv
+        UserListFileDatasource userDatasource = new UserListFileDatasource("data", "user.csv");
+        userList = userDatasource.readData();
+
     }
 
     @FXML
@@ -32,10 +38,9 @@ public class ResetPasswordController {
         try {
             resetPassword();
         } catch (IOException e) {
-            errorLabel.setText("An error occurred. Please try again.");
+            throw new RuntimeException(e);
         }
     }
-
     @FXML
     private void onBackButton() {
         try {
@@ -46,41 +51,36 @@ public class ResetPasswordController {
     }
 
     private void resetPassword() throws IOException {
-        Datasource<UserAccountList> datasource = new UserAccountsListFileDatasource("data", "userAccount.csv");
-        userList = datasource.readData();
-
-        String username = usernameTextfield.getText();
-        String oldPassword = oldPasswordTextfield.getText();
-        String newPassword = newPasswordTextfield.getText();
-        String confirmPassword = confirmPasswordTextfield.getText();
+        String username = usernameTextfield.getText().trim();
+        String oldPassword = oldPasswordTextfield.getText().trim();
+        String newPassword = newPasswordTextfield.getText().trim();
+        String confirmPassword = confirmPasswordTextfield.getText().trim();
 
         if (username.isEmpty() || oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
             errorLabel.setText("Please fill in all fields.");
             return;
         }
 
-        boolean isUserFound = false;
-
-        for (UserAccount user : userList.getUsers()) {
-            if (user.getUsername().equals(username) && user.getPassword().equals(oldPassword)) {
-                if (!newPassword.equals(confirmPassword)) {
-                    errorLabel.setText("New passwords do not match. Please try again.");
-                    return;
-                }
-
-                user.setPassword(newPassword);
-                datasource.writeData(userList);
-                errorLabel.setText("Password has been reset successfully.");
-                isUserFound = true;
-                break;
-            }
-        }
-
-        if (!isUserFound) {
-            errorLabel.setText("Username or old password is incorrect. Please try again.");
+        if (!newPassword.equals(confirmPassword)) {
+            errorLabel.setText("New password and confirmation do not match.");
             return;
         }
 
+        User user = userList.findUserByUsername(username);
+        if (user == null || !BCrypt.checkpw(oldPassword, user.getPassword())) {
+            errorLabel.setText("Username or old password is incorrect.");
+            return;
+        }
+
+        String hashedNewPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
+        user.setPassword(hashedNewPassword);
+        userList.addUser(user);
+
+        UserListFileDatasource userDatasource = new UserListFileDatasource("data", "user.csv");
+        userDatasource.writeData(userList);
+
+        errorLabel.setText("Password successfully reset.");
         FXRouter.goTo("login-page");
     }
+
 }

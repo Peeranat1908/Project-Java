@@ -1,60 +1,60 @@
 package ku.cs.models;
 
-public class Student {
-//ชื่อ-นามสกุล รหัสนิสิต username email password confirmed-Password
-    private String name;
-    private String surname;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+public class Student extends User {
     private String id;
-    private String username;
     private String email;
-    private String password;
-
     private String faculty;
-    private String major;
+    private String department;
+    private String advisorID;
 
-    public Student(String name, String surname, String id, String username, String email, String password){
-        this.name = name;
-        this.surname = surname;
+    public Student(String name, String surname, String username, String password, String id, String email, String faculty, String major, LocalDate lastLoginDate, LocalTime lastLoginTime, String profilePicturePath) {
+        super(name, surname, username, password, lastLoginDate, lastLoginTime, "student", profilePicturePath,false,null,null);
         this.id = id;
         this.email = email;
-        this.username = username;
-        this.password = password;
-
+        this.advisorID = null;
+    }
+    public Student(String name, String surname, String username,String id,String email) {
+        this(name, surname, username, null, id, email, null, null , null,null,null);
+        advisorID = null;
     }
 
-    public boolean check(String username, String password){
-
-        return this.username.equals(username) && this.password.equals(password) ;
-    }
-
-    public boolean isId(String id) {
-        return this.id.equals(id);
-    }
-
-    public boolean isUsername(String username){ return this.username.equals(username);}
 
     public String getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public void setId(String id) {
+        this.id = id;
     }
-
-    public String getSurName() {
-        return surname;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
     public String getEmail() {
         return email;
     }
 
-    public String getPassword() {
-        return password;
+    public void setFaculty(String faculty) {
+        this.faculty = faculty;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getAdvisorID() {
+        return advisorID;
+    }
+
+    public void setAdvisorID(String advisorID) {
+        this.advisorID = advisorID;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getFaculty() {
@@ -62,10 +62,7 @@ public class Student {
     }
 
     public String getMajor() {
-        return major;
+        return department;
     }
 
-    public String toCsv(){
-        return name+ "," + surname + "," + username + "," + id + "," + email + "," + password;
-    }
 }
