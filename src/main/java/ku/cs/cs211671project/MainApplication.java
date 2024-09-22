@@ -19,6 +19,8 @@ public class MainApplication extends Application {
         //FXRouter.goTo("main-admin");
         //FXRouter.goTo("main-advisor");
         //FXRouter.goTo("student");
+        //FXRouter.goTo("major-data-admin");
+        //FXRouter.goTo("edit-data-faculty");
     }
 
     private void configRoutes() {
@@ -36,8 +38,10 @@ public class MainApplication extends Application {
         FXRouter.when("normal-appeal", viewPath + "normal-appeal.fxml");
         FXRouter.when("main-admin", viewPath + "main-admin.fxml");
         FXRouter.when("faculty-data-admin", viewPath + "faculty-data-admin.fxml");
-
         FXRouter.when("appeal-tracking", viewPath + "appeal-list.fxml");
+        FXRouter.when("major-data-admin", viewPath + "major-data-admin.fxml");
+        FXRouter.when("edit-data-faculty", viewPath + "edit-data-faculty.fxml");
+        FXRouter.when("add-new-faculty", viewPath + "addNewFacultyData.fxml");
     }
 
 
