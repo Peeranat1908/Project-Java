@@ -70,8 +70,10 @@ public class UserListFileDatasource implements Datasource<UserList> {
                 String role = data.length > 6 ? data[6].trim() : null;
                 String profilePicturePath = data[7].trim();
                 boolean banned = data.length > 8 ? Boolean.parseBoolean(data[8].trim()) : false;
+                String faculty = data.length > 9 ? data[9].trim() : null;
+                String department = data.length > 10 ? data[10].trim() : null;
 
-                User user = new User(name, surname, username, password, lastLoginDate, lastLoginTime, role, profilePicturePath,banned);
+                User user = new User(name, surname, username, password, lastLoginDate, lastLoginTime, role, profilePicturePath,banned,faculty,department);
                 userList.addUser(user);
             }
         } catch (IOException e) {
@@ -103,6 +105,8 @@ public class UserListFileDatasource implements Datasource<UserList> {
                         user.getRole(),
                         profilePicturePath,
                         String.valueOf(user.isBanned())
+                        user.getDepartment()
+                        user.getFaculty()
                 );
                 buffer.write(line);
                 buffer.newLine();

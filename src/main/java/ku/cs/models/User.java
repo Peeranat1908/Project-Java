@@ -13,8 +13,10 @@ public class User {
     protected String role;
     protected String profilePicturePath;  // เพิ่ม field สำหรับเก็บรูปภาพ
     protected boolean banned;
+    protected String faculty;
+    protected String department;
 
-    public User(String name, String surname, String username, String password, LocalDate lastLoginDate, LocalTime lastLoginTime, String role, String profilePicturePath, boolean banned ) {
+    public User(String name, String surname, String username, String password, LocalDate lastLoginDate, LocalTime lastLoginTime, String role, String profilePicturePath, boolean banned ,String faculty, String department) {
         this.name = name;
         this.surname = surname;
         this.username = username;
@@ -24,10 +26,12 @@ public class User {
         this.role = role;
         this.profilePicturePath = profilePicturePath;
         this.banned = banned;
+        this.faculty = faculty;
+        this.department = department;
     }
 
     public User(String name, String surname, String username, String password, String role, String profilePicturePath) {
-        this(name, surname, username, password, null, null, role, profilePicturePath   , false);
+        this(name, surname, username, password, null, null, role, profilePicturePath   , false,null,null);
     }
 
     public boolean isBanned() {
@@ -44,6 +48,22 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(String faculty) {
+        this.faculty = faculty;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
     public void setSurname(String surname) {
