@@ -19,6 +19,7 @@ public class Student {
         this.email = email;
         this.username = username;
         this.password = password;
+
     }
 
     public boolean check(String username, String password){
