@@ -85,7 +85,7 @@ public class UserDetailController {
 
     }
     @FXML
-    public void suspendbuttonclick() {
+    public void suspendButtonclick() {
         datasource = new UserListFileDatasource("data", "user.csv");
         userList = datasource.readData();
         String username = user.getUsername();
@@ -95,6 +95,20 @@ public class UserDetailController {
             user.setSuspended(true);
             datasource.writeData(userList);
             suspendlabel.setText("ผู้ใช้ " + username + " ถูกระงับเรียบร้อยแล้ว.");
+
+        }
+    }
+    @FXML
+    public void unSuspendButtonclick() {
+        datasource = new UserListFileDatasource("data", "user.csv");
+        userList = datasource.readData();
+        String username = user.getUsername();
+
+        User user = userList.findUserByUsername(username);
+        if (user != null) {
+            user.setSuspended(false);
+            datasource.writeData(userList);
+            suspendlabel.setText("ผู้ใช้ " + username + " ถูกปลดระงับเรียบร้อยแล้ว.");
 
         }
     }

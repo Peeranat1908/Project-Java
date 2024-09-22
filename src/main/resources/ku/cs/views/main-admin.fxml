@@ -2,6 +2,7 @@
 
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -13,7 +14,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.MainAdminController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@css/tableStyle.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.MainAdminController">
    <children>
       <Pane layoutX="2.0" layoutY="-1.0" prefHeight="80.0" prefWidth="1275.0" style="-fx-background-color: EAF4FF;">
          <children>
@@ -67,7 +68,7 @@
             </Button>
          </children>
       </Pane>
-      <Label layoutX="565.0" layoutY="122.0" text="ชื่อผู้ใช้ระบบ">
+      <Label layoutX="584.0" layoutY="116.0" text="ผู้ใช้ระบบ">
          <font>
             <Font name="System Bold" size="32.0" />
          </font>
@@ -77,18 +78,49 @@
             <Font size="20.0" />
          </font>
       </TextField>
-      <TableView fx:id="tableView" layoutX="242.0" layoutY="249.0" prefHeight="428.0" prefWidth="931.0">
+      <TableView fx:id="tableView" layoutX="214.0" layoutY="249.0" prefHeight="428.0" prefWidth="916.0">
          <columns>
-            <TableColumn prefWidth="140.0" text="C1" />
-            <TableColumn prefWidth="180.00006103515625" text="C2" />
+            <TableColumn prefWidth="145.0" style="-fx-background-color: #2F80ED;" text="C1" />
+            <TableColumn prefWidth="178.4000244140625" style="-fx-background-color: #2F80ED;" text="C2" />
             <TableColumn minWidth="0.0" prefWidth="0.0" text="3" />
-            <TableColumn prefWidth="112.0" text="4" />
-            <TableColumn prefWidth="174.40008544921875" text="5" />
-            <TableColumn prefWidth="161.60003662109375" text="6" />
-            <TableColumn prefWidth="106.4000244140625" text="3" />
-            <TableColumn prefWidth="188.0" text="7" />
+            <TableColumn prefWidth="94.39996337890625" style="-fx-background-color: #2F80ED;" text="4" />
+            <TableColumn prefWidth="151.20001220703125" style="-fx-background-color: #2F80ED;" text="5" />
+            <TableColumn prefWidth="151.99993896484375" style="-fx-background-color: #2F80ED;" text="6" />
+            <TableColumn prefWidth="130.4000244140625" style="-fx-background-color: #2F80ED;" text="7" />
+            <TableColumn prefWidth="116.0" style="-fx-background-color: #2F80ED;" text="8" />
+            <TableColumn prefWidth="116.0" text="9" />
          </columns>
       </TableView>
       <Button layoutX="1206.0" layoutY="677.0" mnemonicParsing="false" onAction="#onLogoutButtonClick" text="logout" />
+      <Pane fx:id="roleSelectionPane" layoutX="978.0" layoutY="98.0" prefHeight="240.0" prefWidth="200.0" style="-fx-background-color: EAF4FF; -fx-background-radius: 10;">
+         <children>
+            <Button layoutX="70.0" layoutY="195.0" mnemonicParsing="false" onAction="#enterselectedRoleClick" style="-fx-background-radius: 10;" text="Enter" />
+            <CheckBox fx:id="studentCheckBox" layoutX="45.0" layoutY="32.0" mnemonicParsing="false" style="-fx-background-radius: 5;" text="นิสิต">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </CheckBox>
+            <CheckBox fx:id="departmentStaffCheckBox" layoutX="47.0" layoutY="113.0" mnemonicParsing="false" text="เจ้าหน้าที่ภาค">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </CheckBox>
+            <CheckBox fx:id="facultyStaffCheckBox" layoutX="47.0" layoutY="73.0" mnemonicParsing="false" text="เจ้าหน้าที่คณะ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </CheckBox>
+            <CheckBox fx:id="advisorCheckBox" layoutX="46.0" layoutY="154.0" mnemonicParsing="false" text="อาจารย์ที่ปรึกษา">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </CheckBox>
+         </children>
+      </Pane>
+      <Button layoutX="799.0" layoutY="175.0" mnemonicParsing="false" onAction="#roleselectedclick" prefHeight="43.0" prefWidth="150.0" style="-fx-background-color: EAF4FF; -fx-border-radius: 10; -fx-background-radius: 20;" text="กรองตามบทบาท">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
