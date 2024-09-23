@@ -3,8 +3,10 @@ package ku.cs.controllers.admin;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import ku.cs.models.Faculty;
 import ku.cs.models.FacultyList;
@@ -13,6 +15,7 @@ import ku.cs.services.FXRouter;
 import ku.cs.services.FacultyListFileDatasource;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class FacultyDataAdminController {
     @FXML private TableView<Faculty> facultyDataAdminTableView;
@@ -22,28 +25,48 @@ public class FacultyDataAdminController {
     private Datasource<FacultyList> datasource;
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         datasource = new FacultyListFileDatasource("data", "Faculty.csv");
+<<<<<<< HEAD
         facultyList = datasource.readData();
         showTable(facultyList);
+=======
+        faculyList = datasource.readData();
+        if (faculyList != null){
+            showTable(faculyList);
+        }
+        else {
+            System.out.println("Failed to load faculty list.");
+        }
+>>>>>>> feature/admin3
 
         facultyDataAdminTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Faculty>() {
             @Override
             public void changed(ObservableValue observableValue, Faculty oldValue, Faculty newValue) {
-                if (newValue != null){
+                if (newValue != null) {
+                    try{
+                        FXRouter.goTo("major-data-admin", newValue.getFacultyId());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         });
     }
 
+<<<<<<< HEAD
     private void showTable(FacultyList facultyList){
+=======
+
+    private void showTable(FaculyList faculyList){
+>>>>>>> feature/admin3
         // กำหนด column ให้มี title ว่า ID และใช้ค่าจาก attribute id ของ object Student
         TableColumn<Faculty, String> idColumn = new TableColumn<>("Faculty ID");
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));//เรียกมาจาก getter
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("facultyId"));//เรียกมาจาก getter
 
         // กำหนด column ให้มี title ว่า Name และใช้ค่าจาก attribute name ของ object Student
         TableColumn<Faculty, String> nameColumn = new TableColumn<>("Faculty Name");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("facultyName"));
 
         // ล้าง column เดิมทั้งหมดที่มีอยู่ใน table แล้วเพิ่ม column ใหม่
         facultyDataAdminTableView.getColumns().clear();
@@ -57,7 +80,17 @@ public class FacultyDataAdminController {
         }
     }
 
+    @FXML
+    public void onMyTeamButtonClick(){
+        try{
+            FXRouter.goTo("my-team");
+        } catch (IOException e) {
 
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
     public void onHomeButtonClick() {
         try {
             FXRouter.goTo("main-admin");
@@ -66,6 +99,23 @@ public class FacultyDataAdminController {
         }
     }
 
+    @FXML
+    public void onLogOutButtonClick(){
+        try {
+            FXRouter.goTo("main-admin");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void onEditFacultyButtonClick(){
+        try {
+            FXRouter.goTo("edit-data-faculty");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
 }

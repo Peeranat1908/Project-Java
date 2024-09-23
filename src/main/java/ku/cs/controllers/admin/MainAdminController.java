@@ -28,7 +28,7 @@ public class MainAdminController {
     @FXML
     public void onFacultyButtonClick() {
         try {
-            FXRouter.goTo("facultyData-admin");
+            FXRouter.goTo("faculty-data-admin");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -18,13 +18,18 @@ public class Faculty {
     }
 
 
-    public String getFacultyName() {
-        return facultyName;
+    public void setFacultyName(String facultyName) {
+        this.facultyName = facultyName;
     }
 
     public String getFacultyId() {
         return facultyId;
     }
+
+    public String getFacultyName() {
+        return facultyName;
+    }
+
 
     @Override
     public String toString() {

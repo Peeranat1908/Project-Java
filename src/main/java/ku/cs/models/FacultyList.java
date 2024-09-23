@@ -15,8 +15,8 @@ public class FacultyList {
             if (faculty1.getFacultyName().equalsIgnoreCase(facultyName)){
                 return;
             }
-            faculties.add(new Faculty(facultyId.trim(), facultyName.trim()));
         }
+        faculties.add(new Faculty(facultyId.trim(), facultyName.trim()));
     }
 
     public void addNewMajor(String major, String majorId){

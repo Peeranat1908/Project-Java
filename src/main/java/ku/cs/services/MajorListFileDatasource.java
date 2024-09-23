@@ -1,16 +1,17 @@
 package ku.cs.services;
 
-import ku.cs.models.Faculty;
-import ku.cs.models.FacultyList;
+import ku.cs.models.FaculyList;
+import ku.cs.models.Major;
+import ku.cs.models.MajorList;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
-public class FacultyListFileDatasource implements Datasource<FacultyList>{
+public class MajorListFileDatasource implements Datasource<MajorList>{
     private String directoryName;
     private String fileName;
 
-    public FacultyListFileDatasource(String directoryName, String fileName) {
+    public MajorListFileDatasource(String directoryName, String fileName) {
         this.directoryName = directoryName;
         this.fileName = fileName;
     }
@@ -33,19 +34,17 @@ public class FacultyListFileDatasource implements Datasource<FacultyList>{
     }
 
     @Override
-    public FacultyList readData() {
-        FacultyList facultyList = new FacultyList();
+    public MajorList readData() {
+        MajorList majorList = new MajorList();
         String filePath = directoryName + File.separator + fileName;
         File file = new File(filePath);
         // เตรียม object ที่ใช้ในการอ่านไฟล์
         FileInputStream fileInputStream = null;
-
         try {
             fileInputStream = new FileInputStream(file);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-
         InputStreamReader inputStreamReader = new InputStreamReader(
                 fileInputStream,
                 StandardCharsets.UTF_8
@@ -54,7 +53,6 @@ public class FacultyListFileDatasource implements Datasource<FacultyList>{
 
         String line = "";
         try {
-            // ใช้ while loop เพื่ออ่านข้อมูลรอบละบรรทัด
             while ( (line = buffer.readLine()) != null ){
                 // ถ้าเป็นบรรทัดว่าง ให้ข้าม
                 if (line.equals("")) continue;
@@ -63,24 +61,21 @@ public class FacultyListFileDatasource implements Datasource<FacultyList>{
                 String[] data = line.split(",");
 
                 // อ่านข้อมูลตาม index แล้วจัดการประเภทของข้อมูลให้เหมาะสม
-                String facultyId = data[0].trim();
-                String facultyName = data[1].trim();
+                String facultyId = data[0];
+                String majorId = data[1];
+                String majorName = data[2];
 
                 // เพิ่มข้อมูลลงใน list
-<<<<<<< HEAD
-                facultyList.addNewFaculty(facultyName, facultyId);
-=======
-                faculyList.addNewFaculty(facultyId, facultyName);
->>>>>>> feature/admin3
+                majorList.addNewMajor(facultyId, majorId, majorName);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return faculyList;
+        return majorList;
     }
 
     @Override
-    public void writeData(FacultyList data) {
+    public void writeData(MajorList data) {
         String filePath = directoryName + File.separator + fileName;
         File file = new File(filePath);
 
@@ -99,16 +94,15 @@ public class FacultyListFileDatasource implements Datasource<FacultyList>{
         );
         BufferedWriter buffer = new BufferedWriter(outputStreamWriter);
         try {
-            for (Faculty faculty : data.getFaculties()){
-                String line = faculty.getFacultyId() + "," + faculty.getFacultyName();
+            for (Major major : data.getMajors()){
+                String line = major.getFacultyId() + "," + major.getMajorId() + "," + major.getMajorName();
                 buffer.append(line);
                 buffer.append("\n");
-
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }finally {
-            try{
+            try {
                 buffer.flush();
                 buffer.close();
             } catch (IOException e) {

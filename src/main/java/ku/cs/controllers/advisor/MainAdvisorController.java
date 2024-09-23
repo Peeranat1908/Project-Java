@@ -86,9 +86,11 @@ public class MainAdvisorController {
         String searchQuery = searchTextField.getText().trim();
         if (searchQuery.isEmpty()) {
             studentAdvisorTableView.getItems().setAll(studentAdvisorList.getStudentAdvisor());
-            errorLabel.setText("กรุณาใส่ข้อมูล");
+            errorLabel.setText("Please enter data.");
             return;
         }
+
+        errorLabel.setText("");
 
         StudentAdvisor fondStudent = studentAdvisorList.findStudentById(searchQuery);
         if (fondStudent == null) {

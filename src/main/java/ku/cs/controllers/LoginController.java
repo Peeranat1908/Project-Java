@@ -41,7 +41,12 @@ public class LoginController {
     @FXML
     public void onLoginButtonClick() {
         try {
+<<<<<<< HEAD
             handleLogin();
+=======
+            checkLogin();
+            FXRouter.goTo("student");
+>>>>>>> feature/admin3
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
