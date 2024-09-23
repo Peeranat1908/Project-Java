@@ -2,10 +2,10 @@ package ku.cs.models;
 
 import java.util.ArrayList;
 
-public class FaculyList {
+public class FacultyList {
     private ArrayList<Faculty> faculties;
 
-    public FaculyList() {faculties = new ArrayList<>();}
+    public FacultyList() {faculties = new ArrayList<>();}
 
     public void addNewFaculty(String facultyId, String facultyName){
         facultyName = facultyName.trim();

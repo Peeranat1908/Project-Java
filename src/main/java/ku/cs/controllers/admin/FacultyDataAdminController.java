@@ -9,11 +9,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import ku.cs.models.Faculty;
-import ku.cs.models.FaculyList;
 import ku.cs.models.StudentAdvisor;
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
 import ku.cs.services.FacultyListFileDatasource;
+import ku.cs.models.FacultyList;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -21,9 +21,9 @@ import java.util.Optional;
 public class FacultyDataAdminController {
     @FXML private TableView<Faculty> facultyDataAdminTableView;
 
-    private FaculyList faculyList;
+    private FacultyList faculyList;
 
-    private Datasource<FaculyList> datasource;
+    private Datasource<FacultyList> datasource;
 
     @FXML
     public void initialize() {
@@ -51,7 +51,7 @@ public class FacultyDataAdminController {
     }
 
 
-    private void showTable(FaculyList faculyList){
+    private void showTable(FacultyList faculyList){
         // กำหนด column ให้มี title ว่า ID และใช้ค่าจาก attribute id ของ object Student
         TableColumn<Faculty, String> idColumn = new TableColumn<>("Faculty ID");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("facultyId"));//เรียกมาจาก getter

@@ -1,11 +1,11 @@
-package ku.cs.controllers.admin;
+package ku.cs.controllers;
 
 import javafx.fxml.FXML;
 import ku.cs.services.FXRouter;
 
 import java.io.IOException;
 
-public class MainAdminController {
+public class FacultyDataAdminController {
 
     @FXML
     public void onLogOutButtonClick() {
@@ -25,13 +25,11 @@ public class MainAdminController {
         }
     }
 
-    @FXML
-    public void onManageFacultyButtonClick(){
-        try{
-            FXRouter.goTo("faculty-data-admin");
-        } catch(IOException e){
+    public void onHomeButtonClick() {
+        try {
+            FXRouter.goTo("main-admin");
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        }
     }
-
+}

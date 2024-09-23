@@ -21,6 +21,7 @@
       </Label>
       <Label layoutX="371.0" layoutY="102.0" text="เรื่อง:">
          <font>
+            <Font name="Arial" size="16.0" />
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Label>
@@ -33,6 +34,7 @@
       </Label>
       <Label layoutX="371.0" layoutY="382.0" text="วัน/เดือน/ปี:">
          <font>
+            <Font name="Arial" size="16.0" />
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Label>
@@ -45,6 +47,7 @@
       </Group>
       <Label layoutX="371.0" layoutY="492.0" text="ลงนามนิสิต/ผู้ดำเนินการแทน:">
          <font>
+            <Font name="Arial" size="16.0" />
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Label>

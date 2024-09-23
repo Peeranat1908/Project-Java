@@ -1,6 +1,6 @@
 package ku.cs.services;
 
-import ku.cs.models.FaculyList;
+import ku.cs.models.FacultyList;
 import ku.cs.models.Major;
 import ku.cs.models.MajorList;
 

@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import ku.cs.models.Faculty;
-import ku.cs.models.FaculyList;
+import ku.cs.models.FacultyList;
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
 import ku.cs.services.FacultyListFileDatasource;
@@ -24,8 +24,8 @@ public class addNewFacultyDataController {
     private TextField facultyName;
     @FXML private Button addButton;
 
-    private Datasource<FaculyList> datasource;
-    private FaculyList faculyList;
+    private Datasource<FacultyList> datasource;
+    private FacultyList faculyList;
 
 
     public void initialize(){

@@ -22,6 +22,8 @@ public class MainApplication extends Application {
         //FXRouter.goTo("major-data-admin");
         //FXRouter.goTo("edit-data-faculty");
         //FXRouter.goTo("edit-data-major");
+        //FXRouter.goTo("departmentStaff");
+        //FXRouter.goTo("facultyStaff");
     }
 
     private void configRoutes() {
@@ -45,6 +47,14 @@ public class MainApplication extends Application {
         FXRouter.when("add-new-faculty", viewPath + "addNewFacultyData.fxml");
         FXRouter.when("edit-data-major",  viewPath + "edit-data-major.fxml");
         FXRouter.when("add-new-major", viewPath + "add-new-major.fxml");
+
+        FXRouter.when("faculty-data-admin", viewPath + "faculty-data-admin.fxml");
+
+        FXRouter.when("appeal-tracking", viewPath + "appeal-list.fxml");
+        FXRouter.when("faculty-data-admin", viewPath + "faculty-data-admin.fxml");
+        FXRouter.when("user-profile", viewPath + "user-profile.fxml");
+        FXRouter.when("departmentStaff", viewPath + "major-staff.fxml");
+        FXRouter.when("facultyStaff", viewPath + "faculty-staff.fxml");
     }
 
 

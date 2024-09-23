@@ -21,6 +21,12 @@ public class Student {
         this.password = password;
     }
 
+    public Student(String id, String name, String email) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+    }
+
     public boolean check(String username, String password){
 
         return this.username.equals(username) && this.password.equals(password) ;

@@ -20,14 +20,26 @@ public class StudentList {
         if (!id.equals("") && !name.equals("")) {
             Student exist = findStudentById(id);
             if (exist == null) {
-                students.add(new Student(name, surname,id, username, email, password));
+                students.add(new Student(name, surname, id, username, email, password));
             }
         }
     }
 
-    public boolean isExists(String username, String id){
+    public void addNewStudent(String id, String name, String email) {
+        id = id.trim();
+        name = name.trim();
+        email = email.trim();
+        if (!id.equals("") && !name.equals("")) {
+            Student exist = findStudentById(id);
+            if (exist == null) {
+                students.add(new Student(id, name, email));
+            }
+        }
+    }
+
+    public boolean isExists(String username, String id) {
         for (Student student : students) {
-            if (student.getName().equals(username) || student.getId().equals((id)) ) {
+            if (student.getName().equals(username) || student.getId().equals(id)) {
                 return true;
             }
         }
@@ -52,7 +64,7 @@ public class StudentList {
         return null;
     }
 
-    public ArrayList<Student> getStudents(){
+    public ArrayList<Student> getStudents() {
         return students;
     }
 }
