@@ -31,13 +31,11 @@ public class MainApplication extends Application {
         FXRouter.when("student-appeal", viewPath + "student-appeal.fxml");
         FXRouter.when("normal-appeal", viewPath + "normal-appeal.fxml");
         FXRouter.when("main-admin", viewPath + "main-admin.fxml");
-        FXRouter.when("user-details", viewPath + "userdetail.fxml");
         FXRouter.when("dashboard", viewPath + "dashboard.fxml");
-        FXRouter.when("user-details", viewPath + "userdetail.fxml");
+        FXRouter.when("user-details", viewPath + "user-detail-admin.fxml");
         FXRouter.when("add-staff", viewPath + "add-staff.fxml");
-        FXRouter.when("staff-table", viewPath + "stafftable.fxml");
-        FXRouter.when("staffedit", viewPath + "staffedit.fxml");
-
+        FXRouter.when("staff-table", viewPath + "staff-table-admin.fxml");
+        FXRouter.when("staff-edit", viewPath + "staffedit.fxml");
     }
 
     public static void main(String[] args) {

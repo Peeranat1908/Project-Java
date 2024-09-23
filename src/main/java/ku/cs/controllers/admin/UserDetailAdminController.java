@@ -12,7 +12,7 @@ import ku.cs.services.UserListFileDatasource;
 
 import java.io.IOException;
 
-public class UserDetailController {
+public class UserDetailAdminController {
     @FXML
     private Label suspendlabel;
     @FXML
