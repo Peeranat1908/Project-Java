@@ -6,13 +6,10 @@ import java.time.LocalTime;
 public class Student extends User {
     private String id;
     private String email;
-    private String faculty;
-    private String department;
     private String advisorID;
 
     public Student(String name, String username, String password, String id, String email, String faculty, String major, LocalDate lastLoginDate, LocalTime lastLoginTime, String profilePicturePath) {
-        super(name, username, password, lastLoginDate, lastLoginTime, "student", profilePicturePath,false,null,null);
-        this.id = id;
+        super(name, username, password, lastLoginDate, lastLoginTime, "student", profilePicturePath,false,null,null,false,id);
         this.email = email;
         this.advisorID = null;
     }
@@ -44,7 +41,5 @@ public class Student extends User {
     public void setEmail(String email) {
         this.email = email;
     }
-
-
 
 }

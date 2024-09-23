@@ -77,7 +77,7 @@ public class StudentListFileDatasource implements Datasource<StudentList> {
                         student.getId(),
                         student.getEmail(),
                         student.getFaculty(),
-                        student.getDepartment(),
+                        student.getMajor(),
                         student.getAdvisorID() != null ? student.getAdvisorID() : ""
                 );
                 buffer.write(line);

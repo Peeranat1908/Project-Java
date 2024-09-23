@@ -42,7 +42,7 @@ public class StaffTableController {
                 User selectedUser = tableView.getSelectionModel().getSelectedItem();
                 if (selectedUser != null) {
                     try {
-                        FXRouter.goTo("user-details", selectedUser);
+                        FXRouter.goTo("staffedit", selectedUser);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -86,8 +86,8 @@ public class StaffTableController {
         facultyColumn.setCellValueFactory(new PropertyValueFactory<>("faculty"));
         facultyColumn.setPrefWidth(155);
 
-        TableColumn<User, String> departmentColumn = new TableColumn<>("Department");
-        departmentColumn.setCellValueFactory(new PropertyValueFactory<>("department"));
+        TableColumn<User, String> departmentColumn = new TableColumn<>("Major");
+        departmentColumn.setCellValueFactory(new PropertyValueFactory<>("major"));
         departmentColumn.setPrefWidth(155);
 
         TableColumn<User, String> roleColumn = new TableColumn<>("Role");

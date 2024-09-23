@@ -27,7 +27,6 @@ public class ResetPasswordController {
     private void initialize() {
         errorLabel.setText("");
 
-        // Load user data from user.csv
         UserListFileDatasource userDatasource = new UserListFileDatasource("data", "user.csv");
         userList = userDatasource.readData();
 

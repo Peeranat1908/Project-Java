@@ -3,7 +3,6 @@ package ku.cs.controllers.admin;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import ku.cs.models.User;
@@ -25,7 +24,7 @@ public class UserDetailController {
     @FXML
     private Label facultyLabel;
     @FXML
-    private Label IdorDepartmentLabel;
+    private Label DepartmentLabel;
 
     @FXML
     private Circle imagecircle;
@@ -62,9 +61,9 @@ public class UserDetailController {
         }
 
         if (user.getRole().equals("facultyStaff")) {
-            IdorDepartmentLabel.setText("");
+            DepartmentLabel.setText("");
         } else {
-            IdorDepartmentLabel.setText("ภาควิชา: " +user.getDepartment());
+            DepartmentLabel.setText("ภาควิชา: " +user.getMajor());
         }
 
 
