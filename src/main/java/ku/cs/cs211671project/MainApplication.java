@@ -15,11 +15,8 @@ public class MainApplication extends Application {
         configRoutes();
         FXRouter.goTo("first-page");
         //FXRouter.goTo("main-advisor");
-<<<<<<< HEAD
-        //FXRouter.goTo("faculty-data-admin");
-        //FXRouter.goTo("main-admin");
-=======
->>>>>>> feature/student-system-2-1
+        //FXRouter.goTo("departmentStaff");
+
     }
 
     private void configRoutes() {
@@ -36,13 +33,14 @@ public class MainApplication extends Application {
         FXRouter.when("student-appeal", viewPath + "student-appeal.fxml");
         FXRouter.when("normal-appeal", viewPath + "normal-appeal.fxml");
         FXRouter.when("main-admin", viewPath + "main-admin.fxml");
-<<<<<<< HEAD
+
         FXRouter.when("faculty-data-admin", viewPath + "faculty-data-admin.fxml");
 
-=======
         FXRouter.when("appeal-tracking", viewPath + "appeal-list.fxml");
         FXRouter.when("faculty-data-admin", viewPath + "faculty-data-admin.fxml");
->>>>>>> feature/student-system-2-1
+        FXRouter.when("user-profile", viewPath + "user-profile.fxml");
+        FXRouter.when("departmentStaff", viewPath + "major-staff.fxml");
+        FXRouter.when("facultyStaff", viewPath + "faculty-staff.fxml");
     }
 
 

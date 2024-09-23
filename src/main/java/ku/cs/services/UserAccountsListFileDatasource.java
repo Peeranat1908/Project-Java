@@ -13,7 +13,7 @@ public class UserAccountsListFileDatasource implements Datasource<UserAccountLis
     private String directoryName;
     private String fileName;
 
-    public UserAccountsListFileDatasource(String directoryName, String fileName) {
+    public UserAccountsListFileDatasource(String directoryName, String fileName){
         this.directoryName = directoryName;
         this.fileName = fileName;
         checkFileIsExisted();

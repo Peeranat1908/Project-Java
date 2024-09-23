@@ -21,11 +21,8 @@
       </Label>
       <Label layoutX="371.0" layoutY="102.0" text="เรื่อง:">
          <font>
-<<<<<<< HEAD
             <Font name="Arial" size="16.0" />
-=======
             <Font name="Arial Bold" size="16.0" />
->>>>>>> feature/student-system-2-1
          </font>
       </Label>
       <TextField fx:id="subjectTextField" layoutX="369.0" layoutY="127.0" prefHeight="65.0" prefWidth="544.0" style="-fx-background-radius: 10;" />
@@ -37,11 +34,8 @@
       </Label>
       <Label layoutX="371.0" layoutY="382.0" text="วัน/เดือน/ปี:">
          <font>
-<<<<<<< HEAD
             <Font name="Arial" size="16.0" />
-=======
             <Font name="Arial Bold" size="16.0" />
->>>>>>> feature/student-system-2-1
          </font>
       </Label>
       <Group layoutX="377.0" layoutY="418.0">
@@ -53,11 +47,8 @@
       </Group>
       <Label layoutX="371.0" layoutY="492.0" text="ลงนามนิสิต/ผู้ดำเนินการแทน:">
          <font>
-<<<<<<< HEAD
             <Font name="Arial" size="16.0" />
-=======
             <Font name="Arial Bold" size="16.0" />
->>>>>>> feature/student-system-2-1
          </font>
       </Label>
       <TextField fx:id="signatureTextField" layoutX="371.0" layoutY="522.0" prefHeight="65.0" prefWidth="544.0" style="-fx-background-radius: 10;" />

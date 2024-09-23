@@ -2,13 +2,15 @@ package ku.cs.services;
 
 import java.util.HashMap;
 
-public class ElementsWrapper {
+public class DataWrapper {
     private HashMap<String, Object> objects;
 
-    public ElementsWrapper() {
+    // Constructor initializing the HashMap
+    public DataWrapper() {
         objects = new HashMap<>();
     }
 
+    // Method to add an object with a specific key
     public void addObject(String key, Object object) {
         objects.put(key, object);
     }
@@ -22,7 +24,7 @@ public class ElementsWrapper {
 
     @Override
     public String toString() {
-        return "ObjectWrapper{" +
+        return "DataWrapper{" +
                 "objects=" + objects +
                 '}';
     }
