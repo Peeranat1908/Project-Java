@@ -9,4 +9,6 @@ module ku.cs {
     opens ku.cs.controllers to javafx.fxml;
     exports ku.cs.models;
     opens ku.cs.models to javafx.base;
+    exports ku.cs.controllers.components;
+    opens ku.cs.controllers.components to javafx.fxml;
 }

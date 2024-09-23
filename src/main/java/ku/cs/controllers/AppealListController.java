@@ -3,16 +3,22 @@ package ku.cs.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
-import ku.cs.models.NormalAppeal;
-import ku.cs.models.NormalAppealList;
+import ku.cs.controllers.components.AppealItemController;
+import ku.cs.models.Appeal;
+import ku.cs.models.AppealList;
 import ku.cs.services.AppealSharedData;
+import ku.cs.services.AppealListDatasource;
 import ku.cs.services.FXRouter;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.time.format.DateTimeFormatter;
+
 
 public class AppealListController {
     @FXML
@@ -24,13 +30,19 @@ public class AppealListController {
     @FXML
     private Label noAppealsLabel;
 
-    private NormalAppealList normalAppealList;
+    @FXML
+    private TextField searchTextField;
+
+    private AppealListDatasource datasource;
+    private AppealList appealList;
 
     @FXML
     public void initialize() {
-        //เอาคำร้องจาก SharedData
-        normalAppealList = AppealSharedData.getNormalAppealList();
-        loadAppeals();
+        datasource = new AppealListDatasource("data/appeals.csv");
+        appealList = datasource.readData();
+        AppealSharedData.setNormalAppealList(appealList);
+        loadAppeals(null, null);
+
     }
     @FXML
     public void onBackButtonClick() {
@@ -41,15 +53,39 @@ public class AppealListController {
         }
     }
 
-    private void loadAppeals() {
+    private void loadAppeals(String filterType, String searchQuery) {
 
-        List<NormalAppeal> appeals = normalAppealList.getsAppeals();
+        appealList = AppealSharedData.getNormalAppealList();
+        List<Appeal> appeals = appealList.getsAppeals();
+
+        if (filterType != null) {
+            appeals = appeals.stream()
+                    .filter(appeal -> appeal.getType().equals(filterType))
+                    .collect(Collectors.toList());
+        }
+
+        if (searchQuery != null && !searchQuery.isEmpty()) {
+            String lowerCaseQuery = searchQuery.toLowerCase();
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+            appeals = appeals.stream()
+                    .filter(appeal ->
+                            appeal.getType().toLowerCase().contains(lowerCaseQuery) ||
+                                    appeal.getSubject().toLowerCase().contains(lowerCaseQuery) ||
+                                    appeal.getRequest().toLowerCase().contains(lowerCaseQuery) ||
+                                    appeal.getDate().format(dateFormatter).contains(lowerCaseQuery) ||
+                                    appeal.getStudentSignature().toLowerCase().contains(lowerCaseQuery)
+                    ).collect(Collectors.toList());
+        }
+
+        appeals.sort((a1, a2) -> Long.compare(a2.getSecond(), a1.getSecond()));
 
         if(appeals.isEmpty()){
             noAppealsLabel.setVisible(true);
         }else{
             noAppealsLabel.setVisible(false);
-            for (NormalAppeal appeal : appeals) {
+            appealVBox.getChildren().clear();
+            for (Appeal appeal : appeals) {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/views/appeal-item.fxml"));
                     Pane pane = loader.load();
@@ -62,11 +98,35 @@ public class AppealListController {
                     e.printStackTrace();
                 }
             }
-
         }
-
-
     }
+
+    @FXML   //สำหรับ search หาคำร้อง
+    public void onSearchButtonClick() {
+        String searchQuery = searchTextField.getText();
+        loadAppeals(null, searchQuery);
+    }
+
+    @FXML   //กรองเเค่คำร้องทั่วไป
+    public void showNormalAppealsOnly() {
+        loadAppeals("คำร้องทั่วไป:", null);
+    }
+
+    @FXML   //กรองเเค่ใบลาพักการศึกษา
+    public void showLeaveAppealsOnly() {
+        loadAppeals("ใบลาพักการศึกษา:", null);
+    }
+
+    @FXML   //กรองเเค่คำร้องขอลงทะเบียนเรียน
+    public void showEnrollAppealsOnly() {
+        loadAppeals("ขอลงทะเบียนเรียน:", null);
+    }
+    @FXML   //เห็นคำร้องทุกประเภท
+    public void showAllAppeals() {
+        loadAppeals(null, null);
+    }
+
+
 
 
 }
