@@ -111,4 +111,13 @@ public class MajorDataAdminController {
         }
     }
 
+    @FXML
+    public void onAddNewMajorButtonClick() {
+        try{
+            FXRouter.goTo("edit-data-major");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

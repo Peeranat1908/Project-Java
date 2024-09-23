@@ -13,7 +13,7 @@ import ku.cs.services.FacultyListFileDatasource;
 
 import java.io.IOException;
 
-public class addNewFacultyData {
+public class addNewFacultyDataController {
     @FXML private Label errorLabel1;
     @FXML private Label errorLabel2;
     @FXML private Label errorLabel3;
@@ -53,19 +53,15 @@ public class addNewFacultyData {
         for (Faculty faculty : faculyList.getFaculties()){
             if (faculty.getFacultyId().equalsIgnoreCase(id) && faculty.getFacultyName().equalsIgnoreCase(name)){
                 showError("Faculty already exists");
-                return;
             }
             if (faculty.getFacultyId().equalsIgnoreCase(id)){
                 showError("Faculty already had faculty id");
-                return;
             } else if (faculty.getFacultyName().equalsIgnoreCase(name)) {
                 showError("Faculty already had faculty name");
-                return;
             }
 
             faculyList.addNewFaculty(id, name);
             isUpdate = true;
-            break;
         }
         if (isUpdate){
             datasource.writeData(faculyList);

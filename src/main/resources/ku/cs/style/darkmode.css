@@ -1,10 +1,8 @@
-.label{
-    -fx-font-weight: bold;
-    -fx-font-family: Arial;
-}
 .button{
-    -fx-background-color: #4CAF50;
+    -fx-background-radius: 25px;
+    -fx-padding: 10px 20px;
+    -fx-background-color: #EAF4FF;
 }
 .button:hover{
-    -fx-background-color: #4CAF50;
+    -fx-background-color: #5DADE2;
 }

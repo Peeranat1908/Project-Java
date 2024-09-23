@@ -15,12 +15,13 @@ public class MainApplication extends Application {
         configRoutes();
         //FXRouter.goTo("first-page");
         //FXRouter.goTo("main-advisor");
-        FXRouter.goTo("faculty-data-admin");
-        //FXRouter.goTo("main-admin");
+        //FXRouter.goTo("faculty-data-admin");
+        FXRouter.goTo("main-admin");
         //FXRouter.goTo("main-advisor");
         //FXRouter.goTo("student");
         //FXRouter.goTo("major-data-admin");
         //FXRouter.goTo("edit-data-faculty");
+        //FXRouter.goTo("edit-data-major");
     }
 
     private void configRoutes() {
@@ -42,6 +43,8 @@ public class MainApplication extends Application {
         FXRouter.when("major-data-admin", viewPath + "major-data-admin.fxml");
         FXRouter.when("edit-data-faculty", viewPath + "edit-data-faculty.fxml");
         FXRouter.when("add-new-faculty", viewPath + "addNewFacultyData.fxml");
+        FXRouter.when("edit-data-major",  viewPath + "edit-data-major.fxml");
+        FXRouter.when("add-new-major", viewPath + "add-new-major.fxml");
     }
 
 

@@ -13,7 +13,7 @@ import ku.cs.services.FacultyListFileDatasource;
 
 import java.io.*;
 
-public class editDataFaculty {
+public class editDataFacultyController {
     @FXML private TextField facultyId;
     @FXML private TextField facultyName;
     @FXML private Button okButton;
@@ -42,8 +42,7 @@ public class editDataFaculty {
         String Id = facultyId.getText().trim();
         String Name = facultyName.getText().trim();
         if (Id.isEmpty() && Name.isEmpty()) {
-            errorLabel1.setText("Please enter a valid faculty id.");
-            errorLabel2.setText("Please enter a valid faculty name.");
+            showError("Please enter a data");
             return;
         } else if (Id.isEmpty()) {
             errorLabel1.setText("Please enter a valid faculty id.");
