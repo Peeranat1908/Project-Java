@@ -13,7 +13,7 @@ import ku.cs.services.UserListFileDatasource;
 
 import java.io.IOException;
 
-public class UserDetailController {
+public class StaffEditController {
     @FXML
     private Label suspendlabel;
     @FXML
@@ -73,42 +73,18 @@ public class UserDetailController {
             profilePicPath = "/images/profileDeafault2.png"; // รูปเริ่มต้น
         }
 
+        // โหลดรูปภาพ
         Image profileImage = new Image(getClass().getResourceAsStream(profilePicPath));
 
         // ใช้ ImagePattern สำหรับเติมรูปภาพลงใน Circle
         imagecircle.setFill(new ImagePattern(profileImage));
+
         // ตั้งรัศมี (radius) ถ้าจำเป็น
-//        imagecircle.setRadius(75);;
+        imagecircle.setRadius(75);;
 
     }
-    @FXML
-    public void suspendButtonclick() {
-        datasource = new UserListFileDatasource("data", "user.csv");
-        userList = datasource.readData();
-        String username = user.getUsername();
 
-        User user = userList.findUserByUsername(username);
-        if (user != null) {
-            user.setSuspended(true);
-            datasource.writeData(userList);
-            suspendlabel.setText("ผู้ใช้ " + username + " ถูกระงับเรียบร้อยแล้ว.");
 
-        }
-    }
-    @FXML
-    public void unSuspendButtonclick() {
-        datasource = new UserListFileDatasource("data", "user.csv");
-        userList = datasource.readData();
-        String username = user.getUsername();
-
-        User user = userList.findUserByUsername(username);
-        if (user != null) {
-            user.setSuspended(false);
-            datasource.writeData(userList);
-            suspendlabel.setText("ผู้ใช้ " + username + " ถูกปลดระงับเรียบร้อยแล้ว.");
-
-        }
-    }
     @FXML
     private void onListButtonClick() {
         try {
@@ -133,6 +109,4 @@ public class UserDetailController {
             throw new RuntimeException(e);
         }
     }
-
-
 }

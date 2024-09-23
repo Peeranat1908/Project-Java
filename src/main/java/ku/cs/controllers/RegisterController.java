@@ -20,7 +20,6 @@ import java.io.IOException;
 public class RegisterController {
     @FXML private Label errorLabel;
     @FXML private TextField nameTextField;
-    @FXML private TextField surnameTextField;
     @FXML private TextField usernameTextField;
     @FXML private TextField emailTextField;
     @FXML private TextField idTextField;
@@ -49,14 +48,13 @@ public class RegisterController {
     private void checkRegister() {
         errorLabel.setText("");
         String name = nameTextField.getText();
-        String surname = surnameTextField.getText();
         String id = idTextField.getText();
         String username = usernameTextField.getText();
         String email = emailTextField.getText();
         String password = passwordTextField.getText();
         String confirmPassword = confirmPasswordTextField.getText();
 
-        if (name.isEmpty() || surname.isEmpty() || username.isEmpty() || id.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+        if (name.isEmpty()  || username.isEmpty() || id.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             errorLabel.setText("Please enter all fields.");
             return;
         }
@@ -74,13 +72,13 @@ public class RegisterController {
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
 
-        Student newStudent = new Student(name, surname, username, null, id, email, null, null, null, null, null);
+        Student newStudent = new Student(name, username, null, id, email, null, null, null, null, null);
 
         studentList.addStudent(newStudent);
         Datasource<StudentList> studentDatasource = new StudentListFileDatasource("data", "student-info.csv");
         studentDatasource.writeData(studentList);
 
-        User newUser = new User(name, surname, username, hashedPassword, "student", null);
+        User newUser = new User(name, username, hashedPassword, "student", null);
         userList.addUser(newUser);
         UserListFileDatasource userDatasource = new UserListFileDatasource("data", "user.csv");
         userDatasource.writeData(userList);

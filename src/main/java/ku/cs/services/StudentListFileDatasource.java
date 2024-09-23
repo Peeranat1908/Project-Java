@@ -48,13 +48,12 @@ public class StudentListFileDatasource implements Datasource<StudentList> {
 
                 String username = data[0].trim();
                 String name = data[1].trim();
-                String surname = data[2].trim();
-                String id = data[3].trim();
-                String email = data[4].trim();
-                String faculty = data[5].trim();
-                String major = data[6].trim();
-                String advisorID = data.length > 7 ? data[7].trim() : null;
-                Student student = new Student(name, surname, username, "", id, email, faculty, major, null, null, "");
+                String id = data[2].trim();
+                String email = data[3].trim();
+                String faculty = data[4].trim();
+                String major = data[5].trim();
+                String advisorID = data.length > 6 ? data[6].trim() : null;
+                Student student = new Student(name, username, "", id, email, faculty, major, null, null, "");
                 student.setAdvisorID(advisorID);
                 studentList.addStudent(student);
             }
@@ -75,11 +74,10 @@ public class StudentListFileDatasource implements Datasource<StudentList> {
                 String line = String.join(",",
                         student.getUsername(),
                         student.getName(),
-                        student.getSurname(),
                         student.getId(),
                         student.getEmail(),
                         student.getFaculty(),
-                        student.getMajor(),
+                        student.getDepartment(),
                         student.getAdvisorID() != null ? student.getAdvisorID() : ""
                 );
                 buffer.write(line);

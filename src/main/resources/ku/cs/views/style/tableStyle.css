@@ -1,4 +1,4 @@
-/* เปลี่ยนสีเฉพาะหัวข้อของคอลัมน์ */
+
 .table-view .column-header-background .label {
     -fx-background-color: #2F80ED;
     -fx-text-fill: white;
@@ -16,10 +16,9 @@
 .table-view .table-cell {
     -fx-background-color: transparent;
 }
-/* เมื่อเลือกแถวใน TableView ให้เปลี่ยนสีพื้นหลังเป็น default และสีตัวอักษรเป็นดำ */
 .table-view .table-row-cell:focused .table-cell,
 .table-view .table-row-cell:selected .table-cell {
-    -fx-background-color: -fx-accent;  /* ใช้สี default ของพื้นหลังแถวเมื่อถูกเลือก */
-    -fx-text-fill: black;              /* เปลี่ยนสีตัวอักษรเป็นสีดำเมื่อแถวถูกเลือก */
+    -fx-background-color: -fx-accent;
+    -fx-text-fill: black;
 }
 

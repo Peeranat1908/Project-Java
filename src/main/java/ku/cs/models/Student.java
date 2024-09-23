@@ -10,14 +10,14 @@ public class Student extends User {
     private String department;
     private String advisorID;
 
-    public Student(String name, String surname, String username, String password, String id, String email, String faculty, String major, LocalDate lastLoginDate, LocalTime lastLoginTime, String profilePicturePath) {
-        super(name, surname, username, password, lastLoginDate, lastLoginTime, "student", profilePicturePath,false,null,null);
+    public Student(String name, String username, String password, String id, String email, String faculty, String major, LocalDate lastLoginDate, LocalTime lastLoginTime, String profilePicturePath) {
+        super(name, username, password, lastLoginDate, lastLoginTime, "student", profilePicturePath,false,null,null);
         this.id = id;
         this.email = email;
         this.advisorID = null;
     }
-    public Student(String name, String surname, String username,String id,String email) {
-        this(name, surname, username, null, id, email, null, null , null,null,null);
+    public Student(String name, String username,String id,String email) {
+        this(name, username, null, id, email, null, null , null,null,null);
         advisorID = null;
     }
 
@@ -33,18 +33,6 @@ public class Student extends User {
         return email;
     }
 
-    public void setFaculty(String faculty) {
-        this.faculty = faculty;
-    }
-
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
     public String getAdvisorID() {
         return advisorID;
     }
@@ -57,12 +45,6 @@ public class Student extends User {
         this.email = email;
     }
 
-    public String getFaculty() {
-        return faculty;
-    }
 
-    public String getMajor() {
-        return department;
-    }
 
 }

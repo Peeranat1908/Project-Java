@@ -5,7 +5,6 @@ import java.time.LocalTime;
 
 public class User implements Comparable<User> {
     protected String name;
-    protected String surname;
     protected String username;
     protected String password;
     protected LocalDate lastLoginDate;
@@ -16,9 +15,8 @@ public class User implements Comparable<User> {
     protected String faculty;
     protected String department;
 
-    public User(String name, String surname, String username, String password, LocalDate lastLoginDate, LocalTime lastLoginTime, String role, String profilePicturePath, boolean banned, String faculty, String department) {
+    public User(String name, String username, String password, LocalDate lastLoginDate, LocalTime lastLoginTime, String role, String profilePicturePath, boolean banned, String faculty, String department) {
         this.name = name;
-        this.surname = surname;
         this.username = username;
         this.password = password;
         this.lastLoginDate = lastLoginDate;
@@ -30,8 +28,8 @@ public class User implements Comparable<User> {
         this.department = department;
     }
 
-    public User(String name, String surname, String username, String password, String role, String profilePicturePath) {
-        this(name, surname, username, password, null, null, role, profilePicturePath, false, null, null);
+    public User(String name, String username, String password, String role, String profilePicturePath) {
+        this(name , username, password, null, null, role, profilePicturePath, false, null, null);
     }
 
     public boolean isSuspended() {
@@ -66,9 +64,6 @@ public class User implements Comparable<User> {
         this.department = department;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
 
     public void setUsername(String username) {
         this.username = username;
@@ -94,9 +89,7 @@ public class User implements Comparable<User> {
         return name;
     }
 
-    public String getSurname() {
-        return surname;
-    }
+
 
     public String getUsername() {
         return username;
