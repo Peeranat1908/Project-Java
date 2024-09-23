@@ -1,12 +1,9 @@
 package ku.cs.controllers;
 
 import javafx.fxml.FXML;
-<<<<<<< HEAD
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
 import java.io.IOException;
-=======
->>>>>>> feature/student-system-2-1
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;

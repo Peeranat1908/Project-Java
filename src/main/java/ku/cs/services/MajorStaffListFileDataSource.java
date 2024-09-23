@@ -1,18 +1,19 @@
 package ku.cs.services;
 
-import ku.cs.models.Faculty;
-import ku.cs.models.FacultyList;
+import ku.cs.models.Student;
+import ku.cs.models.StudentList;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
-public class FacultyListFileDatasource implements Datasource<FacultyList>{
+public class MajorStaffListFileDataSource implements Datasource<StudentList> {
     private String directoryName;
     private String fileName;
 
-    public FacultyListFileDatasource(String directoryName, String fileName) {
+    public MajorStaffListFileDataSource(String directoryName, String fileName){
         this.directoryName = directoryName;
         this.fileName = fileName;
+        checkFileIsExisted();
     }
 
     // ตรวจสอบว่ามีไฟล์ให้อ่านหรือไม่ ถ้าไม่มีให้สร้างไฟล์เปล่า
@@ -32,11 +33,13 @@ public class FacultyListFileDatasource implements Datasource<FacultyList>{
         }
     }
 
+
     @Override
-    public FacultyList readData() {
-        FacultyList facultyList = new FacultyList();
+    public StudentList readData() {
+        StudentList students = new StudentList();
         String filePath = directoryName + File.separator + fileName;
         File file = new File(filePath);
+
         // เตรียม object ที่ใช้ในการอ่านไฟล์
         FileInputStream fileInputStream = null;
 
@@ -63,20 +66,22 @@ public class FacultyListFileDatasource implements Datasource<FacultyList>{
                 String[] data = line.split(",");
 
                 // อ่านข้อมูลตาม index แล้วจัดการประเภทของข้อมูลให้เหมาะสม
-                String facultyName = data[0].trim();
-                String facultyId = data[1].trim();
+                String id = data[0].trim();
+                String name = data[1].trim();
+                String email = data[2].trim();
 
                 // เพิ่มข้อมูลลงใน list
-                facultyList.addNewFaculty(facultyName, facultyId);
+                students.addNewStudent(id, name, email);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return null;
+
+        return students;
     }
 
     @Override
-    public void writeData(FacultyList data) {
+    public void writeData(StudentList data) {
         String filePath = directoryName + File.separator + fileName;
         File file = new File(filePath);
 
@@ -94,20 +99,22 @@ public class FacultyListFileDatasource implements Datasource<FacultyList>{
                 StandardCharsets.UTF_8
         );
         BufferedWriter buffer = new BufferedWriter(outputStreamWriter);
+
         try {
-            for (Faculty faculty : data.getFaculties()){
-                String line = faculty.getFacultyName() + "," + faculty.getFacultyId();
+            // สร้าง csv ของ Student และเขียนลงในไฟล์ทีละบรรทัด
+            for (Student student : data.getStudents()) {
+                String line = student.getId() + "," + student.getName() + "," + student.getEmail();
                 buffer.append(line);
                 buffer.append("\n");
-
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }finally {
-            try{
+        } finally {
+            try {
                 buffer.flush();
                 buffer.close();
-            } catch (IOException e) {
+            }
+            catch (IOException e){
                 throw new RuntimeException(e);
             }
         }

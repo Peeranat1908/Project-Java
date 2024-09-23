@@ -7,8 +7,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import ku.cs.models.Faculty;
-import ku.cs.models.FaculyList;
-import ku.cs.models.StudentAdvisor;
+import ku.cs.models.FacultyList;
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
 import ku.cs.services.FacultyListFileDatasource;
@@ -18,15 +17,15 @@ import java.io.IOException;
 public class FacultyDataAdminController {
     @FXML private TableView<Faculty> facultyDataAdminTableView;
 
-    private FaculyList faculyList;
+    private FacultyList facultyList;
 
-    private Datasource<FaculyList> datasource;
+    private Datasource<FacultyList> datasource;
 
     @FXML
     public void initialize(){
         datasource = new FacultyListFileDatasource("data", "Faculty.csv");
-        faculyList = datasource.readData();
-        showTable(faculyList);
+        facultyList = datasource.readData();
+        showTable(facultyList);
 
         facultyDataAdminTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Faculty>() {
             @Override
@@ -37,7 +36,7 @@ public class FacultyDataAdminController {
         });
     }
 
-    private void showTable(FaculyList faculyList){
+    private void showTable(FacultyList facultyList){
         // กำหนด column ให้มี title ว่า ID และใช้ค่าจาก attribute id ของ object Student
         TableColumn<Faculty, String> idColumn = new TableColumn<>("Faculty ID");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));//เรียกมาจาก getter
@@ -53,7 +52,7 @@ public class FacultyDataAdminController {
         facultyDataAdminTableView.getItems().clear();
 
         // ใส่ข้อมูล Student ทั้งหมดจาก studentList ไปแสดงใน TableView
-        for (Faculty faculty: faculyList.getFaculties()) {
+        for (Faculty faculty: facultyList.getFaculties()) {
             facultyDataAdminTableView.getItems().add(faculty);
         }
     }

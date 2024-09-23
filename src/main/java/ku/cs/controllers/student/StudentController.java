@@ -1,38 +1,80 @@
 package ku.cs.controllers.student;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import ku.cs.models.User;
+import ku.cs.models.UserAccount;
+import ku.cs.models.UserAccountList;
+import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
+import ku.cs.services.UserAccountsListFileDatasource;
+
 import java.io.IOException;
 
-public class StudentController
+public class StudentController {
+    @FXML
+    private Label usernameLabel;
 
-{
+
+    private User user;
+
+    @FXML
+    private void initialize() {
+        Object data = FXRouter.getData();
+        if (data instanceof User) {
+            user = (User) data;
+            updateUI();
+        } else {
+
+            usernameLabel.setText("Invalid user data");
+        }
+    }
+
+    private void updateUI() {
+        if (user != null) {
+            usernameLabel.setText(user.getUsername());
+
+        }
+    }
+
+    // Method สำหรับการคลิกปุ่มเพื่อไปยังหน้าทีมของฉัน
     @FXML
     public void onMyTeamButtonClick() {
-        try {
-            FXRouter.goTo("my-team");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        navigateTo("my-team");
     }
 
+    // Method สำหรับการคลิกปุ่มเพื่อไปยังหน้าการยื่นคำร้องของนักเรียน
     @FXML
     public void selectAppealButtonClick() {
-        try {
-            FXRouter.goTo("student-appeal");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        navigateTo("student-appeal");
+    }
+
+    // Method สำหรับการคลิกปุ่มเพื่อไปยังหน้าการติดตามคำร้อง
+    @FXML
+    public void onAppealTrackingClick() {
+        navigateTo("appeal-tracking");
     }
 
     @FXML
-    public void onAppealTrackingClick(){
+    public void onPictureClick() {
+        navigateTo("user-profile", user);
+    }
+
+    private void navigateTo(String route, Object data) {
         try {
-            FXRouter.goTo("appeal-tracking");
+            FXRouter.goTo(route, data); // ส่งข้อมูลไปยัง route ที่กำหนด
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.err.println("Navigation to " + route + " failed: " + e.getMessage());
         }
     }
 
 
+    // Method สำหรับนำทางไปยังหน้าต่างๆ
+    private void navigateTo(String route) {
+        try {
+            FXRouter.goTo(route);
+        } catch (IOException e) {
+            System.err.println("Navigation to " + route + " failed: " + e.getMessage());
+        }
+    }
 }
