@@ -40,6 +40,7 @@ public class MainApplication extends Application {
         FXRouter.when("faculty-data-admin", viewPath + "faculty-data-admin.fxml");
         FXRouter.when("user-profile", viewPath + "user-profile.fxml");
         FXRouter.when("departmentStaff", viewPath + "major-staff.fxml");
+        FXRouter.when("facultyStaff", viewPath + "faculty-staff.fxml");
     }
 
 
