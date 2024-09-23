@@ -36,5 +36,10 @@
             <Font name="Arial Bold" size="12.0" />
          </font>
       </Label>
+      <Label fx:id="timeLabel" layoutX="439.0" layoutY="54.0" text="Time" textFill="#807a7a">
+         <font>
+            <Font name="Arial Bold" size="12.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

@@ -15,6 +15,7 @@ import javafx.scene.control.CheckBox;
 
 import ku.cs.services.AppealListDatasource;
 
+import java.time.LocalTime;
 import java.util.Date;
 
 public class NormalAppealController {
@@ -81,6 +82,7 @@ public class NormalAppealController {
         int month = monthSpinner.getValue();
         int year = yearSpinner.getValue();
         long second = new Date().getTime();
+        LocalTime time = LocalTime.now();
         LocalDate date = LocalDate.of(year, month, day);
         String studentSignature = signatureTextField.getText();
         String status = "ใบคำร้องใหม่ คำร้องส่งต่อให้อาจารย์ที่ปรึกษา";
@@ -97,7 +99,7 @@ public class NormalAppealController {
         }
         ErrorLabel.setVisible(false);
 
-        Appeal appeal = new Appeal(type , subject, request, date, studentSignature, second, status);
+        Appeal appeal = new Appeal(type , subject, request, date, studentSignature, second, status, time);
         AppealSharedData.getNormalAppealList().addAppeal(appeal);
         datasource.writeData(AppealSharedData.getNormalAppealList());
         clearFields();

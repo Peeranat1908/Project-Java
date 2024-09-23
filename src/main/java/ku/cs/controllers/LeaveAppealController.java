@@ -14,6 +14,7 @@ import ku.cs.services.AppealSharedData;
 
 import ku.cs.services.AppealListDatasource;
 
+import java.time.LocalTime;
 import java.util.Date;
 
 public class LeaveAppealController {
@@ -98,6 +99,7 @@ public class LeaveAppealController {
         int month = monthSpinner.getValue();
         int year = yearSpinner.getValue();
         long second = new Date().getTime();
+        LocalTime time = LocalTime.now();
         LocalDate date = LocalDate.of(year, month, day);
 
         String request = "มีความประสงค์ขอลาพักการศึกษาเป็นจำนวน " + nYears + " ปีการศึกษา ตั้งแต่ภาค " +
@@ -112,7 +114,7 @@ public class LeaveAppealController {
         }
         try {
 
-            Appeal appeal = new Appeal(type , subject, request, date, signature, second, status);
+            Appeal appeal = new Appeal(type , subject, request, date, signature, second, status, time);
             AppealSharedData.getNormalAppealList().addAppeal(appeal);
             datasource.writeData(AppealSharedData.getNormalAppealList());
             clearFields();

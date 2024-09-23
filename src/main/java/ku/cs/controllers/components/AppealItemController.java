@@ -8,6 +8,7 @@ import ku.cs.services.AppealSharedData;
 import ku.cs.services.FXRouter;
 import javafx.scene.layout.Pane;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 
 public class AppealItemController {
     @FXML
@@ -20,6 +21,8 @@ public class AppealItemController {
     private Label signatureLabel;
     @FXML
     private Label statusLabel;
+    @FXML
+    private Label timeLabel;
 
 
     private Appeal appeal;
@@ -31,6 +34,9 @@ public class AppealItemController {
         dateLabel.setText(appeal.getDate().toString());
         signatureLabel.setText(appeal.getStudentSignature());
         statusLabel.setText(appeal.getStatus());
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String formattedTime = appeal.getTime().format(timeFormatter);
+        timeLabel.setText(formattedTime);
 
         typeLabel.getParent().setOnMouseClicked(event -> showAppealDetails());
     }

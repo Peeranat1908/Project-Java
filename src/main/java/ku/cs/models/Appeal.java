@@ -1,5 +1,7 @@
 package ku.cs.models;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Date;
 
 public class Appeal {
     private String type; //ประเภท
@@ -9,8 +11,9 @@ public class Appeal {
     private String studentSignature; // ลงนามนิสิต/ผู้ดำเนินการแทน
     private long second; //เก็บเวลาที่ส่ง
     private String status;
+    private LocalTime time;
 
-    public Appeal(String type , String subject, String request, LocalDate date, String studentSignature, long second, String status) {
+    public Appeal(String type , String subject, String request, LocalDate date, String studentSignature, long second, String status, LocalTime time) {
         this.type = type;
         this.subject = subject;
         this.request = request;
@@ -18,6 +21,7 @@ public class Appeal {
         this.studentSignature = studentSignature;
         this.second = second;
         this.status = status;
+        this.time = time;
     }
 
     public String getType(){ return type; }
@@ -64,6 +68,10 @@ public class Appeal {
 
     public void setStatus(){
         this.status = status;
+    }
+
+    public LocalTime getTime(){
+        return time;
     }
 
     @Override

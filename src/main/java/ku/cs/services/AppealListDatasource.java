@@ -5,6 +5,8 @@ import ku.cs.models.AppealList;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 public class AppealListDatasource implements Datasource<AppealList>{
@@ -17,14 +19,14 @@ public class AppealListDatasource implements Datasource<AppealList>{
     @Override
     public AppealList readData() {
         AppealList appealList = new AppealList();
-
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             reader.readLine();
 
+
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length == 7) {
+                if (parts.length == 8) {
                     String type = parts[0];
                     String subject = parts[1];
                     String request = parts[2];
@@ -32,8 +34,9 @@ public class AppealListDatasource implements Datasource<AppealList>{
                     String signature = parts[4];
                     long timestamp = Long.parseLong(parts[5]);
                     String status = parts[6];
+                    LocalTime time = LocalTime.parse(parts[7]);
 
-                    Appeal appeal = new Appeal(type, subject, request, date, signature, timestamp,status);
+                    Appeal appeal = new Appeal(type, subject, request, date, signature, timestamp,status,time);
                     appealList.addAppeal(appeal);
                 }
             }
@@ -60,7 +63,8 @@ public class AppealListDatasource implements Datasource<AppealList>{
                         + appeal.getDate() + ","
                         + appeal.getStudentSignature() + ","
                         + appeal.getSecond() + ","
-                        + appeal.getStatus());
+                        + appeal.getStatus() + ","
+                        + appeal.getTime());
                 writer.newLine();
             }
         } catch (IOException e) {
