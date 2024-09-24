@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import ku.cs.models.Faculty;
-import ku.cs.models.FaculyList;
+import ku.cs.models.FacultyList;
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
 import ku.cs.services.FacultyListFileDatasource;
@@ -17,8 +17,8 @@ public class editDataFacultyController {
     @FXML private TextField facultyId;
     @FXML private TextField facultyName;
     @FXML private Button okButton;
-    private Datasource<FaculyList> datasource;
-    private FaculyList faculyList;
+    private Datasource<FacultyList> datasource;
+    private FacultyList facultyList;
     @FXML private Label errorLabel1;
     @FXML private Label errorLabel2;
     @FXML private Label errorLabel3;
@@ -28,7 +28,7 @@ public class editDataFacultyController {
         errorLabel2.setText("");
         errorLabel3.setText("");
         datasource = new FacultyListFileDatasource("data", "Faculty.csv");
-        faculyList = datasource.readData();
+        facultyList = datasource.readData();
         okButton.setOnAction(event -> {
             try {
                 okButtonClicked();
@@ -54,7 +54,7 @@ public class editDataFacultyController {
         }
 
         boolean isUpdated = false;
-        for (Faculty faculty : faculyList.getFaculties()){
+        for (Faculty faculty : facultyList.getFaculties()){
             if (faculty.getFacultyId().equals(Id)){
                 faculty.setFacultyName(Name);
                 isUpdated = true;
@@ -66,7 +66,7 @@ public class editDataFacultyController {
             }
         }
         if (isUpdated){
-            datasource.writeData(faculyList);
+            datasource.writeData(facultyList);
             showAlert(Alert.AlertType.INFORMATION, "Success!", "Faculty updated successfully!");
         }
         else {

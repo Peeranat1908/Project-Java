@@ -7,13 +7,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import ku.cs.models.Student;
 import ku.cs.models.StudentList;
+import ku.cs.models.User;
 import ku.cs.services.*;
 
 import java.io.IOException;
 
-public class MajorStaffController {
+public class StudentInMajorController {
     @FXML
-    private Label errorLabel;
+    private Label nameLabel;
     @FXML
     private TableView<Student> studentTableView;
     @FXML
@@ -25,9 +26,16 @@ public class MajorStaffController {
     private StudentList studentList;
 
     private Datasource<StudentList> datasource;
+    private User user;
 
     @FXML
     public void initialize() {
+        Object data = FXRouter.getData();
+        if (data instanceof User) {
+            user = (User) data;
+            nameLabel.setText(user.getName());
+        }
+
 //        errorLabel.setText("");
         datasource = new MajorStaffListFileDataSource("data", "student-in-department.csv");
         studentList = datasource.readData();

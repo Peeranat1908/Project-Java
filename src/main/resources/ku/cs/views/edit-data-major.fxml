@@ -24,7 +24,7 @@
       <Button fx:id="okButton" layoutX="574.0" layoutY="518.0" mnemonicParsing="false" text="OK" />
       <ImageView fitHeight="40.0" fitWidth="86.0" layoutX="62.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../images/Left%20arrow.png" />
+            <Image url="@../../../images/Left arrow.png" />
          </image>
       </ImageView>
       <Button layoutX="40.0" layoutY="61.0" mnemonicParsing="false" onAction="#onBackButtonClicked" opacity="0.0" text="Button" />

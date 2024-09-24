@@ -9,10 +9,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import ku.cs.models.Faculty;
-import ku.cs.models.FacultyList;
+import ku.cs.models.StudentAdvisor;
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
 import ku.cs.services.FacultyListFileDatasource;
+import ku.cs.models.FacultyList;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -27,18 +28,13 @@ public class FacultyDataAdminController {
     @FXML
     public void initialize() {
         datasource = new FacultyListFileDatasource("data", "Faculty.csv");
-<<<<<<< HEAD
         facultyList = datasource.readData();
-        showTable(facultyList);
-=======
-        faculyList = datasource.readData();
-        if (faculyList != null){
-            showTable(faculyList);
+        if (facultyList != null){
+            showTable(facultyList);
         }
         else {
             System.out.println("Failed to load faculty list.");
         }
->>>>>>> feature/admin3
 
         facultyDataAdminTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Faculty>() {
             @Override
@@ -54,12 +50,8 @@ public class FacultyDataAdminController {
         });
     }
 
-<<<<<<< HEAD
-    private void showTable(FacultyList facultyList){
-=======
 
-    private void showTable(FaculyList faculyList){
->>>>>>> feature/admin3
+    private void showTable(FacultyList facultyList){
         // กำหนด column ให้มี title ว่า ID และใช้ค่าจาก attribute id ของ object Student
         TableColumn<Faculty, String> idColumn = new TableColumn<>("Faculty ID");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("facultyId"));//เรียกมาจาก getter

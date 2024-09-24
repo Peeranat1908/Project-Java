@@ -13,22 +13,18 @@ public class MainApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXRouter.bind(this, stage, "CS211 Project", 1280, 720);
         configRoutes();
-<<<<<<< HEAD
         FXRouter.goTo("first-page");
         //FXRouter.goTo("main-advisor");
         //FXRouter.goTo("departmentStaff");
-
-=======
         //FXRouter.goTo("first-page");
         //FXRouter.goTo("main-advisor");
         //FXRouter.goTo("faculty-data-admin");
-        FXRouter.goTo("main-admin");
+        //FXRouter.goTo("main-admin");
         //FXRouter.goTo("main-advisor");
         //FXRouter.goTo("student");
         //FXRouter.goTo("major-data-admin");
         //FXRouter.goTo("edit-data-faculty");
         //FXRouter.goTo("edit-data-major");
->>>>>>> feature/admin3
     }
 
     private void configRoutes() {
@@ -45,16 +41,14 @@ public class MainApplication extends Application {
         FXRouter.when("student-appeal", viewPath + "student-appeal.fxml");
         FXRouter.when("normal-appeal", viewPath + "normal-appeal.fxml");
         FXRouter.when("main-admin", viewPath + "main-admin.fxml");
-<<<<<<< HEAD
 
         FXRouter.when("faculty-data-admin", viewPath + "faculty-data-admin.fxml");
 
         FXRouter.when("appeal-tracking", viewPath + "appeal-list.fxml");
         FXRouter.when("faculty-data-admin", viewPath + "faculty-data-admin.fxml");
         FXRouter.when("user-profile", viewPath + "user-profile.fxml");
-        FXRouter.when("departmentStaff", viewPath + "major-staff.fxml");
+        FXRouter.when("studentInMajor", viewPath + "student-in-major.fxml");
         FXRouter.when("facultyStaff", viewPath + "faculty-staff.fxml");
-=======
         FXRouter.when("faculty-data-admin", viewPath + "faculty-data-admin.fxml");
         FXRouter.when("appeal-tracking", viewPath + "appeal-list.fxml");
         FXRouter.when("major-data-admin", viewPath + "major-data-admin.fxml");
@@ -62,7 +56,8 @@ public class MainApplication extends Application {
         FXRouter.when("add-new-faculty", viewPath + "addNewFacultyData.fxml");
         FXRouter.when("edit-data-major",  viewPath + "edit-data-major.fxml");
         FXRouter.when("add-new-major", viewPath + "add-new-major.fxml");
->>>>>>> feature/admin3
+        FXRouter.when("departmentStaff", viewPath + "main-major-staff.fxml");
+        FXRouter.when("majorEndorser", viewPath + "major-endorser-staff.fxml");
     }
 
 

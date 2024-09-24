@@ -6,10 +6,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import ku.cs.models.Faculty;
-import ku.cs.models.FaculyList;
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
 import ku.cs.services.FacultyListFileDatasource;
+import ku.cs.models.FacultyList;
 
 import java.io.IOException;
 
@@ -24,8 +24,8 @@ public class addNewFacultyDataController {
     private TextField facultyName;
     @FXML private Button addButton;
 
-    private Datasource<FaculyList> datasource;
-    private FaculyList faculyList;
+    private Datasource<FacultyList> datasource;
+    private FacultyList facultyList;
 
 
     public void initialize(){
@@ -33,7 +33,7 @@ public class addNewFacultyDataController {
         errorLabel2.setText("");
         errorLabel3.setText("");
         datasource = new FacultyListFileDatasource("data", "Faculty.csv");
-        faculyList = datasource.readData();
+        facultyList = datasource.readData();
         addButton.setOnAction(actionEvent -> {addNewFacultyButtonClicked();});
     }
 
@@ -50,7 +50,7 @@ public class addNewFacultyDataController {
         else if(name.isEmpty()){errorLabel2.setText("Please enter a valid faculty name"); return;}
 
         boolean isUpdate = false;
-        for (Faculty faculty : faculyList.getFaculties()){
+        for (Faculty faculty : facultyList.getFaculties()){
             if (faculty.getFacultyId().equalsIgnoreCase(id) && faculty.getFacultyName().equalsIgnoreCase(name)){
                 showError("Faculty already exists");
             }
@@ -60,11 +60,11 @@ public class addNewFacultyDataController {
                 showError("Faculty already had faculty name");
             }
 
-            faculyList.addNewFaculty(id, name);
+            facultyList.addNewFaculty(id, name);
             isUpdate = true;
         }
         if (isUpdate){
-            datasource.writeData(faculyList);
+            datasource.writeData(facultyList);
             showAlert(Alert.AlertType.INFORMATION, "Success!", "Faculty has added successfully!");
         }
 
