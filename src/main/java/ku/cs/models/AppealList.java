@@ -3,27 +3,27 @@ package ku.cs.models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NormalAppealList {
-    private ArrayList<NormalAppeal> appeals;
+public class AppealList {
+    private ArrayList<Appeal> appeals;
 
-    public NormalAppealList(){
+    public AppealList(){
         this.appeals = new ArrayList<>();
     }
 
-    public void addAppeal(NormalAppeal appeal){
+    public void addAppeal(Appeal appeal){
         appeals.add(appeal);
     }
 
-    public void removeAppeal(NormalAppeal appeal){
+    public void removeAppeal(Appeal appeal){
         appeals.remove(appeal);
     }
 
-    public List<NormalAppeal> getsAppeals(){
+    public List<Appeal> getsAppeals(){
         return new ArrayList<>(appeals);
     }
 
-    public NormalAppeal findAppealBySubject(String subject) {
-        for (NormalAppeal appeal : appeals) {
+    public Appeal findAppealBySubject(String subject) {
+        for (Appeal appeal : appeals) {
             if (appeal.getSubject().equalsIgnoreCase(subject)) {
                 return appeal;
             }
@@ -31,9 +31,9 @@ public class NormalAppealList {
         return null;
     }
 
+
     public int getAppealCount() {
         return appeals.size();
     }
-
 
 }

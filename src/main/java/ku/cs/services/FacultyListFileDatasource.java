@@ -67,8 +67,8 @@ public class FacultyListFileDatasource implements Datasource<FacultyList>{
                 String facultyName = data[1].trim();
 
                 // เพิ่มข้อมูลลงใน list
-
                 facultyList.addNewFaculty(facultyName, facultyId);
+                facultyList.addNewFaculty(facultyId, facultyName);
                 facultyList.addNewFaculty(facultyId, facultyName);
             }
         } catch (IOException e) {

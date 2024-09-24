@@ -1,18 +1,32 @@
 package ku.cs.models;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Date;
 
-public class NormalAppeal {
+public class Appeal {
+    private String type; //ประเภท
     private String subject; // เรื่อง
     private String request; // มีความประสงค์คือ
     private LocalDate date; // วัน/เดือน/ปี
     private String studentSignature; // ลงนามนิสิต/ผู้ดำเนินการแทน
+    private long second; //เก็บเวลาที่ส่ง
+    private String status;
+    private LocalTime time;
 
-    public NormalAppeal(String subject, String request, LocalDate date, String studentSignature) {
+    public Appeal(String type , String subject, String request, LocalDate date, String studentSignature, long second, String status, LocalTime time) {
+        this.type = type;
         this.subject = subject;
         this.request = request;
         this.date = date;
         this.studentSignature = studentSignature;
+        this.second = second;
+        this.status = status;
+        this.time = time;
     }
+
+    public String getType(){ return type; }
+
+    public void setType(String type){this.type = type; }
 
     public String getSubject() {
         return subject;
@@ -46,13 +60,30 @@ public class NormalAppeal {
         this.studentSignature = studentSignature;
     }
 
+    public long getSecond() {
+        return second;
+    }
+
+    public String getStatus(){ return status;}
+
+    public void setStatus(){
+        this.status = status;
+    }
+
+    public LocalTime getTime(){
+        return time;
+    }
+
     @Override
     public String toString() {
         return "NormalAppeal{" +
-                "subject='" + subject + '\'' +
+                "type='" + type + '\'' +
+                ", subject='" + subject + '\'' +
                 ", request='" + request + '\'' +
-                ", date=" + date +
+                ", date=" + date + '\''+
                 ", studentSignature='" + studentSignature + '\'' +
+                ", second =" + second + '\'' + ",status =" + status +
                 '}';
     }
+
 }

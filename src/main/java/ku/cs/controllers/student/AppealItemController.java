@@ -2,7 +2,7 @@ package ku.cs.controllers.student;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import ku.cs.models.NormalAppeal;
+import ku.cs.models.Appeal;
 
 public class AppealItemController {
     @FXML
@@ -14,7 +14,7 @@ public class AppealItemController {
     @FXML
     private Label signatureLabel;
 
-    public void setAppealData(NormalAppeal appeal) {
+    public void setAppealData(Appeal appeal) {
         subjectLabel.setText(appeal.getSubject());
         requestLabel.setText(appeal.getRequest());
         dateLabel.setText(appeal.getDate().toString());

@@ -6,6 +6,7 @@ import java.io.IOException;
 
 
 public class StudentAppealController {
+
     @FXML
     public void onBackButtonClick() {
         try {
@@ -18,6 +19,24 @@ public class StudentAppealController {
     public void onNormalAppealClick() {
         try {
             FXRouter.goTo("normal-appeal");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void onLeaveAppealClick() {
+        try {
+            FXRouter.goTo("leave-appeal");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void onEnrollAppealClick() {
+        try {
+            FXRouter.goTo("enroll-appeal");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
