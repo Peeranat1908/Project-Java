@@ -22,4 +22,12 @@ public class DashboardController {
             throw new RuntimeException(e);
         }
     }
+    @FXML
+    public void homeButtonClick() {
+        try {
+            FXRouter.goTo("main-admin");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

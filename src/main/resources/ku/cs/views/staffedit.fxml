@@ -60,7 +60,7 @@
                   <Font name="System Bold" size="33.0" />
                </font>
             </Label>
-            <Button layoutX="135.0" layoutY="22.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="HOME">
+            <Button layoutX="135.0" layoutY="22.0" mnemonicParsing="false" onAction="#homeButtonClick" style="-fx-background-color: EAF4FF;" text="HOME">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
