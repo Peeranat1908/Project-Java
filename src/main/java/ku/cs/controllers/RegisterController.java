@@ -73,7 +73,6 @@ public class RegisterController {
 
 
         Student newStudent = new Student(name, username, null, id, email, null, null, null, null, null);
-
         studentList.addStudent(newStudent);
         Datasource<StudentList> studentDatasource = new StudentListFileDatasource("data", "student-info.csv");
         studentDatasource.writeData(studentList);

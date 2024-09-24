@@ -58,7 +58,7 @@
                         <Font name="System Bold" size="17.0" />
                     </font>
                 </Button>
-                <Button layoutX="596.0" layoutY="20.0" mnemonicParsing="false" onAction="#mangeStaffdataButtonClick" style="-fx-background-color: EAF4FF;" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
+                <Button layoutX="596.0" layoutY="20.0" mnemonicParsing="false" onAction="#manageStaffdataButtonClick" style="-fx-background-color: EAF4FF;" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>

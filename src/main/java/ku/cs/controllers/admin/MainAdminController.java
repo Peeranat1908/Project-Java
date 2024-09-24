@@ -181,7 +181,7 @@ public class MainAdminController {
         }
     }
     @FXML
-    public void mangeStaffdataButtonClick() {
+    public void manageStaffdataButtonClick() {
         try {
             FXRouter.goTo("staff-table-admin");
         } catch (IOException e) {

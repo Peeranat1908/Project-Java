@@ -9,7 +9,7 @@ import ku.cs.models.*;
 import ku.cs.services.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
+import org.mindrot.jbcrypt.BCrypt;
 import java.io.IOException;
 
 public class AddStaffController {
@@ -168,15 +168,17 @@ public class AddStaffController {
             return;
         }
 
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+
         User newUser = null;
 
         // สร้างผู้ใช้ใหม่ตามบทบาท
         if (role.equals("advisor")) {
-            newUser = new User(name, username, password, null, null, role, null, false, faculty, major, false, advisorId);
+            newUser = new User(name, username, hashedPassword, null, null, role, null, false, faculty, major, false, advisorId);
         } else if (role.equals("facultyStaff")) {
-            newUser = new User(name, username, password, null, null, role, null, false, faculty, null, false, null);
+            newUser = new User(name, username, hashedPassword, null, null, role, null, false, faculty, null, false, null);
         } else if (role.equals("departmentStaff")) {
-            newUser = new User(name, username, password, null, null, role, null, false, faculty, major, false, null);
+            newUser = new User(name, username, hashedPassword, null, null, role, null, false, faculty, major, false, null);
         } else {
             throw new IllegalArgumentException("บทบาทไม่ถูกต้อง");
         }
@@ -220,7 +222,7 @@ public class AddStaffController {
     }
 
     @FXML
-    public void mangeStaffdataButtonClick() {
+    public void manageStaffdataButtonClick() {
         try {
             FXRouter.goTo("staff-table-admin");
         } catch (IOException e) {
