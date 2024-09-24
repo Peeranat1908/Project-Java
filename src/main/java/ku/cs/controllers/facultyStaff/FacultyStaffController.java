@@ -1,4 +1,4 @@
-package ku.cs.controllers;
+package ku.cs.controllers.facultyStaff;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
