@@ -58,12 +58,12 @@
                   <Font name="System Bold" size="17.0" />
                </font>
             </Button>
-            <Button layoutX="596.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
+            <Button layoutX="596.0" layoutY="20.0" mnemonicParsing="false" onAction="#mangeStaffdataButtonClick" style="-fx-background-color: EAF4FF;" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Button>
-            <Button layoutX="856.0" layoutY="21.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="dashboard">
+            <Button layoutX="856.0" layoutY="21.0" mnemonicParsing="false" onAction="#dashboardButtonClick" style="-fx-background-color: EAF4FF;" text="dashboard">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -71,7 +71,7 @@
          </children>
       </Pane>
       <Button layoutX="1206.0" layoutY="677.0" mnemonicParsing="false" onAction="#onLogoutButtonClick" text="logout" />
-      <ChoiceBox layoutX="573.0" layoutY="176.0" prefHeight="38.0" prefWidth="205.0" />
+      <ChoiceBox fx:id="roleChoiceBox" layoutX="573.0" layoutY="187.0" prefHeight="38.0" prefWidth="205.0" />
       <Label layoutX="463.0" layoutY="248.0" text="Name-Surname:">
          <font>
             <Font size="14.0" />
@@ -97,14 +97,9 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="466.0" layoutY="524.0" text="AdvisorID:">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
       <PasswordField fx:id="passwordTextField" layoutX="464.0" layoutY="412.0" prefHeight="37.0" prefWidth="396.0" style="-fx-background-radius: 10;" />
-      <ChoiceBox layoutX="469.0" layoutY="471.0" prefHeight="38.0" prefWidth="191.0" />
-      <ChoiceBox layoutX="669.0" layoutY="471.0" prefHeight="38.0" prefWidth="191.0" />
+      <ChoiceBox fx:id="facultyChoiceBox" layoutX="469.0" layoutY="477.0" prefHeight="38.0" prefWidth="191.0" />
+      <ChoiceBox fx:id="majorChoiceBox" layoutX="669.0" layoutY="477.0" prefHeight="38.0" prefWidth="191.0" />
       <Label layoutX="550.0" layoutY="105.0" text="เพิ่มข้อมูลเจ้าหน้าที่">
          <font>
             <Font name="System Bold" size="32.0" />
@@ -115,15 +110,40 @@
             <Image url="@../../../images/login-register-icon.png" />
          </image>
       </ImageView>
-      <Button layoutX="609.0" layoutY="630.0" mnemonicParsing="false" text="เพิ่มข้อมูลเจ้าหน้าที่">
+      <Button layoutX="609.0" layoutY="630.0" mnemonicParsing="false" onAction="#addStaffButtonClick" text="เพิ่มข้อมูลเจ้าหน้าที่">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <TextField fx:id="advisorId" layoutX="464.0" layoutY="549.0" prefHeight="37.0" prefWidth="396.0" style="-fx-background-radius: 10;">
+      <Label layoutX="579.0" layoutY="160.0" text="บทบาท:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="advisorIdTextfield" layoutX="468.0" layoutY="548.0" prefHeight="37.0" prefWidth="396.0" style="-fx-background-radius: 10;">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
+      <Label fx:id="advisorIdLabel" layoutX="469.0" layoutY="519.0" text="AdvisorID:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="469.0" layoutY="455.0" text="Faculty:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="majorChoiceBoxLabel" layoutX="672.0" layoutY="455.0" text="Major:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="addStaffLabel" layoutX="640.0" layoutY="681.0" text="addStaffLabel" textFill="RED">
+         <font>
+            <Font name="Arial" size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

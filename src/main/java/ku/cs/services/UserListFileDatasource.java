@@ -70,11 +70,11 @@ public class UserListFileDatasource implements Datasource<UserList> {
                 String profilePicturePath = data[6].trim();
                 boolean suspended = data.length > 7 ? Boolean.parseBoolean(data[8].trim()) : false;
                 String faculty = data.length > 8 ? data[8].trim() : null;
-                String department = data.length > 9 ? data[9].trim() : null;
+                String major = data.length > 9 ? data[9].trim() : null;
                 boolean firstlogin = data.length > 10 ? Boolean.parseBoolean(data[10].trim()) : false;
                 String Id = data.length > 11 ? data[11].trim() : null;
 
-                User user = new User(name, username, password, lastLoginDate, lastLoginTime, role, profilePicturePath,suspended,faculty,department,firstlogin,Id);
+                User user = new User(name, username, password, lastLoginDate, lastLoginTime, role, profilePicturePath,suspended,faculty,major,firstlogin,Id);
                 userList.addUser(user);
             }
         } catch (IOException e) {
@@ -94,7 +94,26 @@ public class UserListFileDatasource implements Datasource<UserList> {
             DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
             for (User user : userList.getUsers()) {
-                String profilePicturePath = user.getProfilePicturePath() != null ? user.getProfilePicturePath() : "/images/profileDeafault2.png";
+                String profilePicturePath = "/images/defaultProfilePicture.png"; // ค่าปริยายสำหรับ profilePicturePath
+                switch (user.getRole()) {
+                    case "admin":
+                        profilePicturePath = user.getProfilePicturePath() != null ? user.getProfilePicturePath() : "/images/adminDefaultPicture.png";
+                        break;
+                    case "advisor":
+                        profilePicturePath = user.getProfilePicturePath() != null ? user.getProfilePicturePath() : "/images/advisorStaffDefaultPicture.png";
+                        break;
+                    case "student":
+                        profilePicturePath = user.getProfilePicturePath() != null ? user.getProfilePicturePath() : "/images/studentDefaultPicture.png";
+                        break;
+                    case "facultyStaff":
+                        profilePicturePath = user.getProfilePicturePath() != null ? user.getProfilePicturePath() : "/images/facultyStaffDefaultPicture.png";
+                        break;
+                    case "departmentStaff":
+                        profilePicturePath = user.getProfilePicturePath() != null ? user.getProfilePicturePath() : "/images/majorStaffDefaultPicture.png";
+                        break;
+                    default:
+                        break;
+                }
 
                 String line = String.join(",",
                         user.getUsername(),
@@ -109,11 +128,12 @@ public class UserListFileDatasource implements Datasource<UserList> {
                         user.getFaculty(),
                         String.valueOf(user.isFirstlogin()),
                         user.getId()
-
                 );
+
                 buffer.write(line);
                 buffer.newLine();
             }
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

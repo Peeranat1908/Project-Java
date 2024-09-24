@@ -14,7 +14,7 @@ public class MainApplication extends Application {
         FXRouter.bind(this, stage, "CS211 Project", 1280, 720);
         configRoutes();
 //        FXRouter.goTo("first-page");
-        FXRouter.goTo("staff-table");
+        FXRouter.goTo("staff-table-admin");
     }
 
     private void configRoutes() {
@@ -34,7 +34,7 @@ public class MainApplication extends Application {
         FXRouter.when("dashboard", viewPath + "dashboard.fxml");
         FXRouter.when("user-details", viewPath + "user-detail-admin.fxml");
         FXRouter.when("add-staff", viewPath + "add-staff.fxml");
-        FXRouter.when("staff-table", viewPath + "staff-table-admin.fxml");
+        FXRouter.when("staff-table-admin", viewPath + "staff-table-admin.fxml");
         FXRouter.when("staff-edit", viewPath + "staffedit.fxml");
     }
 

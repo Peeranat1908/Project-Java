@@ -159,7 +159,6 @@ public class StaffEditController {
     private void processSelectedFacultyId(String facultyId) {
         loadMajorChoices(facultyId);
     }
-
     @FXML
     public void enterEditButtonClick() {
         String newName = nameTextField.getText();
@@ -256,6 +255,22 @@ public class StaffEditController {
     public void onLogoutButtonClick() {
         try {
             FXRouter.goTo("login-page");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void dashboardButtonClick() {
+        try {
+            FXRouter.goTo("dashboard");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void mangeStaffdataButtonClick() {
+        try {
+            FXRouter.goTo("staff-table-admin");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

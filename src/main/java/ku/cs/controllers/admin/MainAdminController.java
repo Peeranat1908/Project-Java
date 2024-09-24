@@ -69,7 +69,6 @@ public class MainAdminController {
         for (User user : userList.getUsers()) {
             boolean matchesRole = false;
 
-            // ตรวจสอบว่าผู้ใช้ตรงกับบทบาทที่เลือก
             if (studentCheckBox.isSelected() && user.getRole().equals("student")) {
                 matchesRole = true;
             }
@@ -168,6 +167,23 @@ public class MainAdminController {
     public void onLogoutButtonClick() {
         try {
             FXRouter.goTo("login-page");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void dashboardButtonClick() {
+        try {
+            FXRouter.goTo("dashboard");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void mangeStaffdataButtonClick() {
+        try {
+            FXRouter.goTo("staff-table-admin");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

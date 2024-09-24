@@ -148,6 +148,22 @@ public class StaffTableController {
             throw new RuntimeException(e);
         }
     }
+    @FXML
+    public void dashboardButtonClick() {
+        try {
+            FXRouter.goTo("dashboard");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void mangeStaffdataButtonClick() {
+        try {
+            FXRouter.goTo("staff-table-admin");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 
 

@@ -48,7 +48,23 @@ public class UserList {
             return user;
         }
 
-        // Return null if authentication fails
+        return null;
+    }
+    public User findUserByName(String name) {
+        for (User user : users) {
+            if (user.getName().equals(name)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public User findUserById(String id) {
+        for (User user : users) {
+            if (user.getId().equals(id)) {
+                return user;
+            }
+        }
         return null;
     }
 

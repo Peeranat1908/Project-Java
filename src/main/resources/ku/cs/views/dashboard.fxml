@@ -59,12 +59,12 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button layoutX="613.0" layoutY="22.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
+            <Button layoutX="613.0" layoutY="22.0" mnemonicParsing="false" onAction="#mangeStaffdataButtonClick" style="-fx-background-color: EAF4FF;" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Button>
-            <Button layoutX="882.0" layoutY="22.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="Dashboard">
+            <Button layoutX="882.0" layoutY="22.0" mnemonicParsing="false" onAction="#dashboardButtonClick" style="-fx-background-color: EAF4FF;" text="Dashboard">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -101,7 +101,7 @@
             <Insets />
          </opaqueInsets>
       </VBox>
-      <VBox alignment="CENTER" layoutX="389.0" layoutY="180.0" prefHeight="186.0" prefWidth="210.0">
+      <VBox alignment="CENTER" layoutX="360.0" layoutY="180.0" prefHeight="186.0" prefWidth="210.0">
          <children>
             <Label text="จำนวนคำร้องที่อนุมัติแล้ว">
                <font>
@@ -161,10 +161,10 @@
       </VBox>
       <ChoiceBox fx:id="facultyReportChoicebox" layoutX="90.0" layoutY="100.0" prefHeight="38.0" prefWidth="194.0" />
       <ChoiceBox fx:id="departmentReportChoicebox" layoutX="360.0" layoutY="100.0" prefHeight="38.0" prefWidth="194.0" />
-      <PieChart layoutX="757.0" layoutY="129.0" prefHeight="219.0" prefWidth="361.0" title="สถานะคำร้อง" />
+      <PieChart layoutX="710.0" layoutY="116.0" prefHeight="250.0" prefWidth="400.0" title="สถานะคำร้อง" />
       <ChoiceBox fx:id="roleUserChoicebox" layoutX="90.0" layoutY="430.0" prefHeight="38.0" prefWidth="194.0" />
       <ChoiceBox fx:id="facultyUserChoicebox" layoutX="359.0" layoutY="430.0" prefHeight="38.0" prefWidth="194.0" />
       <ChoiceBox fx:id="departmentUserChoicebox" layoutX="358.0" layoutY="533.0" prefHeight="38.0" prefWidth="194.0" />
-      <PieChart layoutX="760.0" layoutY="391.0" prefHeight="219.0" prefWidth="361.0" title="สถานะคำร้อง" />
+      <PieChart layoutX="710.0" layoutY="420.0" prefHeight="250.0" prefWidth="400.0" title="สถานะคำร้อง" />
    </children>
 </AnchorPane>

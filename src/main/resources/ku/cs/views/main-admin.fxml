@@ -58,12 +58,12 @@
                   <Font name="System Bold" size="17.0" />
                </font>
             </Button>
-            <Button layoutX="596.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
+            <Button layoutX="596.0" layoutY="20.0" mnemonicParsing="false" onAction="#mangeStaffdataButtonClick" style="-fx-background-color: EAF4FF;" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Button>
-            <Button layoutX="856.0" layoutY="21.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="dashboard">
+            <Button layoutX="856.0" layoutY="21.0" mnemonicParsing="false" onAction="#dashboardButtonClick" style="-fx-background-color: EAF4FF;" text="dashboard">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -72,7 +72,7 @@
       </Pane>
       <Label layoutX="584.0" layoutY="116.0" text="ผู้ใช้ระบบ">
          <font>
-            <Font name="System Bold" size="32.0" />
+            <Font name="Arial Bold" size="32.0" />
          </font>
       </Label>
       <TextField fx:id="searchUserTextfield" layoutX="525.0" layoutY="176.0">

@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" stylesheets="@style/tableStyle.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.StaffTableController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.StaffTableController">
     <children>
         <Pane layoutX="2.0" layoutY="-1.0" prefHeight="80.0" prefWidth="1275.0" style="-fx-background-color: EAF4FF;">
             <children>
@@ -58,12 +58,12 @@
                         <Font name="System Bold" size="17.0" />
                     </font>
                 </Button>
-                <Button layoutX="596.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
+                <Button layoutX="596.0" layoutY="20.0" mnemonicParsing="false" onAction="#mangeStaffdataButtonClick" style="-fx-background-color: EAF4FF;" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
                 </Button>
-                <Button layoutX="856.0" layoutY="21.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="dashboard">
+                <Button layoutX="856.0" layoutY="21.0" mnemonicParsing="false" onAction="#dashboardButtonClick" style="-fx-background-color: EAF4FF;" text="dashboard">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
@@ -80,16 +80,9 @@
                 <Font size="20.0" />
             </font>
         </TextField>
-        <TableView fx:id="tableView" layoutX="218.0" layoutY="249.0" prefHeight="428.0" prefWidth="863.0">
+        <TableView fx:id="tableView" layoutX="226.0" layoutY="249.0" prefHeight="428.0" prefWidth="863.0" stylesheets="@../style/Style.css">
             <columns>
-                <TableColumn prefWidth="145.0" style="-fx-background-color: #2F80ED;" text="C1" />
-                <TableColumn prefWidth="178.4000244140625" style="-fx-background-color: #2F80ED;" text="C2" />
                 <TableColumn minWidth="0.0" prefWidth="0.0" text="3" />
-                <TableColumn prefWidth="94.39996337890625" style="-fx-background-color: #2F80ED;" text="4" />
-                <TableColumn prefWidth="151.20001220703125" style="-fx-background-color: #2F80ED;" text="5" />
-                <TableColumn prefWidth="151.99993896484375" style="-fx-background-color: #2F80ED;" text="6" />
-                <TableColumn prefWidth="130.4000244140625" style="-fx-background-color: #2F80ED;" text="7" />
-                <TableColumn prefWidth="116.0" style="-fx-background-color: #2F80ED;" text="8" />
                 <TableColumn prefWidth="116.0" text="9" />
             </columns>
         </TableView>

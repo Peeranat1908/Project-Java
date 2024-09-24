@@ -97,12 +97,12 @@
                         <Font name="System Bold" size="18.0" />
                     </font>
                 </Button>
-                <Button layoutX="613.0" layoutY="22.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
+                <Button layoutX="613.0" layoutY="22.0" mnemonicParsing="false" onAction="#mangeStaffdataButtonClick" style="-fx-background-color: EAF4FF;" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
                 </Button>
-                <Button layoutX="882.0" layoutY="22.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="Dashboard">
+                <Button layoutX="882.0" layoutY="22.0" mnemonicParsing="false" onAction="#dashboardButtonClick" style="-fx-background-color: EAF4FF;" text="Dashboard">
                     <font>
                         <Font name="System Bold" size="16.0" />
                     </font>
