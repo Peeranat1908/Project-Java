@@ -29,6 +29,8 @@ public class MainApplication extends Application {
         //FXRouter.goTo("facultyStaff");
         //FXRouter.goTo("first-page");
 
+//        FXRouter.goTo("staff-table-admin");
+
     }
 
     private void configRoutes() {
@@ -70,6 +72,11 @@ public class MainApplication extends Application {
         FXRouter.when("leave-appeal", viewPath + "leave-appeal.fxml");
         FXRouter.when("enroll-appeal", viewPath + "enroll-appeal.fxml");
         FXRouter.when("appeal-detail", viewPath + "appeal-detail.fxml");
+        FXRouter.when("dashboard", viewPath + "dashboard.fxml");
+        FXRouter.when("user-details", viewPath + "user-detail-admin.fxml");
+        FXRouter.when("add-staff", viewPath + "add-staff.fxml");
+        FXRouter.when("staff-table-admin", viewPath + "staff-table-admin.fxml");
+        FXRouter.when("staff-edit", viewPath + "staffedit.fxml");
     }
 
 

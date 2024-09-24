@@ -13,26 +13,14 @@ import ku.cs.services.UserListFileDatasource;
 import ku.cs.services.FXRouter;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import javafx.scene.control.CheckBox;
-import javafx.scene.layout.Pane;
 
-public class MainAdminController {
+
+public class StaffTableController {
+
     @FXML
     private TableView<User> tableView;
     @FXML
     private TextField searchUserTextfield;
-    @FXML
-    private Pane roleSelectionPane;
-    @FXML
-    private CheckBox studentCheckBox;
-    @FXML
-    private CheckBox facultyStaffCheckBox;
-    @FXML
-    private CheckBox departmentStaffCheckBox;
-    @FXML
-    private CheckBox advisorCheckBox;
 
     private UserList userList;
     private Datasource<UserList> datasource;
@@ -53,38 +41,24 @@ public class MainAdminController {
                 User selectedUser = tableView.getSelectionModel().getSelectedItem();
                 if (selectedUser != null) {
                     try {
-                        FXRouter.goTo("user-details", selectedUser);
+                        FXRouter.goTo("staffedit", selectedUser);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                 }
             }
         });
-        roleSelectionPane.setVisible(false);
     }
 
     private void filterTable(String searchText) {
         tableView.getItems().clear();
 
         for (User user : userList.getUsers()) {
-            boolean matchesRole = false;
+            boolean matchesRole = user.getRole().equals("facultyStaff") ||
+                    user.getRole().equals("departmentStaff") ||
+                    user.getRole().equals("advisor");
 
-            if (studentCheckBox.isSelected() && user.getRole().equals("student")) {
-                matchesRole = true;
-            }
-            if (facultyStaffCheckBox.isSelected() && user.getRole().equals("facultyStaff")) {
-                matchesRole = true;
-            }
-            if (departmentStaffCheckBox.isSelected() && user.getRole().equals("departmentStaff")) {
-                matchesRole = true;
-            }
-            if (advisorCheckBox.isSelected() && user.getRole().equals("advisor")) {
-                matchesRole = true;
-            }
-
-            if (!user.getRole().equals("admin") &&
-                    (matchesRole || (!studentCheckBox.isSelected() && !facultyStaffCheckBox.isSelected() &&
-                            !departmentStaffCheckBox.isSelected() && !advisorCheckBox.isSelected())) &&
+            if (matchesRole &&
                     (user.getName().toLowerCase().contains(searchText.toLowerCase()) ||
                             user.getUsername().toLowerCase().contains(searchText.toLowerCase()))) {
                 tableView.getItems().add(user);
@@ -93,7 +67,7 @@ public class MainAdminController {
     }
 
     private void showTable(UserList userList) {
-        tableView.getItems().clear();
+        tableView.getItems().clear(); // เคลียร์ตารางก่อน
 
         userList.sortUsersByLastLogin();
 
@@ -106,13 +80,14 @@ public class MainAdminController {
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
         usernameColumn.setPrefWidth(155);
 
-        TableColumn<User, LocalDate> dateColumn = new TableColumn<>("Last Login Date");
-        dateColumn.setCellValueFactory(new PropertyValueFactory<>("lastLoginDate"));
-        dateColumn.setPrefWidth(155);
+        // เปลี่ยน LocalDate และ LocalTime เป็น Faculty และ Department
+        TableColumn<User, String> facultyColumn = new TableColumn<>("Faculty");
+        facultyColumn.setCellValueFactory(new PropertyValueFactory<>("faculty"));
+        facultyColumn.setPrefWidth(155);
 
-        TableColumn<User, LocalTime> timeColumn = new TableColumn<>("Last Login Time");
-        timeColumn.setCellValueFactory(new PropertyValueFactory<>("lastLoginTime"));
-        timeColumn.setPrefWidth(155);
+        TableColumn<User, String> departmentColumn = new TableColumn<>("Major");
+        departmentColumn.setCellValueFactory(new PropertyValueFactory<>("major"));
+        departmentColumn.setPrefWidth(155);
 
         TableColumn<User, String> roleColumn = new TableColumn<>("Role");
         roleColumn.setCellValueFactory(new PropertyValueFactory<>("role"));
@@ -135,23 +110,24 @@ public class MainAdminController {
         });
 
         tableView.getColumns().clear();
-        tableView.getColumns().addAll(nameColumn, usernameColumn, dateColumn, timeColumn, roleColumn, suspendColumn);
+        tableView.getColumns().addAll(nameColumn, usernameColumn, facultyColumn, departmentColumn, roleColumn, suspendColumn);
 
+        // แสดงผู้ใช้ใน TableView
         for (User user : userList.getUsers()) {
-            if (!user.getRole().equals("admin")) {
+            if (user.getRole().equals("facultyStaff") || user.getRole().equals("departmentStaff") || user.getRole().equals("advisor")) {
                 tableView.getItems().add(user);
             }
         }
     }
 
-    @FXML
-    private void RoleSelectedButtonClick() {
-        roleSelectionPane.setVisible(!roleSelectionPane.isVisible());
-    }
 
     @FXML
-    private void enterselectedRoleButtonClick() {
-        filterTable(searchUserTextfield.getText());
+    public void addStaffButtonClick() {
+        try {
+            FXRouter.goTo("add-staff");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -171,7 +147,6 @@ public class MainAdminController {
             throw new RuntimeException(e);
         }
     }
-
     @FXML
     public void dashboardButtonClick() {
         try {
@@ -188,6 +163,7 @@ public class MainAdminController {
             throw new RuntimeException(e);
         }
     }
+
     @FXML
     public void homeButtonClick() {
         try {
@@ -196,12 +172,8 @@ public class MainAdminController {
             throw new RuntimeException(e);
         }
     }
-    @FXML
-    public void onManageFacultyButtonClick() {
-        try {
-            FXRouter.goTo("edit-data-faculty");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
+
+
+
+

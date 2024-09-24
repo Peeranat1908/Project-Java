@@ -1,11 +1,22 @@
 package ku.cs.controllers.student;
 
 import javafx.fxml.FXML;
+import ku.cs.models.User;
 import ku.cs.services.FXRouter;
 import java.io.IOException;
 
 
 public class StudentAppealController {
+    private User user;
+
+    @FXML
+    private void initialize() {
+        Object data = FXRouter.getData();
+        if (data instanceof User) {
+            user = (User) data;
+
+        }
+    }
 
     @FXML
     public void onBackButtonClick() {

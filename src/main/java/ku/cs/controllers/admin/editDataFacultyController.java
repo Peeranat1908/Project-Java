@@ -19,7 +19,6 @@ public class editDataFacultyController {
     @FXML private Button okButton;
     private Datasource<FacultyList> datasource;
     private FacultyList facultyList;
-    private FacultyList faculyList;
     @FXML private Label errorLabel1;
     @FXML private Label errorLabel2;
     @FXML private Label errorLabel3;

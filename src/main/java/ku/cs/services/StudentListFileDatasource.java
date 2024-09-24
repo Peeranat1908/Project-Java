@@ -1,10 +1,9 @@
 package ku.cs.services;
 
-import ku.cs.models.Student;
-import ku.cs.models.StudentList;
-
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import ku.cs.models.Student;
+import ku.cs.models.StudentList;
 
 public class StudentListFileDatasource implements Datasource<StudentList> {
     private String directoryName;
@@ -16,7 +15,7 @@ public class StudentListFileDatasource implements Datasource<StudentList> {
         checkFileIsExisted();
     }
 
-    // ตรวจสอบว่ามีไฟล์ให้อ่านหรือไม่ ถ้าไม่มีให้สร้างไฟล์เปล่า
+    // ตรวจสอบว่าไฟล์มีอยู่หรือไม่ ถ้าไม่ให้สร้างไฟล์ใหม่
     private void checkFileIsExisted() {
         File file = new File(directoryName);
         if (!file.exists()) {
@@ -32,93 +31,61 @@ public class StudentListFileDatasource implements Datasource<StudentList> {
             }
         }
     }
+
     @Override
     public StudentList readData() {
-        StudentList admins = new StudentList();
+        StudentList studentList = new StudentList();
         String filePath = directoryName + File.separator + fileName;
         File file = new File(filePath);
 
-        // เตรียม object ที่ใช้ในการอ่านไฟล์
-        FileInputStream fileInputStream = null;
+        try (BufferedReader buffer = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {
+            String line;
 
-        try {
-            fileInputStream = new FileInputStream(file);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+            while ((line = buffer.readLine()) != null) {
+                if (line.isEmpty()) continue;
 
-        InputStreamReader inputStreamReader = new InputStreamReader(
-                fileInputStream,
-                StandardCharsets.UTF_8
-        );
-        BufferedReader buffer = new BufferedReader(inputStreamReader);
-
-        String line = "";
-        try {
-            // ใช้ while loop เพื่ออ่านข้อมูลรอบละบรรทัด
-            while ( (line = buffer.readLine()) != null ){
-                // ถ้าเป็นบรรทัดว่าง ให้ข้าม
-                if (line.equals("")) continue;
-
-                // แยกสตริงด้วย ,
                 String[] data = line.split(",");
 
-                // อ่านข้อมูลตาม index แล้วจัดการประเภทของข้อมูลให้เหมาะสม
-                String name = data[0].trim();
-                String surname = data[1].trim();
+                String username = data[0].trim();
+                String name = data[1].trim();
                 String id = data[2].trim();
-                String username = data[3].trim();
-                String email = data[4].trim();
-                String password = data[5].trim();
-
-
-                // เพิ่มข้อมูลลงใน list
-                admins.addNewStudent(name, surname,id, username, email, password);
+                String email = data[3].trim();
+                String faculty = data[4].trim();
+                String major = data[5].trim();
+                String advisorID = data.length > 6 ? data[6].trim() : null;
+                Student student = new Student(name, username, "", id, email, faculty, major, null, null, "");
+                student.setAdvisorID(advisorID);
+                studentList.addStudent(student);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        return admins;
+        return studentList;
     }
 
-    @Override   //รอสร้างregisterPage
+    @Override
     public void writeData(StudentList data) {
         String filePath = directoryName + File.separator + fileName;
         File file = new File(filePath);
 
-        // เตรียม object ที่ใช้ในการเขียนไฟล์
-        FileOutputStream fileOutputStream = null;
-
-        try {
-            fileOutputStream = new FileOutputStream(file);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(
-                fileOutputStream,
-                StandardCharsets.UTF_8
-        );
-        BufferedWriter buffer = new BufferedWriter(outputStreamWriter);
-
-        try {
-            // สร้าง csv ของ Student และเขียนลงในไฟล์ทีละบรรทัด
+        try (BufferedWriter buffer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) { // ไม่ใช้ append
             for (Student student : data.getStudents()) {
-                String line = student.toCsv();
-                buffer.append(line);
-                buffer.append("\n");
+                String line = String.join(",",
+                        student.getUsername(),
+                        student.getName(),
+                        student.getId(),
+                        student.getEmail(),
+                        student.getFaculty(),
+                        student.getMajor(),
+                        student.getAdvisorID() != null ? student.getAdvisorID() : ""
+                );
+                buffer.write(line);
+                buffer.newLine();
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } finally {
-            try {
-                buffer.flush();
-                buffer.close();
-            }
-            catch (IOException e){
-                throw new RuntimeException(e);
-            }
         }
     }
+
 }

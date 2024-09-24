@@ -50,7 +50,7 @@
          </font></Label>
       <ImageView fitHeight="28.0" fitWidth="31.0" layoutX="25.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../images/Left%20arrow.png" />
+            <Image url="@../../../images/Leftarrow.png" />
          </image>
       </ImageView>
       <Button fx:id="Backbutton" layoutX="12.0" layoutY="24.0" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" text="Button" />

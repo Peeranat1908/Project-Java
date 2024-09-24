@@ -2,6 +2,7 @@ package ku.cs.controllers.student;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.SpinnerValueFactory;
+import ku.cs.models.User;
 import ku.cs.services.FXRouter;
 import java.io.IOException;
 import javafx.scene.control.Spinner;
@@ -40,7 +41,7 @@ public class NormalAppealController {
 
     private AppealListDatasource datasource;
 
-
+    private User user;
     @FXML
     public void initialize() {
         daySpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 31, LocalDate.now().getDayOfMonth()));
@@ -62,8 +63,12 @@ public class NormalAppealController {
                 lostCheckBox.setSelected(false);
             }
         });
-    }
 
+        Object data = FXRouter.getData();
+        if (data instanceof User) {
+            user = (User) data;
+        }
+    }
     @FXML
     public void onBackButtonClick() {
         try {
@@ -74,7 +79,7 @@ public class NormalAppealController {
     }
     @FXML
     public void onApplyAppealClick() {
-
+        String Id = user.getId();
         String type = "คำร้องทั่วไป:";
         String subject = subjectTextField.getText();
         String request = requestTextField.getText();

@@ -3,7 +3,10 @@ package ku.cs.models;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 
+import ku.cs.services.LastLoginComparator;
+import org.mindrot.jbcrypt.BCrypt;
 public class UserList {
     private ArrayList<User> users;
 
@@ -11,11 +14,13 @@ public class UserList {
         users = new ArrayList<>();
     }
 
+
+
     public void addUser(User user) {
         users.add(user);
     }
 
-    // ค้นหาผู้ใช้โดย username
+
     public User findUserByUsername(String username) {
         for (User user : users) {
             if (user.getUsername().equals(username)) {
@@ -25,7 +30,6 @@ public class UserList {
         return null;
     }
 
-    // อัปเดตเวลา login ล่าสุด
     public void updateLastLogin(String username) {
         User user = findUserByUsername(username);
         if (user != null) {
@@ -36,33 +40,49 @@ public class UserList {
         }
     }
 
-    // Method for user authentication
     public User authenticate(String username, String password) {
-        // Find the user by username
         User user = findUserByUsername(username);
-
-        // Check if user exists and password matches
-        if (user != null && user.getPassword().equals(password)) {
+        if (user != null && BCrypt.checkpw(password, user.getPassword())) {
             // Update last login time when authenticated
             updateLastLogin(username);
             return user;
         }
 
-        // Return null if authentication fails
+        return null;
+    }
+    public User findUserByName(String name) {
+        for (User user : users) {
+            if (user.getName().equals(name)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public User findUserById(String id) {
+        for (User user : users) {
+            if (user.getId().equals(id)) {
+                return user;
+            }
+        }
         return null;
     }
 
 
-    // อัปเดตรหัสผ่านของผู้ใช้
+
     public boolean updatePassword(String username, String newPassword) {
         User user = findUserByUsername(username);
         if (user != null) {
-            user.setPassword(newPassword);
+            String hashedPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
+            user.setPassword(hashedPassword);
             return true; // Password updated successfully
         }
-        return false; // User not found
+        return false; //not found
     }
 
+    public void sortUsersByLastLogin() {
+        Collections.sort(users, new LastLoginComparator());
+    }
     public ArrayList<User> getUsers() {
         return users;
     }

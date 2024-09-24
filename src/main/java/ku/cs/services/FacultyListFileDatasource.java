@@ -6,7 +6,7 @@ import ku.cs.models.FacultyList;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
-public class FacultyListFileDatasource implements Datasource<FacultyList>{
+public class FacultyListFileDatasource implements Datasource<FacultyList> {
     private String directoryName;
     private String fileName;
 
@@ -55,7 +55,7 @@ public class FacultyListFileDatasource implements Datasource<FacultyList>{
         String line = "";
         try {
             // ใช้ while loop เพื่ออ่านข้อมูลรอบละบรรทัด
-            while ( (line = buffer.readLine()) != null ){
+            while ((line = buffer.readLine()) != null) {
                 // ถ้าเป็นบรรทัดว่าง ให้ข้าม
                 if (line.equals("")) continue;
 
@@ -67,8 +67,6 @@ public class FacultyListFileDatasource implements Datasource<FacultyList>{
                 String facultyName = data[1].trim();
 
                 // เพิ่มข้อมูลลงใน list
-                facultyList.addNewFaculty(facultyName, facultyId);
-                facultyList.addNewFaculty(facultyId, facultyName);
                 facultyList.addNewFaculty(facultyId, facultyName);
             }
         } catch (IOException e) {
@@ -97,16 +95,15 @@ public class FacultyListFileDatasource implements Datasource<FacultyList>{
         );
         BufferedWriter buffer = new BufferedWriter(outputStreamWriter);
         try {
-            for (Faculty faculty : data.getFaculties()){
+            for (Faculty faculty : data.getFaculties()) {
                 String line = faculty.getFacultyId() + "," + faculty.getFacultyName();
                 buffer.append(line);
                 buffer.append("\n");
-
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }finally {
-            try{
+        } finally {
+            try {
                 buffer.flush();
                 buffer.close();
             } catch (IOException e) {

@@ -1,6 +1,5 @@
 package ku.cs.services;
 
-import ku.cs.models.FacultyList;
 import ku.cs.models.Major;
 import ku.cs.models.MajorList;
 
@@ -95,7 +94,7 @@ public class MajorListFileDatasource implements Datasource<MajorList>{
         BufferedWriter buffer = new BufferedWriter(outputStreamWriter);
         try {
             for (Major major : data.getMajors()){
-                String line = major.getFacultyId() + "," + major.getMajorId() + "," + major.getMajorName();
+                String line = major.toString();
                 buffer.append(line);
                 buffer.append("\n");
             }
