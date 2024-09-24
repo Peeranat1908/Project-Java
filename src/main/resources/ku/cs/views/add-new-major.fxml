@@ -33,7 +33,7 @@
       </Pane>
       <ImageView fitHeight="40.0" fitWidth="86.0" layoutX="63.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../images/Left arrow.png" />
+            <Image url="@../../../images/Left-arrow.png" />
          </image>
       </ImageView>
       <Button layoutX="41.0" layoutY="81.0" mnemonicParsing="false" onAction="#backButtonClicked" opacity="0.0" text="Button" />

@@ -13,7 +13,7 @@ public class MainApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXRouter.bind(this, stage, "CS211 Project", 1280, 720);
         configRoutes();
-        FXRouter.goTo("first-page");
+        //FXRouter.goTo("first-page");
         //FXRouter.goTo("main-advisor");
         //FXRouter.goTo("faculty-data-admin");
         //FXRouter.goTo("main-admin");
@@ -25,10 +25,10 @@ public class MainApplication extends Application {
         //FXRouter.goTo("departmentStaff");
         //FXRouter.goTo("facultyStaff");
         //FXRouter.goTo("first-page");
-
-
+        FXRouter.goTo("approve-faculty-staff");
+        //FXRouter.goTo("editApproveFacultyStaff");
+        //FXRouter.goTo("addApproveFacultyStaff");
     }
-
     private void configRoutes() {
         String viewPath = "ku/cs/views/";
         FXRouter.when("hello", viewPath + "hello-view.fxml");
@@ -59,6 +59,10 @@ public class MainApplication extends Application {
         FXRouter.when("leave-appeal", viewPath + "leave-appeal.fxml");
         FXRouter.when("enroll-appeal", viewPath + "enroll-appeal.fxml");
         FXRouter.when("appeal-detail", viewPath + "appeal-detail.fxml");
+        FXRouter.when("approve-faculty-staff", viewPath + "approver-faculty.fxml");
+        FXRouter.when("editApproveFacultyStaff", viewPath + "edit-approve-faculty-staff.fxml");
+        FXRouter.when("addApproveFacultyStaff", viewPath + "add-approve-faculty-staff.fxml");
+
     }
 
 

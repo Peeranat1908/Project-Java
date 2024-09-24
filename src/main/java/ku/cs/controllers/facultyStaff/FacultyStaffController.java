@@ -106,10 +106,11 @@ public class FacultyStaffController {
         }
     }
 
+
     @FXML
-    public void onRequestButtonClick() {
-        try {
-            FXRouter.goTo("request-page");
+    public void onApproveFacultyStaffButtonClick() {
+        try{
+            FXRouter.goTo("approve-faculty-staff");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

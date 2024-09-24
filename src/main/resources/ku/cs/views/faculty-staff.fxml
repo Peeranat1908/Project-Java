@@ -12,9 +12,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.facultyStaff.FacultyStaffController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" stylesheets="@../style/darkmode.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.facultyStaff.FacultyStaffController">
    <children>
-      <Pane layoutX="7.0" layoutY="7.0" prefHeight="80.0" prefWidth="1275.0" style="-fx-background-color: EAF4FF;">
+      <Pane prefHeight="80.0" prefWidth="1280.0" style="-fx-background-color: EAF4FF;">
          <children>
             <Button layoutX="-7.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="124.0" style="-fx-background-color: #2F80ED; -fx-background-radius: 0;" textFill="WHITE" />
             <Label layoutX="1004.0" layoutY="24.0" text="Faculty-Staff">
@@ -22,17 +22,17 @@
                   <Font name="System Bold" size="28.0" />
                </font>
             </Label>
-            <Button layoutX="135.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="HOME">
+            <Button layoutX="135.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: #2F80ED;" text="HOME" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button layoutX="211.0" layoutY="19.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="LIST">
+            <Button layoutX="235.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="LIST">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button fx:id="onMyTeamButtonClick" layoutX="273.0" layoutY="19.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="MY TEAM">
+            <Button fx:id="onMyTeamButtonClick" layoutX="310.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="MY TEAM">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -49,18 +49,26 @@
                   <Image url="@../../../images/faculty-staff.png" />
                </image>
             </ImageView>
+            <Button fx:id="onApproveFacultyStaffButtonClick" layoutX="430.0" layoutY="20.0" mnemonicParsing="false" onAction="#onApproveFacultyStaffButtonClick" style="-fx-background-color: EAF4FF;" text="ข้อมูลผู้อนุมัติคำร้อง">
+               <font>
+                  <Font name="Arial Bold" size="16.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
-      <Label layoutX="585.0" layoutY="142.0" text="รายการคำร้อง">
+      <Label layoutX="580.0" layoutY="141.0" text="รายการคำร้อง">
          <font>
-            <Font name="Arial Bold" size="32.0" />
+            <Font name="Arial Bold" size="24.0" />
          </font>
       </Label>
-      <TableView fx:id="studentTableView" layoutX="302.0" layoutY="190.0" prefHeight="497.0" prefWidth="771.0">
+      <TableView fx:id="studentTableView" layoutX="122.0" layoutY="203.0" prefHeight="462.0" prefWidth="1056.0" stylesheets="@../style/Style.css">
          <columns>
             <TableColumn prefWidth="75.0" text="C1" />
             <TableColumn prefWidth="75.0" text="C2" />
          </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
    </children>
 </AnchorPane>

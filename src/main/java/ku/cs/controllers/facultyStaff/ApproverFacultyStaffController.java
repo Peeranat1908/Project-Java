@@ -1,0 +1,68 @@
+package ku.cs.controllers.facultyStaff;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import ku.cs.models.ApproveFacultyStaff;
+import ku.cs.models.ApproveFacultyStaffList;
+import ku.cs.services.ApproveFacultyStaffListDatasource;
+import ku.cs.services.Datasource;
+import ku.cs.services.FXRouter;
+
+import java.io.IOException;
+
+public class ApproverFacultyStaffController {
+    @FXML
+    private TableView<ApproveFacultyStaff> approveFacultyStaffTableView;
+
+    private ApproveFacultyStaffList approveFacultyStaffList;
+    private Datasource<ApproveFacultyStaffList> datasource;
+
+    @FXML
+    public void initialize() {
+        datasource = new ApproveFacultyStaffListDatasource("data", "approveFacultyStaff.csv");
+        approveFacultyStaffList = datasource.readData();
+        showTable(approveFacultyStaffList);
+
+    }
+    private void showTable(ApproveFacultyStaffList approveFacultyStaffList) {
+        // กำหนด column ให้มี title ว่า Name และใช้ค่าจาก getter name ของ object StudentAdvisor
+        TableColumn<ApproveFacultyStaff, String> nameColumn = new TableColumn<>("ชื่อ");
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        // กำหนด column ให้มี title ว่า Faculty และใช้ค่าจาก getter faculty ของ object StudentAdvisor
+        TableColumn<ApproveFacultyStaff, String> positionColumn = new TableColumn<>("ตำแหน่ง");
+        positionColumn.setCellValueFactory(new PropertyValueFactory<>("position"));
+
+        // ล้าง column เดิมทั้งหมดที่มีอยู่ใน table แล้วเพิ่ม column ใหม่
+        approveFacultyStaffTableView.getColumns().clear();
+        approveFacultyStaffTableView.getColumns().add(nameColumn);
+        approveFacultyStaffTableView.getColumns().add(positionColumn);
+
+        approveFacultyStaffTableView.getItems().clear();
+
+        for (ApproveFacultyStaff approveFacultyStaff: approveFacultyStaffList.getApproveFacultyStaffList()) {
+            approveFacultyStaffTableView.getItems().add(approveFacultyStaff);
+        }
+    }
+
+    @FXML
+    public void onEditApproveFacultyStaff(){
+        try {
+            FXRouter.goTo("editApproveFacultyStaff");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void onHomeButton(){
+        try{
+            FXRouter.goTo("facultyStaff");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+}
