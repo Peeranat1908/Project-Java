@@ -16,7 +16,7 @@ public class MainApplication extends Application {
         //FXRouter.goTo("first-page");
         //FXRouter.goTo("main-advisor");
         //FXRouter.goTo("faculty-data-admin");
-        //FXRouter.goTo("main-admin");
+        FXRouter.goTo("main-admin");
         //FXRouter.goTo("main-advisor");
         //FXRouter.goTo("student");
         //FXRouter.goTo("major-data-admin");
@@ -25,7 +25,7 @@ public class MainApplication extends Application {
         //FXRouter.goTo("departmentStaff");
         //FXRouter.goTo("facultyStaff");
         //FXRouter.goTo("first-page");
-        FXRouter.goTo("approve-faculty-staff");
+        //FXRouter.goTo("approve-faculty-staff");
         //FXRouter.goTo("editApproveFacultyStaff");
         //FXRouter.goTo("addApproveFacultyStaff");
     }
