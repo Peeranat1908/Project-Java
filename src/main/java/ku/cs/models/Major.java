@@ -1,6 +1,6 @@
 package ku.cs.models;
 
-public class Major{
+public class Major {
     private String facultyId;
     private String majorName;
     private String majorId;

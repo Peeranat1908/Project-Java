@@ -2,7 +2,7 @@ module ku.cs {
     requires javafx.controls;
     requires javafx.fxml;
 
-
+    requires jbcrypt;
     opens ku.cs.cs211671project to javafx.fxml;
     exports ku.cs.cs211671project;
     exports ku.cs.controllers;
@@ -19,6 +19,5 @@ module ku.cs {
     opens ku.cs.controllers.majorStaff to javafx.fxml;
     exports ku.cs.controllers.components;
     opens ku.cs.controllers.components to javafx.fxml;
-    exports ku.cs.controllers.facultyStaff;
-    opens ku.cs.controllers.facultyStaff to javafx.fxml;
+
 }

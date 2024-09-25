@@ -10,6 +10,7 @@ import ku.cs.models.FacultyList;
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
 import ku.cs.services.FacultyListFileDatasource;
+import ku.cs.models.FacultyList;
 
 import java.io.IOException;
 

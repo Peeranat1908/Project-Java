@@ -3,39 +3,48 @@ package ku.cs.models;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class User {
+public class User implements Comparable<User> {
     protected String name;
-    protected String surname;
     protected String username;
     protected String password;
     protected LocalDate lastLoginDate;
     protected LocalTime lastLoginTime;
     protected String role;
     protected String profilePicturePath;  // เพิ่ม field สำหรับเก็บรูปภาพ
-    protected boolean banned;
+    protected boolean suspend;
+    protected String faculty;
+    protected String major;
+    protected boolean firstlogin;
+    protected String Id;
 
-    public User(String name, String surname, String username, String password, LocalDate lastLoginDate, LocalTime lastLoginTime, String role, String profilePicturePath, boolean banned ) {
+    public User(String name, String username, String password, LocalDate lastLoginDate, LocalTime lastLoginTime, String role, String profilePicturePath, boolean banned, String faculty, String department, boolean firstlogin, String Id) {
         this.name = name;
-        this.surname = surname;
         this.username = username;
         this.password = password;
         this.lastLoginDate = lastLoginDate;
         this.lastLoginTime = lastLoginTime;
         this.role = role;
         this.profilePicturePath = profilePicturePath;
-        this.banned = banned;
+        this.suspend = banned;
+        this.faculty = faculty;
+        this.major = department;
+        this.firstlogin = false;
+        this.Id = Id;
     }
 
-    public User(String name, String surname, String username, String password, String role, String profilePicturePath) {
-        this(name, surname, username, password, null, null, role, profilePicturePath   , false);
+    public User(String name, String username, String password, String role, String profilePicturePath,String id) {
+        this(name , username, password, null, null, role, profilePicturePath, false, null, null,false, id);
     }
 
-    public boolean isBanned() {
-        return banned;
+
+
+
+    public boolean isSuspended() {
+        return suspend;
     }
 
-    public void setBanned(boolean banned) {
-        this.banned = banned;
+    public void setSuspended(boolean suspended) {
+        this.suspend = suspended;
     }
 
     public String getProfilePicturePath() {
@@ -46,9 +55,38 @@ public class User {
         this.name = name;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public String getFaculty() {
+        return faculty;
     }
+
+    public void setFaculty(String faculty) {
+        this.faculty = faculty;
+    }
+
+    public String getMajor() {
+        return major;
+    }
+
+    public boolean isSuspend() {
+        return suspend;
+    }
+
+    public void setSuspend(boolean suspend) {
+        this.suspend = suspend;
+    }
+
+    public boolean isFirstlogin() {
+        return firstlogin;
+    }
+
+    public void setFirstlogin(boolean firstlogin) {
+        this.firstlogin = firstlogin;
+    }
+
+    public void setMajor(String major) {
+        this.major = major;
+    }
+
 
     public void setUsername(String username) {
         this.username = username;
@@ -74,9 +112,7 @@ public class User {
         return name;
     }
 
-    public String getSurname() {
-        return surname;
-    }
+
 
     public String getUsername() {
         return username;
@@ -106,8 +142,20 @@ public class User {
         return this.username.equals(username) && this.password.equals(password);
     }
 
-    // เปลี่ยน toCsv ให้ไม่ใช่ abstract
-    public String toCsv() {
-        return String.join(",", username, password, role, name, surname, lastLoginDate.toString(), lastLoginTime.toString(), profilePicturePath);
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
+    }
+
+    @Override
+    public int compareTo(User other) {
+        int dateComparison = other.lastLoginDate.compareTo(this.lastLoginDate);
+        if (dateComparison != 0) {
+            return dateComparison;
+        }
+        return other.lastLoginTime.compareTo(this.lastLoginTime);
     }
 }
