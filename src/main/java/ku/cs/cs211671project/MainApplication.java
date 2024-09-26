@@ -15,7 +15,8 @@ public class MainApplication extends Application {
         configRoutes();
         //FXRouter.goTo("main-advisor");
         //FXRouter.goTo("main-admin");
-        FXRouter.goTo("facultyStaff");
+        //FXRouter.goTo("facultyStaff");
+        FXRouter.goTo("login-page");
     }
     private void configRoutes() {
         String viewPath = "ku/cs/views/";
