@@ -29,7 +29,7 @@ public class editDataFacultyController {
         errorLabel3.setText("");
         datasource = new FacultyListFileDatasource("data", "Faculty.csv");
         facultyList = datasource.readData();
-        okButton.setOnAction(event -> {
+        okButton.setOnAction(actionEvent -> {
             try {
                 okButtonClicked();
             } catch (IOException e) {
@@ -41,21 +41,19 @@ public class editDataFacultyController {
     public void okButtonClicked() throws IOException {
         String Id = facultyId.getText().trim();
         String Name = facultyName.getText().trim();
-        if (Id.isEmpty() && Name.isEmpty()) {
-            showError("Please enter a data");
-            return;
-        } else if (Id.isEmpty()) {
-            errorLabel1.setText("Please enter a valid faculty id.");
-            return;
+        if (Id.isEmpty()){
+            setError(errorLabel1, "Faculty ID cannot be empty");
         }
-        else if (Name.isEmpty()) {
-            errorLabel2.setText("Please enter a valid faculty name.");
-            return;
+        else if (Name.isEmpty()){
+            setError(errorLabel2, "Faculty Name cannot be empty");
         }
 
         boolean isUpdated = false;
         for (Faculty faculty : facultyList.getFaculties()){
             if (faculty.getFacultyId().equals(Id)){
+                if (faculty.getFacultyName().equals(Name)){
+                    setError(errorLabel3, "Data faculty already exists");
+                }
                 faculty.setFacultyName(Name);
                 isUpdated = true;
                 break;
@@ -68,11 +66,25 @@ public class editDataFacultyController {
         if (isUpdated){
             datasource.writeData(facultyList);
             showAlert(Alert.AlertType.INFORMATION, "Success!", "Faculty updated successfully!");
-        }
-        else {
-            showError("Faculty not found!, Please enter again.");
+            clearErrorLabels();
+            clearTextFiled();
         }
 
+    }
+    private void setError(Label label, String message) {
+        clearErrorLabels();
+        label.setText(message);
+    }
+
+    private void clearErrorLabels() {
+        errorLabel1.setText("");
+        errorLabel2.setText("");
+        errorLabel3.setText("");
+    }
+
+    private void clearTextFiled(){
+        facultyId.clear();
+        facultyName.clear();
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String message){
@@ -81,10 +93,6 @@ public class editDataFacultyController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
-
-    }
-    private void showError(String message){
-        errorLabel3.setText(message);
 
     }
 

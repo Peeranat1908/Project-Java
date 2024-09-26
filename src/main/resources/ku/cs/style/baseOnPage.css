@@ -1,3 +1,4 @@
+
 .button{
     -fx-background-radius: 25px;
     -fx-padding: 10px 20px;
@@ -6,3 +7,4 @@
 .button:hover{
     -fx-background-color: #5DADE2;
 }
+
