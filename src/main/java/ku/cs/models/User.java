@@ -37,8 +37,6 @@ public class User implements Comparable<User> {
     }
 
 
-
-
     public boolean isSuspended() {
         return suspend;
     }

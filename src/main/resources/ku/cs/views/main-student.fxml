@@ -42,12 +42,12 @@
                   <Line endX="-51.857139587402344" layoutX="1.0" layoutY="21.0" startX="-100.85713958740234" stroke="WHITE" strokeWidth="3.0" />
                </children>
             </Group>
-            <Label fx:id="usernameLabel" layoutX="1141.0" layoutY="14.0" prefHeight="54.0" prefWidth="9.0" textAlignment="RIGHT">
+            <Button layoutX="1186.0" layoutY="13.0" mnemonicParsing="false" onAction="#onPictureClick" opacity="0.0" prefHeight="49.0" prefWidth="70.0" text="Button" />
+            <Label fx:id="usernameLabel" layoutX="1113.0" layoutY="28.0">
                <font>
-                  <Font name="System Bold" size="36.0" />
+                  <Font name="Arial Bold" size="18.0" />
                </font>
             </Label>
-            <Button layoutX="1186.0" layoutY="13.0" mnemonicParsing="false" onAction="#onPictureClick" opacity="0.0" prefHeight="49.0" prefWidth="70.0" text="Button" />
          </children>
       </Pane>
       <ImageView fitHeight="171.0" fitWidth="151.0" layoutX="578.0" layoutY="78.0">

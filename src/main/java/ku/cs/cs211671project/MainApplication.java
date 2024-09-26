@@ -28,6 +28,7 @@ public class MainApplication extends Application {
         //FXRouter.goTo("departmentStaff");
         //FXRouter.goTo("facultyStaff");
         //FXRouter.goTo("first-page");
+        //FXRouter.goTo("studentInMajor");
 
 //        FXRouter.goTo("staff-table-admin");
 

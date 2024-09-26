@@ -2,6 +2,9 @@ package ku.cs.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import ku.cs.models.User;
 import ku.cs.services.FXRouter;
 
@@ -13,6 +16,7 @@ public class UserProfileController {
         @FXML private Label usernameLabel;
         @FXML private Label roleLabel;
         @FXML private Label idLabel;
+        @FXML private Circle imagecircle;
         private User user;
 
 
@@ -22,6 +26,12 @@ public class UserProfileController {
         if (data instanceof User) {
             user = (User) data;
             updateUI();
+            String profilePicPath = user.getProfilePicturePath();
+            if (profilePicPath == null || profilePicPath.isEmpty()) {
+                profilePicPath = "/images/profileDeafault2.png";
+            }
+            Image profileImage = new Image(getClass().getResourceAsStream(profilePicPath));
+            imagecircle.setFill(new ImagePattern(profileImage));
         } else {
             usernameLabel.setText("Invalid user data");
         }
@@ -31,9 +41,11 @@ public class UserProfileController {
         if (user != null) {
             usernameLabel.setText(user.getUsername());
             roleLabel.setText(user.getRole());
+            idLabel.setText(user.getId());
             nameLabel.setText(user.getName());
         }
     }
+
 
     @FXML
     private void onBackButton() {
