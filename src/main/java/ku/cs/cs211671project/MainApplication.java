@@ -13,22 +13,9 @@ public class MainApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXRouter.bind(this, stage, "CS211 Project", 1280, 720);
         configRoutes();
-        FXRouter.goTo("first-page");
-        //FXRouter.goTo("login-page");
         //FXRouter.goTo("main-advisor");
-        //FXRouter.goTo("faculty-data-admin");
         //FXRouter.goTo("main-admin");
-        //FXRouter.goTo("main-advisor");
-        //FXRouter.goTo("student");
-        //FXRouter.goTo("major-data-admin");
-        //FXRouter.goTo("edit-data-faculty");
-        //FXRouter.goTo("edit-data-major");
-        //FXRouter.goTo("departmentStaff");
-        //FXRouter.goTo("facultyStaff");
-        //FXRouter.goTo("first-page");
-        //FXRouter.goTo("approve-faculty-staff");
-        //FXRouter.goTo("editApproveFacultyStaff");
-        //FXRouter.goTo("addApproveFacultyStaff");
+        FXRouter.goTo("facultyStaff");
     }
     private void configRoutes() {
         String viewPath = "ku/cs/views/";

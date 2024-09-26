@@ -91,7 +91,7 @@ public class MainAdvisorController {
             return;
         }
 
-        errorLabel.setText("");
+        clearErrorLabels();
 
         StudentAdvisor fondStudent = studentAdvisorList.findStudentById(searchQuery);
         if (fondStudent == null) {
@@ -103,6 +103,19 @@ public class MainAdvisorController {
         } else {
             studentAdvisorTableView.getItems().clear();
         }
+        clearTextFiled();
+    }
+    private void setError(Label label, String message) {
+        clearErrorLabels();
+        label.setText(message);
+    }
+
+    private void clearErrorLabels() {
+        errorLabel.setText("");
+    }
+
+    private void clearTextFiled(){
+        searchTextField.clear();
     }
 
     @FXML

@@ -7,4 +7,19 @@
 .button:hover{
     -fx-background-color: #5DADE2;
 }
-
+.label{
+    -fx-font-size: 18px;
+}
+#errorLabel{
+    -fx-font-size: 13px;
+}
+#Button{
+    -fx-background-color: #FFFFFF;
+}
+#Button:hover{
+    -fx-font-size: 18px;
+}
+#Button-in-navbar{
+    -fx-background-color: #EAF4FF;
+    -fx-text-fill: black;
+}
