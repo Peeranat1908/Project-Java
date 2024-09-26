@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" stylesheets="@../style/darkmode.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.facultyStaff.FacultyStaffController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" stylesheets="@../style/baseOnPage.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.facultyStaff.FacultyStaffController">
    <children>
       <Label layoutX="617.0" layoutY="143.0" text="รายการคำร้อง">
          <font>
