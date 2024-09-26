@@ -1,0 +1,12 @@
+@font-face{
+    -fx-font-family: "Noto Sans Thai";
+    src: url("../font/Notothai/NotoSansThai-Regular.ttf");
+}
+
+* {
+    -fx-font-family: "Noto Sans Thai";
+}
+
+{
+
+}

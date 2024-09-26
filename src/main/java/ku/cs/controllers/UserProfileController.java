@@ -13,6 +13,7 @@ public class UserProfileController {
         @FXML private Label usernameLabel;
         @FXML private Label roleLabel;
         @FXML private Label idLabel;
+
         private User user;
 
 
@@ -32,6 +33,7 @@ public class UserProfileController {
             usernameLabel.setText(user.getUsername());
             roleLabel.setText(user.getRole());
             nameLabel.setText(user.getName());
+            idLabel.setText((user.getId()));
         }
     }
 
