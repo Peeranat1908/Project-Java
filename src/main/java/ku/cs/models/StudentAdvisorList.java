@@ -12,6 +12,12 @@ public class StudentAdvisorList {
         name = name.trim();
         faculty = faculty.trim();
         major = major.trim();
+        if (!id.equals("") && !name.equals("")){
+            StudentAdvisor exist = findStudentById(id);
+            if (exist == null){
+                studentAdvisor.add(new StudentAdvisor(id.trim(), name.trim(), faculty.trim(), major.trim()));
+            }
+        }
     }
 
     public StudentAdvisor findStudentById(String id){
@@ -22,6 +28,17 @@ public class StudentAdvisorList {
         }
         return null;
     }
+
+    public StudentAdvisor findStudentByName(String name){
+        for (StudentAdvisor studentAdvisor1 : studentAdvisor){
+            if (studentAdvisor1.getName().equalsIgnoreCase(name.trim())){
+                return studentAdvisor1;
+            }
+        }
+        return null;
+    }
+
+
 
     public ArrayList<StudentAdvisor> getStudentAdvisor() {
         return studentAdvisor;

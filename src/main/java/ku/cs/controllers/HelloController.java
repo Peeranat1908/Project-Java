@@ -30,7 +30,7 @@ public class HelloController {
         }
 
             try {
-                FXRouter.goTo("loginpage");
+                FXRouter.goTo("major-staff");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

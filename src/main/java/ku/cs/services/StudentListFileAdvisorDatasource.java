@@ -1,5 +1,6 @@
 package ku.cs.services;
 
+import ku.cs.models.StudentAdvisor;
 import ku.cs.models.StudentAdvisorList;
 
 import java.io.*;
@@ -12,6 +13,7 @@ public class StudentListFileAdvisorDatasource implements Datasource<StudentAdvis
     public StudentListFileAdvisorDatasource(String directoryName, String fileName){
         this.directoryName = directoryName;
         this.fileName = fileName;
+        checkFileIsExisted();
     }
 
     // ตรวจสอบว่ามีไฟล์ให้อ่านหรือไม่ ถ้าไม่มีให้สร้างไฟล์เปล่า
@@ -83,5 +85,39 @@ public class StudentListFileAdvisorDatasource implements Datasource<StudentAdvis
 
     @Override
     public void writeData(StudentAdvisorList data) {
+        String filePath = directoryName + File.separator + fileName;
+        File file = new File(filePath);
+
+        // เตรียม object ที่ใช้ในการเขียนไฟล์
+        FileOutputStream fileOutputStream = null;
+
+        try {
+            fileOutputStream = new FileOutputStream(file);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(
+                fileOutputStream,
+                StandardCharsets.UTF_8
+        );
+        BufferedWriter buffer = new BufferedWriter(outputStreamWriter);
+
+        try {
+            for (StudentAdvisor studentAdvisor : data.getStudentAdvisor()){
+                String line = studentAdvisor.getName() + "," + studentAdvisor.getId() + "," + studentAdvisor.getFaculty() + "," + studentAdvisor.getMajor();
+                buffer.append(line);
+                buffer.append("\n");
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }finally {
+            try{
+                buffer.flush();
+                buffer.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }

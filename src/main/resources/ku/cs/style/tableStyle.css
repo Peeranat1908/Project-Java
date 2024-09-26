@@ -1,0 +1,24 @@
+
+.table-view .column-header-background .label {
+    -fx-background-color: #2F80ED;
+    -fx-text-fill: white;
+}
+
+
+.table-view {
+    -fx-background-color: -fx-control-inner-background;
+}
+
+.table-view .table-row-cell {
+    -fx-background-color: transparent;
+}
+
+.table-view .table-cell {
+    -fx-background-color: transparent;
+}
+.table-view .table-row-cell:focused .table-cell,
+.table-view .table-row-cell:selected .table-cell {
+    -fx-background-color: -fx-accent;
+    -fx-text-fill: black;
+}
+

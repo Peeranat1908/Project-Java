@@ -13,10 +13,35 @@ public class MainApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXRouter.bind(this, stage, "CS211 Project", 1280, 720);
         configRoutes();
+        FXRouter.goTo("first-page");
+        //FXRouter.goTo("main-advisor");
+        //FXRouter.goTo("departmentStaff");
         //FXRouter.goTo("first-page");
-        FXRouter.goTo("main-advisor");
-    }
 
+        //FXRouter.goTo("login-page");
+
+        //FXRouter.goTo("main-advisor");
+        //FXRouter.goTo("faculty-data-admin");
+        //FXRouter.goTo("main-admin");
+        //FXRouter.goTo("main-advisor");
+        //FXRouter.goTo("student");
+        //FXRouter.goTo("major-data-admin");
+        //FXRouter.goTo("edit-data-faculty");
+        //FXRouter.goTo("edit-data-major");
+        //FXRouter.goTo("departmentStaff");
+        //FXRouter.goTo("facultyStaff");
+        //FXRouter.goTo("first-page");
+
+        //FXRouter.goTo("studentInMajor");
+
+//        FXRouter.goTo("staff-table-admin");
+
+
+        //FXRouter.goTo("approve-faculty-staff");
+        //FXRouter.goTo("editApproveFacultyStaff");
+        //FXRouter.goTo("addApproveFacultyStaff");
+
+    }
     private void configRoutes() {
         String viewPath = "ku/cs/views/";
         FXRouter.when("hello", viewPath + "hello-view.fxml");
@@ -31,7 +56,44 @@ public class MainApplication extends Application {
         FXRouter.when("student-appeal", viewPath + "student-appeal.fxml");
         FXRouter.when("normal-appeal", viewPath + "normal-appeal.fxml");
         FXRouter.when("main-admin", viewPath + "main-admin.fxml");
+        FXRouter.when("faculty-data-admin", viewPath + "faculty-data-admin.fxml");
+
+        FXRouter.when("appeal-tracking", viewPath + "appeal-list.fxml");
+        FXRouter.when("faculty-data-admin", viewPath + "faculty-data-admin.fxml");
+        FXRouter.when("user-profile", viewPath + "user-profile.fxml");
+        FXRouter.when("studentInMajor", viewPath + "student-in-major.fxml");
+        FXRouter.when("facultyStaff", viewPath + "faculty-staff.fxml");
+
+        FXRouter.when("faculty-data-admin", viewPath + "faculty-data-admin.fxml");
+        FXRouter.when("appeal-tracking", viewPath + "appeal-list.fxml");
+        FXRouter.when("major-data-admin", viewPath + "major-data-admin.fxml");
+        FXRouter.when("edit-data-faculty", viewPath + "edit-data-faculty.fxml");
+        FXRouter.when("add-new-faculty", viewPath + "addNewFacultyData.fxml");
+        FXRouter.when("edit-data-major",  viewPath + "edit-data-major.fxml");
+        FXRouter.when("add-new-major", viewPath + "add-new-major.fxml");
+        FXRouter.when("departmentStaff", viewPath + "main-major-staff.fxml");
+        FXRouter.when("majorEndorser", viewPath + "major-endorser-staff.fxml");
+        FXRouter.when("faculty-data-admin", viewPath + "faculty-data-admin.fxml");
+        FXRouter.when("appeal-tracking", viewPath + "appeal-list.fxml");
+        FXRouter.when("user-profile", viewPath + "user-profile.fxml");
+        FXRouter.when("departmentStaff", viewPath + "major-staff.fxml");
+        FXRouter.when("facultyStaff", viewPath + "faculty-staff.fxml");
+        FXRouter.when("leave-appeal", viewPath + "leave-appeal.fxml");
+        FXRouter.when("enroll-appeal", viewPath + "enroll-appeal.fxml");
+        FXRouter.when("appeal-detail", viewPath + "appeal-detail.fxml");
+
+        FXRouter.when("dashboard", viewPath + "dashboard.fxml");
+        FXRouter.when("user-details", viewPath + "user-detail-admin.fxml");
+        FXRouter.when("add-staff", viewPath + "add-staff.fxml");
+        FXRouter.when("staff-table-admin", viewPath + "staff-table-admin.fxml");
+        FXRouter.when("staff-edit", viewPath + "staffedit.fxml");
+
+        FXRouter.when("approve-faculty-staff", viewPath + "approver-faculty.fxml");
+        FXRouter.when("editApproveFacultyStaff", viewPath + "edit-approve-faculty-staff.fxml");
+        FXRouter.when("addApproveFacultyStaff", viewPath + "add-approve-faculty-staff.fxml");
+
     }
+
 
     public static void main(String[] args) {
         launch();
