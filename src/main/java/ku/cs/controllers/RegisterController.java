@@ -25,7 +25,6 @@ public class RegisterController {
     @FXML private TextField idTextField;
     @FXML private PasswordField passwordTextField;
     @FXML private PasswordField confirmPasswordTextField;
-
     private StudentList studentList;
     private UserList userList;
 

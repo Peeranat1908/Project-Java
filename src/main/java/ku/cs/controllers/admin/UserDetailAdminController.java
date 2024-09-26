@@ -65,20 +65,12 @@ public class UserDetailAdminController {
         } else {
             DepartmentLabel.setText("ภาควิชา: " +user.getMajor());
         }
-
-
         String profilePicPath = user.getProfilePicturePath();
         if (profilePicPath == null || profilePicPath.isEmpty()) {
-            profilePicPath = "/images/profileDeafault2.png"; // รูปเริ่มต้น
+            profilePicPath = "/images/profileDeafault2.png";
         }
-
         Image profileImage = new Image(getClass().getResourceAsStream(profilePicPath));
-
-        // ใช้ ImagePattern สำหรับเติมรูปภาพลงใน Circle
         imagecircle.setFill(new ImagePattern(profileImage));
-        // ตั้งรัศมี (radius) ถ้าจำเป็น
-//        imagecircle.setRadius(75);;
-
     }
     @FXML
     public void suspendButtonclick() {
@@ -91,7 +83,6 @@ public class UserDetailAdminController {
             user.setSuspended(true);
             datasource.writeData(userList);
             suspendlabel.setText("ผู้ใช้ " + username + " ถูกระงับเรียบร้อยแล้ว.");
-
         }
     }
     @FXML
@@ -152,6 +143,14 @@ public class UserDetailAdminController {
     public void homeButtonClick() {
         try {
             FXRouter.goTo("main-admin");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void onManageFacultyButtonClick() {
+        try {
+            FXRouter.goTo("faculty-data-admin");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

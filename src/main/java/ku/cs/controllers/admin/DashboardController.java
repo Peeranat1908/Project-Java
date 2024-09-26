@@ -30,4 +30,12 @@ public class DashboardController {
             throw new RuntimeException(e);
         }
     }
+    @FXML
+    public void onManageFacultyButtonClick() {
+        try {
+            FXRouter.goTo("faculty-data-admin");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

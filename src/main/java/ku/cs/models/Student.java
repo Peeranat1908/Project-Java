@@ -17,7 +17,7 @@ public class Student extends User {
         this(name, username, null, id, email, null, null , null,null,null);
         advisorID = null;
     }
-    
+
     public String getEmail() {
         return email;
     }

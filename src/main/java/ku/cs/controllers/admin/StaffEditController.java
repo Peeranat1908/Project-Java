@@ -225,7 +225,6 @@ public class StaffEditController {
             majorChoiceBox.setVisible(true);
             facultyChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
                 if (newValue != null) {
-//                    loadMajorChoices(newValue);
                     majorChoiceBox.setDisable(false);
                 } else {
                     majorChoiceBox.setDisable(true);
@@ -233,14 +232,6 @@ public class StaffEditController {
             });
         }
 
-    }
-    @FXML
-    private void onListButtonClick() {
-        try {
-            FXRouter.goTo("main-admin");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @FXML
@@ -279,6 +270,14 @@ public class StaffEditController {
     public void homeButtonClick() {
         try {
             FXRouter.goTo("main-admin");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void onManageFacultyButtonClick() {
+        try {
+            FXRouter.goTo("faculty-data-admin");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

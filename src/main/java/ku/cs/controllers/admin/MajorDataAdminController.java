@@ -75,19 +75,49 @@ public class MajorDataAdminController {
     }
 
     @FXML
-    public void onMyTeamButtonClick(){
-        try{
+    public void onMyTeamButtonClick() {
+        try {
             FXRouter.goTo("my-team");
         } catch (IOException e) {
-
             throw new RuntimeException(e);
         }
     }
-
     @FXML
-    public void onHomeButtonClick() {
+    public void onLogoutButtonClick() {
+        try {
+            FXRouter.goTo("login-page");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void dashboardButtonClick() {
+        try {
+            FXRouter.goTo("dashboard");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void manageStaffdataButtonClick() {
+        try {
+            FXRouter.goTo("staff-table-admin");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void homeButtonClick() {
         try {
             FXRouter.goTo("main-admin");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void onManageFacultyButtonClick() {
+        try {
+            FXRouter.goTo("faculty-data-admin");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

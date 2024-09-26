@@ -79,7 +79,7 @@ public class NormalAppealController {
     }
     @FXML
     public void onApplyAppealClick() {
-        String Id = user.getId();
+
         String type = "คำร้องทั่วไป:";
         String subject = subjectTextField.getText();
         String request = requestTextField.getText();

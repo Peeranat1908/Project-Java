@@ -12,11 +12,11 @@ public class LastLoginComparator implements Comparator<User> {
         LocalDate date1 = user1.getLastLoginDate();
         LocalDate date2 = user2.getLastLoginDate();
 
-        if (date1 == null && date2 == null) return 0; // ทั้งสองเป็น null
-        if (date1 == null) return 1; // user1 เป็น null ให้อยู่ท้าย
-        if (date2 == null) return -1; // user2 เป็น null ให้อยู่ท้าย
+        if (date1 == null && date2 == null) return 0;
+        if (date1 == null) return 1;
+        if (date2 == null) return -1;
 
-        int dateComparison = date2.compareTo(date1); // เรียงจากล่าสุดไปก่อน
+        int dateComparison = date2.compareTo(date1);
         if (dateComparison != 0) {
             return dateComparison;
         }
@@ -24,11 +24,11 @@ public class LastLoginComparator implements Comparator<User> {
         LocalTime time1 = user1.getLastLoginTime();
         LocalTime time2 = user2.getLastLoginTime();
 
-        if (time1 == null && time2 == null) return 0; // ทั้งสองเป็น null
-        if (time1 == null) return 1; // user1 เป็น null ให้อยู่ท้าย
-        if (time2 == null) return -1; // user2 เป็น null ให้อยู่ท้าย
+        if (time1 == null && time2 == null) return 0;
+        if (time1 == null) return 1;
+        if (time2 == null) return -1;
 
-        return time2.compareTo(time1); // เรียงจากล่าสุดไปก่อน
+        return time2.compareTo(time1);
     }
 }
 

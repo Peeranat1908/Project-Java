@@ -54,7 +54,7 @@
                   <Image url="@../../../images/admin.png" />
                </image>
             </ImageView>
-            <Button layoutX="362.0" layoutY="22.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="จัดการข้อมูลคณะและภาควิชา">
+            <Button layoutX="362.0" layoutY="22.0" mnemonicParsing="false" onAction="#onManageFacultyButtonClick" style="-fx-background-color: EAF4FF;" text="จัดการข้อมูลคณะและภาควิชา">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>

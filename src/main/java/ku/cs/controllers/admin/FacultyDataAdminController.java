@@ -58,7 +58,7 @@ public class FacultyDataAdminController {
             private void showTable(FacultyList facultyList){
                 // กำหนด column ให้มี title ว่า ID และใช้ค่าจาก attribute id ของ object Student
                 TableColumn<Faculty, String> idColumn = new TableColumn<>("Faculty ID");
-                idColumn.setCellValueFactory(new PropertyValueFactory<>("facultyId"));//เรียกมาจาก getter
+                idColumn.setCellValueFactory(new PropertyValueFactory<>("facultyId"));
 
                 // กำหนด column ให้มี title ว่า Name และใช้ค่าจาก attribute name ของ object Student
                 TableColumn<Faculty, String> nameColumn = new TableColumn<>("Faculty Name");
@@ -76,40 +76,70 @@ public class FacultyDataAdminController {
                 }
             }
 
-            @FXML
-            public void onMyTeamButtonClick () {
-                try {
-                    FXRouter.goTo("my-team");
-                } catch (IOException e) {
-
-                    throw new RuntimeException(e);
-                }
-            }
-
-            @FXML
-            public void onHomeButtonClick () {
-                try {
-                    FXRouter.goTo("main-admin");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-
-            @FXML
-            public void onLogOutButtonClick () {
-                try {
-                    FXRouter.goTo("main-admin");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-
-            @FXML
-            public void onEditFacultyButtonClick () {
-                try {
-                    FXRouter.goTo("edit-data-faculty");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+    @FXML
+    public void onMyTeamButtonClick() {
+        try {
+            FXRouter.goTo("my-team");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+    }
+    @FXML
+    public void onLogoutButtonClick() {
+        try {
+            FXRouter.goTo("login-page");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void dashboardButtonClick() {
+        try {
+            FXRouter.goTo("dashboard");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void manageStaffdataButtonClick() {
+        try {
+            FXRouter.goTo("staff-table-admin");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void homeButtonClick() {
+        try {
+            FXRouter.goTo("main-admin");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void onManageFacultyButtonClick() {
+        try {
+            FXRouter.goTo("faculty-data-admin");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void onLogOutButtonClick () {
+        try {
+            FXRouter.goTo("main-admin");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void onEditFacultyButtonClick () {
+        try {
+            FXRouter.goTo("edit-data-faculty");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}

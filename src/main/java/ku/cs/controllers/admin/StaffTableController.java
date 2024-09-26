@@ -41,7 +41,7 @@ public class StaffTableController {
                 User selectedUser = tableView.getSelectionModel().getSelectedItem();
                 if (selectedUser != null) {
                     try {
-                        FXRouter.goTo("staffedit", selectedUser);
+                        FXRouter.goTo("staff-edit", selectedUser);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -168,6 +168,14 @@ public class StaffTableController {
     public void homeButtonClick() {
         try {
             FXRouter.goTo("main-admin");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void onManageFacultyButtonClick() {
+        try {
+            FXRouter.goTo("faculty-data-admin");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

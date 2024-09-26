@@ -70,10 +70,9 @@ public class LoginController {
             errorLabel.setText("Username or password is incorrect. Please try again.");
             return;
         }
-
         userList.updateLastLogin(username);
-
-
+        UserListFileDatasource userDatasource = new UserListFileDatasource("data", "user.csv");
+        userDatasource.writeData(userList);
         navigateByRole(user);
     }
 
