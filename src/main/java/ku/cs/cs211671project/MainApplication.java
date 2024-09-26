@@ -30,7 +30,8 @@ public class MainApplication extends Application {
         //FXRouter.goTo("first-page");
 
 //        FXRouter.goTo("staff-table-admin");
-        FXRouter.goTo("dashboard");
+        //FXRouter.goTo("dashboard");
+        FXRouter.goTo("login-page");
 
     }
 
