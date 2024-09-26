@@ -1,9 +1,10 @@
 package ku.cs.models;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
+
 
 public class Appeal {
+    private String studentID;
     private String type; //ประเภท
     private String subject; // เรื่อง
     private String request; // มีความประสงค์คือ
@@ -13,7 +14,8 @@ public class Appeal {
     private String status;
     private LocalTime time;
 
-    public Appeal(String type , String subject, String request, LocalDate date, String studentSignature, long second, String status, LocalTime time) {
+    public Appeal(String studentID,String type , String subject, String request, LocalDate date, String studentSignature, long second, String status, LocalTime time) {
+        this.studentID = studentID;
         this.type = type;
         this.subject = subject;
         this.request = request;
@@ -22,6 +24,10 @@ public class Appeal {
         this.second = second;
         this.status = status;
         this.time = time;
+    }
+
+    public String getStudentID(){
+        return studentID;
     }
 
     public String getType(){ return type; }

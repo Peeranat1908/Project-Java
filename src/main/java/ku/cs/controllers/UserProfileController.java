@@ -43,6 +43,7 @@ public class UserProfileController {
             roleLabel.setText(user.getRole());
             idLabel.setText(user.getId());
             nameLabel.setText(user.getName());
+            idLabel.setText((user.getId()));
         }
     }
 

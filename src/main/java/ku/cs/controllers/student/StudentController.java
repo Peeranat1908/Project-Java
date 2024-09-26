@@ -43,13 +43,13 @@ public class StudentController {
     // Method สำหรับการคลิกปุ่มเพื่อไปยังหน้าการยื่นคำร้องของนักเรียน
     @FXML
     public void selectAppealButtonClick() {
-        navigateTo("student-appeal");
+        navigateTo("student-appeal", user);
     }
 
     // Method สำหรับการคลิกปุ่มเพื่อไปยังหน้าการติดตามคำร้อง
     @FXML
     public void onAppealTrackingClick() {
-        navigateTo("appeal-tracking");
+        navigateTo("appeal-tracking", user);
     }
 
     @FXML

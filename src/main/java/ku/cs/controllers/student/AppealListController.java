@@ -10,10 +10,11 @@ import javafx.scene.control.Label;
 import ku.cs.controllers.components.AppealItemController;
 import ku.cs.models.Appeal;
 import ku.cs.models.AppealList;
+import ku.cs.models.User;
 import ku.cs.services.AppealSharedData;
 import ku.cs.services.AppealListDatasource;
+import ku.cs.services.AppealSortComparator;
 import ku.cs.services.FXRouter;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,14 +36,19 @@ public class AppealListController {
 
     private AppealListDatasource datasource;
     private AppealList appealList;
+    private User user;
 
     @FXML
     public void initialize() {
         datasource = new AppealListDatasource("data/appeals.csv");
         appealList = datasource.readData();
         AppealSharedData.setNormalAppealList(appealList);
-        loadAppeals(null, null);
 
+        Object data = FXRouter.getData();
+        if (data instanceof User) {
+            user = (User) data;
+        }
+        loadAppeals(null, null);
     }
     @FXML
     public void onBackButtonClick() {
@@ -53,10 +59,17 @@ public class AppealListController {
         }
     }
 
+
     private void loadAppeals(String filterType, String searchQuery) {
 
         appealList = AppealSharedData.getNormalAppealList();
         List<Appeal> appeals = appealList.getsAppeals();
+
+        if (user != null) {
+            appeals = appeals.stream()
+                    .filter(appeal -> appeal.getStudentID() != null && appeal.getStudentID().equals(user.getId()))
+                    .collect(Collectors.toList());
+        }
 
         if (filterType != null) {
             appeals = appeals.stream()
@@ -70,15 +83,14 @@ public class AppealListController {
 
             appeals = appeals.stream()
                     .filter(appeal ->
-                            appeal.getType().toLowerCase().contains(lowerCaseQuery) ||
-                                    appeal.getSubject().toLowerCase().contains(lowerCaseQuery) ||
-                                    appeal.getRequest().toLowerCase().contains(lowerCaseQuery) ||
-                                    appeal.getDate().format(dateFormatter).contains(lowerCaseQuery) ||
-                                    appeal.getStudentSignature().toLowerCase().contains(lowerCaseQuery)
+                                    appeal.getSubject().toLowerCase().contains(lowerCaseQuery) || //เสิชหัวข้อคำร้องได้
+                                    appeal.getRequest().toLowerCase().contains(lowerCaseQuery) || //เนื้อหาคำร้อง
+                                    appeal.getDate().format(dateFormatter).contains(lowerCaseQuery) || //เสิชจากวันที่
+                                    appeal.getStudentSignature().toLowerCase().contains(lowerCaseQuery) //เสิชจากผู้ลงนาม
                     ).collect(Collectors.toList());
         }
 
-        appeals.sort((a1, a2) -> Long.compare(a2.getSecond(), a1.getSecond()));
+        appeals.sort(new AppealSortComparator(filterType));
 
         if(appeals.isEmpty()){
             noAppealsLabel.setVisible(true);
@@ -130,3 +142,4 @@ public class AppealListController {
 
 
 }
+

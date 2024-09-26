@@ -29,7 +29,7 @@ public class StudentAppealController {
     @FXML
     public void onNormalAppealClick() {
         try {
-            FXRouter.goTo("normal-appeal");
+            FXRouter.goTo("normal-appeal", user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -38,7 +38,7 @@ public class StudentAppealController {
     @FXML
     public void onLeaveAppealClick() {
         try {
-            FXRouter.goTo("leave-appeal");
+            FXRouter.goTo("leave-appeal",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -47,7 +47,7 @@ public class StudentAppealController {
     @FXML
     public void onEnrollAppealClick() {
         try {
-            FXRouter.goTo("enroll-appeal");
+            FXRouter.goTo("enroll-appeal",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

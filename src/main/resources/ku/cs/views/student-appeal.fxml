@@ -31,9 +31,9 @@
         </Pane>
         <Pane layoutX="365.0" layoutY="254.0">
             <children>
-                <Button minHeight="65.0" minWidth="552.0" mnemonicParsing="false" onAction="#onNormalAppealClick" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;" text="คำร้องทั่วไป">
+                <Button minHeight="65.0" minWidth="552.0" mnemonicParsing="false" onAction="#onNormalAppealClick" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, gray, 10, 0.5, 2 ,2);" text="คำร้องทั่วไป">
                     <font>
-                        <Font name="Arial" size="16.0" />
+                        <Font name="Arial Bold" size="16.0" />
                     </font>
                 </Button>
                 <ImageView fitHeight="25.0" fitWidth="27.0" layoutX="429.0" layoutY="20.0">
@@ -45,9 +45,9 @@
         </Pane>
         <Pane layoutX="365.0" layoutY="330.0">
             <children>
-                <Button minHeight="65.0" minWidth="552.0" mnemonicParsing="false" onAction="#onLeaveAppealClick" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;" text="ใบลาพักการศึกษา">
+                <Button minHeight="65.0" minWidth="552.0" mnemonicParsing="false" onAction="#onLeaveAppealClick" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, gray, 10, 0.5, 2 ,2);" text="ใบลาพักการศึกษา">
                     <font>
-                        <Font name="Arial" size="16.0" />
+                        <Font name="Arial Bold" size="16.0" />
                     </font>
                 </Button>
                 <ImageView fitHeight="25.0" fitWidth="27.0" layoutX="429.0" layoutY="20.0">
@@ -59,9 +59,9 @@
         </Pane>
         <Pane layoutX="367.0" layoutY="406.0">
             <children>
-                <Button minHeight="65.0" minWidth="552.0" mnemonicParsing="false" onAction="#onEnrollAppealClick" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;" text="คำร้องขอลงทะเบียน">
+                <Button minHeight="65.0" minWidth="552.0" mnemonicParsing="false" onAction="#onEnrollAppealClick" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, gray, 10, 0.5, 2 ,2);" text="คำร้องขอลงทะเบียน">
                     <font>
-                        <Font name="Arial" size="16.0" />
+                        <Font name="Arial Bold" size="16.0" />
                     </font>
                 </Button>
                 <ImageView fitHeight="25.0" fitWidth="27.0" layoutX="429.0" layoutY="20.0">

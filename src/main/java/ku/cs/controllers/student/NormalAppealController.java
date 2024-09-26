@@ -42,6 +42,7 @@ public class NormalAppealController {
     private AppealListDatasource datasource;
 
     private User user;
+
     @FXML
     public void initialize() {
         daySpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 31, LocalDate.now().getDayOfMonth()));
@@ -79,6 +80,7 @@ public class NormalAppealController {
     }
     @FXML
     public void onApplyAppealClick() {
+        String studentID = user.getId();
         String type = "คำร้องทั่วไป:";
         String subject = subjectTextField.getText();
         String request = requestTextField.getText();
@@ -102,11 +104,17 @@ public class NormalAppealController {
             request += " เอกสารชำรุด";
         }
         ErrorLabel.setVisible(false);
-
-        Appeal appeal = new Appeal(type , subject, request, date, studentSignature, second, status, time);
+        subject = subject.replace(",", " ");
+        Appeal appeal = new Appeal(studentID ,type , subject, request, date, studentSignature, second, status, time);
         AppealSharedData.getNormalAppealList().addAppeal(appeal);
         datasource.writeData(AppealSharedData.getNormalAppealList());
         clearFields();
+
+        try {
+            FXRouter.goTo("student");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
