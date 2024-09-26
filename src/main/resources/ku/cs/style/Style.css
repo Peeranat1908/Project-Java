@@ -81,7 +81,7 @@
     -fx-font-family: Sana;
 }
 
-#button{
+#Button{
     -fx-background-color:  #6EB1FF;
     -fx-text-fill: white; /* สีของข้อความเป็นสีขาว */
     -fx-font-size: 16px;
@@ -89,6 +89,6 @@
     -fx-border-radius: 5px;
     -fx-background-radius: 25px;
 }
-#button:hover{
+#Button:hover{
     -fx-background-color: #5DADE2;
 }

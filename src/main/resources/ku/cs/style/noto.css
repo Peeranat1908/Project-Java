@@ -1,19 +1,19 @@
-@font-face {
-    -fx-font-family: "Noto Sans Thai";
-    src: url("../NotoSansThai/NotoSansThai-Black.ttf");
-}
-@font-face {
-    -fx-font-family: "Noto Sans Thai";
-    src: url("../NotoSansThai/NotoSansThai-Bold.ttf");
-}
-@font-face {
-    -fx-font-family: "Noto Sans Thai";
-    src: url("../NotoSansThai/NotoSansThai-Light.ttf");
-}
-@font-face {
-    -fx-font-family: "Noto Sans Thai";
-    src: url("../NotoSansThai/NotoSansThai-Medium.ttf");
-}
+/*@font-face {*/
+/*    -fx-font-family: "Noto Sans Thai";*/
+/*    src: url("../NotoSansThai/NotoSansThai-Black.ttf");*/
+/*}*/
+/*@font-face {*/
+/*    -fx-font-family: "Noto Sans Thai";*/
+/*    src: url("../NotoSansThai/NotoSansThai-Bold.ttf");*/
+/*}*/
+/*@font-face {*/
+/*    -fx-font-family: "Noto Sans Thai";*/
+/*    src: url("../NotoSansThai/NotoSansThai-Light.ttf");*/
+/*}*/
+/*@font-face {*/
+/*    -fx-font-family: "Noto Sans Thai";*/
+/*    src: url("../NotoSansThai/NotoSansThai-Medium.ttf");*/
+/*}*/
 @font-face {
     -fx-font-family: "Noto Sans Thai";
     src: url("../NotoSansThai/NotoSansThai-Regular.ttf");
@@ -21,4 +21,8 @@
 
 * {
     -fx-font-family: "Noto Sans Thai";
+}
+
+.boldText {
+    -fx-font-weight: bold;
 }
