@@ -23,14 +23,7 @@ public class MainApplication extends Application {
         //FXRouter.goTo("first-page");
         FXRouter.goTo("login-page");
         //FXRouter.goTo("main-advisor");
-        //FXRouter.goTo("faculty-data-admin");
         //FXRouter.goTo("main-admin");
-        //FXRouter.goTo("main-advisor");
-        //FXRouter.goTo("student");
-        //FXRouter.goTo("major-data-admin");
-        //FXRouter.goTo("edit-data-faculty");
-        //FXRouter.goTo("edit-data-major");
-        //FXRouter.goTo("departmentStaff");
         //FXRouter.goTo("facultyStaff");
         //FXRouter.goTo("first-page");
         //FXRouter.goTo("studentInMajor");
@@ -41,6 +34,7 @@ public class MainApplication extends Application {
         //FXRouter.goTo("editApproveFacultyStaff");
         //FXRouter.goTo("addApproveFacultyStaff");
 
+        FXRouter.goTo("login-page");
     }
     private void configRoutes() {
         String viewPath = "ku/cs/views/";

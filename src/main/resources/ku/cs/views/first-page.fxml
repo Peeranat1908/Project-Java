@@ -13,7 +13,7 @@
             <Image url="@../../../images/MYMEE.png" />
          </image>
       </ImageView>
-      <Button fx:id="button" layoutX="414.0" layoutY="433.0" mnemonicParsing="false" onAction="#onStartButtonClick" prefHeight="42.0" prefWidth="440.0" stylesheets="@../style/Style.css" text="Get Started">
+      <Button fx:id="Button" layoutX="414.0" layoutY="433.0" mnemonicParsing="false" onAction="#onStartButtonClick" prefHeight="42.0" prefWidth="440.0" stylesheets="@../style/Style.css" text="Get Started">
          <font>
             <Font name="System Italic" size="16.0" />
          </font>
