@@ -1,3 +1,4 @@
+@import "noto.css";
 .button{
     -fx-background-radius: 25px;
     -fx-padding: 10px 20px;
@@ -5,4 +6,16 @@
 }
 .button:hover{
     -fx-background-color: #5DADE2;
+}
+.label{
+    -fx-font-size: 20px;
+}
+#AdminLabel{
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+#dashboardButton{
+    -fx-background-color:   #2F80ED;
+    -fx-text-fill: white;
+
 }
