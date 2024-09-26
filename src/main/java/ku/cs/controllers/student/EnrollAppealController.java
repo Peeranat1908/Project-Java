@@ -10,6 +10,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.Label;
 import ku.cs.models.Appeal;
+import ku.cs.models.User;
 import java.time.LocalDate;
 import ku.cs.services.AppealSharedData;
 import java.util.Date;
@@ -50,6 +51,8 @@ public class EnrollAppealController {
     private CheckBox TransferMajorCheck; //ย้ายคณะหรือสาขา
 
     private AppealListDatasource datasource;
+
+    private User user;
 
     @FXML
     public void initialize() {
@@ -101,6 +104,12 @@ public class EnrollAppealController {
         if (selectedCheckBox != LessRegisCheck) LessRegisCheck.setSelected(false);
         if (selectedCheckBox != PostPayCheck) PostPayCheck.setSelected(false);
         if (selectedCheckBox != TransferMajorCheck) TransferMajorCheck.setSelected(false);
+
+
+        Object data = FXRouter.getData();
+        if (data instanceof User) {
+            user = (User) data;
+        }
     }
 
     @FXML
@@ -114,6 +123,8 @@ public class EnrollAppealController {
 
     @FXML
     public void onApplyAppealClick(){
+
+        String studentID = user.getId();
         String type = "ขอลงทะเบียนเรียน:";
         String subject = "มีความประสงค์: ";
         String request =  requestTextField.getText();
@@ -152,10 +163,16 @@ public class EnrollAppealController {
         }
         ErrorLabel.setVisible(false);
 
-        Appeal appeal = new Appeal(type , subject, request, date, studentSignature, second, status, time);
+        Appeal appeal = new Appeal(studentID    ,type , subject, request, date, studentSignature, second, status, time);
         AppealSharedData.getNormalAppealList().addAppeal(appeal);
         datasource.writeData(AppealSharedData.getNormalAppealList());
         clearFields();
+
+        try {
+            FXRouter.goTo("student");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
     @FXML
     public void onResetAppealClick() {

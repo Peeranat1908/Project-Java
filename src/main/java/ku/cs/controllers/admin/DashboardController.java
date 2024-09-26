@@ -35,11 +35,10 @@ public class DashboardController {
     public void onMyTeamButtonClick() throws RuntimeException {
         NavigationHistoryService.getInstance().pushPage("dashboard");
         try {
-            FXRouter.goTo("my-team");
+            FXRouter.goTo("staff-table-admin");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
 
 }

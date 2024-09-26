@@ -20,17 +20,12 @@
                   <Image url="@../../../images/student.png" />
                </image>
             </ImageView>
-            <Button layoutX="135.0" layoutY="18.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="HOME">
+            <Button layoutX="135.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: #2F80ED; -fx-background-radius: 25px;" text="HOME" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button layoutX="221.0" layoutY="19.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="LIST">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Button>
-            <Button layoutX="281.0" layoutY="19.0" mnemonicParsing="false" onAction="#onMyTeamButtonClick" style="-fx-background-color: EAF4FF;" text="MY TEAM">
+            <Button layoutX="230.0" layoutY="20.0" mnemonicParsing="false" onAction="#onMyTeamButtonClick" style="-fx-background-color: EAF4FF;" text="MY TEAM">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -42,12 +37,12 @@
                   <Line endX="-51.857139587402344" layoutX="1.0" layoutY="21.0" startX="-100.85713958740234" stroke="WHITE" strokeWidth="3.0" />
                </children>
             </Group>
-            <Label fx:id="usernameLabel" layoutX="1141.0" layoutY="14.0" prefHeight="54.0" prefWidth="9.0" textAlignment="RIGHT">
+            <Button layoutX="1186.0" layoutY="13.0" mnemonicParsing="false" onAction="#onPictureClick" opacity="0.0" prefHeight="49.0" prefWidth="70.0" text="Button" />
+            <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="914.0" layoutY="14.0" prefHeight="54.0" prefWidth="265.0" textAlignment="CENTER">
                <font>
-                  <Font name="System Bold" size="36.0" />
+                  <Font name="Arial Bold" size="36.0" />
                </font>
             </Label>
-            <Button layoutX="1186.0" layoutY="13.0" mnemonicParsing="false" onAction="#onPictureClick" opacity="0.0" prefHeight="49.0" prefWidth="70.0" text="Button" />
          </children>
       </Pane>
       <ImageView fitHeight="171.0" fitWidth="151.0" layoutX="578.0" layoutY="78.0">
@@ -57,14 +52,14 @@
       </ImageView>
       <Pane layoutX="344.0" layoutY="244.0" prefHeight="245.0" prefWidth="605.0" style="-fx-background-color: BEDCFE; -fx-background-radius: 20;">
          <children>
-            <Button layoutX="25.0" layoutY="40.0" mnemonicParsing="false" onAction="#selectAppealButtonClick" prefHeight="66.0" prefWidth="563.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10;" text="เลือกประเภทคำร้อง">
+            <Button layoutX="25.0" layoutY="40.0" mnemonicParsing="false" onAction="#selectAppealButtonClick" prefHeight="66.0" prefWidth="563.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, gray, 10, 0.5, 2 ,2);" text="เลือกประเภทคำร้อง">
                <font>
-                  <Font name="Arial" size="16.0" />
+                  <Font name="Arial Bold" size="16.0" />
                </font>
             </Button>
-            <Button layoutX="25.0" layoutY="134.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="563.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10;" text="สร้างแบบคำร้องใหม่">
+            <Button layoutX="25.0" layoutY="134.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="563.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, gray, 10, 0.5, 2 ,2);" text="สร้างแบบคำร้องใหม่">
                <font>
-                  <Font name="Arial" size="16.0" />
+                  <Font name="Arial Bold" size="16.0" />
                </font>
             </Button>
          </children>

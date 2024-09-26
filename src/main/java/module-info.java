@@ -20,4 +20,7 @@ module ku.cs {
     exports ku.cs.controllers.components;
     opens ku.cs.controllers.components to javafx.fxml;
 
+    exports ku.cs.controllers.facultyStaff;
+    opens ku.cs.controllers.facultyStaff to javafx.fxml;
+
 }

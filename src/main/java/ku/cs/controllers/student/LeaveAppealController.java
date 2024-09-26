@@ -8,10 +8,11 @@ import java.io.IOException;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import ku.cs.models.Appeal;
+import ku.cs.models.User;
 import java.time.LocalDate;
 import javafx.scene.control.Label;
 import ku.cs.services.AppealSharedData;
-
+import java.time.chrono.ThaiBuddhistDate;
 import ku.cs.services.AppealListDatasource;
 
 import java.time.LocalTime;
@@ -56,6 +57,8 @@ public class LeaveAppealController {
 
     private AppealListDatasource datasource;
 
+    private User user;
+
     @FXML
     public void initialize() {
         daySpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 31, LocalDate.now().getDayOfMonth()));
@@ -67,6 +70,11 @@ public class LeaveAppealController {
         datasource = new AppealListDatasource("data/appeals.csv");
         AppealList loadedAppeals = datasource.readData();
         AppealSharedData.setNormalAppealList(loadedAppeals);
+
+        Object data = FXRouter.getData();
+        if (data instanceof User) {
+            user = (User) data;
+        }
     }
 
     @FXML
@@ -83,7 +91,7 @@ public class LeaveAppealController {
 
         ErrorLabel.setVisible(false);
 
-
+        String studentID = user.getId();
         String type = "ใบลาพักการศึกษา:";
         String subject = subjectTextField.getText();
         String nYears = nyearsTextField.getText();
@@ -114,13 +122,19 @@ public class LeaveAppealController {
         }
         try {
 
-            Appeal appeal = new Appeal(type , subject, request, date, signature, second, status, time);
+            Appeal appeal = new Appeal(studentID ,type , subject, request, date, signature, second, status, time);
             AppealSharedData.getNormalAppealList().addAppeal(appeal);
             datasource.writeData(AppealSharedData.getNormalAppealList());
             clearFields();
 
         } catch (NumberFormatException e) {
             ErrorLabel.setVisible(true);
+        }
+
+        try {
+            FXRouter.goTo("student");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

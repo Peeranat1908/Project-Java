@@ -22,6 +22,4 @@ public class AppealSharedData {
         return selectedAppeal;
     }
 
-
-
 }

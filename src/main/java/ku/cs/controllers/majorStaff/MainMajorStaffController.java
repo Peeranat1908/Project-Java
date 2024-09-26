@@ -35,25 +35,6 @@ public class MainMajorStaffController {
         }
     }
 
-//    private void searchStudent() {
-//        String searchQuery = searchTextField.getText().trim();
-//        if (searchQuery.isEmpty()) {
-//            studentTableView.getItems().setAll(studentAdvisorList.getStudentAdvisor());
-////            errorLabel.setText("กรุณาใส่ข้อมูล");
-//            return;
-//        }
-
-//        StudentAdvisor fondStudent = studentAdvisorList.findStudentById(searchQuery);
-//        if (fondStudent == null) {
-//            fondStudent = studentAdvisorList.findStudentByName(searchQuery);
-//        }
-//
-//        if (fondStudent != null) {
-//            studentTableView.getItems().setAll(fondStudent);
-//        } else {
-//            studentTableView.getItems().clear();
-//        }
-//    }
 
     @FXML
     public void onMyTeamButtonClick() throws RuntimeException {

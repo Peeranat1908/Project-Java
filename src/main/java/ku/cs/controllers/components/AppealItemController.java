@@ -2,11 +2,9 @@ package ku.cs.controllers.components;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.Label;
 import ku.cs.models.Appeal;
 import ku.cs.services.AppealSharedData;
 import ku.cs.services.FXRouter;
-import javafx.scene.layout.Pane;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
