@@ -1,6 +1,7 @@
 package ku.cs.controllers.admin;
 
 import javafx.fxml.FXML;
+import ku.cs.controllers.NavigationHistoryService;
 import ku.cs.services.FXRouter;
 
 import java.io.IOException;
@@ -30,4 +31,15 @@ public class DashboardController {
             throw new RuntimeException(e);
         }
     }
+    @FXML
+    public void onMyTeamButtonClick() throws RuntimeException {
+        NavigationHistoryService.getInstance().pushPage("dashboard");
+        try {
+            FXRouter.goTo("my-team");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }

@@ -59,14 +59,14 @@
                   <Font name="Arial Bold" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="dashboardButton" layoutX="922.0" layoutY="20.0" mnemonicParsing="false" onAction="#dashboardButtonClick" text="Dashboard">
+            <Button fx:id="dashboardButton" layoutX="922.0" layoutY="20.0" mnemonicParsing="false" onAction="#dashboardButtonClick" stylesheets="@../style/darkmode.css" text="Dashboard">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
          </children>
       </Pane>
-      <Button layoutX="1168.0" layoutY="648.0" mnemonicParsing="false" onAction="#onLogoutButtonClick" text="logout" />
+      <Button layoutX="1168.0" layoutY="648.0" mnemonicParsing="false" text="logout" />
       <VBox alignment="CENTER" layoutX="90.0" layoutY="180.0" prefHeight="186.0" prefWidth="210.0">
          <children>
             <Label text="จำนวนคำร้องทั้งหมด">
