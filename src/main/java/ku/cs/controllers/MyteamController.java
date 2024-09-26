@@ -38,11 +38,15 @@ public class MyteamController {
 
     }
     @FXML
-    public void onBackButtonClick() {
-        try {
-            FXRouter.goTo("student", getThispage());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    public void onBackButtonClick() { // Method to go back to previous page
+        // Retrieve the previous page from the stack
+        String previousPage = NavigationHistoryService.getInstance().popPage();
+        if (previousPage != null) {
+            try {
+                FXRouter.goTo(previousPage);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

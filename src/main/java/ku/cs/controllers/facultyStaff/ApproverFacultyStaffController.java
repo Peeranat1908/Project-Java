@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import ku.cs.controllers.NavigationHistoryService;
 import ku.cs.models.ApproveFacultyStaff;
 import ku.cs.models.ApproveFacultyStaffList;
 import ku.cs.services.ApproveFacultyStaffListDatasource;
@@ -35,10 +36,14 @@ public class ApproverFacultyStaffController {
         TableColumn<ApproveFacultyStaff, String> positionColumn = new TableColumn<>("ตำแหน่ง");
         positionColumn.setCellValueFactory(new PropertyValueFactory<>("position"));
 
+        TableColumn<ApproveFacultyStaff, String> facultyColumn = new TableColumn<>("คณะ");
+        facultyColumn.setCellValueFactory(new PropertyValueFactory<>("faculty"));
+
         // ล้าง column เดิมทั้งหมดที่มีอยู่ใน table แล้วเพิ่ม column ใหม่
         approveFacultyStaffTableView.getColumns().clear();
         approveFacultyStaffTableView.getColumns().add(nameColumn);
         approveFacultyStaffTableView.getColumns().add(positionColumn);
+        approveFacultyStaffTableView.getColumns().add(facultyColumn);
 
         approveFacultyStaffTableView.getItems().clear();
 
@@ -60,6 +65,16 @@ public class ApproverFacultyStaffController {
     public void onHomeButton(){
         try{
             FXRouter.goTo("facultyStaff");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void onMyTeamButtonClick() throws RuntimeException {
+        NavigationHistoryService.getInstance().pushPage("approve-faculty-staff");
+        try {
+            FXRouter.goTo("my-team");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

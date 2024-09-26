@@ -20,17 +20,12 @@
                   <Image url="@../../../images/student.png" />
                </image>
             </ImageView>
-            <Button layoutX="135.0" layoutY="18.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="HOME">
+            <Button layoutX="135.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: #2F80ED; -fx-background-radius: 25px;" text="HOME" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button layoutX="221.0" layoutY="19.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="LIST">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Button>
-            <Button layoutX="281.0" layoutY="19.0" mnemonicParsing="false" onAction="#onMyTeamButtonClick" style="-fx-background-color: EAF4FF;" text="MY TEAM">
+            <Button layoutX="230.0" layoutY="20.0" mnemonicParsing="false" onAction="#onMyTeamButtonClick" style="-fx-background-color: EAF4FF;" text="MY TEAM">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>

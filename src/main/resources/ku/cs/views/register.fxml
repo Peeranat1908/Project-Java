@@ -4,14 +4,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.RegisterController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" stylesheets="@../style/darkmode.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.RegisterController">
    <children>
       <ImageView fitHeight="68.0" fitWidth="349.0" layoutX="709.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -28,7 +26,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="nameTextField" layoutX="670.0" layoutY="179.0" prefHeight="38.0" prefWidth="187.0">
+      <TextField fx:id="nameTextField" layoutX="670.0" layoutY="179.0" prefHeight="38.0" prefWidth="187.0" promptText="Enter Name" stylesheets="@../style/Style.css">
          <font>
             <Font size="14.0" />
          </font>
@@ -38,7 +36,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="usernameTextField" layoutX="670.0" layoutY="248.0" prefHeight="37.0" prefWidth="396.0">
+      <TextField fx:id="usernameTextField" layoutX="670.0" layoutY="248.0" prefHeight="37.0" prefWidth="396.0" promptText="Enter Username" stylesheets="@../style/Style.css">
          <font>
             <Font size="14.0" />
          </font>
@@ -48,7 +46,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="emailTextField" layoutX="672.0" layoutY="389.0" prefHeight="37.0" prefWidth="396.0">
+      <TextField fx:id="emailTextField" layoutX="672.0" layoutY="389.0" prefHeight="37.0" prefWidth="396.0" promptText="Enter Email" stylesheets="@../style/Style.css">
          <font>
             <Font size="14.0" />
          </font>
@@ -63,24 +61,17 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="673.0" layoutY="601.0" mnemonicParsing="false" onAction="#onRegisterButtonClick" prefHeight="51.0" prefWidth="396.0" style="-fx-background-color: #6EB1FF; -fx-background-radius: 10;" text="Register">
+      <Button fx:id="button" layoutX="673.0" layoutY="601.0" mnemonicParsing="false" onAction="#onRegisterButtonClick" prefHeight="51.0" prefWidth="396.0" stylesheets="@../style/Style.css" text="Register">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
-         <effect>
-            <DropShadow height="1.0" offsetX="2.0" offsetY="3.0" radius="0.0" width="0.0">
-               <color>
-                  <Color opacity="0.5" />
-               </color>
-            </DropShadow>
-         </effect>
       </Button>
       <Button layoutX="849.0" layoutY="656.0" mnemonicParsing="false" onAction="#onLoginButtonClick" style="-fx-background-color: #FFFFFF;" text="Login" textFill="#6eb1ff">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Button>
-      <Label layoutX="674.0" layoutY="662.0" prefHeight="26.0" prefWidth="178.0" text="already have an account?">
+      <Label layoutX="674.0" layoutY="663.0" prefHeight="26.0" prefWidth="178.0" text="already have an account?">
          <font>
             <Font size="16.0" />
          </font>
@@ -100,7 +91,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="surnameTextField" layoutX="871.0" layoutY="179.0" prefHeight="38.0" prefWidth="195.0">
+      <TextField fx:id="surnameTextField" layoutX="871.0" layoutY="179.0" prefHeight="38.0" prefWidth="195.0" promptText="Enter Surname" stylesheets="@../style/Style.css">
          <font>
             <Font size="14.0" />
          </font>
@@ -110,18 +101,13 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="idTextField" layoutX="671.0" layoutY="320.0" prefHeight="37.0" prefWidth="396.0">
+      <TextField fx:id="idTextField" layoutX="671.0" layoutY="320.0" prefHeight="37.0" prefWidth="396.0" promptText="Enter Student Id" stylesheets="@../style/Style.css">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
       <Label fx:id="errorLabel" layoutX="669.0" layoutY="571.0" textFill="RED" />
-      <PasswordField fx:id="passwordTextField" layoutX="671.0" layoutY="453.0" prefHeight="37.0" prefWidth="396.0" />
-      <PasswordField fx:id="confirmPasswordTextField" layoutX="670.0" layoutY="533.0" prefHeight="37.0" prefWidth="396.0" />
-      <Button mnemonicParsing="false" onAction="#onBackButton" prefHeight="62.0" prefWidth="78.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;" text="&lt;  ">
-         <font>
-            <Font name="System Bold" size="29.0" />
-         </font>
-      </Button>
+      <PasswordField fx:id="passwordTextField" layoutX="671.0" layoutY="453.0" prefHeight="37.0" prefWidth="396.0" promptText="Enter Password" stylesheets="@../style/Style.css" />
+      <PasswordField fx:id="confirmPasswordTextField" layoutX="670.0" layoutY="533.0" prefHeight="37.0" prefWidth="396.0" promptText="Enter Confirm Password" stylesheets="@../style/Style.css" />
    </children>
 </AnchorPane>

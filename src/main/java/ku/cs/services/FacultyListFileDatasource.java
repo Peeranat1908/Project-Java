@@ -34,7 +34,7 @@ public class FacultyListFileDatasource implements Datasource<FacultyList>{
 
     @Override
     public FacultyList readData() {
-        FacultyList faculyList = new FacultyList();
+        FacultyList facultyList = new FacultyList();
         String filePath = directoryName + File.separator + fileName;
         File file = new File(filePath);
         // เตรียม object ที่ใช้ในการอ่านไฟล์
@@ -67,12 +67,12 @@ public class FacultyListFileDatasource implements Datasource<FacultyList>{
                 String facultyName = data[1].trim();
 
                 // เพิ่มข้อมูลลงใน list
-                faculyList.addNewFaculty(facultyId, facultyName);
+                facultyList.addNewFaculty(facultyId, facultyName);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return faculyList;
+        return facultyList;
     }
 
     @Override

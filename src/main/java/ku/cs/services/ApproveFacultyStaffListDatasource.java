@@ -59,8 +59,9 @@ public class ApproveFacultyStaffListDatasource implements Datasource<ApproveFacu
                 String[] data = line.split(",");
                 String nameId = data[0].trim();
                 String positionId = data[1].trim();
+                String facultyId = data[2].trim();
 
-                approveFacultyStaffList.addNewApproveFacultyStaff(nameId, positionId);
+                approveFacultyStaffList.addNewApproveFacultyStaff(nameId, positionId, facultyId);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -90,7 +91,7 @@ public class ApproveFacultyStaffListDatasource implements Datasource<ApproveFacu
         BufferedWriter buffer = new BufferedWriter(outputStreamWriter);
         try{
             for (ApproveFacultyStaff approveFacultyStaff : data.getApproveFacultyStaffList()){
-                String line = approveFacultyStaff.getName() + "," + approveFacultyStaff.getPosition();
+                String line = approveFacultyStaff.getName() + "," + approveFacultyStaff.getPosition() + "," + approveFacultyStaff.getFaculty();
                 buffer.append(line);
                 buffer.append("\n");
             }

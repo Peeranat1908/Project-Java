@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.advisor.MainAdvisorController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" stylesheets="@../style/darkmode.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.advisor.MainAdvisorController">
     <children>
         <Pane prefHeight="80.0" prefWidth="1280.0" style="-fx-background-color: EAF4FF;">
             <children>
@@ -28,17 +28,12 @@
                         <Image url="@../../../images/teacher.png" />
                     </image>
                 </ImageView>
-                <Button layoutX="135.0" layoutY="18.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="HOME">
+                <Button layoutX="165.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: #2F80ED; -fx-background-radius: 25px;" text="HOME" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="18.0" />
                     </font>
                 </Button>
-                <Button layoutX="221.0" layoutY="19.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="LIST">
-                    <font>
-                        <Font name="System Bold" size="18.0" />
-                    </font>
-                </Button>
-                <Button layoutX="281.0" layoutY="19.0" mnemonicParsing="false" onAction="#onMyTeamButtonClick" style="-fx-background-color: EAF4FF;" text="MY TEAM">
+                <Button layoutX="281.0" layoutY="20.0" mnemonicParsing="false" onAction="#onMyTeamButtonClick" style="-fx-background-color: EAF4FF;" text="MY TEAM">
                     <font>
                         <Font name="System Bold" size="18.0" />
                     </font>
@@ -50,7 +45,7 @@
                         <Line endX="-51.857139587402344" layoutX="1.0" layoutY="21.0" startX="-100.85713958740234" stroke="WHITE" strokeWidth="3.0" />
                     </children>
                 </Group>
-            <Button layoutX="387.0" layoutY="19.0" mnemonicParsing="false" onAction="#onRequestButtonClick" style="-fx-background-color: EAF4FF;" text="รายการคำร้อง">
+            <Button layoutX="407.0" layoutY="20.0" mnemonicParsing="false" onAction="#onRequestButtonClick" style="-fx-background-color: EAF4FF;" text="รายการคำร้อง">
                <font>
                   <Font name="Apple Braille Outline 6 Dot" size="18.0" />
                </font>
@@ -67,7 +62,6 @@
             <Font size="25.0" />
          </font>
       </Label>
-      <Button fx:id="searchButtonClick" layoutX="839.0" layoutY="176.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="68.0" style="-fx-background-radius: 10;" text="Search" />
       <TableView fx:id="studentAdvisorTableView" layoutX="166.0" layoutY="250.0" prefHeight="426.0" prefWidth="895.0" style="-fx-background-radius: 10;" styleClass="tableview" stylesheets="@../style/Style.css">
         <columns>
           <TableColumn prefWidth="75.0" styleClass="table-column-header" text="Student ID" />
@@ -79,6 +73,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Label fx:id="errorLabel" layoutX="916.0" layoutY="192.0" text="errorLabel" textFill="RED" />
+      <Label fx:id="errorLabel" layoutX="946.0" layoutY="192.0" text="errorLabel" textFill="RED" />
+      <Button fx:id="searchButtonClick" layoutX="846.0" layoutY="180.0" mnemonicParsing="false" stylesheets="@../style/Style.css" text="Search" />
     </children>
 </AnchorPane>

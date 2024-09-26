@@ -5,6 +5,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import ku.cs.controllers.Navigable;
+import ku.cs.controllers.NavigationHistoryService;
 import ku.cs.models.Student;
 import ku.cs.models.StudentList;
 import ku.cs.services.Datasource;
@@ -13,7 +15,7 @@ import ku.cs.services.MajorStaffListFileDataSource;
 
 import java.io.IOException;
 
-public class FacultyStaffController {
+public class FacultyStaffController implements Navigable {
     @FXML
     private Label errorLabel;
     @FXML
@@ -94,11 +96,7 @@ public class FacultyStaffController {
 
     @FXML
     public void onMyTeamButtonClick() throws RuntimeException {
-//        Object temp = FXRouter.getData();
-//        if (temp instanceof String) {
-//            previousPage = (String)temp;
-//        }
-
+        NavigationHistoryService.getInstance().pushPage("facultyStaff");
         try {
             FXRouter.goTo("my-team");
         } catch (IOException e) {
@@ -115,5 +113,32 @@ public class FacultyStaffController {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public void goToPage(String pageName) {
+        // save current page to history
+        NavigationHistoryService.getInstance().pushPage("facultyStaff");
+
+        // Navigate to the specified page
+        try {
+            FXRouter.goTo(pageName);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+    // Implement the method to go back to the previous page
+    @Override
+    public void goBack() {
+        String previousPage = NavigationHistoryService.getInstance().popPage();
+        if (previousPage != null){
+            try {
+                FXRouter.goTo(previousPage);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
 
 }

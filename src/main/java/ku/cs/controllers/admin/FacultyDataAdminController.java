@@ -8,6 +8,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
+import ku.cs.controllers.NavigationHistoryService;
 import ku.cs.models.Faculty;
 import ku.cs.models.StudentAdvisor;
 import ku.cs.services.Datasource;
@@ -21,16 +22,16 @@ import java.util.Optional;
 public class FacultyDataAdminController {
     @FXML private TableView<Faculty> facultyDataAdminTableView;
 
-    private FacultyList faculyList;
+    private FacultyList facultyList;
 
     private Datasource<FacultyList> datasource;
 
     @FXML
     public void initialize() {
         datasource = new FacultyListFileDatasource("data", "Faculty.csv");
-        faculyList = datasource.readData();
-        if (faculyList != null){
-            showTable(faculyList);
+        facultyList = datasource.readData();
+        if (facultyList != null){
+            showTable(facultyList);
         }
         else {
             System.out.println("Failed to load faculty list.");
@@ -73,11 +74,11 @@ public class FacultyDataAdminController {
     }
 
     @FXML
-    public void onMyTeamButtonClick(){
-        try{
+    public void onMyTeamButtonClick() throws RuntimeException {
+        NavigationHistoryService.getInstance().pushPage("faculty-data-admin");
+        try {
             FXRouter.goTo("my-team");
         } catch (IOException e) {
-
             throw new RuntimeException(e);
         }
     }

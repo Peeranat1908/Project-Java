@@ -48,22 +48,21 @@ public class editMajorDataController {
         String facultyID = facultyId.getText().trim();
         String majorID = majorId.getText().trim();
         String majorNAME = majorName.getText().trim();
-        if (facultyID.isEmpty() && majorID.isEmpty() && majorNAME.isEmpty()) {
-            showError("Please enter all fields");
-        } else if (facultyID.isEmpty()) {
-            errorLabel1.setText("Please enter faculty id");
-        } else if (majorID.isEmpty()) {
-            errorLabel2.setText("Please enter major id");
+        if (facultyID.isEmpty()){
+            setError(errorLabel1, "Faculty ID cannot be empty");
         }
-        else if(majorNAME.isEmpty()){
-            errorLabel3.setText("Please enter major name");
+        if (majorID.isEmpty()){
+            setError(errorLabel2, "Major ID cannot be empty");
+        }
+        if (majorNAME.isEmpty()){
+            setError(errorLabel3, "Major Name cannot be empty");
         }
 
         boolean isUpdated = false;
         for (Major major : majorList.getMajors()){
            if (major.getFacultyId().equalsIgnoreCase(facultyID)){
                if (major.getMajorId().equalsIgnoreCase(majorID) && major.getMajorName().equalsIgnoreCase(majorNAME)){
-                   showError("This major already exists");
+                   setError(errorLabel4, "Major already exists");
                }
                else if (major.getMajorId().equalsIgnoreCase(majorID)){
                    major.setMajorName(majorNAME);
@@ -78,7 +77,25 @@ public class editMajorDataController {
         if (isUpdated){
             datasource.writeData(majorList);
             showAlert(Alert.AlertType.INFORMATION, "Major updated successfully");
+            clearErrorLabels();
+            clearTextFiled();
         }
+    }
+    private void setError(Label label, String message) {
+        clearErrorLabels();
+        label.setText(message);
+    }
+
+    private void clearErrorLabels() {
+        errorLabel1.setText("");
+        errorLabel2.setText("");
+        errorLabel3.setText("");
+    }
+
+    private void clearTextFiled(){
+        facultyId.clear();
+        majorId.clear();
+        majorName.clear();
     }
     private void showAlert(Alert.AlertType alertType, String message){
         Alert alert = new Alert(alertType);
@@ -88,9 +105,6 @@ public class editMajorDataController {
         alert.showAndWait();
     }
 
-    private void showError(String message){
-        errorLabel4.setText(message);
-    }
 
     @FXML
     public void onBackButtonClicked() {

@@ -7,16 +7,17 @@ public class ApproveFacultyStaffList {
 
     public ApproveFacultyStaffList() {approveFacultyStaffList = new ArrayList<>();}
 
-    public void addNewApproveFacultyStaff(String name, String position) {
+    public void addNewApproveFacultyStaff(String name, String position, String faculty) {
         name = name.trim();
         position = position.trim();
+        faculty = faculty.trim();
 
         for (ApproveFacultyStaff approveFacultyStaff : approveFacultyStaffList) {
             if (approveFacultyStaff.getName().equalsIgnoreCase(name)){
                 return;
             }
         }
-        approveFacultyStaffList.add(new ApproveFacultyStaff(name, position));
+        approveFacultyStaffList.add(new ApproveFacultyStaff(name, position, faculty));
     }
 
     public ArrayList<ApproveFacultyStaff> getApproveFacultyStaffList() {

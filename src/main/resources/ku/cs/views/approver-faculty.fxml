@@ -22,17 +22,12 @@
                         <Font name="System Bold" size="28.0" />
                     </font>
                 </Label>
-                <Button layoutX="135.0" layoutY="20.0" mnemonicParsing="false" onAction="#onHomeButton" style="-fx-background-color: EAF4FF;" text="HOME">
+                <Button fx:id="onHomeButton" layoutX="135.0" layoutY="20.0" mnemonicParsing="false" onAction="#onHomeButton" style="-fx-background-color: EAF4FF;" text="HOME">
                     <font>
                         <Font name="System Bold" size="16.0" />
                     </font>
                 </Button>
-                <Button layoutX="235.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="LIST">
-                    <font>
-                        <Font name="System Bold" size="16.0" />
-                    </font>
-                </Button>
-                <Button fx:id="onMyTeamButtonClick" layoutX="310.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="MY TEAM">
+                <Button fx:id="onMyTeamButtonClick" layoutX="230.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="MY TEAM">
                     <font>
                         <Font name="System Bold" size="16.0" />
                     </font>
@@ -49,7 +44,7 @@
                         <Image url="@../../../images/faculty-staff.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="onMyTeamButtonClick1" layoutX="430.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: #2F80ED;" text="ข้อมูลผู้อนุมัติคำร้อง" textFill="WHITE">
+                <Button fx:id="onMyTeamButtonClick1" layoutX="350.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: #2F80ED;" text="ข้อมูลผู้อนุมัติคำร้อง" textFill="WHITE">
                     <font>
                         <Font name="Arial Bold" size="16.0" />
                     </font>

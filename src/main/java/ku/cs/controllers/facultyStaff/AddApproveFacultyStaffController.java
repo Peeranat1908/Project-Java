@@ -23,9 +23,9 @@ public class AddApproveFacultyStaffController {
     @FXML
     private Label errorLabel3;
     @FXML
-    private TextField nameId;
+    private Label errorLabel4;
     @FXML
-    private TextField positionId;
+    private TextField nameId, positionId, facultyId;
 
     private Datasource<ApproveFacultyStaffList> datasource;
     private ApproveFacultyStaffList approveFacultyStaffList;
@@ -35,6 +35,7 @@ public class AddApproveFacultyStaffController {
         errorLabel1.setText("");
         errorLabel2.setText("");
         errorLabel3.setText("");
+        errorLabel4.setText("");
         datasource = new ApproveFacultyStaffListDatasource("data", "approveFacultyStaff.csv");
         approveFacultyStaffList = datasource.readData();
         confirmButton.setOnAction(actionEvent -> {addApproveFacultyStaff();});
@@ -43,16 +44,18 @@ public class AddApproveFacultyStaffController {
     private void addApproveFacultyStaff() {
         String name = nameId.getText().trim();
         String position = positionId.getText().trim();
+        String faculty = facultyId.getText().trim();
 
-        if (isInputValid(name, position)) {
-            approveFacultyStaffList.addNewApproveFacultyStaff(name, position);
+        if (isInputValid(name, position, faculty)) {
+            approveFacultyStaffList.addNewApproveFacultyStaff(name, position, faculty);
             datasource.writeData(approveFacultyStaffList);
             showAlert(Alert.AlertType.INFORMATION, "Success", "Faculty staff added successfully");
             clearErrorLabels();
+            clearTextFiled();
         }
     }
 
-    private boolean isInputValid(String name, String position) {
+    private boolean isInputValid(String name, String position, String faculty) {
         if (name.isEmpty()) {
             setError(errorLabel1, "Please enter name");
             return false;
@@ -61,13 +64,13 @@ public class AddApproveFacultyStaffController {
             setError(errorLabel2, "Please enter position");
             return false;
         }
+        if (faculty.isEmpty()) {
+            setError(errorLabel3, "Please enter faculty");
+            return false;
+        }
         for (ApproveFacultyStaff staff : approveFacultyStaffList.getApproveFacultyStaffList()) {
-            if (staff.getName().equals(name)) {
-                setError(errorLabel1, "Name already exists");
-                return false;
-            }
-            if (staff.getPosition().equals(position)) {
-                setError(errorLabel2, "Position already exists");
+            if (staff.getName().equals(name)){
+                setError(errorLabel4, "Data has already been in database");
                 return false;
             }
         }
@@ -83,6 +86,12 @@ public class AddApproveFacultyStaffController {
         errorLabel1.setText("");
         errorLabel2.setText("");
         errorLabel3.setText("");
+    }
+
+    private void clearTextFiled(){
+        nameId.clear();
+        positionId.clear();
+        facultyId.clear();
     }
 
     public void showAlert(Alert.AlertType alertType, String title, String message){

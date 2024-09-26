@@ -44,7 +44,7 @@
 
 /* ตัวอย่างการตกแต่ง TextField */
 .text-field {
-    -fx-background-color: #F0F0F0;
+    -fx-background-color: #FFFFFF;
     -fx-border-color: #8A8A8A;
     -fx-padding: 5px;
     -fx-font-size: 14px;
@@ -79,4 +79,16 @@
 }
 .label{
     -fx-font-family: Sana;
+}
+
+#button{
+    -fx-background-color:  #6EB1FF;
+    -fx-text-fill: white; /* สีของข้อความเป็นสีขาว */
+    -fx-font-size: 16px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 25px;
+}
+#button:hover{
+    -fx-background-color: #5DADE2;
 }
