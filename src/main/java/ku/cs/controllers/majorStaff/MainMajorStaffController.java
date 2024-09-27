@@ -1,98 +1,66 @@
 package ku.cs.controllers.majorStaff;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import ku.cs.models.Student;
-import ku.cs.models.StudentList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.control.Label;
+import ku.cs.controllers.components.AppealItemController;
+import ku.cs.models.Appeal;
+import ku.cs.models.AppealList;
 import ku.cs.models.User;
-import ku.cs.services.Datasource;
+import ku.cs.services.AppealSharedData;
+import ku.cs.services.AppealListDatasource;
+import ku.cs.services.AppealSortComparator;
 import ku.cs.services.FXRouter;
-
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.time.format.DateTimeFormatter;
 
-public class MainMajorStaffController {
-    @FXML
-    private Label errorLabel;
-    @FXML
-    private TableView<Student> studentTableView;
-    @FXML
-    private TextField searchTextField;
 
-    @FXML
-    private Button searchButtonClick;
-
-    private StudentList studentList;
-
-    private Datasource<StudentList> datasource;
+public class MainMajorStaffController{
+    @FXML private Label nameLabel;
     private User user;
 
     @FXML
-    public void initialize() {
-//        errorLabel.setText("");
+    private void initialize() {
         Object data = FXRouter.getData();
         if (data instanceof User) {
             user = (User) data;
+            updateUI();
+        } else {
+
+            nameLabel.setText("Invalid user data");
         }
     }
 
-//    private void searchStudent() {
-//        String searchQuery = searchTextField.getText().trim();
-//        if (searchQuery.isEmpty()) {
-//            studentTableView.getItems().setAll(studentAdvisorList.getStudentAdvisor());
-////            errorLabel.setText("กรุณาใส่ข้อมูล");
-//            return;
-//        }
+    private void updateUI() {
+        if (user != null) {
+            nameLabel.setText(user.getUsername());
 
-//        StudentAdvisor fondStudent = studentAdvisorList.findStudentById(searchQuery);
-//        if (fondStudent == null) {
-//            fondStudent = studentAdvisorList.findStudentByName(searchQuery);
-//        }
-//
-//        if (fondStudent != null) {
-//            studentTableView.getItems().setAll(fondStudent);
-//        } else {
-//            studentTableView.getItems().clear();
-//        }
-//    }
-
-    @FXML
-    public void onMyTeamButtonClick() throws RuntimeException {
-//        Object temp = FXRouter.getData();
-//        if (temp instanceof String) {
-//            previousPage = (String)temp;
-//        }
-
-        try {
-            FXRouter.goTo("my-team");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
     @FXML
-    public void onRequestButtonClick() {
-        try {
-            FXRouter.goTo("request-page");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public void onEditEndorserButton(){
+        navigateTo("edit-major-endorser", user);
     }
     @FXML
-    public void onStudentListButtonClick(){
+    public void onUserProfileButton(){
+        navigateTo("user-profile", user);
+    }
+
+    private void navigateTo(String route, Object data) {
         try {
-            FXRouter.goTo("studentInMajor",user);
+            FXRouter.goTo(route, data);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.err.println("Navigation to " + route + " failed: " + e.getMessage());
         }
     }
 
-    @FXML
-    public void onEndorserButtonClick(){
-        try {
-            FXRouter.goTo("majorEndorser");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
 }
+

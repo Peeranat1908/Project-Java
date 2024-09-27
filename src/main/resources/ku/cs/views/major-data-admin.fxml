@@ -90,7 +90,6 @@
       <ImageView fitHeight="30.0" fitWidth="28.0" layoutX="122.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../images/Leftarrow.png" />
-            <Image url="@../../../images/Left-arrow.png" />
          </image>
       </ImageView>
       <Button layoutX="107.0" layoutY="142.0" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="34.0" prefWidth="59.0" text="Button" />

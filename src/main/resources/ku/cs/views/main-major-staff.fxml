@@ -10,12 +10,12 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="760.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.majorStaff.MainMajorStaffController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.majorStaff.MainMajorStaffController">
    <children>
-      <Pane layoutX="7.0" layoutY="7.0" prefHeight="80.0" prefWidth="1275.0" style="-fx-background-color: EAF4FF;">
+      <Pane layoutX="9.0" layoutY="-4.0" prefHeight="80.0" prefWidth="1275.0" style="-fx-background-color: EAF4FF;">
          <children>
             <Button layoutX="-7.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="124.0" style="-fx-background-color: #2F80ED; -fx-background-radius: 0;" textFill="WHITE" />
-            <Label layoutX="1024.0" layoutY="24.0" text="Major-Staff">
+            <Label fx:id="nameLabel" layoutX="1024.0" layoutY="24.0" text="Major-Staff">
                <font>
                   <Font name="System Bold" size="28.0" />
                </font>
@@ -47,22 +47,13 @@
                   <Image url="@../../../images/major-staff.png" />
                </image>
             </ImageView>
-            <Button layoutX="370.0" layoutY="18.0" mnemonicParsing="false" onAction="#onStudentListButtonClick" style="-fx-background-color: EAF4FF;" text="รายชื่อนิสิต">
+            <Button layoutX="383.0" layoutY="20.0" mnemonicParsing="false" onAction="#onEditEndorserButton" style="-fx-background-color: EAF4FF;" text="แก้ไขระบบอนุมัติคำร้อง">
                <font>
-                  <Font name="Arial Bold" size="20.0" />
+                  <Font name="Arial Bold" size="16.0" />
                </font>
             </Button>
-            <Button layoutX="488.0" layoutY="18.0" mnemonicParsing="false" onAction="#onEndorserButtonClick" style="-fx-background-color: EAF4FF;" text="ผู้อนุมัติคำร้อง">
-               <font>
-                  <Font name="Arial Bold" size="20.0" />
-               </font>
-            </Button>
+            <Button layoutX="1205.0" layoutY="18.0" mnemonicParsing="false" onAction="#onUserProfileButton" opacity="0.0" prefHeight="51.0" prefWidth="52.0" text="Button" />
          </children>
       </Pane>
-      <Label layoutX="549.0" layoutY="142.0" text="รายการคำร้อง">
-         <font>
-            <Font name="Arial Bold" size="33.0" />
-         </font>
-      </Label>
    </children>
 </AnchorPane>

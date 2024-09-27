@@ -55,4 +55,18 @@ public class StudentList extends UserList{
         }
     }
 
+    public void addNewStudent(String name, String id, String email) {
+        id = id.trim();
+        name = name.trim();
+        email = email.trim();
+        if (!id.equals("") && !name.equals("")) {
+            Student exist = findStudentById(id);
+            if (exist == null) {
+                students.add(new Student(name, id, email));
+            }
+        }
+    }
+
+
+
 }

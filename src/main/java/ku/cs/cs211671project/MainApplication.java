@@ -76,7 +76,8 @@ public class MainApplication extends Application {
         FXRouter.when("faculty-data-admin", viewPath + "faculty-data-admin.fxml");
         FXRouter.when("appeal-tracking", viewPath + "appeal-list.fxml");
         FXRouter.when("user-profile", viewPath + "user-profile.fxml");
-        FXRouter.when("departmentStaff", viewPath + "major-staff.fxml");
+        FXRouter.when("departmentStaff", viewPath + "main-major-staff.fxml");
+        FXRouter.when("edit-major-endorser", viewPath + "major-endorser-staff.fxml");
         FXRouter.when("facultyStaff", viewPath + "faculty-staff.fxml");
         FXRouter.when("leave-appeal", viewPath + "leave-appeal.fxml");
         FXRouter.when("enroll-appeal", viewPath + "enroll-appeal.fxml");
