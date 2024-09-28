@@ -51,27 +51,23 @@ public class addNewMajorDataController {
         String majorID = majorId.getText().trim();
         String majorNAME = majorName.getText().trim();
 
-        if (facultyID.isEmpty() && majorID.isEmpty() && majorNAME.isEmpty()) {
-            showError("Please fill all fields");
-            return;
-        } else if (facultyID.isEmpty()) {
-            errorLabel1.setText("Faculty ID cannot be empty");
-            return;
-        } else if (majorID.isEmpty()) {
-            errorLabel2.setText("Major ID cannot be empty");
-            return;
-        } else if (majorNAME.isEmpty()) {
-            errorLabel3.setText("Major Name cannot be empty");
-            return;
+        if (facultyID.isEmpty()){
+            setError(errorLabel1, "Faculty ID cannot be empty");
+        }
+        if (majorID.isEmpty()){
+            setError(errorLabel2, "Major ID cannot be empty");
+        }
+        if (majorNAME.isEmpty()){
+            setError(errorLabel3, "Major Name cannot be empty");
         }
 
         boolean isUpdate = false;
         for (Major major : majorList.getMajors()){
             if (major.getFacultyId().equalsIgnoreCase(facultyID)){
                 if (major.getMajorId().equalsIgnoreCase(majorID)){
-                    showError("Major ID already exists");
+                    setError(errorLabel4, "Major ID already exists");
                 } else if (major.getMajorName().equalsIgnoreCase(majorNAME)) {
-                    showError("Major Name already exists");
+                    setError(errorLabel4, "Major Name already exists");
                 }
                 else {
                     majorList.addNewMajor(facultyID, majorID, majorNAME);
@@ -80,15 +76,34 @@ public class addNewMajorDataController {
                 }
             }
             else {
-                showError("Faculty ID does not match");
+                setError(errorLabel4, "Major ID does not match");
             }
         }
 
         if (isUpdate) {
             datasource.writeData(majorList);
             showAlert(Alert.AlertType.INFORMATION, "Major added successfully");
+            clearErrorLabels();
+            clearTextFiled();
         }
 
+    }
+    private void setError(Label label, String message) {
+        clearErrorLabels();
+        label.setText(message);
+    }
+
+    private void clearErrorLabels() {
+        errorLabel1.setText("");
+        errorLabel2.setText("");
+        errorLabel3.setText("");
+        errorLabel4.setText("");
+    }
+
+    private void clearTextFiled(){
+        facultyId.clear();
+        majorId.clear();
+        majorName.clear();
     }
     public void showAlert(Alert.AlertType alertType, String message){
         Alert alert = new Alert(alertType);
@@ -96,9 +111,6 @@ public class addNewMajorDataController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
-    }
-    public void showError(String message){
-        errorLabel4.setText(message);
     }
 
     @FXML

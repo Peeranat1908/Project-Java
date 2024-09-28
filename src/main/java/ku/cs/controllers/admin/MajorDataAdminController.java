@@ -107,7 +107,7 @@ public class MajorDataAdminController {
         }
     }
     @FXML
-    public void homeButtonClick() {
+    public void onHomeButtonClick() {
         try {
             FXRouter.goTo("main-admin");
         } catch (IOException e) {

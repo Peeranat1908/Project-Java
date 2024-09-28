@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import ku.cs.controllers.NavigationHistoryService;
 import ku.cs.models.StudentAdvisorList;
 import ku.cs.models.StudentAdvisor;
 import ku.cs.services.Datasource;
@@ -106,11 +107,7 @@ public class MainAdvisorController {
 
     @FXML
     public void onMyTeamButtonClick() throws RuntimeException {
-//        Object temp = FXRouter.getData();
-//        if (temp instanceof String) {
-//            previousPage = (String)temp;
-//        }
-
+        NavigationHistoryService.getInstance().pushPage("main-advisor");
         try {
             FXRouter.goTo("my-team");
         } catch (IOException e) {

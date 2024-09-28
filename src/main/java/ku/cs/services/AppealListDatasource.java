@@ -26,17 +26,19 @@ public class AppealListDatasource implements Datasource<AppealList>{
 
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length == 8) {
-                    String type = parts[0];
-                    String subject = parts[1];
-                    String request = parts[2];
-                    LocalDate date = LocalDate.parse(parts[3]);
-                    String signature = parts[4];
-                    long timestamp = Long.parseLong(parts[5]);
-                    String status = parts[6];
-                    LocalTime time = LocalTime.parse(parts[7]);
+                if (parts.length == 9) {
+                    String studentID = parts[0];
+                    String type = parts[1];
+                    String subject = parts[2];
+                    String request = parts[3];
+                    LocalDate date = LocalDate.parse(parts[4]);
+                    String signature = parts[5];
+                    long timestamp = Long.parseLong(parts[6]);
+                    String status = parts[7];
+                    LocalTime time = LocalTime.parse(parts[8]);
 
-                    Appeal appeal = new Appeal(type, subject, request, date, signature, timestamp,status,time);
+
+                    Appeal appeal = new Appeal(studentID ,type, subject, request, date, signature, timestamp,status,time);
                     appealList.addAppeal(appeal);
                 }
             }
@@ -53,11 +55,13 @@ public class AppealListDatasource implements Datasource<AppealList>{
         List<Appeal> appeals = data.getsAppeals();
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            writer.write("Type,Subject,Request,Date,Signature,Timestamp");
+            writer.write("studentID,Type,Subject,Request,Date,Signature,Timestamp,Status,Time");
             writer.newLine();
 
             for (Appeal appeal : appeals) {
-                writer.write(appeal.getType() + ","
+                writer.write(
+                        appeal.getStudentID() + ","
+                        + appeal.getType() + ","
                         + appeal.getSubject() + ","
                         + appeal.getRequest() + ","
                         + appeal.getDate() + ","

@@ -14,16 +14,25 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: EDF5FF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.student.NormalAppealController">
    <children>
-      <Pane fx:id="defaultAppeal" layoutX="320.0" layoutY="6.0" prefHeight="709.0" prefWidth="640.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20;">
+      <Pane fx:id="defaultAppeal" layoutX="320.0" layoutY="14.0" prefHeight="693.0" prefWidth="640.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, gray, 20, 0.1, 0 ,0);">
          <children>
+            <Pane layoutX="263.0" layoutY="22.0" prefHeight="36.0" prefWidth="159.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-19.0" layoutY="5.0" prefHeight="27.0" prefWidth="142.0" text="คำร้องทั่วไป">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="123.0" layoutY="1.0">
+                     <image>
+                        <Image url="@../../../images/treaty.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
             <Label fx:id="ErrorLabel" layoutX="435.0" layoutY="580.0" prefHeight="17.0" prefWidth="176.0" text="Please fill out before submitting!" textFill="#f50000" visible="false">
                <font>
                   <Font name="Arial" size="12.0" />
-               </font>
-            </Label>
-            <Label layoutX="271.0" layoutY="14.0" text="คำร้องทั่วไป">
-               <font>
-                  <Font name="Arial Bold" size="24.0" />
                </font>
             </Label>
             <Label layoutX="63.0" layoutY="75.0" text="เรื่อง:">

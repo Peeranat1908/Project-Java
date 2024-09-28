@@ -17,6 +17,9 @@ public class MainApplication extends Application {
         //FXRouter.goTo("main-advisor");
         //FXRouter.goTo("departmentStaff");
         //FXRouter.goTo("first-page");
+
+        //FXRouter.goTo("login-page");
+
         //FXRouter.goTo("main-advisor");
         //FXRouter.goTo("faculty-data-admin");
         //FXRouter.goTo("main-admin");
@@ -29,10 +32,16 @@ public class MainApplication extends Application {
         //FXRouter.goTo("facultyStaff");
         //FXRouter.goTo("first-page");
 
+        //FXRouter.goTo("studentInMajor");
+
 //        FXRouter.goTo("staff-table-admin");
 
-    }
 
+        //FXRouter.goTo("approve-faculty-staff");
+        //FXRouter.goTo("editApproveFacultyStaff");
+        //FXRouter.goTo("addApproveFacultyStaff");
+
+    }
     private void configRoutes() {
         String viewPath = "ku/cs/views/";
         FXRouter.when("hello", viewPath + "hello-view.fxml");
@@ -72,11 +81,17 @@ public class MainApplication extends Application {
         FXRouter.when("leave-appeal", viewPath + "leave-appeal.fxml");
         FXRouter.when("enroll-appeal", viewPath + "enroll-appeal.fxml");
         FXRouter.when("appeal-detail", viewPath + "appeal-detail.fxml");
+
         FXRouter.when("dashboard", viewPath + "dashboard.fxml");
         FXRouter.when("user-details", viewPath + "user-detail-admin.fxml");
         FXRouter.when("add-staff", viewPath + "add-staff.fxml");
         FXRouter.when("staff-table-admin", viewPath + "staff-table-admin.fxml");
         FXRouter.when("staff-edit", viewPath + "staffedit.fxml");
+
+        FXRouter.when("approve-faculty-staff", viewPath + "approver-faculty.fxml");
+        FXRouter.when("editApproveFacultyStaff", viewPath + "edit-approve-faculty-staff.fxml");
+        FXRouter.when("addApproveFacultyStaff", viewPath + "add-approve-faculty-staff.fxml");
+
     }
 
 

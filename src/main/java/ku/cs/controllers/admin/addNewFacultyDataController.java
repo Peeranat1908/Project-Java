@@ -42,14 +42,12 @@ public class addNewFacultyDataController {
         String id = facultyId.getText().trim();
         String name = facultyName.getText().trim();
 
-        if (id.isEmpty() && name.isEmpty()){
-            errorLabel1.setText("Please enter a valid faculty id");
-            errorLabel2.setText("Please enter a valid faculty name");
-            return;
+        if (id.isEmpty()){
+            setError(errorLabel1, "Faculty ID cannot be empty");
         }
-        else if(id.isEmpty()){errorLabel1.setText("Please enter a valid faculty id"); return;}
-        else if(name.isEmpty()){errorLabel2.setText("Please enter a valid faculty name"); return;}
-
+        if (name.isEmpty()){
+            setError(errorLabel2, "Faculty name cannot be empty");
+        }
         boolean isUpdate = false;
         for (Faculty faculty : facultyList.getFaculties()){
             if (faculty.getFacultyId().equalsIgnoreCase(id) && faculty.getFacultyName().equalsIgnoreCase(name)){
@@ -67,9 +65,27 @@ public class addNewFacultyDataController {
         if (isUpdate){
             datasource.writeData(facultyList);
             showAlert(Alert.AlertType.INFORMATION, "Success!", "Faculty has added successfully!");
+            clearErrorLabels();
+            clearTextFiled();
         }
 
 
+    }
+
+    private void setError(Label label, String message) {
+        clearErrorLabels();
+        label.setText(message);
+    }
+
+    private void clearErrorLabels() {
+        errorLabel1.setText("");
+        errorLabel2.setText("");
+        errorLabel3.setText("");
+    }
+
+    private void clearTextFiled(){
+        facultyName.clear();
+        facultyId.clear();
     }
 
     public void showAlert(Alert.AlertType alertType, String title, String message){

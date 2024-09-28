@@ -1,6 +1,10 @@
 package ku.cs.models;
 
+
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class AppealList {
@@ -35,5 +39,6 @@ public class AppealList {
     public int getAppealCount() {
         return appeals.size();
     }
+
 
 }

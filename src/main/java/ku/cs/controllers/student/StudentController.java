@@ -2,6 +2,7 @@ package ku.cs.controllers.student;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import ku.cs.controllers.NavigationHistoryService;
 import ku.cs.models.User;
 import ku.cs.services.FXRouter;
 
@@ -36,20 +37,25 @@ public class StudentController {
 
     // Method สำหรับการคลิกปุ่มเพื่อไปยังหน้าทีมของฉัน
     @FXML
-    public void onMyTeamButtonClick() {
-        navigateTo("my-team");
+    public void onMyTeamButtonClick() throws RuntimeException {
+        NavigationHistoryService.getInstance().pushPage("student");
+        try {
+            FXRouter.goTo("my-team");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // Method สำหรับการคลิกปุ่มเพื่อไปยังหน้าการยื่นคำร้องของนักเรียน
     @FXML
     public void selectAppealButtonClick() {
-        navigateTo("student-appeal");
+        navigateTo("student-appeal", user);
     }
 
     // Method สำหรับการคลิกปุ่มเพื่อไปยังหน้าการติดตามคำร้อง
     @FXML
     public void onAppealTrackingClick() {
-        navigateTo("appeal-tracking");
+        navigateTo("appeal-tracking", user);
     }
 
     @FXML
