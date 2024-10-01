@@ -29,7 +29,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Pane prefHeight="80.0" prefWidth="1280.0" style="-fx-background-color: EAF4FF;" stylesheets="@../../style/Style.css">
+      <Pane prefHeight="80.0" prefWidth="1280.0" style="-fx-background-color: EAF4FF;">
          <children>
             <Button layoutX="-7.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="124.0" style="-fx-background-color: #2F80ED; -fx-background-radius: 0;" textFill="WHITE" />
             <Label layoutX="1004.0" layoutY="24.0" text="Faculty-Staff">
@@ -37,12 +37,12 @@
                   <Font name="System Bold" size="28.0" />
                </font>
             </Label>
-            <Button layoutX="135.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: #2F80ED;" text="HOME" textFill="WHITE">
+            <Button layoutX="135.0" layoutY="20.0" mnemonicParsing="false" styleClass="ButtonNavbar" text="HOME" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button fx:id="onMyTeamButtonClick" layoutX="230.0" layoutY="20.0" mnemonicParsing="false" onAction="#onMyTeamButtonClick" text="MY TEAM">
+            <Button fx:id="onMyTeamButtonClick" layoutX="230.0" layoutY="20.0" mnemonicParsing="false" onAction="#onMyTeamButtonClick" styleClass="ButtonNavbarNotMain" text="MY TEAM">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -59,7 +59,7 @@
                   <Image url="@../../../../images/faculty-staff.png" />
                </image>
             </ImageView>
-            <Button fx:id="onMyTeamButtonClick1" layoutX="350.0" layoutY="20.0" mnemonicParsing="false" onAction="#onApproveFacultyStaffButtonClick" text="ข้อมูลผู้อนุมัติคำร้อง">
+            <Button fx:id="onMyTeamButtonClick1" layoutX="350.0" layoutY="20.0" mnemonicParsing="false" onAction="#onApproveFacultyStaffButtonClick" styleClass="ButtonNavbarNotMain" text="ข้อมูลผู้อนุมัติคำร้อง">
                <font>
                   <Font name="Arial Bold" size="16.0" />
                </font>
@@ -68,7 +68,7 @@
       </Pane>
    </children>
    <stylesheets>
+      <URL value="@../../style/baseOnPageLightMode.css" />
       <URL value="@../../style/noto.css" />
-      <URL value="@../../style/baseOnPage.css" />
    </stylesheets>
 </AnchorPane>

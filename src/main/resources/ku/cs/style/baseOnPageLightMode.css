@@ -13,13 +13,13 @@
     -fx-background-color:  #2F80ED;
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-font-size: 18px;
+    -fx-font-size: 16px;
 }
 .ButtonNavbarNotMain{
     -fx-background-color: #EAF4FF;
     -fx-text-fill: black;
     -fx-font-weight: bold;
-    -fx-font-size: 18px;
+    -fx-font-size: 16px;
 }
 .LoginButton{
     -fx-background-color: #6EB1FF;
@@ -37,10 +37,13 @@
     -fx-font-size: 18px;
 }
 .AcceptButton{
-    -fx-background-color: #00C821;
+    -fx-background-color: #00B821;
     -fx-text-fill: #FFFFFF;
     -fx-font-weight: bold;
     -fx-font-size: 18px;
+}
+.AcceptButton:hover{
+    -fx-background-color: #06AF25;
 }
 .addButton{
     -fx-background-color: #EAF4FF;
@@ -57,6 +60,7 @@
     -fx-background-color: #FFFFFF;
     -fx-background-radius: black;
     -fx-border-radius: 15px;
+    -fx-border-color: #BFC9CA;
 }
 .text-field{
     background-color: #fff;
