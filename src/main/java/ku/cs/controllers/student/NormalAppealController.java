@@ -88,6 +88,7 @@ public class NormalAppealController {
         int month = monthSpinner.getValue();
         int year = yearSpinner.getValue();
         long second = new Date().getTime();
+        String majorEndorserSignature  = null;
         LocalTime time = LocalTime.now();
         LocalDate date = LocalDate.of(year, month, day);
         String studentSignature = signatureTextField.getText();
@@ -105,7 +106,7 @@ public class NormalAppealController {
         }
         ErrorLabel.setVisible(false);
         subject = subject.replace(",", " ");
-        Appeal appeal = new Appeal(studentID ,type , subject, request, date, studentSignature, second, status, time);
+        Appeal appeal = new Appeal(studentID ,type , subject, request, date, studentSignature, second, status, time, majorEndorserSignature);
         AppealSharedData.getNormalAppealList().addAppeal(appeal);
         datasource.writeData(AppealSharedData.getNormalAppealList());
         clearFields();

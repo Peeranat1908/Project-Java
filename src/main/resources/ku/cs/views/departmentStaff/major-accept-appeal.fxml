@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.majorStaff.MajorAcceptAppealController">
+   <children>
+      <Pane layoutX="61.0" layoutY="49.0">
+         <children>
+            <ImageView fitHeight="36.0" fitWidth="35.0">
+               <image>
+                  <Image url="@../../../../images/Leftarrow.png" />
+               </image>
+            </ImageView>
+            <Button mnemonicParsing="false" onAction="#onBackButton" opacity="0.0" prefHeight="41.0" prefWidth="47.0" text="Back">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <Pane layoutX="330.0" layoutY="24.0" prefHeight="693.0" prefWidth="640.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, gray, 20, 0.1, 0 ,0);">
+         <children>
+            <Label fx:id="ErrorLabel" layoutX="435.0" layoutY="580.0" prefHeight="17.0" prefWidth="176.0" text="Please fill out before submitting!" textFill="#f50000" visible="false">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </Label>
+            <Pane layoutX="186.0" layoutY="22.0">
+               <children>
+                  <Label layoutX="67.0" layoutY="2.0" text="อนุมัติคำร้อง">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Label layoutX="76.0" layoutY="427.0" text="วัน/เดือน/ปี:">
+               <font>
+                  <Font name="Arial Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="64.0" layoutY="514.0" text="ลงนามเจ้าหน้าที่ภาควิชา:">
+               <font>
+                  <Font name="Arial Bold" size="16.0" />
+               </font>
+            </Label>
+            <Group layoutX="63.0" layoutY="469.0">
+               <children>
+                  <Spinner fx:id="daySpinner" layoutX="11.0" layoutY="-5.0" prefHeight="35.0" prefWidth="75.0" />
+                  <Spinner fx:id="monthSpinner" layoutX="94.0" layoutY="-5.0" prefHeight="35.0" prefWidth="75.0" />
+                  <Spinner fx:id="yearSpinner" layoutX="175.0" layoutY="-5.0" prefHeight="35.0" prefWidth="89.0" />
+               </children>
+            </Group>
+            <Button layoutX="438.0" layoutY="600.0" minHeight="40.0" minWidth="170.0" mnemonicParsing="false" onAction="#onApplyAppealClick" style="-fx-background-color: #6EB1FF; -fx-background-radius: 12;" text="Apply" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="16.0" />
+               </font>
+            </Button>
+            <Label fx:id="requestLabel" alignment="TOP_LEFT" layoutX="149.0" layoutY="139.0" prefHeight="203.0" prefWidth="367.0" text="Request" wrapText="true">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="signatureLabel" alignment="CENTER" layoutX="328.0" layoutY="348.0" prefHeight="16.0" prefWidth="270.0" text="Signature" textFill="#807a7a">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="dateLabel" alignment="CENTER" layoutX="328.0" layoutY="383.0" prefHeight="15.0" prefWidth="270.0" text="Date" textFill="#807a7a">
+               <font>
+                  <Font name="Arial Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="typeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="204.0" layoutY="97.0" prefHeight="23.0" prefWidth="224.0" text="Type">
+               <font>
+                  <Font name="Arial Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="subjectLabel" alignment="CENTER" layoutX="-1.0" layoutY="60.0" prefHeight="39.0" prefWidth="640.0" style="-fx-font-weight: bold;" text="Subject">
+               <font>
+                  <Font name="Arial Bold" size="16.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="endorserBox" layoutX="64.0" layoutY="544.0" prefHeight="25.0" prefWidth="175.0" />
+            <Label fx:id="majorSignatureLabel" alignment="CENTER" layoutX="64.0" layoutY="347.0" prefHeight="16.0" prefWidth="270.0" text="Signature" textFill="#807a7a">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="majorDateLabel" alignment="CENTER" layoutX="64.0" layoutY="382.0" prefHeight="15.0" prefWidth="270.0" text="Date" textFill="#807a7a">
+               <font>
+                  <Font name="Arial Bold" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

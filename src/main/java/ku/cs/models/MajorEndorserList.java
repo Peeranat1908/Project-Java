@@ -7,18 +7,16 @@ public class MajorEndorserList {
 
     public MajorEndorserList() {majorEndorsers = new ArrayList<>();}
 
-    public void addNewMajorEndorser(String name, String position, String faculty, String major) {
+    public void addNewMajorEndorser(String name, String position) {
         name = name.trim();
         position = position.trim();
-        faculty = faculty.trim();
-        major = major.trim();
-
+        //major = major.trim();
         for (MajorEndorser majorEndorser : majorEndorsers) {
             if (majorEndorser.getName().equalsIgnoreCase(name)){
                 return;
             }
         }
-        majorEndorsers.add(new MajorEndorser(name, position, faculty, major));
+        majorEndorsers.add(new MajorEndorser(name, position));
     }
 
     public ArrayList<MajorEndorser> getMajorEndorsers() {

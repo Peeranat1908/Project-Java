@@ -19,8 +19,7 @@ public class AddMajorEndorserController {
     @FXML private Label errorLabel1;
     @FXML private Label errorLabel2;
     @FXML private Label errorLabel3;
-    @FXML private Label errorLabel4;
-    @FXML private TextField nameId, positionId, facultyId, majorId;
+    @FXML private TextField nameId, positionId;
 
     private User user;
     private Datasource<MajorEndorserList> datasource;
@@ -47,12 +46,10 @@ public class AddMajorEndorserController {
 
     private void addMajorEndorser() {
         String name = nameId.getText().trim();
-        String position = positionId.getText().trim();
-        String faculty = facultyId.getText().trim();
-        String major = majorId.getText().trim();  // เพิ่มการดึงข้อมูลจาก TextField ของ major
+        String position = positionId.getText().trim() + " " + user.getMajor() + "สาขา" + user.getFaculty();
 
-        if (isInputValid(name, position, faculty, major)) {
-            majorEndorserList.addNewMajorEndorser(name, position, faculty, major); // ใช้ค่าที่ได้จากการป้อนข้อมูล
+        if (isInputValid(name, position)) {
+            majorEndorserList.addNewMajorEndorser(name, position); // ใช้ค่าที่ได้จากการป้อนข้อมูล
             datasource.writeData(majorEndorserList); // Corrected datasource writing
             showAlert(Alert.AlertType.INFORMATION, "Success", "Major endorser added successfully");
             clearErrorLabels();
@@ -60,7 +57,7 @@ public class AddMajorEndorserController {
         }
     }
 
-    private boolean isInputValid(String name, String position, String faculty, String major) {
+    private boolean isInputValid(String name, String position) {
         if (name.isEmpty()) {
             setError(errorLabel1, "Please enter name");
             return false;
@@ -69,17 +66,9 @@ public class AddMajorEndorserController {
             setError(errorLabel2, "Please enter position");
             return false;
         }
-        if (faculty.isEmpty()) {
-            setError(errorLabel3, "Please enter faculty");
-            return false;
-        }
-        if (major.isEmpty()) {
-            setError(errorLabel4, "Please enter major");
-            return false;
-        }
         // Checking for duplicate name in the current list of major endorsers
         if (majorEndorserList.getMajorEndorsers().stream().anyMatch(e -> e.getName().equals(name))) {
-            setError(errorLabel4, "This major endorser is already in the database");
+            setError(errorLabel3, "This major endorser is already in the database");
             return false;
         }
         return true;
@@ -94,14 +83,12 @@ public class AddMajorEndorserController {
         errorLabel1.setText("");
         errorLabel2.setText("");
         errorLabel3.setText("");
-        errorLabel4.setText(""); // Ensure all labels are cleared
+
     }
 
     private void clearTextFields() {
         nameId.clear();
         positionId.clear();
-        facultyId.clear();
-        majorId.clear(); // เคลียร์ข้อมูลใน majorField ด้วย
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String message) {
@@ -126,6 +113,11 @@ public class AddMajorEndorserController {
     @FXML
     public void onUserProfileButton() {
         navigateTo("user-profile", user);
+    }
+
+    @FXML
+    public void onStudentListButton(){
+        navigateTo("student-in-major", user);
     }
 
     private void navigateTo(String route, Object data) {

@@ -3,6 +3,7 @@ package ku.cs.controllers.student;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -99,7 +100,7 @@ public class AppealListController {
             appealVBox.getChildren().clear();
             for (Appeal appeal : appeals) {
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/views/appeal-item.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/views/student/appeal-item.fxml"));
                     Pane pane = loader.load();
 
                     AppealItemController controller = loader.getController();

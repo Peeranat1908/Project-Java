@@ -5,6 +5,8 @@ import ku.cs.models.MajorEndorserList;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MajorEndorserListFileDatasource implements Datasource<MajorEndorserList> {
     private String directoryName;
@@ -46,10 +48,10 @@ public class MajorEndorserListFileDatasource implements Datasource<MajorEndorser
                 String[] data = line.split(",");
                 String nameId = data[0].trim();
                 String positionId = data[1].trim();
-                String facultyId = data[2].trim();
-                String majorId = data[3].trim();
+//                String facultyId = data[2].trim();
+//                String majorId = data[3].trim();
 
-                majorEndorserList.addNewMajorEndorser(nameId, positionId, facultyId, majorId);
+                majorEndorserList.addNewMajorEndorser(nameId, positionId);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -65,9 +67,7 @@ public class MajorEndorserListFileDatasource implements Datasource<MajorEndorser
         try (BufferedWriter buffer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
             for (MajorEndorser majorEndorser : data.getMajorEndorsers()) {
                 String line = majorEndorser.getName() + "," +
-                        majorEndorser.getPosition() + "," +
-                        majorEndorser.getFaculty() + "," +
-                        majorEndorser.getMajor();
+                        majorEndorser.getPosition();
                 buffer.write(line);
                 buffer.newLine();
             }
@@ -75,4 +75,24 @@ public class MajorEndorserListFileDatasource implements Datasource<MajorEndorser
             throw new RuntimeException(e);
         }
     }
-}
+
+
+        // Method to read endorsers from the CSV file and return a list of strings
+        public List<String> readEndorsers() {
+            List<String> endorsers = new ArrayList<>();
+            File file = new File(directoryName, fileName);
+
+            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    endorsers.add(line); // Add each line to the list of endorsers
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return endorsers;
+        }
+    }
+
+

@@ -33,7 +33,7 @@ public class StudentInMajorController {
         Object data = FXRouter.getData();
         if (data instanceof User) {
             user = (User) data;
-            nameLabel.setText(user.getName());
+            nameLabel.setText(user.getUsername());
         }
 
 //        errorLabel.setText("");
@@ -82,33 +82,8 @@ public class StudentInMajorController {
         }
     }
 
-//    private void searchStudent() {
-//        String searchQuery = searchTextField.getText().trim();
-//        if (searchQuery.isEmpty()) {
-//            studentTableView.getItems().setAll(studentAdvisorList.getStudentAdvisor());
-////            errorLabel.setText("กรุณาใส่ข้อมูล");
-//            return;
-//        }
-
-//        StudentAdvisor fondStudent = studentAdvisorList.findStudentById(searchQuery);
-//        if (fondStudent == null) {
-//            fondStudent = studentAdvisorList.findStudentByName(searchQuery);
-//        }
-//
-//        if (fondStudent != null) {
-//            studentTableView.getItems().setAll(fondStudent);
-//        } else {
-//            studentTableView.getItems().clear();
-//        }
-//    }
-
     @FXML
     public void onMyTeamButtonClick() throws RuntimeException {
-//        Object temp = FXRouter.getData();
-//        if (temp instanceof String) {
-//            previousPage = (String)temp;
-//        }
-
         try {
             FXRouter.goTo("my-team");
         } catch (IOException e) {
@@ -122,6 +97,29 @@ public class StudentInMajorController {
             FXRouter.goTo("request-page");
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void onHomeButtonClick() {
+        navigateTo("departmentStaff", user);
+    }
+
+    @FXML
+    public void onUserProfileButton(){
+        navigateTo("user-profile", user);
+    }
+
+    @FXML
+    public void onEditEndorserButton(){
+        navigateTo("edit-major-endorser", user);
+    }
+
+    private void navigateTo(String route, Object data) {
+        try {
+            FXRouter.goTo(route, data);
+        } catch (IOException e) {
+            System.err.println("Navigation to " + route + " failed: " + e.getMessage());
         }
     }
 
