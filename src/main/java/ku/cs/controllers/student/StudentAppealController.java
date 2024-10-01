@@ -9,6 +9,7 @@ import java.io.IOException;
 public class StudentAppealController {
     private User user;
 
+
     @FXML
     private void initialize() {
         Object data = FXRouter.getData();

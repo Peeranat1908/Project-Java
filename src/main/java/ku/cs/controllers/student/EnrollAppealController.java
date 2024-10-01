@@ -136,6 +136,8 @@ public class EnrollAppealController {
         LocalDate date = LocalDate.of(year, month, day);
         String studentSignature = signatureTextField.getText();
         String status = "ใบคำร้องใหม่ คำร้องส่งต่อให้อาจารย์ที่ปรึกษา";
+        String declineReason = "";
+        String majorEndorserSignature = "";
 
         if (!lateRegisCheck.isSelected() && !lateAddDropCheck.isSelected() && !OverRegisCheck.isSelected() &&
                 !LessRegisCheck.isSelected() && !PostPayCheck.isSelected() && !TransferMajorCheck.isSelected()) {
@@ -163,7 +165,7 @@ public class EnrollAppealController {
         }
         ErrorLabel.setVisible(false);
 
-        Appeal appeal = new Appeal(studentID    ,type , subject, request, date, studentSignature, second, status, time);
+        Appeal appeal = new Appeal(studentID    ,type , subject, request, date, studentSignature, second, status, time, declineReason, majorEndorserSignature);
         AppealSharedData.getNormalAppealList().addAppeal(appeal);
         datasource.writeData(AppealSharedData.getNormalAppealList());
         clearFields();

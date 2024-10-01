@@ -34,4 +34,7 @@ public class Student extends User {
         this.email = email;
     }
 
+    public String getID(){
+        return this.Id;
+    }
 }

@@ -6,13 +6,10 @@ import ku.cs.controllers.NavigationHistoryService;
 import ku.cs.models.User;
 import ku.cs.services.FXRouter;
 
-
 import java.io.IOException;
-
 public class StudentController {
     @FXML
     private Label usernameLabel;
-
 
     private User user;
 
@@ -20,8 +17,8 @@ public class StudentController {
     private void initialize() {
         Object data = FXRouter.getData();
         if (data instanceof User) {
-            user = (User) data;
-            updateUI();
+           user  = (User) data;
+           updateUI();
         } else {
 
             usernameLabel.setText("Invalid user data");

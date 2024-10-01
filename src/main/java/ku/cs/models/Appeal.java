@@ -10,11 +10,13 @@ public class Appeal {
     private String request; // มีความประสงค์คือ
     private LocalDate date; // วัน/เดือน/ปี
     private String studentSignature; // ลงนามนิสิต/ผู้ดำเนินการแทน
+    private String majorEndorserSignature; // ลายเซ็นเจ้าหน้าที่ผู้อนุมัติ
     private long second; //เก็บเวลาที่ส่ง
-    private String status;
-    private LocalTime time;
+    private String status; //สถานะ
+    private LocalTime sendtime; // เวลาที่ส่ง
+    private String DeclineReason;
 
-    public Appeal(String studentID,String type , String subject, String request, LocalDate date, String studentSignature, long second, String status, LocalTime time) {
+    public Appeal(String studentID, String type , String subject, String request, LocalDate date, String studentSignature, long second, String status, LocalTime sendtime, String DeclineReason, String majorEndorserSignature) {
         this.studentID = studentID;
         this.type = type;
         this.subject = subject;
@@ -23,7 +25,9 @@ public class Appeal {
         this.studentSignature = studentSignature;
         this.second = second;
         this.status = status;
-        this.time = time;
+        this.sendtime = sendtime;
+        this.DeclineReason = DeclineReason;
+        this.majorEndorserSignature = majorEndorserSignature;
     }
 
     public String getStudentID(){
@@ -72,12 +76,27 @@ public class Appeal {
 
     public String getStatus(){ return status;}
 
-    public void setStatus(){
+    public void setStatus(String status){
         this.status = status;
     }
 
-    public LocalTime getTime(){
-        return time;
+    public LocalTime getSendtime(){
+        return sendtime;
+    }
+
+    public String getDeclineReason(){
+        return DeclineReason;
+    }
+    public void setDeclineReason(String DeclineReason){
+        this.DeclineReason = DeclineReason;
+    }
+
+    public String getMajorEndorserSignature() {
+        return majorEndorserSignature;
+    }
+
+    public void setMajorEndorserSignature(String majorEndorserSignature){
+        this.majorEndorserSignature = majorEndorserSignature;
     }
 
     @Override

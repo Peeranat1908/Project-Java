@@ -7,10 +7,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
 import ku.cs.controllers.NavigationHistoryService;
 import ku.cs.models.StudentAdvisorList;
 import ku.cs.models.StudentAdvisor;
+import ku.cs.models.User;
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
 import ku.cs.services.StudentListFileAdvisorDatasource;
@@ -34,6 +34,8 @@ public class MainAdvisorController {
 
     private Datasource<StudentAdvisorList> datasource;
 
+    private User user;
+
     @FXML
     public void initialize() {
         errorLabel.setText("");
@@ -50,6 +52,11 @@ public class MainAdvisorController {
         });
 
         searchButtonClick.setOnAction(actionEvent -> searchStudent());
+
+        Object data = FXRouter.getData();
+        if (data instanceof User) {
+            user = (User) data;
+        }
     }
 
     private void showTable(StudentAdvisorList studentAdvisorList) {
@@ -118,19 +125,13 @@ public class MainAdvisorController {
     @FXML
     public void onRequestButtonClick() {
         try {
-            FXRouter.goTo("request-page");
+            FXRouter.goTo("advisor-appeal-page", user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
 
-//    @FXML
-//    public void onRequestButton(){
-//        try{
-//            FXRouter.goTo();
-//        }
-//    }
 
 
 }

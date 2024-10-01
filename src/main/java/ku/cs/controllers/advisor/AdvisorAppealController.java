@@ -1,40 +1,48 @@
-package ku.cs.controllers.student;
+package ku.cs.controllers.advisor;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.Label;
 import ku.cs.controllers.components.AppealItemController;
 import ku.cs.models.Appeal;
 import ku.cs.models.AppealList;
 import ku.cs.models.User;
-import ku.cs.services.AppealSharedData;
 import ku.cs.services.AppealListDatasource;
+import ku.cs.services.AppealSharedData;
 import ku.cs.services.AppealSortComparator;
 import ku.cs.services.FXRouter;
+
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.time.format.DateTimeFormatter;
 
-
-public class AppealListController {
-
-
-    @FXML
-    private VBox appealVBox;
-
+public class AdvisorAppealController {
     @FXML
     private Label noAppealsLabel;
 
     @FXML
-    private TextField searchTextField;
+    private VBox appealVBox;
 
     private AppealListDatasource datasource;
     private AppealList appealList;
     private User user;
+
+    @FXML
+    private TextField searchTextField;
+
+
+    @FXML
+    public void onBackButtonClick(){
+        try{
+            FXRouter.goTo("main-advisor");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @FXML
     public void initialize() {
@@ -48,26 +56,12 @@ public class AppealListController {
         }
         loadAppeals(null, null);
     }
-    @FXML
-    public void onBackButtonClick() {
-        try {
-            FXRouter.goTo("student");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
 
     private void loadAppeals(String filterType, String searchQuery) {
 
         appealList = AppealSharedData.getNormalAppealList();
         List<Appeal> appeals = appealList.getsAppeals();
-
-        if (user != null) {
-            appeals = appeals.stream()
-                    .filter(appeal -> appeal.getStudentID() != null && appeal.getStudentID().equals(user.getId()))
-                    .collect(Collectors.toList());
-        }
 
         if (filterType != null) {
             appeals = appeals.stream()
@@ -81,7 +75,7 @@ public class AppealListController {
 
             appeals = appeals.stream()
                     .filter(appeal ->
-                                    appeal.getSubject().toLowerCase().contains(lowerCaseQuery) || //เสิชหัวข้อคำร้องได้
+                            appeal.getSubject().toLowerCase().contains(lowerCaseQuery) || //เสิชหัวข้อคำร้องได้
                                     appeal.getRequest().toLowerCase().contains(lowerCaseQuery) || //เนื้อหาคำร้อง
                                     appeal.getDate().format(dateFormatter).contains(lowerCaseQuery) || //เสิชจากวันที่
                                     appeal.getStudentSignature().toLowerCase().contains(lowerCaseQuery) //เสิชจากผู้ลงนาม
@@ -138,6 +132,4 @@ public class AppealListController {
 
 
 
-
 }
-
