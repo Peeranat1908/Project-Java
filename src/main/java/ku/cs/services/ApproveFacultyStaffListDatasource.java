@@ -54,17 +54,22 @@ public class ApproveFacultyStaffListDatasource implements Datasource<ApproveFacu
         String line = "";
         try{
             while((line = buffer.readLine()) != null){
-                if (line.equals("")) continue;
+                if (line.trim().isEmpty()) continue;
 
                 String[] data = line.split(",");
-                String nameId = data[0].trim();
-                String positionId = data[1].trim();
-                String facultyId = data[2].trim();
+                if (data.length == 3){
+                    String nameId = data[0].trim();
+                    String roleId = data[1].trim();
+                    String facultyId = data[2].trim();
+                    approveFacultyStaffList.addNewApproveFacultyStaff(nameId, roleId, facultyId);
+                }
+                else {
+                    System.out.println("invalid line: " + line);
+                }
 
-                approveFacultyStaffList.addNewApproveFacultyStaff(nameId, positionId, facultyId);
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error reading file", e);
         }
 
         return approveFacultyStaffList;
@@ -91,9 +96,16 @@ public class ApproveFacultyStaffListDatasource implements Datasource<ApproveFacu
         BufferedWriter buffer = new BufferedWriter(outputStreamWriter);
         try{
             for (ApproveFacultyStaff approveFacultyStaff : data.getApproveFacultyStaffList()){
-                String line = approveFacultyStaff.getName() + "," + approveFacultyStaff.getPosition() + "," + approveFacultyStaff.getFaculty();
-                buffer.append(line);
-                buffer.append("\n");
+                if (approveFacultyStaff.getPosition() == null){
+                    String line = approveFacultyStaff.getName() + "," + approveFacultyStaff.getRole() + "," + approveFacultyStaff.getFaculty();
+                    buffer.append(line);
+                    buffer.append("\n");
+                }
+                else {
+                    String line = approveFacultyStaff.getName() + "," + approveFacultyStaff.getRole() + "ฝ่าย" + approveFacultyStaff.getPosition() + "," + approveFacultyStaff.getFaculty();
+                    buffer.append(line);
+                    buffer.append("\n");
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

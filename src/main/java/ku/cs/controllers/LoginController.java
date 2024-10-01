@@ -95,10 +95,10 @@ public class LoginController {
                 FXRouter.goTo("advisor", user);
                 break;
             case "facultyStaff":
-                if (!user.isFirstlogin()){
-                    errorLabel.setText("Please change your password before your first login.");
-                    return;
-                }
+//                if (!user.isFirstlogin()){
+//                    errorLabel.setText("Please change your password before your first login.");
+//                    return;
+//                }
                 FXRouter.goTo("facultyStaff", user);
                 break;
             case "departmentStaff":

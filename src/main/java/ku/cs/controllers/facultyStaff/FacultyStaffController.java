@@ -8,6 +8,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import ku.cs.controllers.NavigationHistoryService;
 import ku.cs.models.Student;
 import ku.cs.models.StudentList;
+import ku.cs.models.User;
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
 import ku.cs.services.MajorStaffListFileDataSource;
@@ -29,6 +30,7 @@ public class FacultyStaffController{
 
     private Datasource<StudentList> datasource;
 
+    private User user;
     @FXML
     public void initialize() {
 //        errorLabel.setText("");
@@ -43,6 +45,11 @@ public class FacultyStaffController{
                 }
             }
         });
+
+        Object data = FXRouter.getData();
+        if (data instanceof User) {
+            user = (User) data;
+        }
 
         //searchButtonClick.setOnAction(actionEvent -> searchStudent());
     }

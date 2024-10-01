@@ -1,27 +1,27 @@
-package ku.cs.controllers.student;
+package ku.cs.controllers.facultyStaff;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.Label;
 import ku.cs.controllers.components.AppealItemController;
 import ku.cs.models.Appeal;
 import ku.cs.models.AppealList;
 import ku.cs.models.User;
-import ku.cs.services.AppealSharedData;
 import ku.cs.services.AppealListDatasource;
+import ku.cs.services.AppealSharedData;
 import ku.cs.services.AppealSortComparator;
 import ku.cs.services.FXRouter;
+
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.time.format.DateTimeFormatter;
 
-
-public class AppealListController {
+public class FacultyAppealController {
     @FXML
     private ScrollPane scrollPane;
 
@@ -64,13 +64,6 @@ public class AppealListController {
 
         appealList = AppealSharedData.getNormalAppealList();
         List<Appeal> appeals = appealList.getsAppeals();
-
-        if (user != null) {
-            appeals = appeals.stream()
-                    .filter(appeal -> appeal.getStudentID() != null && appeal.getStudentID().equals(user.getId()))
-                    .collect(Collectors.toList());
-        }
-
         if (filterType != null) {
             appeals = appeals.stream()
                     .filter(appeal -> appeal.getType().equals(filterType))
@@ -83,7 +76,7 @@ public class AppealListController {
 
             appeals = appeals.stream()
                     .filter(appeal ->
-                                    appeal.getSubject().toLowerCase().contains(lowerCaseQuery) || //เสิชหัวข้อคำร้องได้
+                            appeal.getSubject().toLowerCase().contains(lowerCaseQuery) || //เสิชหัวข้อคำร้องได้
                                     appeal.getRequest().toLowerCase().contains(lowerCaseQuery) || //เนื้อหาคำร้อง
                                     appeal.getDate().format(dateFormatter).contains(lowerCaseQuery) || //เสิชจากวันที่
                                     appeal.getStudentSignature().toLowerCase().contains(lowerCaseQuery) //เสิชจากผู้ลงนาม
@@ -138,8 +131,4 @@ public class AppealListController {
         loadAppeals(null, null);
     }
 
-
-
-
 }
-

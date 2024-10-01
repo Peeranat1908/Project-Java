@@ -1,34 +1,4 @@
 @import "noto.css";
-.button{
-    -fx-background-radius: 25px;
-    -fx-padding: 10px 20px;
-    -fx-background-color: #EAF4FF;
-}
-.button:hover{
-    -fx-background-color: #5DADE2;
-}
-.label{
-    -fx-font-size: 20px;
-}
-#AdminLabel{
-    -fx-font-size: 24px;
-    -fx-font-weight: bold;
-}
-#dashboardButton{
-    -fx-background-color:   #2F80ED;
-    -fx-text-fill: white;
-
-}
-#errorLabel{
-    -fx-font-size: 13px;
-}
-#Button{
+.background{
     -fx-background-color: #FFFFFF;
-}
-#Button:hover{
-    -fx-font-size: 18px;
-}
-#Button-in-navbar{
-    -fx-background-color: #EAF4FF;
-    -fx-text-fill: black;
 }

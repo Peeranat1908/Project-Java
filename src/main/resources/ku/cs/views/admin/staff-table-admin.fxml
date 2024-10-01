@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" stylesheets="@../../style/noto.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.StaffTableController">
+    <children>
+        <Pane layoutX="2.0" layoutY="-1.0" prefHeight="80.0" prefWidth="1275.0" style="-fx-background-color: EAF4FF;">
+            <children>
+                <Button layoutX="-7.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="124.0" style="-fx-background-color: #2F80ED; -fx-background-radius: 0;" textFill="WHITE">
+                    <graphic>
+                        <Group>
+                            <children>
+                                <Line endX="-51.0" startX="-100.0" stroke="WHITE" strokeWidth="3.0" />
+                                <Line endX="-51.0" layoutY="11.0" startX="-100.0" stroke="WHITE" strokeWidth="3.0" />
+                                <Line endX="-51.857139587402344" layoutX="1.0" layoutY="21.0" startX="-100.85713958740234" stroke="WHITE" strokeWidth="3.0" />
+                            </children>
+                        </Group>
+                    </graphic>
+                </Button>
+                <Label layoutX="1065.0" layoutY="17.0" text="Admin">
+                    <font>
+                        <Font name="System Bold" size="33.0" />
+                    </font>
+                </Label>
+                <Button fx:id="ButtonNavbarNotMain" layoutX="135.0" layoutY="20.0" mnemonicParsing="false" onAction="#homeButtonClick" style="-fx-background-color: EAF4FF;" stylesheets="@../../style/Button.css" text="HOME">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Button>
+                <Button fx:id="ButtonNavbarNotMain" layoutX="233.0" layoutY="20.0" mnemonicParsing="false" onAction="#onMyTeamButtonClick" style="-fx-background-color: EAF4FF;" stylesheets="@../../style/Button.css" text="MY TEAM">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                </Button>
+                <ImageView fitHeight="69.0" fitWidth="68.0" layoutX="1190.0" layoutY="7.0">
+                    <image>
+                        <Image url="@../../../../images/admin.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="ButtonNavbarNotMain" layoutX="352.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" stylesheets="@../../style/Button.css" text="จัดการข้อมูลคณะและภาควิชา">
+                    <font>
+                        <Font name="System Bold" size="17.0" />
+                    </font>
+                </Button>
+                <Button fx:id="ButtonNavbar" layoutX="586.0" layoutY="17.0" mnemonicParsing="false" onAction="#manageStaffdataButtonClick" stylesheets="@../../style/Button.css" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
+                    <font>
+                        <Font name="System Bold" size="17.0" />
+                    </font>
+                </Button>
+                <Button fx:id="ButtonNavbarNotMain" layoutX="866.0" layoutY="20.0" mnemonicParsing="false" onAction="#dashboardButtonClick" style="-fx-background-color: EAF4FF;" stylesheets="@../../style/Button.css" text="dashboard">
+                    <font>
+                        <Font name="System Bold" size="17.0" />
+                    </font>
+                </Button>
+            </children>
+        </Pane>
+        <Label layoutX="544.0" layoutY="112.0" text="ข้อมูลเจ้าหน้าที่">
+            <font>
+                <Font name="System Bold" size="32.0" />
+            </font>
+        </Label>
+        <TextField fx:id="searchUserTextfield" layoutX="386.0" layoutY="176.0" prefHeight="48.0" prefWidth="530.0" promptText="Search" stylesheets="@../../style/field.css">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </TextField>
+        <TableView fx:id="tableView" layoutX="226.0" layoutY="249.0" prefHeight="428.0" prefWidth="863.0" stylesheets="@../../style/Style.css">
+            <columns>
+                <TableColumn minWidth="0.0" prefWidth="0.0" text="3" />
+                <TableColumn prefWidth="116.0" text="9" />
+            </columns>
+        </TableView>
+        <Button layoutX="1186.0" layoutY="667.0" mnemonicParsing="false" onAction="#onLogoutButtonClick" stylesheets="@../../style/Button.css" text="logout" />
+        <Button fx:id="addButton" layoutX="1018.0" layoutY="120.0" mnemonicParsing="false" onAction="#addStaffButtonClick" stylesheets="@../../style/Button.css" text="เพิ่มข้อมูลเจ้าหน้าที่">
+            <graphic>
+                <ImageView fitHeight="31.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../../images/editPicture.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Button>
+    </children>
+</AnchorPane>

@@ -70,10 +70,10 @@ public class MajorStaffListFileDataSource implements Datasource<StudentList> {
                 String name = data[1].trim();
                 String username = data[3].trim();
                 String id = data[0].trim();
-                String email = data[3].trim();
+                String email = data[2].trim();
 
                 // เพิ่มข้อมูลลงใน list
-                students.addNewStudent(id, name, username, email);
+                students.addNewStudent(id, name, email, username);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
