@@ -107,3 +107,37 @@
     -fx-background-color: -fx-accent;
     -fx-text-fill: black;
 }
+
+.appeal-pane{
+    -fx-background-color: #FFFFFF;
+    -fx-border-radius: 30px;
+    -fx-effect:  dropshadow(gaussian, gray, 20, 0.1, 0 ,0);
+}
+.appeal-button1{
+    -fx-background-color: #eae9e9;
+    -fx-border-radius: 20px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+.appeal-button2{
+    -fx-background-color:  #6EB1FF;
+    -fx-border-radius: 20px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+.appeal-button3{
+    -fx-background-color:  #0e12a2;
+    -fx-border-radius: 20px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+.appeal-button4{
+    -fx-background-color:  #0c6afa;
+    -fx-border-radius: 20px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+.appeal-button5{
+    -fx-background-color: #FFFFFF;
+    -fx-border-radius: 20px;
+}
