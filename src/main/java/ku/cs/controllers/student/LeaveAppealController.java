@@ -110,6 +110,7 @@ public class LeaveAppealController {
         long second = new Date().getTime();
         LocalTime time = LocalTime.now();
         LocalDate date = LocalDate.of(year, month, day);
+        LocalDate majorEndorserDate = date;
 
         String request = "มีความประสงค์ขอลาพักการศึกษาเป็นจำนวน " + nYears + " ปีการศึกษา ตั้งแต่ภาค " +
                 startSemester + " ปีการศึกษา " + startYear + " ถึงภาค " + endSemester +
@@ -123,7 +124,7 @@ public class LeaveAppealController {
         }
         try {
 
-            Appeal appeal = new Appeal(studentID ,type , subject, request, date, signature, second, status, time, majorEndorserSignature);
+            Appeal appeal = new Appeal(studentID ,type , subject, request, date, signature, second, status, time, majorEndorserSignature, majorEndorserDate);
             AppealSharedData.getNormalAppealList().addAppeal(appeal);
             datasource.writeData(AppealSharedData.getNormalAppealList());
             clearFields();

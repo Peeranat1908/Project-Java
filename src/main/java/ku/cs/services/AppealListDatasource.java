@@ -21,30 +21,37 @@ public class AppealListDatasource implements Datasource<AppealList>{
         AppealList appealList = new AppealList();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
-            reader.readLine();
-
+            reader.readLine();  // Skips the header line
 
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length == 10) {
+                if (parts.length == 11) {
                     String studentID = parts[0];
                     String type = parts[1];
                     String subject = parts[2];
                     String request = parts[3];
-                    LocalDate date = LocalDate.parse(parts[4]);
+
+                    // Parse date fields with null/empty handling
+                    LocalDate date = (parts[4].equals("null") || parts[4].isEmpty()) ? null : LocalDate.parse(parts[4]);
                     String signature = parts[5];
                     long timestamp = Long.parseLong(parts[6]);
                     String status = parts[7];
                     LocalTime time = LocalTime.parse(parts[8]);
+
+                    // Handle majorEndorserDate
+                    LocalDate majorEndorserDate = (parts[10].equals("null") || parts[10].isEmpty()) ? null : LocalDate.parse(parts[10]);
                     String majorEndorserSignature = parts[9];
 
-
-                    Appeal appeal = new Appeal(studentID ,type, subject, request, date, signature, timestamp,status,time, majorEndorserSignature);
+                    // Create Appeal object
+                    Appeal appeal = new Appeal(studentID, type, subject, request, date, signature, timestamp, status, time, majorEndorserSignature, majorEndorserDate);
                     appealList.addAppeal(appeal);
                 }
             }
         } catch (IOException e) {
             System.out.println("An error occurred while reading the appeals from the CSV file.");
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("An error occurred while parsing the data.");
             e.printStackTrace();
         }
         return appealList;
@@ -56,7 +63,7 @@ public class AppealListDatasource implements Datasource<AppealList>{
         List<Appeal> appeals = data.getsAppeals();
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            writer.write("studentID,Type,Subject,Request,Date,Signature,Timestamp,Status,Time,MajorEndorserSignature");
+            writer.write("studentID,Type,Subject,Request,Date,Signature,Timestamp,Status,Time,MajorEndorserSignature, MajorEndorserDate");
             writer.newLine();
 
             for (Appeal appeal : appeals) {
@@ -70,7 +77,9 @@ public class AppealListDatasource implements Datasource<AppealList>{
                                 + appeal.getSecond() + ","
                                 + appeal.getStatus() + ","
                                 + appeal.getTime() + ","
-                                + appeal.getMajorEndorserSignature());
+                                + appeal.getMajorEndorserSignature() + ","
+                                + appeal.getMajorEndorserDate());
+
                 writer.newLine();
             }
         } catch (IOException e) {

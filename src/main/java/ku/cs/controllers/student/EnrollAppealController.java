@@ -135,6 +135,7 @@ public class EnrollAppealController {
         String majorEndorserSignature = null;
         LocalTime time = LocalTime.now();
         LocalDate date = LocalDate.of(year, month, day);
+        LocalDate majorEndorserDate = date;
         String studentSignature = signatureTextField.getText();
         String status = "ใบคำร้องใหม่ คำร้องส่งต่อให้อาจารย์ที่ปรึกษา";
 
@@ -164,7 +165,7 @@ public class EnrollAppealController {
         }
         ErrorLabel.setVisible(false);
 
-        Appeal appeal = new Appeal(studentID    ,type , subject, request, date, studentSignature, second, status, time, majorEndorserSignature);
+        Appeal appeal = new Appeal(studentID    ,type , subject, request, date, studentSignature, second, status, time, majorEndorserSignature, majorEndorserDate);
         AppealSharedData.getNormalAppealList().addAppeal(appeal);
         datasource.writeData(AppealSharedData.getNormalAppealList());
         clearFields();

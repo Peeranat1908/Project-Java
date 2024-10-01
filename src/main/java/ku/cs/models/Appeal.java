@@ -14,9 +14,10 @@ public class Appeal {
     private long second; //เก็บเวลาที่ส่ง
     private String status;
     private LocalTime time;
+    private LocalDate majorEndorserDate;
 
 
-    public Appeal(String studentID,String type , String subject, String request, LocalDate date, String studentSignature, long second, String status, LocalTime time, String majorEndorserSignature) {
+    public Appeal(String studentID,String type , String subject, String request, LocalDate date, String studentSignature, long second, String status, LocalTime time, String majorEndorserSignature,LocalDate majorEndorserDate) {
         this.studentID = studentID;
         this.type = type;
         this.subject = subject;
@@ -27,10 +28,19 @@ public class Appeal {
         this.status = status;
         this.time = time;
         this.majorEndorserSignature = majorEndorserSignature;
+        this.majorEndorserDate = majorEndorserDate;
     }
 
     public String getMajorEndorserSignature() {
         return majorEndorserSignature;
+    }
+
+    public LocalDate getMajorEndorserDate() {
+        return majorEndorserDate;
+    }
+
+    public void setMajorEndorserDate(LocalDate majorEndorserDate) {
+        this.majorEndorserDate = majorEndorserDate;
     }
 
     public void setMajorEndorserSignature(String majorEndorserSignature){

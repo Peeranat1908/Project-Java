@@ -54,7 +54,7 @@ public class MajorAcceptAppealController {
             requestLabel.setText(appeal.getRequest());
             dateLabel.setText(appeal.getDate().toString());
             majorSignatureLabel.setText(appeal.getMajorEndorserSignature());
-            majorDateLabel.setText(appeal.getDate().toString());
+            majorDateLabel.setText(appeal.getMajorEndorserDate().toString());
         }
 
         // โหลดรายชื่อจากไฟล์ CSV ลงใน ChoiceBox
