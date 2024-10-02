@@ -102,6 +102,8 @@ public class LeaveAppealController {
         String courseDetails = courseTextfield.getText();
         String signature = signatureTextField.getText();
         String status = "ใบคำร้องใหม่ คำร้องส่งต่อให้อาจารย์ที่ปรึกษา";
+        String declineReason = "";
+        String majorEndorserSignature = "";
 
         int day = daySpinner.getValue();
         int month = monthSpinner.getValue();
@@ -122,7 +124,7 @@ public class LeaveAppealController {
         }
         try {
 
-            Appeal appeal = new Appeal(studentID ,type , subject, request, date, signature, second, status, time);
+            Appeal appeal = new Appeal(studentID ,type , subject, request, date, signature, second, status, time, declineReason, majorEndorserSignature);
             AppealSharedData.getNormalAppealList().addAppeal(appeal);
             datasource.writeData(AppealSharedData.getNormalAppealList());
             clearFields();

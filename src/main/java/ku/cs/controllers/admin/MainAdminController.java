@@ -1,11 +1,14 @@
 package ku.cs.controllers.admin;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import ku.cs.models.User;
 import ku.cs.models.UserList;
 import ku.cs.services.Datasource;
@@ -133,9 +136,21 @@ public class MainAdminController {
                 }
             }
         });
+        TableColumn<User, ImageView> profilePictureColumn = new TableColumn<>("Profile Picture");
+        profilePictureColumn.setCellValueFactory(cellData -> {
+            String profilePath = cellData.getValue().getProfilePicturePath();
+            if (profilePath == null || profilePath.isEmpty()) {
+                profilePath = "/images/profileDeafault2.png";
+            }
+            ImageView imageView = new ImageView(new Image(getClass().getResourceAsStream(profilePath)));
+            imageView.setFitHeight(50);
+            imageView.setFitWidth(50);
+            return new SimpleObjectProperty<>(imageView);
+        });
+        profilePictureColumn.setPrefWidth(100);
 
         tableView.getColumns().clear();
-        tableView.getColumns().addAll(nameColumn, usernameColumn, dateColumn, timeColumn, roleColumn, suspendColumn);
+        tableView.getColumns().addAll(profilePictureColumn,nameColumn, usernameColumn, dateColumn, timeColumn, roleColumn, suspendColumn);
 
         for (User user : userList.getUsers()) {
             if (!user.getRole().equals("admin")) {
@@ -181,7 +196,7 @@ public class MainAdminController {
         }
     }
     @FXML
-    public void manageStaffdataButtonClick() {
+    public void manageStaffDataButtonClick() {
         try {
             FXRouter.goTo("staff-table-admin");
         } catch (IOException e) {
@@ -199,7 +214,7 @@ public class MainAdminController {
     @FXML
     public void onManageFacultyButtonClick() {
         try {
-            FXRouter.goTo("edit-data-faculty");
+            FXRouter.goTo("faculty-data-admin");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

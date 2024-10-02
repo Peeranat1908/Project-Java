@@ -110,5 +110,22 @@ public class FacultyDataAdminController {
         }
     }
 
+    @FXML
+    public void dashboardButtonClick() {
+        try {
+            FXRouter.goTo("dashboard");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void manageStaffdataButtonClick() {
+        try {
+            FXRouter.goTo("staff-table-admin");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }

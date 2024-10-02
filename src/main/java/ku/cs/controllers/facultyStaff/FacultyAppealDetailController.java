@@ -13,7 +13,7 @@ import ku.cs.services.FXRouter;
 
 import java.io.IOException;
 
-public class FacultyAppealItemController {
+public class FacultyAppealDetailController {
     @FXML
     private Label typeLabel;
     @FXML
@@ -56,14 +56,14 @@ public class FacultyAppealItemController {
     public void onApproveAppealClick(){
         Appeal appeal = AppealSharedData.getSelectedAppeal();
         if(appeal != null){
-            appeal.setStatus("อนุมัติโดยอาจารย์ที่ปรึกษา คำร้องส่งต่อให้หัวหน้าภาควิชา");
+            appeal.setStatus("อนุมัติโดยคณบดี คำร้องดำเนินการครบถ้วน");
         }
         AppealListDatasource datasource = new AppealListDatasource("data/appeals.csv");
         AppealList appealList = AppealSharedData.getNormalAppealList();
 
         datasource.writeData(appealList);
         try {
-            FXRouter.goTo("advisor-appeal-page", user);
+            FXRouter.goTo("facultyAppeal", user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -83,14 +83,14 @@ public class FacultyAppealItemController {
         Appeal appeal = AppealSharedData.getSelectedAppeal();
         if(appeal != null){
             appeal.setDeclineReason(DeclineReason);
-            appeal.setStatus("ปฏิเสธโดยอาจารย์ที่ปรึกษา คำร้องถูกปฏิเสธ");
+            appeal.setStatus("ปฏิเสธโดยคณบดี คำร้องถูกปฏิเสธ");
         }
         AppealListDatasource datasource = new AppealListDatasource("data/appeals.csv");
         AppealList appealList = AppealSharedData.getNormalAppealList();
 
         datasource.writeData(appealList);
         try {
-            FXRouter.goTo("advisor-appeal-page", user);
+            FXRouter.goTo("facultyAppeal", user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -110,7 +110,7 @@ public class FacultyAppealItemController {
     @FXML
     public void onBackButtonClick() {
         try {
-            FXRouter.goTo("advisor-appeal-page", user);
+            FXRouter.goTo("facultyAppeal", user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

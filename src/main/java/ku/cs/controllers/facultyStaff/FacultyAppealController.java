@@ -53,7 +53,7 @@ public class FacultyAppealController {
     @FXML
     public void onBackButtonClick() {
         try {
-            FXRouter.goTo("student");
+            FXRouter.goTo("facultyStaff", user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

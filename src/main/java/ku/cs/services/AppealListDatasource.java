@@ -6,7 +6,6 @@ import ku.cs.models.AppealList;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
 
 public class AppealListDatasource implements Datasource<AppealList>{
@@ -26,7 +25,7 @@ public class AppealListDatasource implements Datasource<AppealList>{
 
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length == 9) {
+                if (parts.length == 11) {
                     String studentID = parts[0];
                     String type = parts[1];
                     String subject = parts[2];
@@ -36,9 +35,11 @@ public class AppealListDatasource implements Datasource<AppealList>{
                     long timestamp = Long.parseLong(parts[6]);
                     String status = parts[7];
                     LocalTime time = LocalTime.parse(parts[8]);
+                    String DeclineReason = parts[9];
+                    String majorEndorserSignature = parts[10];
 
 
-                    Appeal appeal = new Appeal(studentID ,type, subject, request, date, signature, timestamp,status,time);
+                    Appeal appeal = new Appeal(studentID ,type, subject, request, date, signature, timestamp,status,time ,DeclineReason, majorEndorserSignature);
                     appealList.addAppeal(appeal);
                 }
             }
@@ -55,20 +56,29 @@ public class AppealListDatasource implements Datasource<AppealList>{
         List<Appeal> appeals = data.getsAppeals();
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            writer.write("studentID,Type,Subject,Request,Date,Signature,Timestamp,Status,Time");
+            writer.write("studentID,Type,Subject,Request,Date,Signature,Timestamp,Status,Time,DeclineReason,majorEndorserSignature");
             writer.newLine();
-
             for (Appeal appeal : appeals) {
+                String declineReason = appeal.getDeclineReason();
+                String majorEndorserSignature = appeal.getMajorEndorserSignature();
+                if (declineReason == null || declineReason.isEmpty())  {
+                    declineReason = "\"\"";
+                }
+                if (majorEndorserSignature == null || majorEndorserSignature.isEmpty()){
+                    majorEndorserSignature = "\"\"";
+                }
                 writer.write(
                         appeal.getStudentID() + ","
-                        + appeal.getType() + ","
-                        + appeal.getSubject() + ","
-                        + appeal.getRequest() + ","
-                        + appeal.getDate() + ","
-                        + appeal.getStudentSignature() + ","
-                        + appeal.getSecond() + ","
-                        + appeal.getStatus() + ","
-                        + appeal.getTime());
+                                + appeal.getType() + ","
+                                + appeal.getSubject() + ","
+                                + appeal.getRequest() + ","
+                                + appeal.getDate() + ","
+                                + appeal.getStudentSignature() + ","
+                                + appeal.getSecond() + ","
+                                + appeal.getStatus() + ","
+                                + appeal.getSendtime() + ","
+                                + declineReason + ","
+                                + majorEndorserSignature);
                 writer.newLine();
             }
         } catch (IOException e) {

@@ -101,4 +101,13 @@ public class FacultyStaffController{
         }
     }
 
+    @FXML
+    public void onDetail() {
+        try{
+            FXRouter.goTo("facultyAppeal", user);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

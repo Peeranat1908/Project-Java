@@ -19,6 +19,7 @@ public class MainApplication extends Application {
         //FXRouter.goTo("main-admin");
         //FXRouter.goTo("facultyStaff");
         //FXRouter.goTo("main-admin");
+
     }
     private void configRoutes() {
         String viewPath = "ku/cs/views/";
@@ -62,6 +63,8 @@ public class MainApplication extends Application {
         FXRouter.when("approve-faculty-staff", viewPath + "facultyStaff/approver-faculty.fxml");
         FXRouter.when("editApproveFacultyStaff", viewPath + "facultyStaff/edit-approve-faculty-staff.fxml");
         FXRouter.when("addApproveFacultyStaff", viewPath + "facultyStaff/add-approve-faculty-staff.fxml");
+        FXRouter.when("facultyAppeal", viewPath + "facultyStaff/facultyAppeal.fxml");
+        FXRouter.when("facultyDetail", viewPath  + "facultyStaff/appeal-detail-facultyStaff.fxml");
     }
 
 

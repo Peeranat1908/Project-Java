@@ -43,6 +43,8 @@ public class NormalAppealController {
 
     private User user;
 
+
+
     @FXML
     public void initialize() {
         daySpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 31, LocalDate.now().getDayOfMonth()));
@@ -92,6 +94,8 @@ public class NormalAppealController {
         LocalDate date = LocalDate.of(year, month, day);
         String studentSignature = signatureTextField.getText();
         String status = "ใบคำร้องใหม่ คำร้องส่งต่อให้อาจารย์ที่ปรึกษา";
+        String declineReason = "";
+        String majorEndorserSignature = "";
 
         if (subject.isEmpty() || request.isEmpty() || studentSignature.isEmpty()) {
             ErrorLabel.setVisible(true);
@@ -105,7 +109,7 @@ public class NormalAppealController {
         }
         ErrorLabel.setVisible(false);
         subject = subject.replace(",", " ");
-        Appeal appeal = new Appeal(studentID ,type , subject, request, date, studentSignature, second, status, time);
+        Appeal appeal = new Appeal(studentID ,type , subject, request, date, studentSignature, second, status, time, declineReason, majorEndorserSignature);
         AppealSharedData.getNormalAppealList().addAppeal(appeal);
         datasource.writeData(AppealSharedData.getNormalAppealList());
         clearFields();

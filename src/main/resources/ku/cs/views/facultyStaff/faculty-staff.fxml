@@ -66,6 +66,7 @@
             </Button>
          </children>
       </Pane>
+      <Button layoutX="1060.0" layoutY="115.0" mnemonicParsing="false" onAction="#onDetail" styleClass="AcceptButton" text="Button" />
    </children>
    <stylesheets>
       <URL value="@../../style/baseOnPageLightMode.css" />
