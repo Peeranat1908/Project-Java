@@ -2,8 +2,6 @@ package ku.cs.controllers.student;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -23,8 +21,7 @@ import java.time.format.DateTimeFormatter;
 
 
 public class AppealListController {
-    @FXML
-    private ScrollPane scrollPane;
+
 
     @FXML
     private VBox appealVBox;
@@ -54,7 +51,7 @@ public class AppealListController {
     @FXML
     public void onBackButtonClick() {
         try {
-            FXRouter.goTo("student");
+            FXRouter.goTo("student", user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -84,7 +81,7 @@ public class AppealListController {
 
             appeals = appeals.stream()
                     .filter(appeal ->
-                                    appeal.getSubject().toLowerCase().contains(lowerCaseQuery) || //เสิชหัวข้อคำร้องได้
+                            appeal.getSubject().toLowerCase().contains(lowerCaseQuery) || //เสิชหัวข้อคำร้องได้
                                     appeal.getRequest().toLowerCase().contains(lowerCaseQuery) || //เนื้อหาคำร้อง
                                     appeal.getDate().format(dateFormatter).contains(lowerCaseQuery) || //เสิชจากวันที่
                                     appeal.getStudentSignature().toLowerCase().contains(lowerCaseQuery) //เสิชจากผู้ลงนาม
@@ -143,4 +140,3 @@ public class AppealListController {
 
 
 }
-

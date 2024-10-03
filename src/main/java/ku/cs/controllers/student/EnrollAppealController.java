@@ -13,6 +13,8 @@ import ku.cs.models.Appeal;
 import ku.cs.models.User;
 import java.time.LocalDate;
 import ku.cs.services.AppealSharedData;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.time.LocalTime;
 
@@ -132,12 +134,17 @@ public class EnrollAppealController {
         int month = monthSpinner.getValue();
         int year = yearSpinner.getValue();
         long second = new Date().getTime();
-        String majorEndorserSignature = null;
         LocalTime time = LocalTime.now();
         LocalDate date = LocalDate.of(year, month, day);
-        LocalDate majorEndorserDate = date;
         String studentSignature = signatureTextField.getText();
         String status = "ใบคำร้องใหม่ คำร้องส่งต่อให้อาจารย์ที่ปรึกษา";
+        String declineReason = "";
+        String majorEndorserSignature = "";
+        LocalDate majorDate = null;
+        LocalDate FacultyDate = null;
+        String FacultyEndorserSignature = "";
+        LocalDateTime DeclineDatetime = null;
+
 
         if (!lateRegisCheck.isSelected() && !lateAddDropCheck.isSelected() && !OverRegisCheck.isSelected() &&
                 !LessRegisCheck.isSelected() && !PostPayCheck.isSelected() && !TransferMajorCheck.isSelected()) {
@@ -165,7 +172,7 @@ public class EnrollAppealController {
         }
         ErrorLabel.setVisible(false);
 
-        Appeal appeal = new Appeal(studentID    ,type , subject, request, date, studentSignature, second, status, time, majorEndorserSignature, majorEndorserDate);
+        Appeal appeal = new Appeal(studentID ,type , subject, request, date, studentSignature, second, status, time, declineReason, majorEndorserSignature, majorDate, FacultyDate, DeclineDatetime, FacultyEndorserSignature);
         AppealSharedData.getNormalAppealList().addAppeal(appeal);
         datasource.writeData(AppealSharedData.getNormalAppealList());
         clearFields();

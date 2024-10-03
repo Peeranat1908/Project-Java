@@ -111,14 +111,14 @@
             <TextField fx:id="courseTextfield" alignment="TOP_LEFT" layoutX="57.0" layoutY="290.0" prefHeight="149.0" prefWidth="546.0" style="-fx-background-radius: 10;" />
          </children>
       </Pane>
-      <Pane layoutX="32.0" layoutY="38.0">
+      <Pane layoutX="53.0" layoutY="38.0" prefHeight="34.0" prefWidth="35.0">
          <children>
-            <ImageView fx:id="backImage" fitHeight="42.0" fitWidth="48.0" layoutX="12.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="34.0" fitWidth="36.0">
                <image>
-                  <Image url="@../../../../images/Back.png" />
+                  <Image url="@../../../../images/Leftarrow.png" />
                </image>
             </ImageView>
-            <Button fx:id="backbutton" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="77.0" prefWidth="79.0" style="-fx-background-color: #FFFFFF;">
+            <Button fx:id="backbutton" layoutX="-4.0" layoutY="-5.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="40.0" prefWidth="43.0" style="-fx-background-color: #FFFFFF;">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>

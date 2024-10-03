@@ -22,13 +22,11 @@ public class AppealDetailController {
     @FXML
     private Label signatureLabel;
     @FXML
-    private Label majorDateLabel;
-    @FXML
-    private Label majorSignatureLabel;
+    private Label declineLabel;
+
     private User user;
 
-
-
+    @FXML
     public void initialize() {
         Appeal appeal = AppealSharedData.getSelectedAppeal();
         if (appeal != null) {
@@ -37,7 +35,7 @@ public class AppealDetailController {
             requestLabel.setText(appeal.getRequest());
             dateLabel.setText(appeal.getDate().toString());
             signatureLabel.setText(appeal.getStudentSignature());
-            majorSignatureLabel.setText(appeal.getMajorEndorserSignature());
+            declineLabel.setText(appeal.getDeclineReason());
         }
 
         Object data = FXRouter.getData();
@@ -52,12 +50,7 @@ public class AppealDetailController {
             if(user.getRole().equals("student")){
                 FXRouter.goTo("appeal-tracking", user);
             }
-            else if(user.getRole().equals("advisor")){
-                FXRouter.goTo("advisor-appeal-page", user);
-            }
-            else if(user.getRole().equals("departmentStaff")){
-                FXRouter.goTo("departmentStaff",user);
-            }
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

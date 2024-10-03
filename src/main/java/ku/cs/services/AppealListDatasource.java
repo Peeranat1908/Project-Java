@@ -5,8 +5,8 @@ import ku.cs.models.AppealList;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
 
 public class AppealListDatasource implements Datasource<AppealList>{
@@ -21,40 +21,54 @@ public class AppealListDatasource implements Datasource<AppealList>{
         AppealList appealList = new AppealList();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
-            reader.readLine();  // Skips the header line
+            reader.readLine();
+
 
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length == 11) {
+                if (parts.length == 15) {
                     String studentID = parts[0];
                     String type = parts[1];
                     String subject = parts[2];
                     String request = parts[3];
-
-                    // Parse date fields with null/empty handling
-                    LocalDate date = (parts[4].equals("null") || parts[4].isEmpty()) ? null : LocalDate.parse(parts[4]);
-                    String signature = parts[5];
+                    LocalDate date = parseDate(parts[4]);
+                    String studentSignature = parts[5];
                     long timestamp = Long.parseLong(parts[6]);
                     String status = parts[7];
                     LocalTime time = LocalTime.parse(parts[8]);
+                    String DeclineReason = parts[9];
+                    String majorEndorserSignature = parts[10];
+                    LocalDate majorEndorserDate = parseDate((parts[11]));
+                    LocalDate FacultyDate = parseDate((parts[12]));
+                    LocalDateTime DeclineDatetime = parseLocalDateTime((parts[13]));
+                    String FacultyEndorserSignature = parts[14];
 
-                    // Handle majorEndorserDate
-                    LocalDate majorEndorserDate = (parts[10].equals("null") || parts[10].isEmpty()) ? null : LocalDate.parse(parts[10]);
-                    String majorEndorserSignature = parts[9];
 
-                    // Create Appeal object
-                    Appeal appeal = new Appeal(studentID, type, subject, request, date, signature, timestamp, status, time, majorEndorserSignature, majorEndorserDate);
+                    Appeal appeal = new Appeal(studentID, type, subject, request, date, studentSignature, timestamp, status, time, DeclineReason, majorEndorserSignature, majorEndorserDate, FacultyDate, DeclineDatetime, FacultyEndorserSignature);
                     appealList.addAppeal(appeal);
+
                 }
             }
         } catch (IOException e) {
             System.out.println("An error occurred while reading the appeals from the CSV file.");
             e.printStackTrace();
-        } catch (Exception e) {
-            System.out.println("An error occurred while parsing the data.");
-            e.printStackTrace();
         }
         return appealList;
+    }
+
+
+    private LocalDate parseDate(String dateStr) {
+        if (dateStr == null || dateStr.trim().isEmpty() || dateStr.equals("\"\"")) {
+            return null;
+        }
+        return LocalDate.parse(dateStr);
+    }
+
+    private LocalDateTime parseLocalDateTime(String dateTimeStr) {
+        if (dateTimeStr == null || dateTimeStr.trim().isEmpty() || dateTimeStr.equals("\"\"")) {
+            return null; // Return null for invalid date time
+        }
+        return LocalDateTime.parse(dateTimeStr);
     }
 
 
@@ -63,10 +77,43 @@ public class AppealListDatasource implements Datasource<AppealList>{
         List<Appeal> appeals = data.getsAppeals();
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            writer.write("studentID,Type,Subject,Request,Date,Signature,Timestamp,Status,Time,MajorEndorserSignature, MajorEndorserDate");
+            writer.write("studentID,Type,Subject,Request,Date,Signature,Timestamp,Status,Time,DeclineReason,majorEndorserSignature,majorEndorserDate");
             writer.newLine();
-
             for (Appeal appeal : appeals) {
+                String declineReason = appeal.getDeclineReason();
+                String majorEndorserSignature = appeal.getMajorEndorserSignature();
+                String FacultyEndorserSignature = appeal.getFacultyEndorserSignature();
+                LocalDate majorEndorserDate = appeal.getMajorEndorserDate();
+                LocalDate FacultyEndorderDate = appeal.getFacultyEndorserDate();
+                LocalDateTime DeclineDateTime = appeal.getDeclineDateTime();
+                String majorEndorserDateString;
+                String FacultyEndorserDateString;
+                String DeclineDateTimeString;
+                if (declineReason == null || declineReason.isEmpty())  {
+                    declineReason = "\"\"";
+                }
+                if (majorEndorserSignature == null || majorEndorserSignature.isEmpty()){
+                    majorEndorserSignature = "\"\"";
+                }
+                if(majorEndorserDate == null){
+                    majorEndorserDateString = "\"\"";
+                }else{
+                    majorEndorserDateString = majorEndorserDate.toString();
+                }
+                if(FacultyEndorderDate == null){
+                    FacultyEndorserDateString = "\"\"";
+                }else{
+                    FacultyEndorserDateString = FacultyEndorderDate.toString();
+                }
+                if(DeclineDateTime == null){
+                    DeclineDateTimeString = "\"\"";
+                }else{
+                    DeclineDateTimeString = DeclineDateTime.toString();
+                }
+                if (FacultyEndorserSignature== null || FacultyEndorserSignature.isEmpty())  {
+                    FacultyEndorserSignature = "\"\"";
+                }
+
                 writer.write(
                         appeal.getStudentID() + ","
                                 + appeal.getType() + ","
@@ -76,10 +123,13 @@ public class AppealListDatasource implements Datasource<AppealList>{
                                 + appeal.getStudentSignature() + ","
                                 + appeal.getSecond() + ","
                                 + appeal.getStatus() + ","
-                                + appeal.getTime() + ","
-                                + appeal.getMajorEndorserSignature() + ","
-                                + appeal.getMajorEndorserDate());
-
+                                + appeal.getSendtime() + ","
+                                + declineReason + ","
+                                + majorEndorserSignature + ","
+                                + majorEndorserDateString + ","
+                                + FacultyEndorserDateString + ","
+                                + DeclineDateTimeString + ","
+                                + FacultyEndorserSignature);
                 writer.newLine();
             }
         } catch (IOException e) {

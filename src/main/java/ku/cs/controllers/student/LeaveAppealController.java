@@ -12,6 +12,8 @@ import ku.cs.models.User;
 import java.time.LocalDate;
 import javafx.scene.control.Label;
 import ku.cs.services.AppealSharedData;
+
+import java.time.LocalDateTime;
 import java.time.chrono.ThaiBuddhistDate;
 import ku.cs.services.AppealListDatasource;
 
@@ -100,9 +102,14 @@ public class LeaveAppealController {
         String endSemester = endSemesterfield.getText();
         String endYear = String.valueOf(endyearSpinner.getValue());
         String courseDetails = courseTextfield.getText();
-        String signature = signatureTextField.getText();
+        String studentSignature = signatureTextField.getText();
         String status = "ใบคำร้องใหม่ คำร้องส่งต่อให้อาจารย์ที่ปรึกษา";
-        String majorEndorserSignature = null;
+        String declineReason = "";
+        String majorEndorserSignature = "";
+        LocalDate majorDate = null;
+        LocalDate FacultyDate = null;
+        String FacultyEndorserSignature = "";
+        LocalDateTime DeclineDatetime = null;
 
         int day = daySpinner.getValue();
         int month = monthSpinner.getValue();
@@ -110,21 +117,19 @@ public class LeaveAppealController {
         long second = new Date().getTime();
         LocalTime time = LocalTime.now();
         LocalDate date = LocalDate.of(year, month, day);
-        LocalDate majorEndorserDate = date;
 
         String request = "มีความประสงค์ขอลาพักการศึกษาเป็นจำนวน " + nYears + " ปีการศึกษา ตั้งแต่ภาค " +
                 startSemester + " ปีการศึกษา " + startYear + " ถึงภาค " + endSemester +
                 " ปีการศึกษา " + endYear + " วิชาที่ลงทะเบียน: " + courseDetails;
 
         if (subject.isEmpty() || nYears.isEmpty() || startSemester.isEmpty() || endSemester.isEmpty() ||
-                courseDetails.isEmpty() || signature.isEmpty()) {
+                courseDetails.isEmpty() ||studentSignature.isEmpty()) {
             ErrorLabel.setText("Please fill out all fields.");
             ErrorLabel.setVisible(true);
             return;
         }
         try {
-
-            Appeal appeal = new Appeal(studentID ,type , subject, request, date, signature, second, status, time, majorEndorserSignature, majorEndorserDate);
+            Appeal appeal = new Appeal(studentID ,type , subject, request, date, studentSignature, second, status, time, declineReason, majorEndorserSignature, majorDate, FacultyDate, DeclineDatetime, FacultyEndorserSignature);
             AppealSharedData.getNormalAppealList().addAppeal(appeal);
             datasource.writeData(AppealSharedData.getNormalAppealList());
             clearFields();
