@@ -12,6 +12,7 @@ import ku.cs.services.AppealSharedData;
 import ku.cs.services.FXRouter;
 
 import java.io.IOException;
+import java.util.Date;
 
 public class AdvisorApproveController {
     @FXML
@@ -57,6 +58,8 @@ public class AdvisorApproveController {
         Appeal appeal = AppealSharedData.getSelectedAppeal();
         if(appeal != null){
             appeal.setStatus("อนุมัติโดยอาจารย์ที่ปรึกษา คำร้องส่งต่อให้หัวหน้าภาควิชา");
+            long second = new Date().getTime();
+            appeal.setSecond(second);
         }
         AppealListDatasource datasource = new AppealListDatasource("data/appeals.csv");
         AppealList appealList = AppealSharedData.getNormalAppealList();

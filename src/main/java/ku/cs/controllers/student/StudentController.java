@@ -52,7 +52,11 @@ public class StudentController {
     // Method สำหรับการคลิกปุ่มเพื่อไปยังหน้าการติดตามคำร้อง
     @FXML
     public void onAppealTrackingClick() {
-        navigateTo("appeal-tracking", user);
+        try{
+            FXRouter.goTo("appeal-tracking", user);
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -61,6 +65,7 @@ public class StudentController {
     }
 
     private void navigateTo(String route, Object data) {
+
         try {
             FXRouter.goTo(route, data); // ส่งข้อมูลไปยัง route ที่กำหนด
         } catch (IOException e) {
@@ -68,13 +73,4 @@ public class StudentController {
         }
     }
 
-
-    // Method สำหรับนำทางไปยังหน้าต่างๆ
-    private void navigateTo(String route) {
-        try {
-            FXRouter.goTo(route);
-        } catch (IOException e) {
-            System.err.println("Navigation to " + route + " failed: " + e.getMessage());
-        }
-    }
 }

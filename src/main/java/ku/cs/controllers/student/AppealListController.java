@@ -51,7 +51,7 @@ public class AppealListController {
     @FXML
     public void onBackButtonClick() {
         try {
-            FXRouter.goTo("student");
+            FXRouter.goTo("student", user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

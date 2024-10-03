@@ -1,4 +1,5 @@
 package ku.cs.models;
+import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -8,15 +9,23 @@ public class Appeal {
     private String type; //ประเภท
     private String subject; // เรื่อง
     private String request; // มีความประสงค์คือ
-    private LocalDate date; // วัน/เดือน/ปี
+    private LocalDate date; // วัน/เดือน/ปี ที่ส่ง
     private String studentSignature; // ลงนามนิสิต/ผู้ดำเนินการแทน
-    private String majorEndorserSignature; // ลายเซ็นเจ้าหน้าที่ผู้อนุมัติ
+    private String majorEndorserSignature; // ลายเซ็นเจ้าหน้าที่ผู้อนุมัติ ภาค
+    private String FacultyEndorserSignature; //ลายเซ็นเจ้าหน้าที่อนุมะติ คณะ
     private long second; //เก็บเวลาที่ส่ง
     private String status; //สถานะ
     private LocalTime sendtime; // เวลาที่ส่ง
-    private String DeclineReason;
+    private String DeclineReason; //เหตุผลที่ปฎิเสธ
+    private LocalDateTime DeclineDateTime; //วันเวลาที่ปฎิเสธ (ใช้ร่วมกัน)
+    private LocalDate majorEndorserDate; //วันเวลาอนุมัติของ จนท ภาค
+    private LocalDate FacultyEndorserDate; //วันเวลาอนุมัติของ จนท คณะ
 
-    public Appeal(String studentID, String type , String subject, String request, LocalDate date, String studentSignature, long second, String status, LocalTime sendtime, String DeclineReason, String majorEndorserSignature) {
+
+    public Appeal(String studentID, String type , String subject, String request, LocalDate date, String studentSignature,
+                  long second, String status, LocalTime sendtime, String DeclineReason, String majorEndorserSignature, LocalDate majorEndorserDate,
+                   LocalDate FacultyEndorserDate, LocalDateTime DeclineDateTime, String FacultyEndorserSignature) {
+
         this.studentID = studentID;
         this.type = type;
         this.subject = subject;
@@ -28,6 +37,10 @@ public class Appeal {
         this.sendtime = sendtime;
         this.DeclineReason = DeclineReason;
         this.majorEndorserSignature = majorEndorserSignature;
+        this.majorEndorserDate = majorEndorserDate;
+        this.FacultyEndorserDate = FacultyEndorserDate;
+        this.DeclineDateTime = DeclineDateTime;
+        this.FacultyEndorserSignature = FacultyEndorserSignature;
     }
 
     public String getStudentID(){
@@ -74,6 +87,8 @@ public class Appeal {
         return second;
     }
 
+    public void setSecond(long second){ this.second = second;}
+
     public String getStatus(){ return status;}
 
     public void setStatus(String status){
@@ -97,6 +112,32 @@ public class Appeal {
 
     public void setMajorEndorserSignature(String majorEndorserSignature){
         this.majorEndorserSignature = majorEndorserSignature;
+    }
+    public LocalDate getMajorEndorserDate(){
+        return majorEndorserDate;
+    }
+    public void setMajorEndorserDate(LocalDate majorEndorserDate) {
+        this.majorEndorserDate = majorEndorserDate;
+    }
+
+    public LocalDate getFacultyEndorserDate(){ return FacultyEndorserDate;}
+
+    public void setFacultyEndorserDate(LocalDate FacultyEndorserDate){
+        this.FacultyEndorserDate = FacultyEndorserDate;
+    }
+
+    public LocalDateTime getDeclineDateTime(){return DeclineDateTime;}
+
+    public void setDeclineDateTime(LocalDateTime DeclineDateTime){
+        this.DeclineDateTime = DeclineDateTime;
+    }
+
+    public String getFacultyEndorserSignature() {
+        return FacultyEndorserSignature;
+    }
+
+    public void setFacultyEndorserSignature(String facultyEndorserSignature) {
+        FacultyEndorserSignature = facultyEndorserSignature;
     }
 
     @Override
