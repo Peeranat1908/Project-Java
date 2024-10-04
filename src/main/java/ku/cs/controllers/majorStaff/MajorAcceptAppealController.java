@@ -1,10 +1,7 @@
 package ku.cs.controllers.majorStaff;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.*;
 import ku.cs.models.Appeal;
 import ku.cs.models.AppealList;
 import ku.cs.models.User;
@@ -12,10 +9,12 @@ import ku.cs.services.AppealListDatasource;
 import ku.cs.services.AppealSharedData;
 import ku.cs.services.FXRouter;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class MajorAcceptAppealController {
     private User user;
@@ -36,6 +35,8 @@ public class MajorAcceptAppealController {
     private Spinner<Integer> yearSpinner;
     @FXML
     private ChoiceBox<String> endorserBox;
+    @FXML private TextField declineTextField;
+    @FXML private CheckBox sendingToDean;
     @FXML private Label majorSignatureLabel;
     @FXML private Label majorDateLabel;
 
@@ -47,6 +48,8 @@ public class MajorAcceptAppealController {
         monthSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12, LocalDate.now().getMonthValue()));
         yearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1900, LocalDate.now().getYear(), LocalDate.now().getYear()));
 
+
+
         Appeal appeal = AppealSharedData.getSelectedAppeal();
         if (appeal != null) {
             typeLabel.setText(appeal.getType());
@@ -54,7 +57,11 @@ public class MajorAcceptAppealController {
             requestLabel.setText(appeal.getRequest());
             dateLabel.setText(appeal.getDate().toString());
             majorSignatureLabel.setText(appeal.getMajorEndorserSignature());
-            majorDateLabel.setText(appeal.getMajorEndorserDate().toString());
+            if (appeal.getMajorEndorserDate() != null) {
+                majorDateLabel.setText(appeal.getMajorEndorserDate().toString());
+            } else {
+                majorDateLabel.setText("ไม่ระบุวันที่"); // Or set a default value as needed
+            }
         }
 
         // โหลดรายชื่อจากไฟล์ CSV ลงใน ChoiceBox
@@ -71,23 +78,54 @@ public class MajorAcceptAppealController {
         Appeal appeal = AppealSharedData.getSelectedAppeal();
         if (appeal != null) {
             String endorserValue = endorserBox.getValue();
-            appeal.setMajorEndorserSignature("อนุมัติโดย " + endorserValue);
-
-            // Check if the endorser's name contains "หัวหน้าภาควิชา"
+            LocalDate today = LocalDate.now();
             if (endorserValue.contains("ภาควิชาวิทยาการคอมพิวเตอร์")) {
-                appeal.setMajorEndorserSignature(appeal.getMajorEndorserSignature() + " คำร้องดำเนินการครบถ้วน");
+                appeal.setMajorEndorserSignature(endorserValue);
+                appeal.setMajorEndorserDate(today);
+                appeal.setDeclineReason("");
+                if (sendingToDean.isSelected()) {
+                    appeal.setStatus("อนุมัติโดยหัวหน้าภาควิชา คำร้องส่งต่อให้คณบดี");
+                } else {
+                    appeal.setStatus("อนุมัติโดยหัวหน้าภาควิชา คำร้องดำเนินการครบถ้วน");
+                }
             }
+
+            AppealListDatasource datasource = new AppealListDatasource("data/appeals.csv");
+            AppealList appealList = AppealSharedData.getNormalAppealList();
+            datasource.writeData(appealList);
+
+            try {
+                FXRouter.goTo("departmentStaff", user);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+    @FXML
+    public void DeclineApplyClick(){
+        String DeclineReason = "ถูกปฎิเสธเนื่องจาก" + declineTextField.getText();
+
+        Appeal appeal = AppealSharedData.getSelectedAppeal();
+        if(appeal != null){
+            appeal.setDeclineReason(DeclineReason);
+            appeal.setMajorEndorserSignature(endorserBox.getValue());
+            appeal.setStatus("ปฏิเสธโดยหัวหน้าภาควิชา คำร้องถูกปฏิเสธ");
+            appeal.setMajorEndorserDate(LocalDate.now());
+            appeal.setDeclineDateTime(LocalDateTime.now());
         }
         AppealListDatasource datasource = new AppealListDatasource("data/appeals.csv");
         AppealList appealList = AppealSharedData.getNormalAppealList();
-        datasource.writeData(appealList);
 
+
+        datasource.writeData(appealList);
         try {
-            FXRouter.goTo("departmentStaff", user);
+            FXRouter.goTo("advisor-appeal-page", user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
+
 
     // ฟังก์ชันสำหรับโหลดรายชื่อจาก CSV และเพิ่มเข้า ChoiceBox
     private void loadEndorsersFromCSV(String filePath) {
@@ -103,6 +141,7 @@ public class MajorAcceptAppealController {
             e.printStackTrace();
         }
     }
+
 
     @FXML
     public void onBackButton() {

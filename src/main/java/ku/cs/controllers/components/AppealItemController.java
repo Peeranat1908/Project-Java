@@ -46,11 +46,14 @@ public class AppealItemController {
         String formattedTime = appeal.getSendtime().format(timeFormatter);
         timeLabel.setText(formattedTime);
 
-        if ("อนุมัติโดยอาจารย์ที่ปรึกษา คำร้องส่งต่อให้หัวหน้าภาควิชา".equals(appeal.getStatus())) {
+        if ("อนุมัติโดยอาจารย์ที่ปรึกษา คำร้องส่งต่อให้หัวหน้าภาควิชา".equals(appeal.getStatus())
+                || "อนุมัติโดยหัวหน้าภาควิชา คำร้องดำเนินการครบถ้วน".equals(appeal.getStatus())
+                    || "อนุมัติโดยหัวหน้าภาควิชา คำร้องส่งต่อให้คณบดี".equals(appeal.getStatus())) {
             statusLabel.setTextFill(javafx.scene.paint.Color.GREEN); //สถานะเป็นอนุมัติ
-        } else if("ปฏิเสธโดยอาจารย์ที่ปรึกษา คำร้องถูกปฏิเสธ".equals(appeal.getStatus())){
+        } else if("ปฏิเสธโดยอาจารย์ที่ปรึกษา คำร้องถูกปฏิเสธ".equals(appeal.getStatus()) || "ปฏิเสธโดยหัวหน้าภาควิชา คำร้องถูกปฏิเสธ".equals((appeal.getStatus()))){
             statusLabel.setTextFill(Color.RED); //สถา่นะเป็นปฎิเสธ
         }
+
 
         typeLabel.getParent().setOnMouseClicked(event -> showAppealDetails());
     }

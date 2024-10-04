@@ -131,6 +131,9 @@ public class Appeal {
     public void setDeclineDateTime(LocalDateTime DeclineDateTime){
         this.DeclineDateTime = DeclineDateTime;
     }
+    public void setDeclineDateTime() {
+        this.DeclineDateTime = LocalDateTime.now();
+    }
 
     public String getFacultyEndorserSignature() {
         return FacultyEndorserSignature;

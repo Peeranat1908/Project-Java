@@ -11,7 +11,6 @@ import ku.cs.models.Student;
 import ku.cs.models.StudentList;
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
-import ku.cs.services.FacultyStaffListFileDataSource;
 import ku.cs.services.MajorStaffListFileDataSource;
 
 import java.io.IOException;
@@ -34,7 +33,7 @@ public class FacultyStaffController implements Navigable {
     @FXML
     public void initialize() {
 //        errorLabel.setText("");
-        datasource = new FacultyStaffListFileDataSource("data", "student-in-faculty.csv");
+        datasource = new MajorStaffListFileDataSource("data", "student-in-faculty.csv");
         studentList = datasource.readData();
         showTable(studentList);
 
