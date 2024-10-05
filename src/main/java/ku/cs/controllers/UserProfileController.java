@@ -54,6 +54,14 @@ public class UserProfileController {
             e.printStackTrace(); // Print error to the console for debugging purposes
         }
     }
+    @FXML
+    private void onLogOutButtonClick(){
+        try{
+            FXRouter.goTo("login-page");
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
 
     private void navigateByRole(User user) throws IOException {
         if (user == null) {
