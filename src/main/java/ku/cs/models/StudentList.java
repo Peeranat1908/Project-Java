@@ -54,5 +54,13 @@ public class StudentList extends UserList{
             }
         }
     }
+    public Student findStudentByName(String name){
+        for (Student student : students){
+            if (student.getName().equalsIgnoreCase(name.trim())){
+                return student;
+            }
+        }
+        return null;
+    }
 
 }
