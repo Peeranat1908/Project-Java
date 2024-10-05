@@ -3,12 +3,13 @@ package ku.cs.controllers.admin;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextInputDialog;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import ku.cs.controllers.NavigationHistoryService;
+import ku.cs.controllers.components.Sidebar;
+import ku.cs.controllers.components.SidebarController;
 import ku.cs.models.Faculty;
 import ku.cs.models.StudentAdvisor;
 import ku.cs.services.Datasource;
@@ -19,12 +20,19 @@ import ku.cs.models.FacultyList;
 import java.io.IOException;
 import java.util.Optional;
 
-public class FacultyDataAdminController {
+public class FacultyDataAdminController implements Sidebar {
     @FXML private TableView<Faculty> facultyDataAdminTableView;
 
     private FacultyList facultyList;
 
     private Datasource<FacultyList> datasource;
+
+    @FXML
+    private AnchorPane sidebar;
+    @FXML
+    private AnchorPane mainPage;
+    @FXML
+    private Button toggleSidebarButton; // ปุ่มสำหรับแสดง/ซ่อน Sidebar
 
     @FXML
     public void initialize() {
@@ -49,10 +57,12 @@ public class FacultyDataAdminController {
                 }
             }
         });
+        loadSidebar();// loadSidebar
+        toggleSidebarButton.setOnAction(actionEvent -> {toggleSidebar();});
     }
 
 
-    private void showTable(FacultyList faculyList){
+    private void showTable(FacultyList facultyList){
         // กำหนด column ให้มี title ว่า ID และใช้ค่าจาก attribute id ของ object Student
         TableColumn<Faculty, String> idColumn = new TableColumn<>("Faculty ID");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("facultyId"));//เรียกมาจาก getter
@@ -68,7 +78,7 @@ public class FacultyDataAdminController {
         facultyDataAdminTableView.getItems().clear();
 
         // ใส่ข้อมูล Student ทั้งหมดจาก studentList ไปแสดงใน TableView
-        for (Faculty faculty: faculyList.getFaculties()) {
+        for (Faculty faculty: facultyList.getFaculties()) {
             facultyDataAdminTableView.getItems().add(faculty);
         }
     }
@@ -124,6 +134,43 @@ public class FacultyDataAdminController {
             FXRouter.goTo("staff-table-admin");
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+    @Override
+    public void loadSidebar(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/views/other/sidebar.fxml"));
+            AnchorPane loadedSidebar = loader.load();
+
+            // ดึง SidebarController จาก FXML Loader
+            SidebarController sidebarController = loader.getController();
+            sidebarController.setSidebar(this); // กำหนด MainAdminController เป็น Sidebar เพื่อให้สามารถปิดได้
+
+            sidebar = loadedSidebar; // กำหนด sidebar ที่โหลดเสร็จแล้ว
+            sidebar.setVisible(false); // ปิด sidebar ไว้ในค่าเริ่มต้น
+            mainPage.getChildren().add(sidebar); // เพิ่ม sidebar ไปยัง mainPage
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Override
+    public void toggleSidebar() {
+        if (sidebar != null){
+            sidebar.setVisible(!sidebar.isVisible());
+            if (sidebar.isVisible()){
+                sidebar.toFront(); //ให้ sidebar แสดงด้านหน้าสุด
+            }
+            else {
+                sidebar.toBack();
+            }
+        }
+    }
+
+    @Override
+    public void closeSidebar() {
+        if (sidebar != null){
+            sidebar.setVisible(false);
+            sidebar.toBack();
         }
     }
 

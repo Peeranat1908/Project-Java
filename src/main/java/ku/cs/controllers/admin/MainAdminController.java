@@ -2,13 +2,20 @@ package ku.cs.controllers.admin;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Popup;
+import ku.cs.controllers.NavigationHistoryService;
+import ku.cs.controllers.components.Sidebar;
+import ku.cs.controllers.components.SidebarController;
 import ku.cs.models.User;
 import ku.cs.models.UserList;
 import ku.cs.services.Datasource;
@@ -18,10 +25,11 @@ import ku.cs.services.FXRouter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import javafx.scene.control.CheckBox;
+import java.util.Stack;
+
 import javafx.scene.layout.Pane;
 
-public class MainAdminController {
+public class MainAdminController implements Sidebar {
     @FXML
     private TableView<User> tableView;
     @FXML
@@ -36,6 +44,12 @@ public class MainAdminController {
     private CheckBox departmentStaffCheckBox;
     @FXML
     private CheckBox advisorCheckBox;
+    @FXML
+    private AnchorPane sidebar;
+    @FXML
+    private AnchorPane mainPage;
+    @FXML
+    private Button toggleSidebarButton; // ปุ่มสำหรับแสดง/ซ่อน Sidebar
 
     private UserList userList;
     private Datasource<UserList> datasource;
@@ -64,6 +78,8 @@ public class MainAdminController {
             }
         });
         roleSelectionPane.setVisible(false);
+        loadSidebar();// loadSidebar
+        toggleSidebarButton.setOnAction(actionEvent -> {toggleSidebar();});
     }
 
     private void filterTable(String searchText) {
@@ -158,7 +174,6 @@ public class MainAdminController {
             }
         }
     }
-
     @FXML
     private void RoleSelectedButtonClick() {
         roleSelectionPane.setVisible(!roleSelectionPane.isVisible());
@@ -170,7 +185,8 @@ public class MainAdminController {
     }
 
     @FXML
-    public void onMyTeamButtonClick() {
+    public void onMyTeamButtonClick() throws RuntimeException {
+        NavigationHistoryService.getInstance().pushPage("main-admin");
         try {
             FXRouter.goTo("my-team");
         } catch (IOException e) {
@@ -178,14 +194,6 @@ public class MainAdminController {
         }
     }
 
-    @FXML
-    public void onLogoutButtonClick() {
-        try {
-            FXRouter.goTo("login-page");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @FXML
     public void dashboardButtonClick() {
@@ -217,6 +225,44 @@ public class MainAdminController {
             FXRouter.goTo("faculty-data-admin");
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void loadSidebar(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/views/other/sidebar.fxml"));
+            AnchorPane loadedSidebar = loader.load();
+
+            // ดึง SidebarController จาก FXML Loader
+            SidebarController sidebarController = loader.getController();
+            sidebarController.setSidebar(this); // กำหนด MainAdminController เป็น Sidebar เพื่อให้สามารถปิดได้
+
+            sidebar = loadedSidebar; // กำหนด sidebar ที่โหลดเสร็จแล้ว
+            sidebar.setVisible(false); // ปิด sidebar ไว้ในค่าเริ่มต้น
+            mainPage.getChildren().add(sidebar); // เพิ่ม sidebar ไปยัง mainPage
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Override
+    public void toggleSidebar() {
+        if (sidebar != null){
+            sidebar.setVisible(!sidebar.isVisible());
+            if (sidebar.isVisible()){
+                sidebar.toFront(); //ให้ sidebar แสดงด้านหน้าสุด
+            }
+            else {
+                sidebar.toBack();
+            }
+        }
+    }
+
+    @Override
+    public void closeSidebar() {
+        if (sidebar != null){
+            sidebar.setVisible(false);
+            sidebar.toBack();
         }
     }
 }
