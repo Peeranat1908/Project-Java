@@ -1,6 +1,6 @@
 package ku.cs.models;
 
-public class StudentAdvisor {
+public class  StudentAdvisor {
     private String id;
     private String name;
     private String faculty;
@@ -58,7 +58,4 @@ public class StudentAdvisor {
                 '}';
     }
 
-    public String toCsv() {
-        return id + "," + name + "," + faculty + "," + major;
-    }
 }

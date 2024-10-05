@@ -73,6 +73,7 @@ public class ResetPasswordController {
 
         String hashedNewPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
         user.setPassword(hashedNewPassword);
+        user.setFirstlogin(true);
         userList.addUser(user);
 
         UserListFileDatasource userDatasource = new UserListFileDatasource("data", "user.csv");

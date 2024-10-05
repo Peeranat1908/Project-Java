@@ -1,98 +1,166 @@
 package ku.cs.controllers.majorStaff;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import ku.cs.models.Student;
-import ku.cs.models.StudentList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.control.Label;
+import ku.cs.controllers.components.AppealItemController;
+import ku.cs.models.Appeal;
+import ku.cs.models.AppealList;
 import ku.cs.models.User;
-import ku.cs.services.Datasource;
+import ku.cs.services.AppealSharedData;
+import ku.cs.services.AppealListDatasource;
+import ku.cs.services.AppealSortComparator;
 import ku.cs.services.FXRouter;
-
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.time.format.DateTimeFormatter;
 
-public class MainMajorStaffController {
+
+public class MainMajorStaffController{
     @FXML
-    private Label errorLabel;
+    private VBox appealVBox;
+
     @FXML
-    private TableView<Student> studentTableView;
+    private Label noAppealsLabel;
+
     @FXML
     private TextField searchTextField;
-
-    @FXML
-    private Button searchButtonClick;
-
-    private StudentList studentList;
-
-    private Datasource<StudentList> datasource;
+    @FXML private Label nameLabel;
     private User user;
+    private AppealList appealList;
+    private AppealListDatasource datasource;
 
     @FXML
-    public void initialize() {
-//        errorLabel.setText("");
+    private void initialize() {
         Object data = FXRouter.getData();
+        datasource = new AppealListDatasource("data/appeals.csv");
+        appealList = datasource.readData();
+        AppealSharedData.setNormalAppealList(appealList);
         if (data instanceof User) {
             user = (User) data;
+            updateUI();
+        } else {
+
+            nameLabel.setText("Invalid user data");
         }
+        loadAppeals(null, null);
     }
 
-//    private void searchStudent() {
-//        String searchQuery = searchTextField.getText().trim();
-//        if (searchQuery.isEmpty()) {
-//            studentTableView.getItems().setAll(studentAdvisorList.getStudentAdvisor());
-////            errorLabel.setText("กรุณาใส่ข้อมูล");
-//            return;
+    private void loadAppeals(String filterType, String searchQuery) {
+
+        appealList = AppealSharedData.getNormalAppealList();
+        List<Appeal> appeals = appealList.getsAppeals();
+
+//        if (user != null) {
+//            appeals = appeals.stream()
+//                    .filter(appeal -> appeal.getStudentID() != null && appeal.getStudentID().equals(user.getId()))
+//                    .collect(Collectors.toList());
 //        }
 
-//        StudentAdvisor fondStudent = studentAdvisorList.findStudentById(searchQuery);
-//        if (fondStudent == null) {
-//            fondStudent = studentAdvisorList.findStudentByName(searchQuery);
-//        }
-//
-//        if (fondStudent != null) {
-//            studentTableView.getItems().setAll(fondStudent);
-//        } else {
-//            studentTableView.getItems().clear();
-//        }
-//    }
+        if (filterType != null) {
+            appeals = appeals.stream()
+                    .filter(appeal -> appeal.getType().equals(filterType))
+                    .collect(Collectors.toList());
+        }
 
-    @FXML
-    public void onMyTeamButtonClick() throws RuntimeException {
-//        Object temp = FXRouter.getData();
-//        if (temp instanceof String) {
-//            previousPage = (String)temp;
-//        }
+        if (searchQuery != null && !searchQuery.isEmpty()) {
+            String lowerCaseQuery = searchQuery.toLowerCase();
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        try {
-            FXRouter.goTo("my-team");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            appeals = appeals.stream()
+                    .filter(appeal ->
+                            appeal.getSubject().toLowerCase().contains(lowerCaseQuery) || //เสิชหัวข้อคำร้องได้
+                                    appeal.getRequest().toLowerCase().contains(lowerCaseQuery) || //เนื้อหาคำร้อง
+                                    appeal.getDate().format(dateFormatter).contains(lowerCaseQuery) || //เสิชจากวันที่
+                                    appeal.getStudentSignature().toLowerCase().contains(lowerCaseQuery) //เสิชจากผู้ลงนาม
+                    ).collect(Collectors.toList());
+        }
+
+        appeals.sort(new AppealSortComparator(filterType));
+
+        if(appeals.isEmpty()){
+            noAppealsLabel.setVisible(true);
+        }else{
+            noAppealsLabel.setVisible(false);
+            appealVBox.getChildren().clear();
+            for (Appeal appeal : appeals) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/views/student/appeal-item.fxml"));
+                    Pane pane = loader.load();
+
+                    AppealItemController controller = loader.getController();
+                    controller.setAppealData(appeal);
+
+                    appealVBox.getChildren().add(pane);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @FXML   //สำหรับ search หาคำร้อง
+    public void onSearchButtonClick() {
+        String searchQuery = searchTextField.getText();
+        loadAppeals(null, searchQuery);
+    }
+
+    @FXML   //กรองเเค่คำร้องทั่วไป
+    public void showNormalAppealsOnly() {
+        loadAppeals("คำร้องทั่วไป:", null);
+    }
+
+    @FXML   //กรองเเค่ใบลาพักการศึกษา
+    public void showLeaveAppealsOnly() {
+        loadAppeals("ใบลาพักการศึกษา:", null);
+    }
+
+    @FXML   //กรองเเค่คำร้องขอลงทะเบียนเรียน
+    public void showEnrollAppealsOnly() {
+        loadAppeals("ขอลงทะเบียนเรียน:", null);
+    }
+    @FXML   //เห็นคำร้องทุกประเภท
+    public void showAllAppeals() {
+        loadAppeals(null, null);
+    }
+
+
+
+
+
+    private void updateUI() {
+        if (user != null) {
+            nameLabel.setText(user.getUsername());
+
         }
     }
 
     @FXML
-    public void onRequestButtonClick() {
-        try {
-            FXRouter.goTo("request-page");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public void onEditEndorserButton(){
+        navigateTo("edit-major-endorser", user);
     }
     @FXML
-    public void onStudentListButtonClick(){
-        try {
-            FXRouter.goTo("studentInMajor",user);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public void onUserProfileButton(){
+        navigateTo("user-profile", user);
     }
 
     @FXML
-    public void onEndorserButtonClick(){
+    public void onStudentListButton(){
+        navigateTo("student-in-major", user);
+    }
+
+    private void navigateTo(String route, Object data) {
         try {
-            FXRouter.goTo("majorEndorser");
+            FXRouter.goTo(route, data);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.err.println("Navigation to " + route + " failed: " + e.getMessage());
         }
     }
+
 
 }
+

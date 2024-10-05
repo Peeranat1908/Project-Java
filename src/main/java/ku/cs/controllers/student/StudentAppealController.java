@@ -9,6 +9,7 @@ import java.io.IOException;
 public class StudentAppealController {
     private User user;
 
+
     @FXML
     private void initialize() {
         Object data = FXRouter.getData();
@@ -21,7 +22,7 @@ public class StudentAppealController {
     @FXML
     public void onBackButtonClick() {
         try {
-            FXRouter.goTo("student");
+            FXRouter.goTo("student",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -6,13 +6,10 @@ import ku.cs.controllers.NavigationHistoryService;
 import ku.cs.models.User;
 import ku.cs.services.FXRouter;
 
-
 import java.io.IOException;
-
 public class StudentController {
     @FXML
     private Label usernameLabel;
-
 
     private User user;
 
@@ -20,8 +17,8 @@ public class StudentController {
     private void initialize() {
         Object data = FXRouter.getData();
         if (data instanceof User) {
-            user = (User) data;
-            updateUI();
+           user  = (User) data;
+           updateUI();
         } else {
 
             usernameLabel.setText("Invalid user data");
@@ -55,7 +52,11 @@ public class StudentController {
     // Method สำหรับการคลิกปุ่มเพื่อไปยังหน้าการติดตามคำร้อง
     @FXML
     public void onAppealTrackingClick() {
-        navigateTo("appeal-tracking", user);
+        try{
+            FXRouter.goTo("appeal-tracking", user);
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -64,6 +65,7 @@ public class StudentController {
     }
 
     private void navigateTo(String route, Object data) {
+
         try {
             FXRouter.goTo(route, data); // ส่งข้อมูลไปยัง route ที่กำหนด
         } catch (IOException e) {
@@ -71,13 +73,4 @@ public class StudentController {
         }
     }
 
-
-    // Method สำหรับนำทางไปยังหน้าต่างๆ
-    private void navigateTo(String route) {
-        try {
-            FXRouter.goTo(route);
-        } catch (IOException e) {
-            System.err.println("Navigation to " + route + " failed: " + e.getMessage());
-        }
-    }
 }

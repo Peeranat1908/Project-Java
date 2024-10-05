@@ -2,7 +2,6 @@ package ku.cs.controllers.student;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -22,8 +21,7 @@ import java.time.format.DateTimeFormatter;
 
 
 public class AppealListController {
-    @FXML
-    private ScrollPane scrollPane;
+
 
     @FXML
     private VBox appealVBox;
@@ -53,7 +51,7 @@ public class AppealListController {
     @FXML
     public void onBackButtonClick() {
         try {
-            FXRouter.goTo("student");
+            FXRouter.goTo("student", user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -83,7 +81,7 @@ public class AppealListController {
 
             appeals = appeals.stream()
                     .filter(appeal ->
-                                    appeal.getSubject().toLowerCase().contains(lowerCaseQuery) || //เสิชหัวข้อคำร้องได้
+                            appeal.getSubject().toLowerCase().contains(lowerCaseQuery) || //เสิชหัวข้อคำร้องได้
                                     appeal.getRequest().toLowerCase().contains(lowerCaseQuery) || //เนื้อหาคำร้อง
                                     appeal.getDate().format(dateFormatter).contains(lowerCaseQuery) || //เสิชจากวันที่
                                     appeal.getStudentSignature().toLowerCase().contains(lowerCaseQuery) //เสิชจากผู้ลงนาม
@@ -99,7 +97,7 @@ public class AppealListController {
             appealVBox.getChildren().clear();
             for (Appeal appeal : appeals) {
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/views/appeal-item.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/views/student/appeal-item.fxml"));
                     Pane pane = loader.load();
 
                     AppealItemController controller = loader.getController();
@@ -142,4 +140,3 @@ public class AppealListController {
 
 
 }
-
