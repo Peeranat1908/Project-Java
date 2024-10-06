@@ -38,6 +38,9 @@ public class AppealItemController {
             user = pair.getKey();
             studentID = pair.getValue();
         }
+        if (data instanceof User) {
+            user = (User) data;
+        }
     }
 
     public void setUser(User user) {

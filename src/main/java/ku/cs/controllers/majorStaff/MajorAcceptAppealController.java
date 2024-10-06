@@ -2,6 +2,7 @@ package ku.cs.controllers.majorStaff;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.util.Pair;
 import ku.cs.models.Appeal;
 import ku.cs.models.AppealList;
 import ku.cs.models.User;
@@ -39,9 +40,13 @@ public class MajorAcceptAppealController {
     @FXML private CheckBox sendingToDean;
     @FXML private Label majorSignatureLabel;
     @FXML private Label majorDateLabel;
+    @FXML private Button applyDeclineButton;
+    @FXML private Button approveAppealButton;
+    @FXML private Button declineButton;
 
     private AppealList appealList;
     private AppealListDatasource datasource;
+    private String studentID;
 
     public void initialize() {
         daySpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 31, LocalDate.now().getDayOfMonth()));
@@ -67,11 +72,28 @@ public class MajorAcceptAppealController {
         // โหลดรายชื่อจากไฟล์ CSV ลงใน ChoiceBox
         loadEndorsersFromCSV("data/major-endorser.csv");
 
+        if(appeal.getStatus().contains("โดยหัวหน้าภาควิชา") || appeal.getStatus().equals("ปฏิเสธโดยอาจารย์ที่ปรึกษา คำร้องถูกปฏิเสธ")){
+            applyDeclineButton.setVisible(false);
+            approveAppealButton.setVisible(false);
+            daySpinner.setVisible(false);
+            monthSpinner.setVisible(false);
+            yearSpinner.setVisible(false);
+            endorserBox.setVisible(false);
+            sendingToDean.setVisible(false);
+            declineButton.setVisible(false);
+        }
+
         Object data = FXRouter.getData();
+        if (data instanceof Pair) {
+            Pair<User, String> pair = (Pair<User, String>) data;
+            user = pair.getKey();
+            studentID = pair.getValue();
+        }
         if (data instanceof User) {
             user = (User) data;
         }
     }
+
 
     @FXML
     public void onApplyAppealClick() {
@@ -101,8 +123,14 @@ public class MajorAcceptAppealController {
             }
         }
     }
+
     @FXML
     public void DeclineApplyClick(){
+        declineTextField.setVisible(true);
+        applyDeclineButton.setVisible(true);
+    }
+    @FXML
+    public void onApplyDeclineButton(){
         String DeclineReason = "ถูกปฎิเสธเนื่องจาก" + declineTextField.getText();
 
         Appeal appeal = AppealSharedData.getSelectedAppeal();
@@ -119,7 +147,7 @@ public class MajorAcceptAppealController {
 
         datasource.writeData(appealList);
         try {
-            FXRouter.goTo("advisor-appeal-page", user);
+            FXRouter.goTo("departmentStaff", user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

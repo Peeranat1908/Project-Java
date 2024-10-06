@@ -3,9 +3,12 @@ package ku.cs.controllers.student;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import ku.cs.controllers.NavigationHistoryService;
+import ku.cs.models.StudentList;
 import ku.cs.models.User;
 import ku.cs.models.Student;
+import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
+import ku.cs.services.StudentListFileDatasource;
 
 import java.io.IOException;
 public class StudentController {
@@ -25,18 +28,11 @@ public class StudentController {
         Object data = FXRouter.getData();
         if (data instanceof User) {
             user = (User) data;
-
-            if (user instanceof Student) {
-                student = (Student) user;
-            } else {
-
-                System.out.println("User is not a Student");
-            }
-
             updateUI();
-        } else {
-            usernameLabel.setText("Invalid user data");
         }
+        Datasource<StudentList> studentDatasource = new StudentListFileDatasource("data", "student-info.csv");
+        StudentList studentList = studentDatasource.readData();
+        student = studentList.findStudentById(user.getId());
     }
 
     private void updateUI() {
@@ -60,11 +56,11 @@ public class StudentController {
     // Method สำหรับการคลิกปุ่มเพื่อไปยังหน้าการยื่นคำร้องของนักเรียน
     @FXML
     public void selectAppealButtonClick() {
-            if(student.getAdvisorID() == null || student.getAdvisorID().equals("\"\"")) {
-                errorLabel.setVisible(true);
-            }else{
-                navigateTo("student-appeal", user);
-            }
+        if(student.getAdvisorID() == null || student.getAdvisorID().equals("\"\"")) {
+            errorLabel.setVisible(true);
+        }else{
+            navigateTo("student-appeal", user);
+        }
     }
 
     // Method สำหรับการคลิกปุ่มเพื่อไปยังหน้าการติดตามคำร้อง
