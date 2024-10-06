@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.util.Pair;
 import ku.cs.controllers.components.AppealItemController;
 import ku.cs.models.Appeal;
 import ku.cs.models.AppealList;
@@ -34,15 +35,9 @@ public class AdvisorAppealController {
     @FXML
     private TextField searchTextField;
 
+    private String studentID;
 
-    @FXML
-    public void onBackButtonClick(){
-        try{
-            FXRouter.goTo("main-advisor");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 
     @FXML
     public void initialize() {
@@ -51,17 +46,28 @@ public class AdvisorAppealController {
         AppealSharedData.setNormalAppealList(appealList);
 
         Object data = FXRouter.getData();
+        if (data instanceof Pair) {
+            Pair<User, String> pair = (Pair<User, String>) data;
+            user = pair.getKey();
+            studentID = pair.getValue();
+            loadAppeals(null, null, studentID);
+        }
         if (data instanceof User) {
             user = (User) data;
         }
-        loadAppeals(null, null);
     }
 
 
-    private void loadAppeals(String filterType, String searchQuery) {
+    private void loadAppeals(String filterType, String searchQuery, String studentID) {
 
         appealList = AppealSharedData.getNormalAppealList();
         List<Appeal> appeals = appealList.getsAppeals();
+
+        if (studentID != null && !studentID.isEmpty()) {
+            appeals = appeals.stream()
+                    .filter(appeal -> appeal.getStudentID().equals(studentID))
+                    .collect(Collectors.toList());
+        }
 
         if (filterType != null) {
             appeals = appeals.stream()
@@ -97,6 +103,8 @@ public class AdvisorAppealController {
                     AppealItemController controller = loader.getController();
                     controller.setAppealData(appeal);
 
+                    controller.setUser(user);
+
                     appealVBox.getChildren().add(pane);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -108,28 +116,36 @@ public class AdvisorAppealController {
     @FXML   //สำหรับ search หาคำร้อง
     public void onSearchButtonClick() {
         String searchQuery = searchTextField.getText();
-        loadAppeals(null, searchQuery);
+        loadAppeals(null, searchQuery, null);
     }
 
     @FXML   //กรองเเค่คำร้องทั่วไป
     public void showNormalAppealsOnly() {
-        loadAppeals("คำร้องทั่วไป:", null);
+        loadAppeals("คำร้องทั่วไป:", null , studentID);
     }
 
     @FXML   //กรองเเค่ใบลาพักการศึกษา
     public void showLeaveAppealsOnly() {
-        loadAppeals("ใบลาพักการศึกษา:", null);
+        loadAppeals("ใบลาพักการศึกษา:", null, studentID);
     }
 
     @FXML   //กรองเเค่คำร้องขอลงทะเบียนเรียน
     public void showEnrollAppealsOnly() {
-        loadAppeals("ขอลงทะเบียนเรียน:", null);
+        loadAppeals("ขอลงทะเบียนเรียน:", null, studentID);
     }
     @FXML   //เห็นคำร้องทุกประเภท
     public void showAllAppeals() {
-        loadAppeals(null, null);
+        loadAppeals(null, null, studentID);
     }
 
+    @FXML
+    public void onBackButtonClick(){
+        try{
+            FXRouter.goTo("main-advisor", user);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
 }

@@ -3,6 +3,7 @@ package ku.cs.controllers.components;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
+import javafx.util.Pair;
 import ku.cs.models.Appeal;
 import ku.cs.models.User;
 import ku.cs.services.AppealSharedData;
@@ -28,11 +29,19 @@ public class AppealItemController {
 
     private User user;
 
+    private String studentID;
+
     public void initialize(){
         Object data = FXRouter.getData();
-        if (data instanceof User) {
-            user = (User) data;
+        if (data instanceof Pair) {
+            Pair<User, String> pair = (Pair<User, String>) data;
+            user = pair.getKey();
+            studentID = pair.getValue();
         }
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void setAppealData(Appeal appeal) {
@@ -71,7 +80,7 @@ public class AppealItemController {
             }else if(user.getRole().equals("departmentStaff")){
                 FXRouter.goTo("major-accept-appeal", user);
             }else if(user.getRole().equals("advisor")){
-                FXRouter.goTo("advisor-approve", user);
+                FXRouter.goTo("advisor-approve", new Pair<>(user, studentID));
             }
         } catch (IOException e) {
             e.printStackTrace();
