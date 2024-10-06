@@ -55,6 +55,17 @@ public class AppealList {
 
         return null;
     }
+    public AppealList findAppealByStudentID(StudentList studentlist) {
+        AppealList appealList1 = new AppealList();
+        for (Appeal appeal : appeals) {
+            for (Student student : studentlist.getStudents()) {
+                if(appeal.getStudentID().equalsIgnoreCase(student.getId())) {
+                    appealList1.addAppeal(appeal);
+                }
+            }
+        }
+        return appealList1;
+    }
 
 
     public int getAppealCount() {

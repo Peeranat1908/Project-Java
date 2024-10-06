@@ -7,108 +7,119 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Pair;
 import ku.cs.controllers.NavigationHistoryService;
-import ku.cs.models.StudentAdvisorList;
-import ku.cs.models.StudentAdvisor;
+import ku.cs.models.Student;
+import ku.cs.models.StudentList;
 import ku.cs.models.User;
-import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
-import ku.cs.services.StudentListFileAdvisorDatasource;
+import ku.cs.services.StudentListFileDatasource;
 
 import java.io.IOException;
 
 public class MainAdvisorController {
 
-    private String previousPage;
     @FXML
     private Label errorLabel;
     @FXML
-    private TableView<StudentAdvisor> studentAdvisorTableView;
+    private TableView<Student> studentAdvisorTableView;
     @FXML
     private TextField searchTextField;
-
     @FXML
     private Button searchButtonClick;
 
-    private StudentAdvisorList studentAdvisorList;
-
-    private Datasource<StudentAdvisorList> datasource;
+    private StudentList studentList;
+    private ObservableList<Student> studentObservableList;
 
     private User user;
+
+    private String selectedStudentId;
 
     @FXML
     public void initialize() {
         errorLabel.setText("");
-        datasource = new StudentListFileAdvisorDatasource("data", "studentAdvisor.csv");
-        studentAdvisorList = datasource.readData();
-        showTable(studentAdvisorList);
 
-        studentAdvisorTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<StudentAdvisor>() {
+        StudentListFileDatasource datasource = new StudentListFileDatasource("data", "student-info.csv");
+        studentList = datasource.readData();
+
+        Object data = FXRouter.getData();
+        if (data instanceof User) {
+            user = (User) data;
+        }
+        StudentList filteredStudentList = new StudentList();
+        for (Student student : studentList.getStudents()) {
+            if (student.getAdvisorID().equals(user.getId())) {
+                filteredStudentList.addStudent(student);
+            }
+        }
+
+        showTable(filteredStudentList);
+
+        studentAdvisorTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Student>() {
             @Override
-            public void changed(ObservableValue observableValue, StudentAdvisor oldValue, StudentAdvisor newValue) {
-                if (newValue != null){
+            public void changed(ObservableValue<? extends Student> observableValue, Student oldValue, Student newValue) {
+                if (newValue != null) {
+                    selectedStudentId = newValue.getId();
+                    String advisorId = newValue.getAdvisorID();
+                    try {
+                        FXRouter.goTo("advisor-appeal-page", new Pair<>(user, selectedStudentId));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
 
         searchButtonClick.setOnAction(actionEvent -> searchStudent());
 
-        Object data = FXRouter.getData();
-        if (data instanceof User) {
-            user = (User) data;
-        }
     }
 
-    private void showTable(StudentAdvisorList studentAdvisorList) {
-        // กำหนด column ให้มี title ว่า ID และใช้ค่าจาก getter id ของ object StudentAdvisor
-        TableColumn<StudentAdvisor, String> idColumn = new TableColumn<>("Student ID");
+    private void showTable(StudentList studentList) {
+
+        TableColumn<Student, String> idColumn = new TableColumn<>("Student ID");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
-        // กำหนด column ให้มี title ว่า Name และใช้ค่าจาก getter name ของ object StudentAdvisor
-        TableColumn<StudentAdvisor, String> nameColumn = new TableColumn<>("Name");
+        TableColumn<Student, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        // กำหนด column ให้มี title ว่า Faculty และใช้ค่าจาก getter faculty ของ object StudentAdvisor
-        TableColumn<StudentAdvisor, String> facultyColumn = new TableColumn<>("Faculty");
+        TableColumn<Student, String> facultyColumn = new TableColumn<>("Faculty");
         facultyColumn.setCellValueFactory(new PropertyValueFactory<>("faculty"));
 
-        //กำหนด column ให้มี title ว่า Major และใช้ค่าจาก getter major ของ object StudentAdvisor
-        TableColumn<StudentAdvisor, String> majorColumn = new TableColumn<>("Major");
+        TableColumn<Student, String> majorColumn = new TableColumn<>("Major");
         majorColumn.setCellValueFactory(new PropertyValueFactory<>("major"));
-        // ล้าง column เดิมทั้งหมดที่มีอยู่ใน table แล้วเพิ่ม column ใหม่
+
+        TableColumn<Student, String> advisorIDColumn = new TableColumn<>("Advisor ID");
+        advisorIDColumn.setCellValueFactory(new PropertyValueFactory<>("advisorID"));
+
         studentAdvisorTableView.getColumns().clear();
-        studentAdvisorTableView.getColumns().add(idColumn);
-        studentAdvisorTableView.getColumns().add(nameColumn);
-        studentAdvisorTableView.getColumns().add(facultyColumn);
-        studentAdvisorTableView.getColumns().add(majorColumn);
+        studentAdvisorTableView.getColumns().addAll(idColumn, nameColumn, facultyColumn, majorColumn, advisorIDColumn);
 
-        studentAdvisorTableView.getItems().clear();
+        studentObservableList = FXCollections.observableArrayList(studentList.getStudents());
 
-        for (StudentAdvisor studentAdvisor : studentAdvisorList.getStudentAdvisor()) {
-            studentAdvisorTableView.getItems().add(studentAdvisor);
-        }
 
+        studentAdvisorTableView.setItems(studentObservableList);
     }
 
     private void searchStudent() {
         String searchQuery = searchTextField.getText().trim();
         if (searchQuery.isEmpty()) {
-            studentAdvisorTableView.getItems().setAll(studentAdvisorList.getStudentAdvisor());
-            errorLabel.setText("Please enter data.");
+            studentAdvisorTableView.setItems(studentObservableList);
+            errorLabel.setText("Please enter search criteria.");
             return;
         }
 
         errorLabel.setText("");
 
-        StudentAdvisor fondStudent = studentAdvisorList.findStudentById(searchQuery);
-        if (fondStudent == null) {
-            fondStudent = studentAdvisorList.findStudentByName(searchQuery);
+        Student foundStudent = studentList.findStudentById(searchQuery);
+        if (foundStudent == null) {
+            foundStudent = studentList.findStudentByName(searchQuery);
         }
-
-        if (fondStudent != null) {
-            studentAdvisorTableView.getItems().setAll(fondStudent);
+        // check ID ของนักเรียนที่โชว์ว่าตรงกับอาจารย์ที่ Login มาไหม
+        if (foundStudent != null && foundStudent.getAdvisorID().equals(user.getId())) {
+            studentAdvisorTableView.setItems(FXCollections.observableArrayList(foundStudent));
         } else {
             studentAdvisorTableView.getItems().clear();
+            errorLabel.setText("Student not found.");
         }
     }
 
@@ -121,17 +132,5 @@ public class MainAdvisorController {
             throw new RuntimeException(e);
         }
     }
-
-    @FXML
-    public void onRequestButtonClick() {
-        try {
-            FXRouter.goTo("advisor-appeal-page", user);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-
-
 
 }

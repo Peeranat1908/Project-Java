@@ -62,7 +62,7 @@
                   <Spinner fx:id="yearSpinner" layoutX="175.0" layoutY="-5.0" prefHeight="35.0" prefWidth="89.0" />
                </children>
             </Group>
-            <Button layoutX="438.0" layoutY="537.0" minHeight="40.0" minWidth="170.0" mnemonicParsing="false" onAction="#DeclineApplyClick" style="-fx-background-color: RED; -fx-background-radius: 12;" text="Decline" textFill="WHITE">
+            <Button fx:id="declineButton" layoutX="438.0" layoutY="537.0" minHeight="40.0" minWidth="170.0" mnemonicParsing="false" onAction="#DeclineApplyClick" style="-fx-background-color: RED; -fx-background-radius: 12;" text="Decline" textFill="WHITE">
                <font>
                   <Font name="Arial Bold" size="16.0" />
                </font>
@@ -104,13 +104,18 @@
                </font>
             </Label>
             <CheckBox fx:id="sendingToDean" layoutX="64.0" layoutY="580.0" mnemonicParsing="false" text="คำร้องส่งต่อให้คณบดี" />
-            <Button layoutX="438.0" layoutY="597.0" minHeight="40.0" minWidth="170.0" mnemonicParsing="false" onAction="#onApplyAppealClick" style="-fx-background-color: #6EB1FF; -fx-background-radius: 12;" text="Approve" textFill="WHITE">
+            <Button fx:id="approveAppealButton" layoutX="438.0" layoutY="597.0" minHeight="40.0" minWidth="170.0" mnemonicParsing="false" onAction="#onApplyAppealClick" style="-fx-background-color: #6EB1FF; -fx-background-radius: 12;" text="Approve" textFill="WHITE">
                <font>
                   <Font name="Arial Bold" size="16.0" />
                </font>
             </Button>
          </children>
       </Pane>
-      <TextField fx:id="declineTextField" alignment="TOP_LEFT" layoutX="1019.0" layoutY="121.0" prefHeight="238.0" prefWidth="224.0" promptText="decline reason" />
+      <TextField fx:id="declineTextField" alignment="TOP_LEFT" layoutX="1028.0" layoutY="393.0" prefHeight="238.0" prefWidth="224.0" promptText="decline reason" visible="false" />
+      <Button fx:id="applyDeclineButton" layoutX="1055.0" layoutY="640.0" minHeight="40.0" minWidth="170.0" mnemonicParsing="false" onAction="#onApplyDeclineButton" style="-fx-background-color: RED; -fx-background-radius: 12;" text="Apply" textFill="WHITE" visible="false">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

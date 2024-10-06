@@ -45,11 +45,6 @@
                         <Line endX="-51.857139587402344" layoutX="1.0" layoutY="21.0" startX="-100.85713958740234" stroke="WHITE" strokeWidth="3.0" />
                     </children>
                 </Group>
-                <Button layoutX="404.0" layoutY="23.0" mnemonicParsing="false" onAction="#onRequestButtonClick" style="-fx-background-color: EAF4FF;" text="รายการคำร้อง">
-                    <font>
-                        <Font name="Arial Bold" size="18.0" />
-                    </font>
-                </Button>
             </children>
         </Pane>
         <TextField fx:id="searchTextField" layoutX="403.0" layoutY="176.0" prefHeight="48.0" prefWidth="431.0" promptText="Search" style="-fx-background-radius: 20; -fx-border-radius: 20;" styleClass="textfile-container" stylesheets="@../../style/Style.css">

@@ -3,8 +3,12 @@ package ku.cs.controllers.student;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import ku.cs.controllers.NavigationHistoryService;
+import ku.cs.models.StudentList;
 import ku.cs.models.User;
+import ku.cs.models.Student;
+import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
+import ku.cs.services.StudentListFileDatasource;
 
 import java.io.IOException;
 public class StudentController {
@@ -13,16 +17,22 @@ public class StudentController {
 
     private User user;
 
+    private Student student;
+
+    @FXML Label errorLabel;
+
+
+
     @FXML
     private void initialize() {
         Object data = FXRouter.getData();
         if (data instanceof User) {
-           user  = (User) data;
-           updateUI();
-        } else {
-
-            usernameLabel.setText("Invalid user data");
+            user = (User) data;
+            updateUI();
         }
+        Datasource<StudentList> studentDatasource = new StudentListFileDatasource("data", "student-info.csv");
+        StudentList studentList = studentDatasource.readData();
+        student = studentList.findStudentById(user.getId());
     }
 
     private void updateUI() {
@@ -46,7 +56,11 @@ public class StudentController {
     // Method สำหรับการคลิกปุ่มเพื่อไปยังหน้าการยื่นคำร้องของนักเรียน
     @FXML
     public void selectAppealButtonClick() {
-        navigateTo("student-appeal", user);
+        if(student.getAdvisorID() == null || student.getAdvisorID().equals("\"\"")) {
+            errorLabel.setVisible(true);
+        }else{
+            navigateTo("student-appeal", user);
+        }
     }
 
     // Method สำหรับการคลิกปุ่มเพื่อไปยังหน้าการติดตามคำร้อง

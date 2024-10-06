@@ -63,4 +63,26 @@ public class StudentList extends UserList{
         return null;
     }
 
+    public StudentList getStudentsListBYFaculty(String faculty) {
+        StudentList studentsList = new StudentList();
+        for (Student student : students) {
+            if (student.getFaculty().equalsIgnoreCase(faculty)) {
+                studentsList.addStudent(student);
+            }
+        }
+        return studentsList;  // คืนค่า StudentList
+    }
+
+    public StudentList getStudentsListBYMajor(String major){
+        StudentList studentsList = new StudentList();
+        for(Student student: students){
+            if(student.getMajor().equalsIgnoreCase(major)){
+                studentsList.addStudent(student);
+            }
+        }
+        return studentsList;
+    }
+
+
+
 }

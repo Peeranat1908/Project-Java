@@ -18,8 +18,8 @@ public class Appeal {
     private LocalTime sendtime; // เวลาที่ส่ง
     private String DeclineReason; //เหตุผลที่ปฎิเสธ
     private LocalDateTime DeclineDateTime; //วันเวลาที่ปฎิเสธ (ใช้ร่วมกัน)
-    private LocalDate majorEndorserDate; //วันเวลาอนุมัติของ จนท ภาค
-    private LocalDate FacultyEndorserDate; //วันเวลาอนุมัติของ จนท คณะ
+    private LocalDate majorEndorserDate; //วันอนุมัติของ จนท ภาค
+    private LocalDate FacultyEndorserDate; //วันอนุมัติของ จนท คณะ
 
 
     public Appeal(String studentID, String type , String subject, String request, LocalDate date, String studentSignature,
