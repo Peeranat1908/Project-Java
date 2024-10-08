@@ -61,6 +61,12 @@ public class MainMajorStaffController{
             appealVBox.getChildren().clear(); // Clear the list
             return; // Exit early if there's nothing to process
         }
+        appeals = appeals.stream()
+                .filter(appeal -> appeal.getStatus().equals("อนุมัติโดยอาจารย์ที่ปรึกษา คำร้องส่งต่อให้หัวหน้าภาควิชา") ||
+                        appeal.getStatus().contains("หัวหน้าภาควิชา") ||
+                        appeal.getStatus().equals("ใบคำร้องใหม่ คำร้องส่งต่อให้อาจารย์ที่ปรึกษา"))
+                .collect(Collectors.toList());
+
 
         // Filter appeals by type, if a filterType is provided
         if (filterType != null && !filterType.isEmpty()) {
@@ -147,8 +153,8 @@ public class MainMajorStaffController{
     }
 
     @FXML
-    public void onEditEndorserButton(){
-        navigateTo("edit-major-endorser", user);
+    public void onAddEndorserButton(){
+        navigateTo("add-major-endorser", user);
     }
     @FXML
     public void onUserProfileButton(){

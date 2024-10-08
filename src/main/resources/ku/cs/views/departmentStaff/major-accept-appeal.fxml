@@ -38,30 +38,13 @@
             </Label>
             <Pane layoutX="186.0" layoutY="22.0">
                <children>
-                  <Label layoutX="67.0" layoutY="2.0" text="อนุมัติคำร้อง">
+                  <Label layoutX="67.0" layoutY="-1.0" text="อนุมัติคำร้อง">
                      <font>
                         <Font name="Arial Bold" size="24.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
-            <Label layoutX="76.0" layoutY="427.0" text="วัน/เดือน/ปี:">
-               <font>
-                  <Font name="Arial Bold" size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="64.0" layoutY="514.0" text="ลงนามเจ้าหน้าที่ภาควิชา:">
-               <font>
-                  <Font name="Arial Bold" size="16.0" />
-               </font>
-            </Label>
-            <Group layoutX="63.0" layoutY="469.0">
-               <children>
-                  <Spinner fx:id="daySpinner" layoutX="11.0" layoutY="-5.0" prefHeight="35.0" prefWidth="75.0" />
-                  <Spinner fx:id="monthSpinner" layoutX="94.0" layoutY="-5.0" prefHeight="35.0" prefWidth="75.0" />
-                  <Spinner fx:id="yearSpinner" layoutX="175.0" layoutY="-5.0" prefHeight="35.0" prefWidth="89.0" />
-               </children>
-            </Group>
             <Button fx:id="declineButton" layoutX="438.0" layoutY="537.0" minHeight="40.0" minWidth="170.0" mnemonicParsing="false" onAction="#DeclineApplyClick" style="-fx-background-color: RED; -fx-background-radius: 12;" text="Decline" textFill="WHITE">
                <font>
                   <Font name="Arial Bold" size="16.0" />
@@ -82,33 +65,67 @@
                   <Font name="Arial Bold" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="typeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="204.0" layoutY="97.0" prefHeight="23.0" prefWidth="224.0" text="Type">
+            <Label fx:id="typeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="202.0" layoutY="49.0" prefHeight="23.0" prefWidth="224.0" text="Type">
                <font>
                   <Font name="Arial Bold" size="24.0" />
                </font>
             </Label>
-            <Label fx:id="subjectLabel" alignment="CENTER" layoutX="-1.0" layoutY="60.0" prefHeight="39.0" prefWidth="640.0" style="-fx-font-weight: bold;" text="Subject">
+            <Label fx:id="subjectLabel" alignment="CENTER" layoutX="-6.0" layoutY="91.0" prefHeight="39.0" prefWidth="640.0" style="-fx-font-weight: bold;" text="Subject">
                <font>
                   <Font name="Arial Bold" size="16.0" />
                </font>
             </Label>
-            <ChoiceBox fx:id="endorserBox" layoutX="64.0" layoutY="544.0" prefHeight="25.0" prefWidth="175.0" />
-            <Label fx:id="majorSignatureLabel" alignment="CENTER" layoutX="64.0" layoutY="347.0" prefHeight="16.0" prefWidth="270.0" text="Signature" textFill="#807a7a">
+            <Label fx:id="majorSignatureLabel" alignment="CENTER" layoutX="197.0" layoutY="440.0" prefHeight="16.0" prefWidth="155.0" text="majorSignature" textFill="#1a7903">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="majorDateLabel" alignment="CENTER" layoutX="64.0" layoutY="382.0" prefHeight="15.0" prefWidth="270.0" text="Date" textFill="#807a7a">
+            <Label fx:id="majorDateLabel" alignment="CENTER" layoutX="23.0" layoutY="455.0" prefHeight="15.0" prefWidth="270.0" text="majorDate" textFill="#1a7903" visible="false">
                <font>
                   <Font name="Arial Bold" size="12.0" />
                </font>
             </Label>
-            <CheckBox fx:id="sendingToDean" layoutX="64.0" layoutY="580.0" mnemonicParsing="false" text="คำร้องส่งต่อให้คณบดี" />
             <Button fx:id="approveAppealButton" layoutX="438.0" layoutY="597.0" minHeight="40.0" minWidth="170.0" mnemonicParsing="false" onAction="#onApplyAppealClick" style="-fx-background-color: #6EB1FF; -fx-background-radius: 12;" text="Approve" textFill="WHITE">
                <font>
                   <Font name="Arial Bold" size="16.0" />
                </font>
             </Button>
+            <Label fx:id="declineWhen" layoutX="36.0" layoutY="334.0" text="ถูกปฏิเสธวันที่:" textFill="RED" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="majorApproveWhen" layoutX="31.0" layoutY="437.0" text="เจ้าหน้าที่ภาควิชาผู้อนุมัติ/วันที่:" textFill="#1a7903" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="facultyApproveWhen" layoutX="34.0" layoutY="507.0" text="เจ้าหน้าที่คณะผู้อนุมัติ/วันที่:" textFill="#1a7903" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="facultySignatureLabel" alignment="CENTER" layoutX="194.0" layoutY="509.0" prefHeight="16.0" prefWidth="155.0" text="facultySignature" textFill="#1a7903">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="facultyApprovedateLabel" alignment="CENTER" layoutX="29.0" layoutY="529.0" prefHeight="15.0" prefWidth="270.0" text="facultyDate" textFill="#1a7903" visible="false">
+               <font>
+                  <Font name="Arial Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="DeclineDateLabel" layoutX="139.0" layoutY="335.0" text="declineDate" textFill="RED" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="declineLabel" alignment="TOP_LEFT" layoutX="31.0" layoutY="362.0" prefHeight="62.0" prefWidth="284.0" text="declineReason" textFill="RED" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="302.0" layoutY="82.0" text="เรื่อง" />
          </children>
       </Pane>
       <TextField fx:id="declineTextField" alignment="TOP_LEFT" layoutX="1028.0" layoutY="393.0" prefHeight="238.0" prefWidth="224.0" promptText="decline reason" visible="false" />
@@ -117,5 +134,24 @@
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Button>
+      <Group layoutX="30.0" layoutY="513.0">
+         <children>
+            <Spinner fx:id="daySpinner" layoutX="11.0" layoutY="-5.0" prefHeight="35.0" prefWidth="75.0" />
+            <Spinner fx:id="monthSpinner" layoutX="94.0" layoutY="-5.0" prefHeight="35.0" prefWidth="75.0" />
+            <Spinner fx:id="yearSpinner" layoutX="175.0" layoutY="-5.0" prefHeight="35.0" prefWidth="89.0" />
+         </children>
+      </Group>
+      <Label fx:id="MajorEndorsers" layoutX="50.0" layoutY="558.0" text="ลงนามเจ้าหน้าที่ภาควิชา:">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="endorserBox" layoutX="50.0" layoutY="588.0" prefHeight="25.0" prefWidth="175.0" />
+      <CheckBox fx:id="sendingToDean" layoutX="48.0" layoutY="632.0" mnemonicParsing="false" text="คำร้องส่งต่อให้คณบดี" />
+      <Label fx:id="approveWhen" layoutX="48.0" layoutY="470.0" text="วัน/เดือน/ปี:">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

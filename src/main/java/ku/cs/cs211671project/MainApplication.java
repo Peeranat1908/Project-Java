@@ -72,7 +72,7 @@ public class MainApplication extends Application {
         FXRouter.when("edit-data-major", viewPath + "admin/edit-data-major.fxml");
         FXRouter.when("add-new-major", viewPath + "admin/add-new-major.fxml");
         FXRouter.when("departmentStaff", viewPath + "departmentStaff/main-major-staff.fxml");
-        FXRouter.when("edit-major-endorser", viewPath + "departmentStaff/major-endorser-staff.fxml");
+        FXRouter.when("add-major-endorser", viewPath + "departmentStaff/major-endorser-staff.fxml");
         FXRouter.when("user-profile", viewPath + "student/user-profile.fxml");
         FXRouter.when("leave-appeal", viewPath + "student/leave-appeal.fxml");
         FXRouter.when("enroll-appeal", viewPath + "student/enroll-appeal.fxml");
@@ -86,6 +86,7 @@ public class MainApplication extends Application {
         FXRouter.when("approve-faculty-staff", viewPath + "facultyStaff/approver-faculty.fxml");
         FXRouter.when("editApproveFacultyStaff", viewPath + "facultyStaff/edit-approve-faculty-staff.fxml");
         FXRouter.when("addApproveFacultyStaff", viewPath + "facultyStaff/add-approve-faculty-staff.fxml");
+        FXRouter.when("edit-major-endorser", viewPath+ "departmentStaff/edit-approve-major-staff.fxml");
 
     }
 

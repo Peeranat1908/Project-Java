@@ -43,6 +43,16 @@ public class MajorAcceptAppealController {
     @FXML private Button applyDeclineButton;
     @FXML private Button approveAppealButton;
     @FXML private Button declineButton;
+    @FXML private Label signatureLabel;
+    @FXML private Label declineLabel;
+    @FXML private Label majorApproveWhen;
+    @FXML private Label declineWhen;
+    @FXML private Label DeclineDateLabel;
+    @FXML private Label facultyApproveWhen;
+    @FXML private Label facultyApprovedateLabel;
+    @FXML private Label facultySignatureLabel;
+    @FXML private Label approveWhen;
+    @FXML private Label MajorEndorsers;
 
     private AppealList appealList;
     private AppealListDatasource datasource;
@@ -53,21 +63,42 @@ public class MajorAcceptAppealController {
         monthSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12, LocalDate.now().getMonthValue()));
         yearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1900, LocalDate.now().getYear(), LocalDate.now().getYear()));
 
+            Appeal appeal = AppealSharedData.getSelectedAppeal();
+            if (appeal != null) {
+                typeLabel.setText(appeal.getType());
+                subjectLabel.setText(appeal.getSubject());
+                requestLabel.setText(appeal.getRequest());
+                dateLabel.setText(appeal.getDate().toString());
+                signatureLabel.setText(appeal.getStudentSignature());
 
-
-        Appeal appeal = AppealSharedData.getSelectedAppeal();
-        if (appeal != null) {
-            typeLabel.setText(appeal.getType());
-            subjectLabel.setText(appeal.getSubject());
-            requestLabel.setText(appeal.getRequest());
-            dateLabel.setText(appeal.getDate().toString());
-            majorSignatureLabel.setText(appeal.getMajorEndorserSignature());
-            if (appeal.getMajorEndorserDate() != null) {
-                majorDateLabel.setText(appeal.getMajorEndorserDate().toString());
-            } else {
-                majorDateLabel.setText("ไม่ระบุวันที่"); // Or set a default value as needed
+                if(appeal.getDeclineDateTime() != null){
+                    MajorEndorsers.setVisible(false);
+                    approveWhen.setVisible(false);
+                    declineWhen.setVisible(true);
+                    DeclineDateLabel.setText(appeal.getDeclineDateTime().toString());
+                    DeclineDateLabel.setVisible(true);
+                    declineLabel.setText(appeal.getDeclineReason());
+                    declineLabel.setVisible(true);
+                }
+                if (appeal.getMajorEndorserDate() != null){
+                    MajorEndorsers.setVisible(false);
+                    approveWhen.setVisible(false);
+                    majorDateLabel.setText(appeal.getMajorEndorserDate().toString());
+                    majorDateLabel.setVisible(true);
+                    majorApproveWhen.setVisible(true);
+                    majorSignatureLabel.setText(appeal.getMajorEndorserSignature());
+                    majorSignatureLabel.setVisible(true);
+                }
+                if (appeal.getFacultyEndorserDate() != null){
+                    MajorEndorsers.setVisible(false);
+                    approveWhen.setVisible(false);
+                    facultyApprovedateLabel.setText(appeal.getFacultyEndorserDate().toString());
+                    facultyApprovedateLabel.setVisible(true);
+                    facultyApproveWhen.setVisible(true);
+                    facultySignatureLabel.setText(appeal.getFacultyEndorserSignature());
+                    facultySignatureLabel.setVisible(true);
+                }
             }
-        }
 
         // โหลดรายชื่อจากไฟล์ CSV ลงใน ChoiceBox
         loadEndorsersFromCSV("data/major-endorser.csv");
@@ -131,7 +162,7 @@ public class MajorAcceptAppealController {
     }
     @FXML
     public void onApplyDeclineButton(){
-        String DeclineReason = "ถูกปฎิเสธเนื่องจาก" + declineTextField.getText();
+        String DeclineReason = "ถูกปฎิเสธเนื่องจาก: " + declineTextField.getText();
 
         Appeal appeal = AppealSharedData.getSelectedAppeal();
         if(appeal != null){

@@ -5,16 +5,20 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import ku.cs.models.ApproveFacultyStaff;
+import ku.cs.models.MajorEndorser;
 import ku.cs.models.MajorEndorserList;
 import ku.cs.models.User;
+import ku.cs.services.ApproveFacultyStaffListDatasource;
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
 import ku.cs.services.MajorEndorserListFileDatasource;
 
 import java.io.IOException;
 
-public class AddMajorEndorserController {
-    @FXML private Label nameLabel;
+public class EditApproveMajorStaffController {
+    @FXML
+    private Label nameLabel;
     @FXML private Button confirmButton;
     @FXML private Label errorLabel1;
     @FXML private Label errorLabel2;
@@ -27,50 +31,57 @@ public class AddMajorEndorserController {
 
     @FXML
     public void initialize() {
+        errorLabel1.setText("");
+        errorLabel2.setText("");
+        errorLabel3.setText("");
+        datasource = new MajorEndorserListFileDatasource("data", "major-endorser.csv");
+        majorEndorserList = datasource.readData();
+        confirmButton.setOnAction(actionEvent -> {ConfirmButton();});
         Object data = FXRouter.getData();
         if (data instanceof User) {
             user = (User) data;
-            updateUI();
-        } else {
-            nameLabel.setText("Invalid user data");
         }
-
-        clearErrorLabels();
-
-        // Initialize the datasource and read data for MajorEndorserList
-        datasource = new MajorEndorserListFileDatasource("data", "major-endorser.csv");
-        majorEndorserList = datasource.readData();
-
-        confirmButton.setOnAction(actionEvent -> addMajorEndorser());
     }
 
-    private void addMajorEndorser() {
+    private void ConfirmButton() {
         String name = nameId.getText().trim();
-        String position = positionId.getText().trim() + " " + user.getMajor() + "สาขา" + user.getFaculty();
+        String position = positionId.getText().trim();
 
-        if (isInputValid(name, position)) {
-            majorEndorserList.addNewMajorEndorser(name, position); // ใช้ค่าที่ได้จากการป้อนข้อมูล
-            datasource.writeData(majorEndorserList); // Corrected datasource writing
-            showAlert(Alert.AlertType.INFORMATION, "Success", "Major endorser added successfully");
+
+        if (!isInputValid(name, position)) return;
+
+        if (updateFacultyStaff(name, position)) {
+            datasource.writeData(majorEndorserList);
+            showAlert(Alert.AlertType.INFORMATION, "Success", "Data has been updated");
             clearErrorLabels();
-            clearTextFields();
         }
+    }
+
+    private boolean updateFacultyStaff(String name, String position) {
+        for (MajorEndorser majorEndorser : majorEndorserList.getMajorEndorsers()) {
+            if (majorEndorser.getName().equals(name)) {
+                if (majorEndorser.getPosition().equals(position)) {
+                    setError(errorLabel3, "Data is already in the database");
+                    return false;
+                }
+                majorEndorser.setPosition(position);
+                return true;
+            }
+        }
+        setError(errorLabel3, "No matching major endorser found");
+        return false;
     }
 
     private boolean isInputValid(String name, String position) {
         if (name.isEmpty()) {
-            setError(errorLabel1, "Please enter name");
+            setError(errorLabel1, "Please enter major endorser's name");
             return false;
         }
         if (position.isEmpty()) {
-            setError(errorLabel2, "Please enter position");
+            setError(errorLabel2, "Please enter major endorser's position");
             return false;
         }
-        // Checking for duplicate name in the current list of major endorsers
-        if (majorEndorserList.getMajorEndorsers().stream().anyMatch(e -> e.getName().equals(name))) {
-            setError(errorLabel3, "This major endorser is already in the database");
-            return false;
-        }
+
         return true;
     }
 
@@ -106,24 +117,10 @@ public class AddMajorEndorserController {
     }
 
     @FXML
-    public void onHomeButtonClick() {
-        navigateTo("departmentStaff", user);
+    public void onBackButton() {
+        navigateTo("add-major-endorser", user);
     }
 
-    @FXML
-    public void onUserProfileButton() {
-        navigateTo("user-profile", user);
-    }
-
-    @FXML
-    public void onStudentListButton(){
-        navigateTo("student-in-major", user);
-    }
-
-    @FXML
-    public void onEditMajorEndorserButton(){
-        navigateTo("edit-major-endorser", user);
-    }
 
     private void navigateTo(String route, Object data) {
         try {
