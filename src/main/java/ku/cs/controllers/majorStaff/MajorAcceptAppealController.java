@@ -1,14 +1,18 @@
 package ku.cs.controllers.majorStaff;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.util.Pair;
 import ku.cs.models.Appeal;
 import ku.cs.models.AppealList;
+import ku.cs.models.MajorEndorser;
 import ku.cs.models.User;
 import ku.cs.services.AppealListDatasource;
 import ku.cs.services.AppealSharedData;
 import ku.cs.services.FXRouter;
+import ku.cs.services.MajorEndorserListFileDatasource;
 
 import javax.swing.*;
 import java.io.BufferedReader;
@@ -54,6 +58,8 @@ public class MajorAcceptAppealController {
     @FXML private Label approveWhen;
     @FXML private Label MajorEndorsers;
 
+    private MajorEndorserListFileDatasource approveDataSource;
+
     private AppealList appealList;
     private AppealListDatasource datasource;
     private String studentID;
@@ -70,6 +76,7 @@ public class MajorAcceptAppealController {
                 requestLabel.setText(appeal.getRequest());
                 dateLabel.setText(appeal.getDate().toString());
                 signatureLabel.setText(appeal.getStudentSignature());
+
 
                 if(appeal.getDeclineDateTime() != null){
                     MajorEndorsers.setVisible(false);
@@ -98,6 +105,7 @@ public class MajorAcceptAppealController {
                     facultySignatureLabel.setText(appeal.getFacultyEndorserSignature());
                     facultySignatureLabel.setVisible(true);
                 }
+
             }
 
         // โหลดรายชื่อจากไฟล์ CSV ลงใน ChoiceBox
@@ -122,7 +130,22 @@ public class MajorAcceptAppealController {
         }
         if (data instanceof User) {
             user = (User) data;
+            loadApproveChoice(user);
         }
+
+    }
+
+    public void loadApproveChoice(User user){
+        approveDataSource = new MajorEndorserListFileDatasource("data", "major-endorser.csv");
+        endorserBox.getItems().clear();
+        ObservableList<String> approveName = FXCollections.observableArrayList();
+        for (MajorEndorser majorEndorser: approveDataSource.readData().getMajorEndorsers()) {
+            if (majorEndorser.getPosition().contains(user.getMajor())) {
+                approveName.add(majorEndorser.getName() + " " + majorEndorser.getPosition());
+            }
+        }
+
+        endorserBox.getItems().addAll(approveName);
     }
 
 
