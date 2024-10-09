@@ -16,11 +16,6 @@ public class SettingController {
     @FXML private Button applyButton;
     @FXML private Button backButton;
     private Scene previousScene;
-    private User user;
-
-    public void setPreviousScene(Scene previousScene) {
-        this.previousScene = previousScene;
-    }
 
     @FXML
     public void initialize() {
@@ -29,6 +24,11 @@ public class SettingController {
         loadFontSizeChoice();
         themeChoiceBox.getSelectionModel().selectFirst(); // ตั้งค่าเริ่มต้น
         setupThemeChangeListener();
+    }
+
+    public void setPreviousScene(Scene previousScene) {
+        System.out.println("Previous scene is " + previousScene);
+        this.previousScene = previousScene;
     }
 
     public void loadThemeChoice(){
@@ -58,5 +58,20 @@ public class SettingController {
                 stage.getScene().getStylesheets().add(getClass().getResource("/ku/cs/style/baseOnPageLightMode.css").toExternalForm());
             }
         });
+    }
+
+
+    @FXML
+    public void onBackButtonClicked() {
+        // ดึง Stage ปัจจุบัน
+        Stage stage = (Stage) backButton.getScene().getWindow();
+        // ตั้งค่า Scene เดิมกลับไป
+        if (previousScene != null) {
+            System.out.println("Returning previous scene");
+            stage.setScene(previousScene);
+        }
+        else {
+            System.out.println("Previous scene is null");
+        }
     }
 }

@@ -17,12 +17,12 @@
             <Image url="@../../../../images/login-register-icon.png" />
          </image>
       </ImageView>
-      <Button layoutX="28.0" layoutY="22.0" mnemonicParsing="false" opacity="0.0" prefHeight="49.0" prefWidth="68.0" text="Button" />
       <ImageView fitHeight="32.0" fitWidth="75.0" layoutX="45.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../images/Leftarrow.png" />
          </image>
       </ImageView>
+      <Button fx:id="backButton" layoutX="28.0" layoutY="22.0" mnemonicParsing="false" onAction="#onBackButtonClicked" opacity="0.0" prefHeight="49.0" prefWidth="68.0" text="Button" />
       <Pane layoutX="167.0" layoutY="172.0" prefHeight="406.0" prefWidth="493.0" styleClass="setting-pane">
          <children>
             <Label layoutX="55.0" layoutY="32.0" text="ตั้งค่า">

@@ -5,15 +5,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import ku.cs.controllers.MyteamController;
 import ku.cs.services.FXRouter;
 
 import java.io.IOException;
 
-public class SidebarController {
+public class SidebarController{
     private Sidebar sidebar;
     @FXML Button backButton;
     @FXML Button settingsButton;
+    @FXML AnchorPane mainPane;
+    @FXML private AnchorPane settingsPane;
+    @FXML private Button myTeamButton;
 
     public void setSidebar(Sidebar sidebar) {
         this.sidebar = sidebar;
@@ -22,7 +27,7 @@ public class SidebarController {
     @FXML
     public void initialize() {
         backButton.setOnAction(actionEvent -> {closeSidebar();});
-        settingsButton.setOnAction(actionEvent -> {onSettingsButtonClick();});
+//        settingsButton.setOnAction(actionEvent -> {toggleSetting();});
     }
     public void closeSidebar() {
         if (sidebar != null) {
@@ -41,23 +46,44 @@ public class SidebarController {
     @FXML
     public void onSettingsButtonClick() {
         try {
-            // เก็บ Scene ปัจจุบันเพื่อใช้ย้อนกลับในหน้า Setting
-            Stage stage = (Stage) backButton.getScene().getWindow(); // ใช้ backButton หรือปุ่มอื่นที่มีการใช้งานอยู่ใน Sidebar
+            // เก็บ Scene ปัจจุบันเพื่อใช้ย้อนกลับ
+            Stage stage = (Stage) backButton.getScene().getWindow();
             Scene currentScene = stage.getScene();
 
             // โหลดหน้าต่าง Setting
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/views/other/setting.fxml"));
             Parent root = loader.load();
 
-            // ตั้งค่า Scene ก่อนหน้าสำหรับ SettingController เพื่อสามารถย้อนกลับได้
+            // ตั้งค่า Scene ก่อนหน้าให้ SettingController เพื่อใช้ในการย้อนกลับ
             SettingController controller = loader.getController();
             controller.setPreviousScene(currentScene);
 
-            // แสดงหน้าต่าง Setting
+            // เปลี่ยน Scene ไปหน้า Setting
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void onMyTeamButtonClick() {
+        try {
+            // เก็บ Scene ปัจจุบันเพื่อใช้ย้อนกลับ
+            Stage stage = (Stage) myTeamButton.getScene().getWindow();
+            Scene currentScene = stage.getScene();
+
+            // โหลดหน้าต่าง My Team
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/views/other/my-team.fxml"));
+            Parent root = loader.load();
+
+            // ตั้งค่า Scene ก่อนหน้าให้ MyteamController เพื่อใช้ในการย้อนกลับ
+            MyteamController controller = loader.getController();  // แก้เป็น MyteamController
+            controller.setPreviousScene(currentScene);  // ต้องมีการตั้ง method setPreviousScene ใน MyteamController
+
+            // เปลี่ยน Scene ไปหน้า My Team
             stage.setScene(new Scene(root));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
-
