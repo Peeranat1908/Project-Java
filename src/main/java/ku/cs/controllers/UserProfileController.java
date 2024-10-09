@@ -5,7 +5,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.util.Pair;
 import ku.cs.models.User;
+import ku.cs.services.AppealSharedData;
 import ku.cs.services.FXRouter;
 
 import java.io.IOException;
@@ -51,9 +53,19 @@ public class UserProfileController {
     @FXML
     private void onBackButton() {
         try {
-            FXRouter.goTo("student", user);
+            if (user == null) {
+                System.out.println("User is null, can't proceed");
+                return;
+            }
+            if(user.getRole().equals("student")) {
+                FXRouter.goTo("student", user);
+            }else if(user.getRole().equals("departmentStaff")){
+                FXRouter.goTo("departmentStaff", user);
+            }else if(user.getRole().equals("advisor")){
+                FXRouter.goTo("main-advisor", user);
+            }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 

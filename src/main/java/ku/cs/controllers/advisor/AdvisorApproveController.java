@@ -36,6 +36,8 @@ public class AdvisorApproveController {
     @FXML Label DeclineWhen;
 
     @FXML Label DeclineDateLabel;
+    @FXML Label DeclineReasonLabel;
+
 
     @FXML private TextField declineTextField;
 
@@ -57,11 +59,13 @@ public class AdvisorApproveController {
             requestLabel.setText(appeal.getRequest());
             dateLabel.setText(appeal.getDate().toString());
             signatureLabel.setText(appeal.getStudentSignature());
+            DeclineReasonLabel.setText(appeal.getDeclineReason());
             if(appeal.getStatus().equals("ปฏิเสธโดยอาจารย์ที่ปรึกษา คำร้องถูกปฏิเสธ")){
                 confirmButton.setVisible(false);
                 declineButton.setVisible(false);
                 DeclineWhen.setVisible(true);
                 DeclineDateLabel.setVisible(true);
+                DeclineReasonLabel.setVisible(true);
                 LocalDateTime time = appeal.getDeclineDateTime();
                 DeclineDateLabel.setText(time.getDayOfMonth() + "/" + time.getMonth() + "/" + time.getYear() + "  " + time.getHour() + ":" + time.getMinute() + ":" + time.getSecond());
             } else if(appeal.getStatus().equals("อนุมัติโดยอาจารย์ที่ปรึกษา คำร้องส่งต่อให้หัวหน้าภาควิชา")) {
