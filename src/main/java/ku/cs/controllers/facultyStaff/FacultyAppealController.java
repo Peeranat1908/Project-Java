@@ -53,7 +53,7 @@ public class FacultyAppealController {
     @FXML
     public void onBackButtonClick() {
         try {
-            FXRouter.goTo("student");
+            FXRouter.goTo("facultyStaff", user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -61,48 +61,65 @@ public class FacultyAppealController {
 
 
     private void loadAppeals(String filterType, String searchQuery) {
-
-        appealList = AppealSharedData.getNormalAppealList();
+        // Fetch the list of appeals in the major
         List<Appeal> appeals = appealList.getsAppeals();
-        if (filterType != null) {
+
+        // If there are no appeals, show "no appeals" message
+        if (appeals == null || appeals.isEmpty()) {
+            noAppealsLabel.setVisible(true);
+            appealVBox.getChildren().clear(); // Clear the list
+            return; // Exit early if there's nothing to process
+        }
+        appeals = appeals.stream()
+                .filter(appeal -> appeal.getStatus().equals("อนุมัติโดยหัวหน้าภาควิชา คำร้องส่งต่อให้คณบดี") ||
+                        appeal.getStatus().contains("คณบดี"))
+                .collect(Collectors.toList());
+
+
+        // Filter appeals by type, if a filterType is provided
+        if (filterType != null && !filterType.isEmpty()) {
             appeals = appeals.stream()
                     .filter(appeal -> appeal.getType().equals(filterType))
                     .collect(Collectors.toList());
         }
 
-        if (searchQuery != null && !searchQuery.isEmpty()) {
-            String lowerCaseQuery = searchQuery.toLowerCase();
+        // Filter appeals by search query, if provided
+        if (searchQuery != null && !searchQuery.trim().isEmpty()) {
+            String lowerCaseQuery = searchQuery.trim().toLowerCase();
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
             appeals = appeals.stream()
                     .filter(appeal ->
-                            appeal.getSubject().toLowerCase().contains(lowerCaseQuery) || //เสิชหัวข้อคำร้องได้
-                                    appeal.getRequest().toLowerCase().contains(lowerCaseQuery) || //เนื้อหาคำร้อง
-                                    appeal.getDate().format(dateFormatter).contains(lowerCaseQuery) || //เสิชจากวันที่
-                                    appeal.getStudentSignature().toLowerCase().contains(lowerCaseQuery) //เสิชจากผู้ลงนาม
+                            appeal.getSubject().toLowerCase().contains(lowerCaseQuery) || // Search by subject
+                                    appeal.getRequest().toLowerCase().contains(lowerCaseQuery) || // Search by request content
+                                    appeal.getDate().format(dateFormatter).contains(lowerCaseQuery) || // Search by date
+                                    appeal.getStudentSignature().toLowerCase().contains(lowerCaseQuery) // Search by student signature
                     ).collect(Collectors.toList());
         }
 
+        // Sort appeals using the comparator
         appeals.sort(new AppealSortComparator(filterType));
 
-        if(appeals.isEmpty()){
-            noAppealsLabel.setVisible(true);
-        }else{
-            noAppealsLabel.setVisible(false);
-            appealVBox.getChildren().clear();
-            for (Appeal appeal : appeals) {
+        // Update the UI based on the filtered appeals
+        appealVBox.getChildren().clear(); // Clear previous list
+        if (appeals.isEmpty()) {
+            noAppealsLabel.setVisible(true); // Show "no appeals" message if list is empty
+        } else {
+            noAppealsLabel.setVisible(false); // Hide "no appeals" message if appeals are present
+            // Load each filtered appeal into the VBox
+            appeals.forEach(appeal -> {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/views/student/appeal-item.fxml"));
                     Pane pane = loader.load();
 
                     AppealItemController controller = loader.getController();
-                    controller.setAppealData(appeal);
+                    controller.setAppealData(appeal); // Set appeal data for the view
 
-                    appealVBox.getChildren().add(pane);
+                    appealVBox.getChildren().add(pane); // Add pane to VBox
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    e.printStackTrace(); // Log error in case of failure
                 }
-            }
+            });
         }
     }
 

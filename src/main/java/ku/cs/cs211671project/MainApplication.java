@@ -19,6 +19,8 @@ public class MainApplication extends Application {
         //FXRouter.goTo("main-admin");
         //FXRouter.goTo("facultyStaff");
         //FXRouter.goTo("main-admin");
+        //FXRouter.goTo("setting");
+
     }
 
     private void configRoutes() {
@@ -68,6 +70,9 @@ public class MainApplication extends Application {
         FXRouter.when("edit-major-endorser", viewPath+ "majorStaff/edit-approve-major-staff.fxml");
         FXRouter.when("student-detail-major-staff", viewPath + "majorStaff/student-detail-major-staff.fxml");
         FXRouter.when("add-student", viewPath + "majorStaff/add-student.fxml");
+        FXRouter.when("facultyAppeal", viewPath + "facultyStaff/facultyAppeal.fxml");
+        FXRouter.when("facultyDetail", viewPath  + "facultyStaff/appeal-detail-facultyStaff.fxml");
+        FXRouter.when("setting", viewPath + "other/setting.fxml");
     }
 
 

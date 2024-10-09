@@ -124,8 +124,8 @@ public class UserListFileDatasource implements Datasource<UserList> {
                         user.getRole(),
                         profilePicturePath,
                         String.valueOf(user.isSuspended()),
-                        user.getMajor(),
                         user.getFaculty(),
+                        user.getMajor(),
                         String.valueOf(user.isFirstlogin()),
                         user.getId()
                 );
