@@ -21,17 +21,17 @@
             <Font name="Arial Bold" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="signatureLabel" layoutX="230.0" layoutY="82.0" prefHeight="15.0" prefWidth="169.0" text="Signature" textFill="#807a7a">
+      <Label fx:id="signatureLabel" layoutX="197.0" layoutY="82.0" prefHeight="15.0" prefWidth="169.0" text="Signature" textFill="#807a7a">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="statusLabel" layoutX="278.0" layoutY="9.0" prefHeight="23.0" prefWidth="260.0" style="-fx-font-weight: bold;" text="Status" textFill="#9a9a9a">
+      <Label fx:id="statusLabel" layoutX="212.0" layoutY="12.0" style="-fx-font-weight: bold;" text="Status" textFill="#9a9a9a">
          <font>
             <Font name="Arial Bold" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="237.0" layoutY="13.0" text="สถานะ:">
+      <Label layoutX="167.0" layoutY="12.0" text="สถานะ:">
          <font>
             <Font name="Arial Bold" size="12.0" />
          </font>

@@ -3,6 +3,7 @@ package ku.cs.controllers.components;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import ku.cs.models.Appeal;
+import ku.cs.models.User;
 import ku.cs.services.AppealSharedData;
 import ku.cs.services.FXRouter;
 
@@ -20,7 +21,10 @@ public class AppealDetailController {
     private Label dateLabel;
     @FXML
     private Label signatureLabel;
+    @FXML
+    private Label declineLabel;
 
+    private User user;
 
     @FXML
     public void initialize() {
@@ -31,13 +35,22 @@ public class AppealDetailController {
             requestLabel.setText(appeal.getRequest());
             dateLabel.setText(appeal.getDate().toString());
             signatureLabel.setText(appeal.getStudentSignature());
+            declineLabel.setText(appeal.getDeclineReason());
+        }
+
+        Object data = FXRouter.getData();
+        if (data instanceof User) {
+            user = (User) data;
         }
     }
 
     @FXML
     public void onBackButtonClick() {
         try {
-            FXRouter.goTo("appeal-tracking");
+            if(user.getRole().equals("student")){
+                FXRouter.goTo("appeal-tracking", user);
+            }
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

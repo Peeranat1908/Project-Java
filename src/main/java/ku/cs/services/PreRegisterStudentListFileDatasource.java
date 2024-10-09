@@ -5,11 +5,11 @@ import java.nio.charset.StandardCharsets;
 import ku.cs.models.Student;
 import ku.cs.models.StudentList;
 
-public class StudentListFileDatasource implements Datasource<StudentList> {
+public class PreRegisterStudentListFileDatasource implements Datasource<StudentList> {
     private String directoryName;
     private String fileName;
 
-    public StudentListFileDatasource(String directoryName, String fileName) {
+    public PreRegisterStudentListFileDatasource(String directoryName, String fileName) {
         this.directoryName = directoryName;
         this.fileName = fileName;
         checkFileIsExisted();
@@ -52,15 +52,14 @@ public class StudentListFileDatasource implements Datasource<StudentList> {
 
                 // Check if we have at least the first 6 columns
                 if (data.length >= 6) {
-                    String username = data[0].trim();
-                    String name = data[1].trim();
-                    String id = data[2].trim();
-                    String email = data[3].trim();
-                    String faculty = data[4].trim();
-                    String major = data[5].trim();
-                    String advisorID = data.length > 6 ? data[6].trim() : null;
+                    String name = data[0].trim();
+                    String id = data[1].trim();
+                    String email = data[2].trim();
+                    String faculty = data[3].trim();
+                    String major = data[4].trim();
+                    String advisorID = data.length > 5 ? data[5].trim() : null;
 
-                    Student student = new Student(name, username,id, email, faculty, major,advisorID);
+                    Student student = new Student(name,id, email, faculty, major,advisorID);
                     studentList.addStudent(student);
                 }
             }
@@ -77,11 +76,10 @@ public class StudentListFileDatasource implements Datasource<StudentList> {
         File file = new File(filePath);
 
         try (BufferedWriter buffer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
-            buffer.write("Username,Name,Id,Email,Faculty,Major,AdvisorID");
+            buffer.write("Name,Id,Email,Faculty,Major,AdvisorID");
             buffer.newLine();
             for (Student student : data.getStudents()) {
                 String line = String.join(",",
-                        student.getUsername(),
                         student.getName(),
                         student.getId(),
                         student.getEmail(),
@@ -97,3 +95,5 @@ public class StudentListFileDatasource implements Datasource<StudentList> {
         }
     }
 }
+
+

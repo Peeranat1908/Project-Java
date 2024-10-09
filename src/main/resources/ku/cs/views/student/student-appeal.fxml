@@ -15,20 +15,7 @@
                 <Font name="Arial Bold" size="24.0" />
             </font>
         </Label>
-        <Pane layoutX="22.0" layoutY="28.0">
-            <children>
-                <ImageView fx:id="backImage" fitHeight="42.0" fitWidth="48.0" layoutX="12.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../../../images/Back.png" />
-                    </image>
-                </ImageView>
-                <Button fx:id="backbutton" layoutX="5.0" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="68.0" prefWidth="57.0" style="-fx-background-color: #FFFFFF;">
-                    <font>
-                        <Font name="System Bold" size="36.0" />
-                    </font>
-                </Button>
-            </children>
-        </Pane>
+        <Pane layoutX="22.0" layoutY="28.0" />
         <Pane layoutX="365.0" layoutY="254.0">
             <children>
                 <Button minHeight="65.0" minWidth="552.0" mnemonicParsing="false" onAction="#onNormalAppealClick" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, gray, 10, 0.5, 2 ,2);" text="คำร้องทั่วไป">
@@ -69,6 +56,20 @@
                         <Image url="@../../../../images/book.png" />
                     </image>
                 </ImageView>
+            </children>
+        </Pane>
+        <Pane layoutX="53.0" layoutY="38.0" prefHeight="34.0" prefWidth="35.0">
+            <children>
+                <ImageView fitHeight="34.0" fitWidth="36.0">
+                    <image>
+                        <Image url="@../../../../images/Leftarrow.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="backbutton" layoutX="-4.0" layoutY="-5.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="40.0" prefWidth="43.0" style="-fx-background-color: #FFFFFF;">
+                    <font>
+                        <Font name="System Bold" size="36.0" />
+                    </font>
+                </Button>
             </children>
         </Pane>
     </children>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: EDF5FF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.advisor.AdvisorApproveController">
+    <children>
+        <Pane layoutX="176.0" layoutY="10.0" prefHeight="567.0" prefWidth="922.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, gray, 20, 0.1, 0 ,0);">
+            <children>
+                <Label fx:id="typeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="361.0" layoutY="31.0" prefHeight="23.0" prefWidth="224.0" text="Type">
+                    <font>
+                        <Font name="Arial Bold" size="24.0" />
+                    </font>
+                </Label>
+                <Pane layoutY="88.0">
+                    <children>
+                        <Label fx:id="subjectLabel" alignment="CENTER" layoutX="156.0" layoutY="-5.0" prefHeight="39.0" prefWidth="640.0" style="-fx-font-weight: bold;" text="Subject">
+                            <font>
+                                <Font name="Arial Bold" size="16.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </Pane>
+                <Label fx:id="requestLabel" alignment="TOP_LEFT" layoutX="39.0" layoutY="135.0" prefHeight="321.0" prefWidth="856.0" text="Request" wrapText="true">
+                    <font>
+                        <Font name="Arial" size="14.0" />
+                    </font>
+                </Label>
+                <Label fx:id="signatureLabel" alignment="CENTER" layoutX="597.0" layoutY="476.0" prefHeight="21.0" prefWidth="325.0" text="Signature" textFill="#807a7a">
+                    <font>
+                        <Font name="Arial" size="18.0" />
+                    </font>
+                </Label>
+                <Label fx:id="dateLabel" alignment="CENTER" layoutX="597.0" layoutY="507.0" prefHeight="21.0" prefWidth="325.0" text="Date" textFill="#807a7a">
+                    <font>
+                        <Font name="Arial Bold" size="18.0" />
+                    </font>
+                </Label>
+            <Label fx:id="DeclineDateLabel" alignment="CENTER" layoutX="177.0" layoutY="507.0" prefHeight="21.0" prefWidth="325.0" text="DeclineDate" textFill="RED" visible="false">
+               <font>
+                  <Font name="Arial Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="DeclineWhen" alignment="CENTER" layoutX="77.0" layoutY="507.0" prefHeight="21.0" prefWidth="92.0" text="ปฏิเสธตอน:" textFill="RED" visible="false">
+               <font>
+                  <Font name="Arial Bold" size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="declineTextField" alignment="TOP_LEFT" layoutX="290.0" layoutY="166.0" prefHeight="235.0" prefWidth="366.0" promptText="Decline Reason" style="-fx-background-radius: 10;" visible="false">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </TextField>
+            </children>
+        </Pane>
+        <Pane layoutX="63.0" layoutY="48.0" prefHeight="34.0" prefWidth="35.0">
+            <children>
+                <ImageView fitHeight="34.0" fitWidth="36.0">
+                    <image>
+                        <Image url="@../../../../images/Leftarrow.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="backbutton" layoutX="-4.0" layoutY="-5.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="40.0" prefWidth="43.0" style="-fx-background-color: #FFFFFF;">
+                    <font>
+                        <Font name="System Bold" size="36.0" />
+                    </font>
+                </Button>
+            </children>
+        </Pane>
+      <Button fx:id="confirmButton" layoutX="485.0" layoutY="594.0" mnemonicParsing="false" onAction="#onApproveAppealClick" prefHeight="40.0" prefWidth="170.0" style="-fx-background-color: #07752c; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, gray, 20, 0.1, 0 ,0);" text="อนุมัติคำร้อง" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="declineButton" layoutX="680.0" layoutY="594.0" mnemonicParsing="false" onAction="#onDeclineAppealClick" prefHeight="40.0" prefWidth="170.0" style="-fx-background-color: #FA0202; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, gray, 20, 0.1, 0 ,0);" text="ปฏิเสธคำร้อง" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="applyDecline" layoutX="680.0" layoutY="654.0" mnemonicParsing="false" onAction="#DeclineApplyClick" prefHeight="40.0" prefWidth="170.0" style="-fx-background-color: #FA0202; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, gray, 20, 0.1, 0 ,0);" text="Apply" textFill="WHITE" visible="false">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="resetDecline" layoutX="485.0" layoutY="654.0" minHeight="40.0" minWidth="170.0" mnemonicParsing="false" onAction="#onResetDeclineClick" style="-fx-background-color: #EEEEEE; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, gray, 20, 0.1, 0 ,0);" text="Reset" visible="false">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Button>
+      <Label layoutX="1019.0" layoutY="100.0">
+         <font>
+            <Font name="Arial Bold" size="12.0" />
+         </font>
+      </Label>
+    </children>
+</AnchorPane>

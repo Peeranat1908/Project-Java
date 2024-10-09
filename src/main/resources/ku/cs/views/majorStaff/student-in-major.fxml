@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,7 +13,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.majorStaff.StudentInMajorController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.majorStaff.StudentInMajorController">
    <children>
       <Pane layoutX="-3.0" layoutY="-3.0" prefHeight="80.0" prefWidth="1275.0" style="-fx-background-color: EAF4FF;">
          <children>
@@ -51,17 +52,33 @@
             </ImageView>
          </children>
       </Pane>
-      <Label layoutX="575.0" layoutY="132.0" text="รายการคำร้อง">
+      <Label layoutX="559.0" layoutY="94.0" text="รายชื่อนิสิตในภาควิชา">
          <font>
             <Font name="Arial Bold" size="32.0" />
          </font>
       </Label>
-      <TableView fx:id="studentTableView" layoutX="292.0" layoutY="180.0" prefHeight="497.0" prefWidth="771.0">
+      <TableView fx:id="studentTableView" layoutX="292.0" layoutY="217.0" prefHeight="461.0" prefWidth="783.0">
         <columns>
           <TableColumn prefWidth="75.0" text="C1" />
           <TableColumn prefWidth="75.0" text="C2" />
         </columns>
       </TableView>
-      <Label fx:id="nameLabel" layoutX="116.0" layoutY="242.0" text="nameLabel" />
+      <Button layoutX="1025.0" layoutY="118.0" mnemonicParsing="false" onAction="#addStudentButtonClick" style="-fx-background-color: #FFFFFF;" text="เพิ่มข้อมูลนิสิต">
+         <graphic>
+            <ImageView fitHeight="31.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../images/editPicture.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <TextField fx:id="searchUserTextfield" layoutX="559.0" layoutY="162.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
    </children>
 </AnchorPane>

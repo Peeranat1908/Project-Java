@@ -84,5 +84,10 @@
             <Button layoutX="19.0" mnemonicParsing="false" onAction="#onAppealTrackingClick" opacity="0.0" prefHeight="51.0" prefWidth="60.0" />
          </children>
       </Pane>
+      <Label fx:id="errorLabel" layoutX="546.0" layoutY="507.0" prefHeight="16.0" prefWidth="215.0" text="You must have Advisor first!" textFill="RED" visible="false">
+         <font>
+            <Font name="Arial Bold" size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

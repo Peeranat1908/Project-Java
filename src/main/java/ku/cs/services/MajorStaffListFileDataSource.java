@@ -68,7 +68,7 @@ public class MajorStaffListFileDataSource implements Datasource<StudentList> {
                 // อ่านข้อมูลตาม index แล้วจัดการประเภทของข้อมูลให้เหมาะสม
 
                 String name = data[1].trim();
-                String username = data[3].trim();
+                String username = data[2].trim();
                 String id = data[0].trim();
                 String email = data[2].trim();
 
