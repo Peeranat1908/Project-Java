@@ -63,12 +63,12 @@
         </Pane>
         <Pane layoutX="22.0" layoutY="28.0">
             <children>
-                <ImageView fx:id="backImage" fitHeight="42.0" fitWidth="48.0" layoutX="12.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="backImage" fitHeight="39.0" fitWidth="36.0" layoutX="30.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../../images/Back.png" />
+                        <Image url="@../../../../images/Leftarrow.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="backbutton" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="77.0" prefWidth="79.0" style="-fx-background-color: #FFFFFF;">
+                <Button fx:id="backbutton" layoutX="18.0" layoutY="16.0" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="47.0" prefWidth="61.0" style="-fx-background-color: #FFFFFF;">
                     <font>
                         <Font name="System Bold" size="36.0" />
                     </font>

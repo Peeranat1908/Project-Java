@@ -30,11 +30,6 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button fx:id="myTeamButton" layoutX="228.0" layoutY="20.0" mnemonicParsing="false" onAction="#onMyTeamButtonClick" styleClass="ButtonNavbarNotMain" text="MY TEAM">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Button>
             <Group layoutX="134.0" layoutY="28.0">
                <children>
                   <Line endX="-51.0" startX="-100.0" stroke="WHITE" strokeWidth="3.0" />
@@ -47,7 +42,7 @@
                   <Image url="@../../../../images/faculty-staff.png" />
                </image>
             </ImageView>
-            <Button layoutX="341.0" layoutY="20.0" mnemonicParsing="false" onAction="#onApproveStaff" styleClass="ButtonNavbarNotMain" text="ข้อมูลผู้อนุมัติคำร้อง">
+            <Button layoutX="236.0" layoutY="20.0" mnemonicParsing="false" onAction="#onApproveStaff" styleClass="ButtonNavbarNotMain" text="ข้อมูลผู้อนุมัติคำร้อง">
                <font>
                   <Font name="Arial Bold" size="16.0" />
                </font>
