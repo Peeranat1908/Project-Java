@@ -37,6 +37,14 @@ public class StudentList extends UserList{
         }
         return false;
     }
+    public boolean isExists(String name, String id,String email) {
+        for (Student student : students) {
+            if (student.getName().equals(name) && student.getId().equals(id) && student.getEmail().equals(email)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public List<Student> getStudents() {
         return students;
@@ -63,6 +71,14 @@ public class StudentList extends UserList{
         return null;
     }
 
+    public Student findSudentByEmail(String name){
+        for (Student student : students){
+            if (student.getEmail().equalsIgnoreCase(name.trim())){
+                return student;
+            }
+        }
+        return null;
+    }
     public StudentList getStudentsListBYFaculty(String faculty) {
         StudentList studentsList = new StudentList();
         for (Student student : students) {
@@ -70,19 +86,25 @@ public class StudentList extends UserList{
                 studentsList.addStudent(student);
             }
         }
-        return studentsList;  // คืนค่า StudentList
+        return studentsList;
     }
-
-    public StudentList getStudentsListBYMajor(String major){
+    public StudentList getStudentsListBYMajor(String major) {
         StudentList studentsList = new StudentList();
-        for(Student student: students){
-            if(student.getMajor().equalsIgnoreCase(major)){
+        for (Student student : students) {
+            if (student.getMajor().equalsIgnoreCase(major)) {
                 studentsList.addStudent(student);
             }
         }
         return studentsList;
     }
-
+    public Student findStudentByUsername(String username) {
+        for (Student student : students) {
+            if (student.getUsername().equals(username)) {
+                return student;
+            }
+        }
+        return null;
+    }
 
 
 }

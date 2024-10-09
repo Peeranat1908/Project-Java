@@ -63,7 +63,7 @@ public class MainApplication extends Application {
         FXRouter.when("faculty-data-admin", viewPath + "admin/faculty-data-admin.fxml");
         FXRouter.when("appeal-tracking", viewPath + "student/appeal-list.fxml");
         FXRouter.when("user-profile", viewPath + "student/user-profile.fxml");
-        FXRouter.when("student-in-major", viewPath + "departmentStaff/student-in-major.fxml");
+        FXRouter.when("student-in-major", viewPath + "majorStaff/student-in-major.fxml");
         FXRouter.when("facultyStaff", viewPath + "facultyStaff/faculty-staff.fxml");
         FXRouter.when("appeal-tracking", viewPath + "student/appeal-list.fxml");
         FXRouter.when("major-data-admin", viewPath + "admin/major-data-admin.fxml");
@@ -71,8 +71,8 @@ public class MainApplication extends Application {
         FXRouter.when("add-new-faculty", viewPath + "admin/addNewFacultyData.fxml");
         FXRouter.when("edit-data-major", viewPath + "admin/edit-data-major.fxml");
         FXRouter.when("add-new-major", viewPath + "admin/add-new-major.fxml");
-        FXRouter.when("departmentStaff", viewPath + "departmentStaff/main-major-staff.fxml");
-        FXRouter.when("add-major-endorser", viewPath + "departmentStaff/major-endorser-staff.fxml");
+        FXRouter.when("departmentStaff", viewPath + "majorStaff/main-major-staff.fxml");
+        FXRouter.when("add-major-endorser", viewPath + "majorStaff/major-endorser-staff.fxml");
         FXRouter.when("user-profile", viewPath + "student/user-profile.fxml");
         FXRouter.when("leave-appeal", viewPath + "student/leave-appeal.fxml");
         FXRouter.when("enroll-appeal", viewPath + "student/enroll-appeal.fxml");
@@ -82,12 +82,13 @@ public class MainApplication extends Application {
         FXRouter.when("add-staff", viewPath + "admin/add-staff.fxml");
         FXRouter.when("staff-table-admin", viewPath + "admin/staff-table-admin.fxml");
         FXRouter.when("staff-edit", viewPath + "admin/staffedit.fxml");
-        FXRouter.when("major-accept-appeal", viewPath + "departmentStaff/major-accept-appeal.fxml");
+        FXRouter.when("major-accept-appeal", viewPath + "majorStaff/major-accept-appeal.fxml");
         FXRouter.when("approve-faculty-staff", viewPath + "facultyStaff/approver-faculty.fxml");
         FXRouter.when("editApproveFacultyStaff", viewPath + "facultyStaff/edit-approve-faculty-staff.fxml");
         FXRouter.when("addApproveFacultyStaff", viewPath + "facultyStaff/add-approve-faculty-staff.fxml");
-        FXRouter.when("edit-major-endorser", viewPath+ "departmentStaff/edit-approve-major-staff.fxml");
-
+        FXRouter.when("edit-major-endorser", viewPath+ "majorStaff/edit-approve-major-staff.fxml");
+        FXRouter.when("student-detail-major-staff", viewPath + "majorStaff/student-detail-major-staff.fxml");
+        FXRouter.when("add-student", viewPath + "majorStaff/add-student.fxml");
     }
 
 
