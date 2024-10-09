@@ -18,12 +18,12 @@
         <Pane prefHeight="80.0" prefWidth="1280.0" style="-fx-background-color: EAF4FF;">
             <children>
                 <Button layoutX="-7.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="135.0" style="-fx-background-color: #2F80ED; -fx-background-radius: 0;" textFill="WHITE" />
-                <Label layoutX="1030.0" layoutY="13.0" text="Advisor">
+                <Label fx:id="usernameLabel" layoutX="1030.0" layoutY="13.0" text="Advisor">
                     <font>
                         <Font name="System Bold" size="36.0" />
                     </font>
                 </Label>
-                <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="1186.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="1186.0" layoutY="5.0" onMouseClicked="#onPictureClick" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../../../images/teacher.png" />
                     </image>

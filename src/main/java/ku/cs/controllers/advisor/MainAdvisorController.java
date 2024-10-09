@@ -27,6 +27,8 @@ public class MainAdvisorController {
     private TextField searchTextField;
     @FXML
     private Button searchButtonClick;
+    @FXML
+    private Label usernameLabel;
 
     private StudentList studentList;
     private ObservableList<Student> studentObservableList;
@@ -46,9 +48,13 @@ public class MainAdvisorController {
         if (data instanceof User) {
             user = (User) data;
         }
+
+        updateUI();
+
         StudentList filteredStudentList = new StudentList();
         for (Student student : studentList.getStudents()) {
-            if (student.getAdvisorID().equals(user.getId())) {
+            String advisorID = student.getAdvisorID();
+            if (advisorID != null && advisorID.equals(user.getId())) {
                 filteredStudentList.addStudent(student);
             }
         }
@@ -60,7 +66,6 @@ public class MainAdvisorController {
             public void changed(ObservableValue<? extends Student> observableValue, Student oldValue, Student newValue) {
                 if (newValue != null) {
                     selectedStudentId = newValue.getId();
-                    String advisorId = newValue.getAdvisorID();
                     try {
                         FXRouter.goTo("advisor-appeal-page", new Pair<>(user, selectedStudentId));
                     } catch (IOException e) {
@@ -146,4 +151,25 @@ public class MainAdvisorController {
         }
     }
 
+
+    private void updateUI() {
+        if (user != null) {
+            usernameLabel.setText(user.getUsername());
+
+        }
+    }
+
+    @FXML
+    public void onPictureClick() {
+        navigateTo("user-profile", user);
+    }
+
+    private void navigateTo(String route, Object data) {
+
+        try {
+            FXRouter.goTo(route, data); // ส่งข้อมูลไปยัง route ที่กำหนด
+        } catch (IOException e) {
+            System.err.println("Navigation to " + route + " failed: " + e.getMessage());
+        }
+    }
 }

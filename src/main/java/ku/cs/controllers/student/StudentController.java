@@ -21,8 +21,6 @@ public class StudentController {
 
     @FXML Label errorLabel;
 
-
-
     @FXML
     private void initialize() {
         Object data = FXRouter.getData();
@@ -38,7 +36,6 @@ public class StudentController {
     private void updateUI() {
         if (user != null) {
             usernameLabel.setText(user.getUsername());
-
         }
     }
 
