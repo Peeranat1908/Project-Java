@@ -155,7 +155,8 @@ public class MajorAcceptAppealController {
         if (appeal != null) {
             String endorserValue = endorserBox.getValue();
             LocalDate today = LocalDate.now();
-            if (endorserValue.contains("ภาควิชาวิทยาการคอมพิวเตอร์")) {
+            String majorName = user.getMajor();
+            if (endorserValue.contains(majorName)) {
                 appeal.setMajorEndorserSignature(endorserValue);
                 appeal.setMajorEndorserDate(today);
                 appeal.setDeclineReason("");
