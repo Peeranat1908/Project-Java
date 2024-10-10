@@ -20,6 +20,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class MajorAcceptAppealController {
     private User user;
@@ -32,12 +33,9 @@ public class MajorAcceptAppealController {
     private Label requestLabel;
     @FXML
     private Label dateLabel;
-    @FXML
-    private Spinner<Integer> daySpinner;
-    @FXML
-    private Spinner<Integer> monthSpinner;
-    @FXML
-    private Spinner<Integer> yearSpinner;
+
+
+
     @FXML
     private ChoiceBox<String> endorserBox;
     @FXML private TextField declineTextField;
@@ -55,7 +53,6 @@ public class MajorAcceptAppealController {
     @FXML private Label facultyApproveWhen;
     @FXML private Label facultyApprovedateLabel;
     @FXML private Label facultySignatureLabel;
-    @FXML private Label approveWhen;
     @FXML private Label MajorEndorsers;
 
     private MajorEndorserListFileDatasource approveDataSource;
@@ -65,9 +62,6 @@ public class MajorAcceptAppealController {
     private String studentID;
 
     public void initialize() {
-        daySpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 31, LocalDate.now().getDayOfMonth()));
-        monthSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12, LocalDate.now().getMonthValue()));
-        yearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1900, LocalDate.now().getYear(), LocalDate.now().getYear()));
 
         Appeal appeal = AppealSharedData.getSelectedAppeal();
         if (appeal != null) {
@@ -80,7 +74,6 @@ public class MajorAcceptAppealController {
 
             if(appeal.getDeclineDateTime() != null){
                 MajorEndorsers.setVisible(false);
-                approveWhen.setVisible(false);
                 declineWhen.setVisible(true);
                 DeclineDateLabel.setText(appeal.getDeclineDateTime().toString());
                 DeclineDateLabel.setVisible(true);
@@ -89,7 +82,6 @@ public class MajorAcceptAppealController {
             }
             if (appeal.getMajorEndorserDate() != null){
                 MajorEndorsers.setVisible(false);
-                approveWhen.setVisible(false);
                 majorDateLabel.setText(appeal.getMajorEndorserDate().toString());
                 majorDateLabel.setVisible(true);
                 majorApproveWhen.setVisible(true);
@@ -98,7 +90,6 @@ public class MajorAcceptAppealController {
             }
             if (appeal.getFacultyEndorserDate() != null){
                 MajorEndorsers.setVisible(false);
-                approveWhen.setVisible(false);
                 facultyApprovedateLabel.setText(appeal.getFacultyEndorserDate().toString());
                 facultyApprovedateLabel.setVisible(true);
                 facultyApproveWhen.setVisible(true);
@@ -114,9 +105,6 @@ public class MajorAcceptAppealController {
         if(appeal.getStatus().contains("โดยหัวหน้าภาควิชา") || appeal.getStatus().equals("ปฏิเสธโดยอาจารย์ที่ปรึกษา คำร้องถูกปฏิเสธ")){
             applyDeclineButton.setVisible(false);
             approveAppealButton.setVisible(false);
-            daySpinner.setVisible(false);
-            monthSpinner.setVisible(false);
-            yearSpinner.setVisible(false);
             endorserBox.setVisible(false);
             sendingToDean.setVisible(false);
             declineButton.setVisible(false);
@@ -156,6 +144,8 @@ public class MajorAcceptAppealController {
             String endorserValue = endorserBox.getValue();
             LocalDate today = LocalDate.now();
             String majorName = user.getMajor();
+            long second = new Date().getTime();
+            appeal.setSecond(second);
             if (endorserValue.contains(majorName)) {
                 appeal.setMajorEndorserSignature(endorserValue);
                 appeal.setMajorEndorserDate(today);
@@ -195,6 +185,8 @@ public class MajorAcceptAppealController {
             appeal.setStatus("ปฏิเสธโดยหัวหน้าภาควิชา คำร้องถูกปฏิเสธ");
             appeal.setMajorEndorserDate(LocalDate.now());
             appeal.setDeclineDateTime(LocalDateTime.now());
+            long second = new Date().getTime();
+            appeal.setSecond(second);
         }
         AppealListDatasource datasource = new AppealListDatasource("data/appeals.csv");
         AppealList appealList = AppealSharedData.getNormalAppealList();
