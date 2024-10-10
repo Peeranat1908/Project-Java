@@ -36,6 +36,7 @@
                         <Font name="Arial Bold" size="12.0" />
                     </font>
                 </Label>
+<<<<<<< HEAD
                 <Label fx:id="subjectLabel" alignment="CENTER" layoutX="104.0" layoutY="117.0" prefHeight="39.0" prefWidth="640.0" style="-fx-font-weight: bold;" text="Subject">
                     <font>
                         <Font name="Arial Bold" size="16.0" />
@@ -81,6 +82,53 @@
                     <font>
                         <Font size="14.0" />
                     </font></Label>
+=======
+                  <Label fx:id="subjectLabel" alignment="CENTER" layoutX="104.0" layoutY="117.0" prefHeight="39.0" prefWidth="640.0" style="-fx-font-weight: bold;" text="Subject">
+                      <font>
+                          <Font name="Arial Bold" size="16.0" />
+                      </font>
+                  </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="364.0" layoutY="24.0" text="คำร้องประเภท">
+               <font>
+                  <Font name="Arial Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="409.0" layoutY="97.0" style="-fx-font-weight: bold;" text="เรื่อง">
+               <font>
+                  <Font name="Arial Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="declineWhen" layoutX="30.0" layoutY="504.0" text="ถูกปฎิเสธวันที่:" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
+            <Label fx:id="DeclineDateLabel" layoutX="124.0" layoutY="504.0" prefHeight="22.0" prefWidth="313.0" text="DeclineDate" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
+            <Label layoutX="472.0" layoutY="504.0" text="ชื่อผู้ส่ง" />
+            <Label layoutX="472.0" layoutY="557.0" text="วันที่ส่ง" />
+            <Label fx:id="declineLabel" alignment="TOP_LEFT" layoutX="30.0" layoutY="530.0" prefHeight="71.0" prefWidth="366.0" text="DeclineReason" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
+            <Label fx:id="FacultyApproveWhen" layoutX="30.0" layoutY="634.0" text="เจ้าหน้าที่คณะผู้อนุมัติ / วันที่:" textFill="#2f8a1f">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label fx:id="FacultySignatureLabel" layoutX="80.0" layoutY="659.0" text="FacultySignatureLabel" textFill="#2f8a1f">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label fx:id="FacultyApprovedDate" layoutX="195.0" layoutY="634.0" text="FacultyApprovedDate" textFill="#2f8a1f">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label fx:id="FacultySignatureName" layoutX="30.0" layoutY="658.0" text="ลายเซ็น:" textFill="#2f8a1f">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+>>>>>>> 420679344dcf9d50ecc26b969effb983774d989d
             </children>
         </Pane>
         <Pane layoutX="63.0" layoutY="48.0" prefHeight="34.0" prefWidth="35.0">
@@ -127,6 +175,7 @@
                 <Font name="Arial Bold" size="12.0" />
             </font>
         </Label>
+<<<<<<< HEAD
         <ChoiceBox fx:id="approveChoiceBox" layoutX="1046.0" layoutY="187.0" prefWidth="150.0" />
         <Label fx:id="approveCheckLabel" layoutX="1065.0" layoutY="233.0" text="approveCheckLabel" textFill="RED" />
         <Label fx:id="MajorEndorsers" layoutX="1055.0" layoutY="161.0" text="ลงนามเจ้าหน้าที่คณะ:">
@@ -134,6 +183,15 @@
                 <Font name="Arial Bold" size="16.0" />
             </font>
         </Label>
+=======
+      <ChoiceBox fx:id="approveChoiceBox" layoutX="1046.0" layoutY="187.0" prefWidth="150.0" />
+      <Label fx:id="approveCheckLabel" layoutX="1065.0" layoutY="233.0" text="approveCheckLabel" textFill="RED" />
+      <Label fx:id="MajorEndorsers" layoutX="1055.0" layoutY="161.0" text="ลงนามเจ้าหน้าที่คณะ:">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Label>
+>>>>>>> 420679344dcf9d50ecc26b969effb983774d989d
     </children>
     <stylesheets>
         <URL value="@../../style/baseOnPageLightMode.css" />

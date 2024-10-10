@@ -11,7 +11,6 @@ import ku.cs.controllers.NavigationHistoryService;
 import ku.cs.controllers.components.Sidebar;
 import ku.cs.controllers.components.SidebarController;
 import ku.cs.models.Faculty;
-import ku.cs.models.StudentAdvisor;
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
 import ku.cs.services.FacultyListFileDatasource;
