@@ -7,6 +7,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import ku.cs.controllers.NavigationHistoryService;
 import ku.cs.models.ApproveFacultyStaff;
 import ku.cs.models.ApproveFacultyStaffList;
+import ku.cs.models.User;
 import ku.cs.services.ApproveFacultyStaffListDatasource;
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
@@ -20,11 +21,18 @@ public class ApproverFacultyStaffController {
     private ApproveFacultyStaffList approveFacultyStaffList;
     private Datasource<ApproveFacultyStaffList> datasource;
 
+    private User user;
+
     @FXML
     public void initialize() {
         datasource = new ApproveFacultyStaffListDatasource("data", "approveFacultyStaff.csv");
         approveFacultyStaffList = datasource.readData();
         showTable(approveFacultyStaffList);
+        Object data = FXRouter.getData();
+        if (data instanceof User) {
+            user = (User) data;
+
+        }
 
     }
     private void showTable(ApproveFacultyStaffList approveFacultyStaffList) {
