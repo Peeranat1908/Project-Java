@@ -62,9 +62,8 @@ public class MainMajorStaffController{
             return; // Exit early if there's nothing to process
         }
         appeals = appeals.stream()
-                .filter(appeal -> appeal.getStatus().equals("อนุมัติโดยอาจารย์ที่ปรึกษา คำร้องส่งต่อให้หัวหน้าภาควิชา") ||
-                        appeal.getStatus().contains("หัวหน้าภาควิชา") ||
-                        appeal.getStatus().equals("ใบคำร้องใหม่ คำร้องส่งต่อให้อาจารย์ที่ปรึกษา"))
+                .filter(appeal -> appeal.getStatus().trim().equalsIgnoreCase("อนุมัติโดยอาจารย์ที่ปรึกษา คำร้องส่งต่อให้หัวหน้าภาควิชา") ||
+                        appeal.getStatus().contains("หัวหน้าภาควิชา"))
                 .collect(Collectors.toList());
 
 

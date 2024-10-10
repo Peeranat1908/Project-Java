@@ -57,10 +57,11 @@
             <Label layoutX="472.0" layoutY="557.0" text="วันที่ส่ง" />
             <Label fx:id="declineLabel" alignment="TOP_LEFT" layoutX="30.0" layoutY="530.0" prefHeight="71.0" prefWidth="366.0" text="DeclineReason" textFill="RED" />
             <Label fx:id="FacultyApproveWhen" layoutX="30.0" layoutY="634.0" text="เจ้าหน้าที่คณะผู้อนุมัติ / วันที่:" textFill="#2f8a1f" />
-            <Label fx:id="FacultySignatureLabel" layoutX="30.0" layoutY="658.0" text="FacultySignatureLabel" textFill="#2f8a1f" />
+            <Label fx:id="FacultySignatureLabel" layoutX="80.0" layoutY="659.0" text="FacultySignatureLabel" textFill="#2f8a1f" />
             <Label fx:id="FacultyApprovedDate" layoutX="178.0" layoutY="634.0" text="FacultyApprovedDate" textFill="#2f8a1f" />
             <ChoiceBox fx:id="approveChoiceBox" layoutX="416.0" layoutY="626.0" prefWidth="150.0" />
             <Label fx:id="approveCheckLabel" layoutX="431.0" layoutY="667.0" text="approveCheckLabel" textFill="RED" />
+            <Label fx:id="FacultySignatureName" layoutX="30.0" layoutY="658.0" text="ลายเซ็น:" textFill="#2f8a1f" />
             </children>
         </Pane>
         <Pane layoutX="63.0" layoutY="48.0" prefHeight="34.0" prefWidth="35.0">

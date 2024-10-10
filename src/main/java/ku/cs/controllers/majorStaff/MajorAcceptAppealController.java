@@ -69,44 +69,44 @@ public class MajorAcceptAppealController {
         monthSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12, LocalDate.now().getMonthValue()));
         yearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1900, LocalDate.now().getYear(), LocalDate.now().getYear()));
 
-            Appeal appeal = AppealSharedData.getSelectedAppeal();
-            if (appeal != null) {
-                typeLabel.setText(appeal.getType());
-                subjectLabel.setText(appeal.getSubject());
-                requestLabel.setText(appeal.getRequest());
-                dateLabel.setText(appeal.getDate().toString());
-                signatureLabel.setText(appeal.getStudentSignature());
+        Appeal appeal = AppealSharedData.getSelectedAppeal();
+        if (appeal != null) {
+            typeLabel.setText(appeal.getType());
+            subjectLabel.setText(appeal.getSubject());
+            requestLabel.setText(appeal.getRequest());
+            dateLabel.setText(appeal.getDate().toString());
+            signatureLabel.setText(appeal.getStudentSignature());
 
 
-                if(appeal.getDeclineDateTime() != null){
-                    MajorEndorsers.setVisible(false);
-                    approveWhen.setVisible(false);
-                    declineWhen.setVisible(true);
-                    DeclineDateLabel.setText(appeal.getDeclineDateTime().toString());
-                    DeclineDateLabel.setVisible(true);
-                    declineLabel.setText(appeal.getDeclineReason());
-                    declineLabel.setVisible(true);
-                }
-                if (appeal.getMajorEndorserDate() != null){
-                    MajorEndorsers.setVisible(false);
-                    approveWhen.setVisible(false);
-                    majorDateLabel.setText(appeal.getMajorEndorserDate().toString());
-                    majorDateLabel.setVisible(true);
-                    majorApproveWhen.setVisible(true);
-                    majorSignatureLabel.setText(appeal.getMajorEndorserSignature());
-                    majorSignatureLabel.setVisible(true);
-                }
-                if (appeal.getFacultyEndorserDate() != null){
-                    MajorEndorsers.setVisible(false);
-                    approveWhen.setVisible(false);
-                    facultyApprovedateLabel.setText(appeal.getFacultyEndorserDate().toString());
-                    facultyApprovedateLabel.setVisible(true);
-                    facultyApproveWhen.setVisible(true);
-                    facultySignatureLabel.setText(appeal.getFacultyEndorserSignature());
-                    facultySignatureLabel.setVisible(true);
-                }
-
+            if(appeal.getDeclineDateTime() != null){
+                MajorEndorsers.setVisible(false);
+                approveWhen.setVisible(false);
+                declineWhen.setVisible(true);
+                DeclineDateLabel.setText(appeal.getDeclineDateTime().toString());
+                DeclineDateLabel.setVisible(true);
+                declineLabel.setText(appeal.getDeclineReason());
+                declineLabel.setVisible(true);
             }
+            if (appeal.getMajorEndorserDate() != null){
+                MajorEndorsers.setVisible(false);
+                approveWhen.setVisible(false);
+                majorDateLabel.setText(appeal.getMajorEndorserDate().toString());
+                majorDateLabel.setVisible(true);
+                majorApproveWhen.setVisible(true);
+                majorSignatureLabel.setText(appeal.getMajorEndorserSignature());
+                majorSignatureLabel.setVisible(true);
+            }
+            if (appeal.getFacultyEndorserDate() != null){
+                MajorEndorsers.setVisible(false);
+                approveWhen.setVisible(false);
+                facultyApprovedateLabel.setText(appeal.getFacultyEndorserDate().toString());
+                facultyApprovedateLabel.setVisible(true);
+                facultyApproveWhen.setVisible(true);
+                facultySignatureLabel.setText(appeal.getFacultyEndorserSignature());
+                facultySignatureLabel.setVisible(true);
+            }
+
+        }
 
         // โหลดรายชื่อจากไฟล์ CSV ลงใน ChoiceBox
         loadEndorsersFromCSV("data/major-endorser.csv");

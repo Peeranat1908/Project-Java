@@ -81,6 +81,8 @@ public class AppealItemController {
                 FXRouter.goTo("major-accept-appeal", user);
             }else if(user.getRole().equals("advisor")){
                 FXRouter.goTo("advisor-approve", new Pair<>(user, studentID));
+            } else if (user.getRole().equals("facultyStaff")) {
+                FXRouter.goTo("facultyDetail", user);
             }
         } catch (IOException e) {
             e.printStackTrace();

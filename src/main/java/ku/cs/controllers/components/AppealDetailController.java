@@ -77,7 +77,6 @@ public class AppealDetailController {
 
 
         }
-
         Object data = FXRouter.getData();
         if (data instanceof User) {
             user = (User) data;

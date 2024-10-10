@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import ku.cs.models.*;
 import ku.cs.services.AppealListDatasource;
 import ku.cs.services.AppealSharedData;
@@ -44,6 +45,7 @@ public class FacultyAppealDetailController {
     @FXML private Label FacultyApproveWhen;
     @FXML private Label FacultySignatureLabel;
     @FXML private ChoiceBox<String> approveChoiceBox;
+    @FXML private Label FacultySignatureName;
 
     private ApproveFacultyStaffListDatasource approveDataSource;
 
@@ -66,6 +68,8 @@ public class FacultyAppealDetailController {
             FacultySignatureLabel.setVisible(false);
             FacultyApprovedDate.setVisible(false);
             approveCheckLabel.setVisible(false);
+            FacultySignatureName.setVisible(false);
+
 
             if (appeal.getStatus().equals("ปฏิเสธโดยคณบดี คำร้องถูกปฏิเสธ")){
                 declineWhen.setVisible(true);
@@ -73,9 +77,15 @@ public class FacultyAppealDetailController {
                 DeclineDateLabel.setVisible(true);
                 declineLabel.setText(appeal.getDeclineReason());
                 declineLabel.setVisible(true);
+                FacultySignatureName.setVisible(true);
+                FacultySignatureName.setTextFill(Color.RED);
+                FacultySignatureLabel.setText(appeal.getFacultyEndorserSignature());
+                FacultySignatureLabel.setTextFill(Color.RED);
+                FacultySignatureLabel.setVisible(true);
 
             } else if (appeal.getStatus().equals("อนุมัติโดยคณบดี คำร้องดำเนินการครบถ้วน")) {
                 FacultyApproveWhen.setVisible(true);
+                FacultySignatureName.setVisible(true);
                 FacultySignatureLabel.setText(appeal.getFacultyEndorserSignature());
                 FacultySignatureLabel.setVisible(true);
                 FacultyApprovedDate.setText(appeal.getFacultyEndorserDate().toString());

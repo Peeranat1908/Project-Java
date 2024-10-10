@@ -28,7 +28,6 @@ public class StudentList extends UserList{
         return null;
     }
 
-
     public boolean isExists(String username, String id) {
         for (Student student : students) {
             if (student.getUsername().equals(username) || student.getId().equals(id)) {
