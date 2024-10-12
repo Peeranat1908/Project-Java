@@ -156,7 +156,12 @@ public class MainMajorStaffController{
     }
     @FXML
     public void onUserProfileButton(){
-        navigateTo("user-profile", user);
+        try {
+            FXRouter.goTo("user-profile",user);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+//        navigateTo("user-profile", user
     }
 
     @FXML

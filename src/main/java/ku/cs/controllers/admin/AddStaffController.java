@@ -160,7 +160,7 @@ public class AddStaffController implements Sidebar {
         } else if (role.equals("เจ้าหน้าที่คณะ")) {
             role = "facultyStaff";
         } else if (role.equals("เจ้าหน้าที่ภาควิชา")) {
-            role = "departmentStaff";
+            role = "majorStaff";
         }
 
         if (userList.findUserByUsername(username) != null) {

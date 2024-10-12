@@ -64,15 +64,14 @@ public class StaffTableController {
             boolean matchesRole = false;
 
             if (!facultyStaffCheckBox.isSelected() && !departmentStaffCheckBox.isSelected() && !advisorCheckBox.isSelected()) {
-                if (user.getRole().equals("facultyStaff") || user.getRole().equals("departmentStaff") || user.getRole().equals("advisor")) {
+                if (user.getRole().equals("facultyStaff") || user.getRole().equals("majorStaff") || user.getRole().equals("advisor")) {
                     matchesRole = true;
                 }
             } else {
-                // ตรวจสอบบทบาทที่ตรงกับ CheckBox ที่ถูกเลือก
                 if (facultyStaffCheckBox.isSelected() && user.getRole().equals("facultyStaff")) {
                     matchesRole = true;
                 }
-                if (departmentStaffCheckBox.isSelected() && user.getRole().equals("departmentStaff")) {
+                if (departmentStaffCheckBox.isSelected() && user.getRole().equals("majorStaff")) {
                     matchesRole = true;
                 }
                 if (advisorCheckBox.isSelected() && user.getRole().equals("advisor")) {
@@ -109,9 +108,9 @@ public class StaffTableController {
         facultyColumn.setCellValueFactory(new PropertyValueFactory<>("faculty"));
         facultyColumn.setPrefWidth(155);
 
-        TableColumn<User, String> departmentColumn = new TableColumn<>("Major");
-        departmentColumn.setCellValueFactory(new PropertyValueFactory<>("major"));
-        departmentColumn.setPrefWidth(155);
+        TableColumn<User, String> majorColumn = new TableColumn<>("Major");
+        majorColumn.setCellValueFactory(new PropertyValueFactory<>("major"));
+        majorColumn.setPrefWidth(155);
 
         TableColumn<User, String> roleColumn = new TableColumn<>("Role");
         roleColumn.setCellValueFactory(new PropertyValueFactory<>("role"));
@@ -134,10 +133,10 @@ public class StaffTableController {
         });
 
         tableView.getColumns().clear();
-        tableView.getColumns().addAll(nameColumn, usernameColumn, facultyColumn, departmentColumn, roleColumn, suspendColumn);
+        tableView.getColumns().addAll(nameColumn, usernameColumn, facultyColumn, majorColumn, roleColumn, suspendColumn);
 
         for (User user : userList.getUsers()) {
-            if (user.getRole().equals("facultyStaff") || user.getRole().equals("departmentStaff") || user.getRole().equals("advisor")) {
+            if (user.getRole().equals("facultyStaff") || user.getRole().equals("majorStaff") || user.getRole().equals("advisor")) {
                 tableView.getItems().add(user);
             }
         }

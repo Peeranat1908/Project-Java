@@ -74,7 +74,7 @@ public class ResetPasswordController {
         String hashedNewPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
         user.setPassword(hashedNewPassword);
 
-        if (user.getRole().equals("advisor") || user.getRole().equals("facultyStaff") || user.getRole().equals("departmentStaff")) {
+        if (user.getRole().equals("advisor") || user.getRole().equals("facultyStaff") || user.getRole().equals("majorStaff")) {
             user.setFirstlogin(false);
         }
 

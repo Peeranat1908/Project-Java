@@ -101,7 +101,7 @@ public class UserListFileDatasource implements Datasource<UserList> {
             DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
             for (User user : userList.getUsers()) {
-                String profilePicturePath = "/images/defaultProfilePicture.png"; // ค่าปริยายสำหรับ profilePicturePath
+                String profilePicturePath = "/images/defaultProfilePicture.png";
                 switch (user.getRole()) {
                     case "admin":
                         profilePicturePath = user.getProfilePicturePath() != null ? user.getProfilePicturePath() : "/images/adminDefaultPicture.png";
@@ -115,7 +115,7 @@ public class UserListFileDatasource implements Datasource<UserList> {
                     case "facultyStaff":
                         profilePicturePath = user.getProfilePicturePath() != null ? user.getProfilePicturePath() : "/images/facultyStaffDefaultPicture.png";
                         break;
-                    case "departmentStaff":
+                    case "majorStaff":
                         profilePicturePath = user.getProfilePicturePath() != null ? user.getProfilePicturePath() : "/images/majorStaffDefaultPicture.png";
                         break;
                     default:

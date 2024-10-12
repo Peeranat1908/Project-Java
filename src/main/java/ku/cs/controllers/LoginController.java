@@ -100,7 +100,7 @@ public class LoginController {
                 }
                 FXRouter.goTo("facultyStaff", user);
                 break;
-            case "departmentStaff":
+            case "majorStaff":
                 if (user.isFirstlogin()){
                     errorLabel.setText("Please change your password before your first login.");
                     return;

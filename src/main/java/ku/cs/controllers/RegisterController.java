@@ -80,7 +80,7 @@ public class RegisterController {
             Datasource<StudentList> studentDatasource = new StudentListFileDatasource("data", "student-info.csv");
             studentDatasource.writeData(studentList);
 
-            User newUser = new User(name, username, hashedPassword,"student", null,id,findStudent.getFaculty(),findStudent.getMajor());
+            User newUser = new User(name, username, hashedPassword,"student",id,findStudent.getFaculty(),findStudent.getMajor());
             userList.addUser(newUser);
             UserListFileDatasource userDatasource = new UserListFileDatasource("data", "user.csv");
             userDatasource.writeData(userList);

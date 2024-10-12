@@ -94,7 +94,7 @@ public class MainAdminController implements Sidebar {
             if (facultyStaffCheckBox.isSelected() && user.getRole().equals("facultyStaff")) {
                 matchesRole = true;
             }
-            if (departmentStaffCheckBox.isSelected() && user.getRole().equals("departmentStaff")) {
+            if (departmentStaffCheckBox.isSelected() && user.getRole().equals("majorStaff")) {
                 matchesRole = true;
             }
             if (advisorCheckBox.isSelected() && user.getRole().equals("advisor")) {

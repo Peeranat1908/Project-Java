@@ -69,7 +69,7 @@ public class UserDetailAdminController implements Sidebar {
             userTextLabel.setText("ข้อมูลอาจารย์ที่ปรึกษา");
         } else if (user.getRole().equals("facultyStaff")) {
             userTextLabel.setText("ข้อมูลเจ้าหน้าที่คณะ");
-        } else if (user.getRole().equals("departmentStaff")) {
+        } else if (user.getRole().equals("majorStaff")) {
             userTextLabel.setText("ข้อมูลเจ้าหน้าที่ภาควิชา");
         }
 
@@ -79,9 +79,6 @@ public class UserDetailAdminController implements Sidebar {
             DepartmentLabel.setText("ภาควิชา: " +user.getMajor());
         }
         String profilePicPath = user.getProfilePicturePath();
-        if (profilePicPath == null || profilePicPath.isEmpty()) {
-            profilePicPath = "/images/profileDeafault2.png";
-        }
         Image profileImage = new Image(getClass().getResourceAsStream(profilePicPath));
         imagecircle.setFill(new ImagePattern(profileImage));
     }

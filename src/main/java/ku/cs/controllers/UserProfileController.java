@@ -1,14 +1,28 @@
 package ku.cs.controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import ku.cs.models.User;
+import ku.cs.models.UserList;
 import ku.cs.services.FXRouter;
+import ku.cs.services.UserListFileDatasource;
+import org.mindrot.jbcrypt.BCrypt;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 
 public class UserProfileController {
     @FXML private Label nameLabel;
@@ -16,42 +30,160 @@ public class UserProfileController {
     @FXML private Label roleLabel;
     @FXML private Label idLabel;
     @FXML private Circle imagecircle;
+    @FXML private Label errorLabel;
+    @FXML private PasswordField oldPasswordTextfield;
+    @FXML private PasswordField newPasswordTextfield;
+    @FXML private PasswordField confirmPasswordTextfield;
+    @FXML private Pane resetPasswordPane;
+    @FXML private Button onChangeProfileImageButtonClick;
+    @FXML private Label idLabel1;
+    @FXML private Label majorLabel1;
+    @FXML private Label majorLabel;
+    @FXML private Label facultyLabel;
 
+
+
+    private UserList userList;
+    private UserListFileDatasource datasource;
     private User user;
-
+    private User updatedUser;
     @FXML
     public void initialize() {
+        errorLabel.setText("");
+        idLabel.setVisible(false);
+        idLabel1.setVisible(false);
+        majorLabel1.setVisible(false);
+        majorLabel.setVisible(false);
+        resetPasswordPane.setVisible(false);
+        datasource = new UserListFileDatasource("data", "user.csv");
+        userList = datasource.readData();
         Object data = FXRouter.getData();
         if (data instanceof User) {
             user = (User) data;
-            updateUI();
+            updateUI(user);
 
-            String profilePicPath = user.getProfilePicturePath();
-            if (profilePicPath == null || profilePicPath.isEmpty()) {
-                profilePicPath = "/images/profileDeafault2.png"; // Ensure the path is correct
-            }
-            Image profileImage = new Image(getClass().getResourceAsStream(profilePicPath));
-            imagecircle.setFill(new ImagePattern(profileImage));
         } else {
             usernameLabel.setText("Invalid user data");
         }
     }
 
-    private void updateUI() {
+    private User updateUser(User user) {
+        userList = datasource.readData();
+        updatedUser = userList.findUserByUsername(user.getUsername());
+        return updatedUser;
+    }
+
+    private void updateUI(User user) {
         if (user != null) {
             usernameLabel.setText(user.getUsername());
             roleLabel.setText(user.getRole());
-            idLabel.setText(user.getId());
+            if (user.getRole().equals("majorStaff")) {
+                majorLabel.setVisible(true);
+                majorLabel1.setVisible(true);
+                majorLabel.setText(user.getMajor());
+                if (user.getRole().equals("advisor") || user.getRole().equals("student")) {
+                    idLabel.setVisible(true);
+                    idLabel1.setVisible(true);
+                    idLabel.setText(user.getId());
+                }
+            }
             nameLabel.setText(user.getName());
+            facultyLabel.setText(user.getFaculty());
+
+            String imagePath = System.getProperty("user.dir") + File.separator + user.getProfilePicturePath();
+            String url = new File(imagePath).toURI().toString();
+            imagecircle.setFill(new ImagePattern(new Image(url)));
         }
     }
+    @FXML
+    private void onEnterButtonClick() {
+        String oldPassword = oldPasswordTextfield.getText().trim();
+        String newPassword = newPasswordTextfield.getText().trim();
+        String confirmPassword = confirmPasswordTextfield.getText().trim();
+
+        if (oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
+            errorLabel.setText("Please fill in all fields.");
+            return;
+        }
+
+        if (!newPassword.equals(confirmPassword)) {
+            errorLabel.setText("New password and confirmation do not match.");
+            return;
+        }
+        User finduser = userList.findUserByUsername(user.getUsername());
+        if (finduser == null || !BCrypt.checkpw(oldPassword, finduser.getPassword())) {
+            errorLabel.setText("Username or old password is incorrect.");
+            return;
+        }
+
+        String hashedNewPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
+        finduser.setPassword(hashedNewPassword);
+        datasource.writeData(userList);
+
+        errorLabel.setText("Password successfully reset.");
+        oldPasswordTextfield.clear();
+        newPasswordTextfield.clear();
+        confirmPasswordTextfield.clear();
+    }
+
+
+    @FXML
+    private void onChangePasswordButtonClick() {
+        resetPasswordPane.setVisible(!resetPasswordPane.isVisible());
+    }
+    @FXML
+    private void onChangeProfileImageButtonClick() {
+        // สร้าง FileChooser
+        FileChooser fileChooser = new FileChooser();
+        // เปลี่ยนไปใช้เส้นทางที่ตรงไปยัง data/userProfileImage
+        File initialDirectory = new File("data/userProfileImage");
+        if (!initialDirectory.exists()) {
+            initialDirectory.mkdirs();
+        }
+        fileChooser.setInitialDirectory(initialDirectory);
+
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        );
+
+        Stage stage = (Stage) onChangeProfileImageButtonClick.getScene().getWindow();
+        File selectedFile = fileChooser.showOpenDialog(stage);
+
+        if (selectedFile != null) {
+            try {
+                File destDir = new File("data/userProfileImage");
+                if (!destDir.exists()) {
+                    destDir.mkdirs();
+                }
+
+                String[] fileSplit = selectedFile.getName().split("\\.");
+                String filename = user.getUsername() + fileSplit[fileSplit.length - 1].toLowerCase();
+                Path target = FileSystems.getDefault().getPath(destDir.getAbsolutePath() + File.separator + filename);
+                Files.copy(selectedFile.toPath(), target, StandardCopyOption.REPLACE_EXISTING);
+                String profilePicPath = "data/userProfileImage" + File.separator + filename;
+                User findUser = userList.findUserByUsername(user.getUsername());
+                findUser.setProfilePicturePath(profilePicPath);
+                datasource.writeData(userList);
+                updateUI(updateUser(findUser));
+                errorLabel.setText("อัพเดตรูปโปรไฟล์สำเร็จ.");
+            } catch (IOException e) {
+                e.printStackTrace();
+                errorLabel.setText("เกิดข้อผิดพลาดในการอัพเดตรูปโปรไฟล์.");
+            }
+        } else {
+            errorLabel.setText("ไม่มีไฟล์ที่เลือก.");
+        }
+    }
+
+
+
 
     @FXML
     private void onBackButton() {
         try {
             navigateByRole(user);
         } catch (IOException e) {
-            e.printStackTrace(); // Print error to the console for debugging purposes
+            e.printStackTrace();
         }
     }
     @FXML
@@ -89,7 +221,7 @@ public class UserProfileController {
                 }
                 FXRouter.goTo("facultyStaff", user);
                 break;
-            case "departmentStaff":
+            case "majorStaff":
                 if (user.isFirstlogin()) {
                     System.out.println("Please change your password before your first login.");
                     return;

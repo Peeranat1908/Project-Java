@@ -90,7 +90,7 @@ public class StaffEditController {
         } else if (user.getRole().equals("facultyStaff")) {
             userTextLabel.setText("ข้อมูลเจ้าหน้าที่คณะ");
             IdorDepartmentLabel.setText("");
-        } else if (user.getRole().equals("departmentStaff")) {
+        } else if (user.getRole().equals("majorStaff")) {
             userTextLabel.setText("ข้อมูลเจ้าหน้าที่ภาควิชา");
         }
 

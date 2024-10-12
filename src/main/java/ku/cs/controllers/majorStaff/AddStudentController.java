@@ -30,6 +30,7 @@ public class AddStudentController {
     private PreRegisterStudentListFileDatasource studentFileDatasource;
     @FXML
     public void initialize() {
+        addStudentLabel.setText("");
         Object data = FXRouter.getData();
         if (data instanceof User) {
             user = (User) data;

@@ -38,6 +38,9 @@ public class User implements Comparable<User> {
     public User(String name, String username, String password, String role, String profilePicturePath,String id,String faculty,String major) {
         this(name , username, password, null, null, role, profilePicturePath, false, faculty, major,false, id);
     }
+    public User(String name, String username, String password, String role, String id, String faculty, String major) {
+        this(name,username,password,role,null,id,faculty,major);
+    }
 
 
 
