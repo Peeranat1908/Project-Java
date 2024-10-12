@@ -1,10 +1,11 @@
 package ku.cs.controllers.admin;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import ku.cs.controllers.components.Sidebar;
+import ku.cs.controllers.components.SidebarController;
 import ku.cs.models.*;
 import ku.cs.services.*;
 import javafx.collections.FXCollections;
@@ -12,7 +13,7 @@ import javafx.collections.ObservableList;
 import org.mindrot.jbcrypt.BCrypt;
 import java.io.IOException;
 
-public class AddStaffController {
+public class AddStaffController implements Sidebar {
 
     @FXML
     private TextField advisorIdTextfield;
@@ -36,10 +37,16 @@ public class AddStaffController {
     private Label addStaffLabel;
 
     private UserList userList;
-    private UserListFileDatasource datasource;
     private User user;
     private FacultyListFileDatasource facultyDatasource;
     private MajorListFileDatasource majorDatasource;
+
+    @FXML
+    private AnchorPane sidebar;
+    @FXML
+    private AnchorPane mainPage;
+    @FXML
+    private Button toggleSidebarButton; // ปุ่มสำหรับแสดง/ซ่อน Sidebar
 
     @FXML
     public void initialize() {
@@ -51,13 +58,19 @@ public class AddStaffController {
             handleRoleSelection(newValue);
         });
         loadData();
+        loadSidebar();// loadSidebar
+        toggleSidebarButton.setOnAction(actionEvent -> {toggleSidebar();});
     }
+
+
     private void loadData() {
         Datasource<UserList> userDatasource = new UserListFileDatasource("data", "user.csv");
         userList = userDatasource.readData();
     }
 
+
     private void loadRoleChoices() {
+        roleChoiceBox.getItems().clear();
         roleChoiceBox.getItems().addAll("อาจารย์ที่ปรึกษา", "เจ้าหน้าที่คณะ", "เจ้าหน้าที่ภาควิชา");
     }
 
@@ -80,10 +93,10 @@ public class AddStaffController {
 
     }
 
+
     private void loadMajorChoices(String facultyId) {
         majorDatasource = new MajorListFileDatasource("data", "major.csv");
         majorChoiceBox.getItems().clear();
-
         ObservableList<String> majorNames = FXCollections.observableArrayList();
         for (Major major : majorDatasource.readData().getMajors()) {
             if (major.getFacultyId().equals(facultyId)) {
@@ -92,6 +105,7 @@ public class AddStaffController {
         }
         majorChoiceBox.getItems().addAll(majorNames);
     }
+
 
     private void loadFacultyChoices() {
         facultyDatasource = new FacultyListFileDatasource("data", "faculty.csv");
@@ -122,9 +136,11 @@ public class AddStaffController {
             }
         });
     }
+
     private void processSelectedFacultyId(String facultyId) {
         loadMajorChoices(facultyId);
     }
+
     @FXML
     public void addStaffButtonClick() {
         String name = nameTextField.getText();
@@ -135,13 +151,10 @@ public class AddStaffController {
         String major = majorChoiceBox.getValue();
         String advisorId = advisorIdTextfield.getText();
 
-        // ตรวจสอบว่ามีข้อมูลว่างหรือไม่
         if (name.isEmpty() || username.isEmpty() || password.isEmpty() || role == null || faculty == null) {
             addStaffLabel.setText("กรุณากรอกข้อมูลให้ครบถ้วน");
             return;
         }
-
-        // แปลงบทบาท
         if (role.equals("อาจารย์ที่ปรึกษา")) {
             role = "advisor";
         } else if (role.equals("เจ้าหน้าที่คณะ")) {
@@ -150,44 +163,67 @@ public class AddStaffController {
             role = "departmentStaff";
         }
 
-        // ตรวจสอบชื่อผู้ใช้
         if (userList.findUserByUsername(username) != null) {
             addStaffLabel.setText("ชื่อผู้ใช้ " + username + " มีอยู่แล้ว กรุณาใช้ชื่ออื่น");
             return;
         }
 
-        // ตรวจสอบชื่อ
         if (userList.findUserByName(name) != null) {
             addStaffLabel.setText("ชื่อ " + name + " มีอยู่แล้ว กรุณาใช้ชื่ออื่น");
             return;
         }
 
-        // ตรวจสอบ advisorId ถ้ามี
-        if (advisorId != null && userList.findUserById(advisorId) != null) {
-            addStaffLabel.setText("ID " + advisorId + " มีอยู่แล้ว กรุณาใช้ ID อื่น");
-            return;
+        if (advisorId != null && !advisorId.isEmpty()) {
+            User foundUser = userList.findUserById(advisorId);
+            if (foundUser != null && advisorId.equals(foundUser.getId())) {
+                addStaffLabel.setText("ID " + advisorId + " มีอยู่แล้ว กรุณาใช้ ID อื่น");
+                return;
+            }
         }
 
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
         User newUser = null;
 
-        // สร้างผู้ใช้ใหม่ตามบทบาท
         if (role.equals("advisor")) {
-            newUser = new User(name, username, hashedPassword, null, null, role, null, false, faculty, major, false, advisorId);
+
+            newUser = new User(name, username, hashedPassword, null, null, role, null, false, faculty, major, true, advisorId);
         } else if (role.equals("facultyStaff")) {
-            newUser = new User(name, username, hashedPassword, null, null, role, null, false, faculty, null, false, null);
+            newUser = new User(name, username, hashedPassword, null, null, role, null, false, faculty, null, true, null);
         } else if (role.equals("departmentStaff")) {
-            newUser = new User(name, username, hashedPassword, null, null, role, null, false, faculty, major, false, null);
+            newUser = new User(name, username, hashedPassword, null, null, role, null, false, faculty, major, true, null);
         } else {
             throw new IllegalArgumentException("บทบาทไม่ถูกต้อง");
         }
 
-        // เพิ่มผู้ใช้ใหม่ในรายชื่อผู้ใช้
         userList.addUser(newUser);
         UserListFileDatasource userDatasource = new UserListFileDatasource("data", "user.csv");
         userDatasource.writeData(userList);
         addStaffLabel.setText("เพิ่มผู้ใช้สำเร็จ: " + username);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("สำเร็จ");
+        alert.setHeaderText(null);
+        alert.setContentText("เพิ่มผู้ใช้สำเร็จ: " + username);
+
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+
+                initialize();
+                clearInputFields();
+            }
+        });;
+    }
+
+    private void clearInputFields() {
+        nameTextField.clear();
+        usernameTextField.clear();
+        passwordTextField.clear();
+        advisorIdTextfield.clear();
+        roleChoiceBox.getSelectionModel().clearSelection();
+        facultyChoiceBox.getSelectionModel().clearSelection();
+        majorChoiceBox.getSelectionModel().clearSelection();
+
     }
 
 
@@ -237,6 +273,7 @@ public class AddStaffController {
             throw new RuntimeException(e);
         }
     }
+
     @FXML
     public void onManageFacultyButtonClick() {
         try {
@@ -245,4 +282,44 @@ public class AddStaffController {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public void loadSidebar() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/views/other/sidebar.fxml"));
+            AnchorPane loadedSidebar = loader.load();
+
+            // ดึง SidebarController จาก FXML Loader
+            SidebarController sidebarController = loader.getController();
+            sidebarController.setSidebar(this); // กำหนด MainAdminController เป็น Sidebar เพื่อให้สามารถปิดได้
+
+            sidebar = loadedSidebar; // กำหนด sidebar ที่โหลดเสร็จแล้ว
+            sidebar.setVisible(false); // ปิด sidebar ไว้ในค่าเริ่มต้น
+            mainPage.getChildren().add(sidebar); // เพิ่ม sidebar ไปยัง mainPage
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void toggleSidebar() {
+        if (sidebar != null){
+            sidebar.setVisible(!sidebar.isVisible());
+            if (sidebar.isVisible()){
+                sidebar.toFront(); //ให้ sidebar แสดงด้านหน้าสุด
+            }
+            else {
+                sidebar.toBack();
+            }
+        }
+    }
+
+    @Override
+    public void closeSidebar() {
+        if (sidebar != null){
+            sidebar.setVisible(false);
+            sidebar.toBack();
+        }
+    }
+
 }

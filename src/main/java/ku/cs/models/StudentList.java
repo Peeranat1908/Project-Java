@@ -28,10 +28,17 @@ public class StudentList extends UserList{
         return null;
     }
 
-
     public boolean isExists(String username, String id) {
         for (Student student : students) {
             if (student.getUsername().equals(username) || student.getId().equals(id)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean isExists(String name, String id,String email) {
+        for (Student student : students) {
+            if (student.getName().equals(name) && student.getId().equals(id) && student.getEmail().equals(email)) {
                 return true;
             }
         }
@@ -54,5 +61,49 @@ public class StudentList extends UserList{
             }
         }
     }
+    public Student findStudentByName(String name){
+        for (Student student : students){
+            if (student.getName().equalsIgnoreCase(name.trim())){
+                return student;
+            }
+        }
+        return null;
+    }
+
+    public Student findStudentByEmail(String name){
+        for (Student student : students){
+            if (student.getEmail().equalsIgnoreCase(name.trim())){
+                return student;
+            }
+        }
+        return null;
+    }
+    public StudentList getStudentsListBYFaculty(String faculty) {
+        StudentList studentsList = new StudentList();
+        for (Student student : students) {
+            if (student.getFaculty().equalsIgnoreCase(faculty)) {
+                studentsList.addStudent(student);
+            }
+        }
+        return studentsList;
+    }
+    public StudentList getStudentsListBYMajor(String major) {
+        StudentList studentsList = new StudentList();
+        for (Student student : students) {
+            if (student.getMajor().equalsIgnoreCase(major)) {
+                studentsList.addStudent(student);
+            }
+        }
+        return studentsList;
+    }
+    public Student findStudentByUsername(String username) {
+        for (Student student : students) {
+            if (student.getUsername().equals(username)) {
+                return student;
+            }
+        }
+        return null;
+    }
+
 
 }

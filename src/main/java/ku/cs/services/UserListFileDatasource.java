@@ -42,6 +42,7 @@ public class UserListFileDatasource implements Datasource<UserList> {
         UserList userList = new UserList();
         String filePath = directory + File.separator + filename;
         File file = new File(filePath);
+        boolean isFirstLine = true;
 
         try (BufferedReader buffer = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {
             String line;
@@ -49,6 +50,10 @@ public class UserListFileDatasource implements Datasource<UserList> {
             DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
             while ((line = buffer.readLine()) != null) {
+                if (isFirstLine) { // ข้ามบรรทัดแรก
+                    isFirstLine = false;
+                    continue;
+                }
                 if (line.trim().isEmpty()) continue;
 
                 String[] data = line.split(",");
@@ -90,6 +95,8 @@ public class UserListFileDatasource implements Datasource<UserList> {
         File file = new File(filePath);
 
         try (BufferedWriter buffer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
+            buffer.write("Username,Password,Name,LastLoginDate,LastLoginTime,Role,ProfilePicturePath,Suspended,Faculty,Major,FirstLogin,ID");
+            buffer.newLine();
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
@@ -124,8 +131,8 @@ public class UserListFileDatasource implements Datasource<UserList> {
                         user.getRole(),
                         profilePicturePath,
                         String.valueOf(user.isSuspended()),
-                        user.getMajor(),
                         user.getFaculty(),
+                        user.getMajor(),
                         String.valueOf(user.isFirstlogin()),
                         user.getId()
                 );

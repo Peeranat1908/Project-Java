@@ -1,11 +1,9 @@
 package ku.cs.controllers.admin;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 import ku.cs.models.User;
 import ku.cs.models.UserList;
 import ku.cs.services.Datasource;
@@ -21,6 +19,14 @@ public class StaffTableController {
     private TableView<User> tableView;
     @FXML
     private TextField searchUserTextfield;
+    @FXML
+    private CheckBox facultyStaffCheckBox;
+    @FXML
+    private CheckBox departmentStaffCheckBox;
+    @FXML
+    private CheckBox advisorCheckBox;
+    @FXML
+    private Pane roleSelectionPane;
 
     private UserList userList;
     private Datasource<UserList> datasource;
@@ -48,15 +54,31 @@ public class StaffTableController {
                 }
             }
         });
+        roleSelectionPane.setVisible(false);
     }
 
     private void filterTable(String searchText) {
         tableView.getItems().clear();
 
         for (User user : userList.getUsers()) {
-            boolean matchesRole = user.getRole().equals("facultyStaff") ||
-                    user.getRole().equals("departmentStaff") ||
-                    user.getRole().equals("advisor");
+            boolean matchesRole = false;
+
+            if (!facultyStaffCheckBox.isSelected() && !departmentStaffCheckBox.isSelected() && !advisorCheckBox.isSelected()) {
+                if (user.getRole().equals("facultyStaff") || user.getRole().equals("departmentStaff") || user.getRole().equals("advisor")) {
+                    matchesRole = true;
+                }
+            } else {
+                // ตรวจสอบบทบาทที่ตรงกับ CheckBox ที่ถูกเลือก
+                if (facultyStaffCheckBox.isSelected() && user.getRole().equals("facultyStaff")) {
+                    matchesRole = true;
+                }
+                if (departmentStaffCheckBox.isSelected() && user.getRole().equals("departmentStaff")) {
+                    matchesRole = true;
+                }
+                if (advisorCheckBox.isSelected() && user.getRole().equals("advisor")) {
+                    matchesRole = true;
+                }
+            }
 
             if (matchesRole &&
                     (user.getName().toLowerCase().contains(searchText.toLowerCase()) ||
@@ -65,6 +87,8 @@ public class StaffTableController {
             }
         }
     }
+
+
 
     private void showTable(UserList userList) {
         tableView.getItems().clear(); // เคลียร์ตารางก่อน
@@ -112,12 +136,20 @@ public class StaffTableController {
         tableView.getColumns().clear();
         tableView.getColumns().addAll(nameColumn, usernameColumn, facultyColumn, departmentColumn, roleColumn, suspendColumn);
 
-        // แสดงผู้ใช้ใน TableView
         for (User user : userList.getUsers()) {
             if (user.getRole().equals("facultyStaff") || user.getRole().equals("departmentStaff") || user.getRole().equals("advisor")) {
                 tableView.getItems().add(user);
             }
         }
+    }
+    @FXML
+    private void RoleSelectedButtonClick() {
+        roleSelectionPane.setVisible(!roleSelectionPane.isVisible());
+    }
+
+    @FXML
+    private void enterselectedRoleButtonClick() {
+        filterTable(searchUserTextfield.getText());
     }
 
 

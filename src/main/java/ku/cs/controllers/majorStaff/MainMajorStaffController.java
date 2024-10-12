@@ -1,98 +1,176 @@
 package ku.cs.controllers.majorStaff;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import ku.cs.models.Student;
-import ku.cs.models.StudentList;
-import ku.cs.models.User;
-import ku.cs.services.Datasource;
-import ku.cs.services.FXRouter;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.control.Label;
+import ku.cs.controllers.components.AppealItemController;
+import ku.cs.models.*;
+import ku.cs.services.*;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.time.format.DateTimeFormatter;
 
-public class MainMajorStaffController {
+
+public class MainMajorStaffController{
     @FXML
-    private Label errorLabel;
+    private VBox appealVBox;
+
     @FXML
-    private TableView<Student> studentTableView;
+    private Label noAppealsLabel;
+
     @FXML
     private TextField searchTextField;
-
-    @FXML
-    private Button searchButtonClick;
-
-    private StudentList studentList;
-
-    private Datasource<StudentList> datasource;
+    @FXML private Label nameLabel;
     private User user;
+    private AppealList appealList;
+    private AppealListDatasource datasource;
+    private AppealList appealListInMajor;
 
     @FXML
-    public void initialize() {
-//        errorLabel.setText("");
+    private void initialize() {
         Object data = FXRouter.getData();
+        datasource = new AppealListDatasource("data/appeals.csv");
+        appealList = datasource.readData();
+        AppealSharedData.setNormalAppealList(appealList);
         if (data instanceof User) {
             user = (User) data;
+            updateUI();
+        } else {
+            nameLabel.setText("Invalid user data");
+        }
+        Datasource<StudentList> studentDatasource = new StudentListFileDatasource("data", "student-info.csv");
+        StudentList studentList = studentDatasource.readData();
+        StudentList studentsListInMajor = studentList.getStudentsListBYMajor(user.getMajor());
+        appealListInMajor = appealList.findAppealByStudentID(studentsListInMajor);
+        loadAppeals(null, null);
+
+    }
+
+    private void loadAppeals(String filterType, String searchQuery) {
+        // Fetch the list of appeals in the major
+        List<Appeal> appeals = appealListInMajor.getsAppeals();
+
+        // If there are no appeals, show "no appeals" message
+        if (appeals == null || appeals.isEmpty()) {
+            noAppealsLabel.setVisible(true);
+            appealVBox.getChildren().clear(); // Clear the list
+            return; // Exit early if there's nothing to process
+        }
+        appeals = appeals.stream()
+                .filter(appeal -> appeal.getStatus().trim().equalsIgnoreCase("อนุมัติโดยอาจารย์ที่ปรึกษา คำร้องส่งต่อให้หัวหน้าภาควิชา") ||
+                        appeal.getStatus().contains("หัวหน้าภาควิชา"))
+                .collect(Collectors.toList());
+
+
+        // Filter appeals by type, if a filterType is provided
+        if (filterType != null && !filterType.isEmpty()) {
+            appeals = appeals.stream()
+                    .filter(appeal -> appeal.getType().equals(filterType))
+                    .collect(Collectors.toList());
+        }
+
+        // Filter appeals by search query, if provided
+        if (searchQuery != null && !searchQuery.trim().isEmpty()) {
+            String lowerCaseQuery = searchQuery.trim().toLowerCase();
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+            appeals = appeals.stream()
+                    .filter(appeal ->
+                            appeal.getSubject().toLowerCase().contains(lowerCaseQuery) || // Search by subject
+                                    appeal.getRequest().toLowerCase().contains(lowerCaseQuery) || // Search by request content
+                                    appeal.getDate().format(dateFormatter).contains(lowerCaseQuery) || // Search by date
+                                    appeal.getStudentSignature().toLowerCase().contains(lowerCaseQuery) // Search by student signature
+                    ).collect(Collectors.toList());
+        }
+
+        // Sort appeals using the comparator
+        appeals.sort(new AppealSortComparator(filterType));
+
+        // Update the UI based on the filtered appeals
+        appealVBox.getChildren().clear(); // Clear previous list
+        if (appeals.isEmpty()) {
+            noAppealsLabel.setVisible(true); // Show "no appeals" message if list is empty
+        } else {
+            noAppealsLabel.setVisible(false); // Hide "no appeals" message if appeals are present
+            // Load each filtered appeal into the VBox
+            appeals.forEach(appeal -> {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/views/student/appeal-item.fxml"));
+                    Pane pane = loader.load();
+
+                    AppealItemController controller = loader.getController();
+                    controller.setAppealData(appeal); // Set appeal data for the view
+
+                    appealVBox.getChildren().add(pane); // Add pane to VBox
+                } catch (IOException e) {
+                    e.printStackTrace(); // Log error in case of failure
+                }
+            });
         }
     }
 
-//    private void searchStudent() {
-//        String searchQuery = searchTextField.getText().trim();
-//        if (searchQuery.isEmpty()) {
-//            studentTableView.getItems().setAll(studentAdvisorList.getStudentAdvisor());
-////            errorLabel.setText("กรุณาใส่ข้อมูล");
-//            return;
-//        }
+    @FXML   //สำหรับ search หาคำร้อง
+    public void onSearchButtonClick() {
+        String searchQuery = searchTextField.getText();
+        loadAppeals(null, searchQuery);
+    }
 
-//        StudentAdvisor fondStudent = studentAdvisorList.findStudentById(searchQuery);
-//        if (fondStudent == null) {
-//            fondStudent = studentAdvisorList.findStudentByName(searchQuery);
-//        }
-//
-//        if (fondStudent != null) {
-//            studentTableView.getItems().setAll(fondStudent);
-//        } else {
-//            studentTableView.getItems().clear();
-//        }
-//    }
+    @FXML   //กรองเเค่คำร้องทั่วไป
+    public void showNormalAppealsOnly() {
+        loadAppeals("คำร้องทั่วไป:", null);
+    }
+
+    @FXML   //กรองเเค่ใบลาพักการศึกษา
+    public void showLeaveAppealsOnly() {
+        loadAppeals("ใบลาพักการศึกษา:", null);
+    }
+
+    @FXML   //กรองเเค่คำร้องขอลงทะเบียนเรียน
+    public void showEnrollAppealsOnly() {
+        loadAppeals("ขอลงทะเบียนเรียน:", null);
+    }
+    @FXML   //เห็นคำร้องทุกประเภท
+    public void showAllAppeals() {
+        loadAppeals(null, null);
+    }
+
+
+
+
+
+    private void updateUI() {
+        if (user != null) {
+            nameLabel.setText(user.getUsername());
+
+        }
+    }
 
     @FXML
-    public void onMyTeamButtonClick() throws RuntimeException {
-//        Object temp = FXRouter.getData();
-//        if (temp instanceof String) {
-//            previousPage = (String)temp;
-//        }
-
-        try {
-            FXRouter.goTo("my-team");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public void onAddEndorserButton(){
+        navigateTo("add-major-endorser", user);
+    }
+    @FXML
+    public void onUserProfileButton(){
+        navigateTo("user-profile", user);
     }
 
     @FXML
-    public void onRequestButtonClick() {
-        try {
-            FXRouter.goTo("request-page");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public void onStudentListButton(){
+        navigateTo("student-in-major", user);
     }
-    @FXML
-    public void onStudentListButtonClick(){
+
+    private void navigateTo(String route, Object data) {
         try {
-            FXRouter.goTo("studentInMajor",user);
+            FXRouter.goTo(route, data);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.err.println("Navigation to " + route + " failed: " + e.getMessage());
         }
     }
 
-    @FXML
-    public void onEndorserButtonClick(){
-        try {
-            FXRouter.goTo("majorEndorser");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
 }

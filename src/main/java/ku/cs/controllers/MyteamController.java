@@ -1,10 +1,12 @@
 package ku.cs.controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import ku.cs.services.FXRouter;
 
 import java.io.IOException;
@@ -19,7 +21,8 @@ public class MyteamController {
     @FXML private ImageView nickImage;
     @FXML private Button teamButton;
     @FXML private Label teamnameLabel;
-    @FXML private Button backbutton;
+    @FXML private Button backButton;
+    private Scene previousScene;
 
     @FXML
     public void initialize(){
@@ -37,16 +40,22 @@ public class MyteamController {
         nickImage.setImage(nick);
 
     }
+
+    public void setPreviousScene(Scene previousScene) {
+        this.previousScene = previousScene;
+    }
+
     @FXML
     public void onBackButtonClick() { // Method to go back to previous page
-        // Retrieve the previous page from the stack
-        String previousPage = NavigationHistoryService.getInstance().popPage();
-        if (previousPage != null) {
-            try {
-                FXRouter.goTo(previousPage);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        // ดึง Stage ปัจจุบัน
+        Stage stage = (Stage) backButton.getScene().getWindow();
+        // ตั้งค่า Scene เดิมกลับไป
+        if (previousScene != null) {
+            System.out.println("Returning previous scene");
+            stage.setScene(previousScene);
+        }
+        else {
+            System.out.println("Previous scene is null");
         }
     }
 

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.majorStaff.AddMajorEndorserController">
+   <children>
+      <Pane layoutX="1.0" layoutY="3.0" prefHeight="80.0" prefWidth="1275.0" style="-fx-background-color: EAF4FF;">
+         <children>
+            <Button layoutX="-7.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="124.0" style="-fx-background-color: #2F80ED; -fx-background-radius: 0;" textFill="WHITE" />
+            <Label fx:id="nameLabel" layoutX="1024.0" layoutY="24.0" text="Major-Staff">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Button layoutX="135.0" layoutY="20.0" mnemonicParsing="false" onAction="#onHomeButtonClick" style="-fx-background-color: EAF4FF;" text="HOME">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <Button layoutX="211.0" layoutY="19.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="LIST">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="onMyTeamButtonClick" layoutX="273.0" layoutY="19.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="MY TEAM">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <Group layoutX="134.0" layoutY="28.0">
+               <children>
+                  <Line endX="-51.0" startX="-100.0" stroke="WHITE" strokeWidth="3.0" />
+                  <Line endX="-51.0" layoutY="11.0" startX="-100.0" stroke="WHITE" strokeWidth="3.0" />
+                  <Line endX="-51.857139587402344" layoutX="1.0" layoutY="21.0" startX="-100.85713958740234" stroke="WHITE" strokeWidth="3.0" />
+               </children>
+            </Group>
+            <ImageView fitHeight="68.0" fitWidth="71.0" layoutX="1195.0" layoutY="12.0">
+               <image>
+                  <Image url="@../../../../images/major-staff.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="370.0" layoutY="18.0" mnemonicParsing="false" onAction="#onStudentListButton" style="-fx-background-color: EAF4FF;" text="รายชื่อนิสิต">
+               <font>
+                  <Font name="Arial Bold" size="20.0" />
+               </font>
+            </Button>
+            <Button layoutX="1205.0" layoutY="16.0" mnemonicParsing="false" onAction="#onUserProfileButton" opacity="0.0" prefHeight="51.0" prefWidth="52.0" text="Button" />
+         </children>
+      </Pane>
+      <TextField fx:id="nameId" layoutX="432.0" layoutY="286.0" prefHeight="47.0" prefWidth="396.0" promptText="Enter name" styleClass="text-field" stylesheets="@../../style/Style.css" />
+      <TextField fx:id="positionId" layoutX="434.0" layoutY="402.0" prefHeight="47.0" prefWidth="396.0" promptText="Enter position" />
+      <Label layoutX="506.0" layoutY="180.0" text="เพิ่มข้อมูลเจ้าหน้าที่ภาควิชา">
+         <font>
+            <Font name="AppleMyungjo Regular" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="433.0" layoutY="253.0" text="ชื่อ-นามสกุล">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="436.0" layoutY="367.0" text="ตำแหน่ง">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="confirmButton" layoutX="518.0" layoutY="590.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="112.0" text="ยืนยัน">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Label fx:id="errorLabel1" layoutX="437.0" layoutY="335.0" text="errorLabel1" textFill="RED" />
+      <Label fx:id="errorLabel2" layoutX="434.0" layoutY="450.0" text="errorLabel2" textFill="RED" />
+      <Label fx:id="errorLabel3" layoutX="545.0" layoutY="630.0" text="errorLabel3" textFill="RED" />
+      <Button layoutX="658.0" layoutY="590.0" mnemonicParsing="false" onAction="#onEditMajorEndorserButton" prefHeight="40.0" prefWidth="126.0" text="แก้ไขผู้อนุมัติ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

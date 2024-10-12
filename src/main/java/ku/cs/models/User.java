@@ -28,13 +28,18 @@ public class User implements Comparable<User> {
         this.suspend = banned;
         this.faculty = faculty;
         this.major = major;
-        this.firstlogin = false;
+        this.firstlogin = firstlogin;
         this.Id = Id;
     }
 
     public User(String name, String username, String password, String role, String profilePicturePath,String id) {
         this(name , username, password, null, null, role, profilePicturePath, false, null, null,false, id);
     }
+    public User(String name, String username, String password, String role, String profilePicturePath,String id,String faculty,String major) {
+        this(name , username, password, null, null, role, profilePicturePath, false, faculty, major,false, id);
+    }
+
+
 
 
     public boolean isSuspended() {
@@ -84,7 +89,6 @@ public class User implements Comparable<User> {
     public void setMajor(String major) {
         this.major = major;
     }
-
 
     public void setUsername(String username) {
         this.username = username;

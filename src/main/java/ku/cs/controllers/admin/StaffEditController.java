@@ -19,6 +19,7 @@ import ku.cs.services.MajorListFileDatasource;
 import ku.cs.services.UserListFileDatasource;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 
@@ -55,6 +56,8 @@ public class StaffEditController {
     private Label advisorIdLabel;
     @FXML
     private Label majorChoiceBoxLabel;
+    @FXML
+    private Label errorLabel;
 
 
     private UserList userList;
@@ -64,16 +67,18 @@ public class StaffEditController {
     private MajorListFileDatasource majorDatasource;
 
     public void initialize() {
+        errorLabel.setText("");
         Object data = FXRouter.getData();
         if (data instanceof User) {
             user = (User) data;
         }
-        displayUserInfo();
+        displayUserInfo(user);
         editStaffPane.setVisible(false);
-
+        datasource = new UserListFileDatasource("data", "user.csv");
+        userList = datasource.readData();
     }
 
-    private void displayUserInfo() {
+    private void displayUserInfo(User user) {
         nameLabel.setText("ชื่อ: " + user.getName());
         usernameLabel.setText("ชื่อผู้ใช้: " + user.getUsername());
         facultyLabel.setText("คณะ: " + user.getFaculty());
@@ -84,7 +89,7 @@ public class StaffEditController {
             userTextLabel.setText("ข้อมูลอาจารย์ที่ปรึกษา");
         } else if (user.getRole().equals("facultyStaff")) {
             userTextLabel.setText("ข้อมูลเจ้าหน้าที่คณะ");
-            IdorDepartmentLabel.setText(""); // ไม่แสดงภาควิชา
+            IdorDepartmentLabel.setText("");
         } else if (user.getRole().equals("departmentStaff")) {
             userTextLabel.setText("ข้อมูลเจ้าหน้าที่ภาควิชา");
         }
@@ -161,59 +166,58 @@ public class StaffEditController {
     }
     @FXML
     public void enterEditButtonClick() {
+        User findUser = userList.findUserByUsername(user.getUsername());
         String newName = nameTextField.getText();
         if (!newName.isEmpty()) {
-            user.setName(newName);
+            findUser.setName(newName);
         }
 
         String newUsername = usernameTextField.getText();
         if (!newUsername.isEmpty()) {
-            user.setUsername(newUsername);
+            if (userList.findUserByUsername(newUsername) != null) {
+                errorLabel.setText("Username " + newUsername + " มีอยู่แล้ว");
+                return;
+            }
+            findUser.setUsername(newUsername);
         }
 
         String newPassword = passwordTextField.getText();
         if (!newPassword.isEmpty()) {
-            user.setPassword(newPassword);
+            String hashedPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
+            findUser.setPassword(hashedPassword);
         }
 
         String newId = advisorIdTextfield.getText();
         if (!newId.isEmpty()) {
-            user.setId(newId);
+            if (userList.findUserById(newId) != null) {
+                errorLabel.setText("Id " + newId + " มีอยู่แล้ว");
+                return;
+            }
+            findUser.setId(newId);
         }
 
         String selectedFaculty = facultyChoiceBox.getValue();
         if (selectedFaculty != null) {
-            user.setFaculty(selectedFaculty);
+            findUser.setFaculty(selectedFaculty);
         }
 
         String selectedMajor = majorChoiceBox.getValue();
         if (selectedMajor != null) {
-            user.setMajor(selectedMajor);
+            findUser.setMajor(selectedMajor);
         }
 
-        datasource = new UserListFileDatasource("data", "user.csv");
-        userList = datasource.readData();
 
-        for (User findUser : userList.getUsers()) {
-            if (findUser.getUsername().equals(user.getUsername())) {
-                findUser.setName(user.getName());
-                findUser.setPassword(user.getPassword());
-                findUser.setFaculty(user.getFaculty());
-                findUser.setMajor(user.getMajor());
-                findUser.setId(user.getId());
-                break;
-            }
-        }
 
-        UserListFileDatasource userDatasource = new UserListFileDatasource("data", "user.csv");
-        userDatasource.writeData(userList);
+        datasource.writeData(userList);
 
-        displayUserInfo();
+        displayUserInfo(findUser);
+        editStaffButtonClick();
+        clearInputFields();
         editStaffPane.setVisible(false);
     }
     @FXML
     private void editStaffButtonClick() {
-        editStaffPane.setVisible(true);
+        editStaffPane.setVisible(!editStaffPane.isVisible());
         loadFacultyChoices();
         majorChoiceBox.setDisable(true);
         if (user.getRole().equals("advisor")) {
@@ -231,6 +235,15 @@ public class StaffEditController {
                 }
             });
         }
+
+    }
+    private void clearInputFields() {
+        nameTextField.clear();
+        usernameTextField.clear();
+        passwordTextField.clear();
+        advisorIdTextfield.clear();
+        facultyChoiceBox.getSelectionModel().clearSelection();
+        majorChoiceBox.getSelectionModel().clearSelection();
 
     }
 

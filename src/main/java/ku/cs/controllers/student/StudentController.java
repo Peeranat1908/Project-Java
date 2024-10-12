@@ -3,18 +3,23 @@ package ku.cs.controllers.student;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import ku.cs.controllers.NavigationHistoryService;
+import ku.cs.models.StudentList;
 import ku.cs.models.User;
+import ku.cs.models.Student;
+import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
-
+import ku.cs.services.StudentListFileDatasource;
 
 import java.io.IOException;
-
 public class StudentController {
     @FXML
     private Label usernameLabel;
 
-
     private User user;
+
+    private Student student;
+
+    @FXML Label errorLabel;
 
     @FXML
     private void initialize() {
@@ -22,16 +27,15 @@ public class StudentController {
         if (data instanceof User) {
             user = (User) data;
             updateUI();
-        } else {
-
-            usernameLabel.setText("Invalid user data");
         }
+        Datasource<StudentList> studentDatasource = new StudentListFileDatasource("data", "student-info.csv");
+        StudentList studentList = studentDatasource.readData();
+        student = studentList.findStudentById(user.getId());
     }
 
     private void updateUI() {
         if (user != null) {
             usernameLabel.setText(user.getUsername());
-
         }
     }
 
@@ -49,13 +53,21 @@ public class StudentController {
     // Method สำหรับการคลิกปุ่มเพื่อไปยังหน้าการยื่นคำร้องของนักเรียน
     @FXML
     public void selectAppealButtonClick() {
-        navigateTo("student-appeal", user);
+        if(student.getAdvisorID() == null || student.getAdvisorID().equals("\"\"")) {
+            errorLabel.setVisible(true);
+        }else{
+            navigateTo("student-appeal", user);
+        }
     }
 
     // Method สำหรับการคลิกปุ่มเพื่อไปยังหน้าการติดตามคำร้อง
     @FXML
     public void onAppealTrackingClick() {
-        navigateTo("appeal-tracking", user);
+        try{
+            FXRouter.goTo("appeal-tracking", user);
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -64,6 +76,7 @@ public class StudentController {
     }
 
     private void navigateTo(String route, Object data) {
+
         try {
             FXRouter.goTo(route, data); // ส่งข้อมูลไปยัง route ที่กำหนด
         } catch (IOException e) {
@@ -71,13 +84,4 @@ public class StudentController {
         }
     }
 
-
-    // Method สำหรับนำทางไปยังหน้าต่างๆ
-    private void navigateTo(String route) {
-        try {
-            FXRouter.goTo(route);
-        } catch (IOException e) {
-            System.err.println("Navigation to " + route + " failed: " + e.getMessage());
-        }
-    }
 }
