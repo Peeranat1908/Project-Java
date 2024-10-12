@@ -73,7 +73,8 @@ public class FacultyAppealDetailController {
 
             if (appeal.getStatus().equals("ปฏิเสธโดยคณบดี คำร้องถูกปฏิเสธ")){
                 declineWhen.setVisible(true);
-                DeclineDateLabel.setText(appeal.getDeclineDateTime().toString());
+                LocalDateTime time = appeal.getDeclineDateTime();
+                DeclineDateLabel.setText(time.getDayOfMonth() + "/" + time.getMonth() + "/" + time.getYear() + "  " + time.getHour() + ":" + time.getMinute() + ":" + time.getSecond());
                 DeclineDateLabel.setVisible(true);
                 declineLabel.setText(appeal.getDeclineReason());
                 declineLabel.setVisible(true);

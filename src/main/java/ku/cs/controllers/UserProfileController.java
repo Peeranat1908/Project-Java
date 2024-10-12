@@ -80,7 +80,7 @@ public class UserProfileController {
                     System.out.println("Please change your password before your first login."); // Print a message instead of using a label
                     return;
                 }
-                FXRouter.goTo("advisor", user);
+                FXRouter.goTo("main-advisor", user);
                 break;
             case "facultyStaff":
                 if (user.isFirstlogin()) {
