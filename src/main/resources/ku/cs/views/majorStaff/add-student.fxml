@@ -52,24 +52,6 @@
                         <Image url="@../../../../images/admin.png" />
                     </image>
                 </ImageView>
-<<<<<<< HEAD:src/main/resources/ku/cs/views/staff-table-admin.fxml
-                <Button layoutX="362.0" layoutY="18.0" mnemonicParsing="false" onAction="#onManageFacultyButtonClick" style="-fx-background-color: EAF4FF;" text="จัดการข้อมูลคณะและภาควิชา">
-                    <font>
-                        <Font name="System Bold" size="17.0" />
-                    </font>
-                </Button>
-                <Button layoutX="596.0" layoutY="20.0" mnemonicParsing="false" onAction="#manageStaffdataButtonClick" style="-fx-background-color: EAF4FF;" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
-                    <font>
-                        <Font name="System Bold" size="17.0" />
-                    </font>
-                </Button>
-                <Button layoutX="856.0" layoutY="21.0" mnemonicParsing="false" onAction="#dashboardButtonClick" style="-fx-background-color: EAF4FF;" text="dashboard">
-                    <font>
-                        <Font name="System Bold" size="17.0" />
-                    </font>
-                </Button>
-=======
->>>>>>> 2db7b801e7fa4d647bfd950651678f2fb53dcef8:src/main/resources/ku/cs/views/majorStaff/add-student.fxml
             </children>
         </Pane>
         <Button layoutX="1208.0" layoutY="677.0" mnemonicParsing="false" onAction="#onLogoutButtonClick" text="logout" />
