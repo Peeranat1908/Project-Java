@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
 import javafx.stage.Popup;
 import ku.cs.controllers.NavigationHistoryService;
 import ku.cs.controllers.components.Sidebar;
@@ -22,6 +23,7 @@ import ku.cs.services.Datasource;
 import ku.cs.services.UserListFileDatasource;
 import ku.cs.services.FXRouter;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -94,7 +96,7 @@ public class MainAdminController implements Sidebar {
             if (facultyStaffCheckBox.isSelected() && user.getRole().equals("facultyStaff")) {
                 matchesRole = true;
             }
-            if (departmentStaffCheckBox.isSelected() && user.getRole().equals("departmentStaff")) {
+            if (departmentStaffCheckBox.isSelected() && user.getRole().equals("majorStaff")) {
                 matchesRole = true;
             }
             if (advisorCheckBox.isSelected() && user.getRole().equals("advisor")) {
@@ -154,14 +156,13 @@ public class MainAdminController implements Sidebar {
         });
         TableColumn<User, ImageView> profilePictureColumn = new TableColumn<>("Profile Picture");
         profilePictureColumn.setCellValueFactory(cellData -> {
-            String profilePath = cellData.getValue().getProfilePicturePath();
-            if (profilePath == null || profilePath.isEmpty()) {
-                profilePath = "/images/profileDeafault2.png";
-            }
-            ImageView imageView = new ImageView(new Image(getClass().getResourceAsStream(profilePath)));
+            String imagePath = System.getProperty("user.dir") + File.separator + cellData.getValue().getProfilePicturePath();
+            String url = new File(imagePath).toURI().toString();
+            ImageView imageView = new ImageView(new Image(url));
             imageView.setFitHeight(50);
             imageView.setFitWidth(50);
             return new SimpleObjectProperty<>(imageView);
+
         });
         profilePictureColumn.setPrefWidth(100);
 

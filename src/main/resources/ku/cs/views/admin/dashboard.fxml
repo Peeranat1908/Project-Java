@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.DashboardController">
+<AnchorPane fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.DashboardController">
    <children>
       <Pane layoutX="2.0" layoutY="-1.0" prefHeight="80.0" prefWidth="1275.0" style="-fx-background-color: EAF4FF;">
          <children>
@@ -40,34 +40,31 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button layoutX="233.0" layoutY="20.0" mnemonicParsing="false" onAction="#onMyTeamButtonClick" styleClass="ButtonNavbarNotMain" text="MY TEAM">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Button>
             <ImageView fitHeight="69.0" fitWidth="68.0" layoutX="1190.0" layoutY="7.0">
                <image>
                   <Image url="@../../../../images/admin.png" />
                </image>
             </ImageView>
-            <Button layoutX="362.0" layoutY="20.0" mnemonicParsing="false" styleClass="ButtonNavbarNotMain" text="จัดการข้อมูลคณะและภาควิชา">
+
+
+            <Button layoutX="221.0" layoutY="20.0" mnemonicParsing="false" styleClass="ButtonNavbarNotMain" text="จัดการข้อมูลคณะและภาควิชา">
                <font>
                   <Font name="Arial Bold" size="18.0" />
                </font>
             </Button>
-            <Button layoutX="603.0" layoutY="20.0" mnemonicParsing="false" onAction="#manageStaffdataButtonClick" styleClass="ButtonNavbarNotMain" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
+            <Button layoutX="462.0" layoutY="20.0" mnemonicParsing="false" onAction="#manageStaffdataButtonClick" styleClass="ButtonNavbarNotMain" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
                <font>
                   <Font name="Arial Bold" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="dashboardButton" layoutX="882.0" layoutY="20.0" mnemonicParsing="false" onAction="#dashboardButtonClick" styleClass="ButtonNavbar" stylesheets="@../../style/baseOnPageLightMode.css" text="Dashboard">
+            <Button fx:id="dashboardButton" layoutX="741.0" layoutY="20.0" mnemonicParsing="false" onAction="#dashboardButtonClick" styleClass="ButtonNavbar" stylesheets="@../../style/baseOnPageLightMode.css" text="Dashboard">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
          </children>
       </Pane>
-      <VBox alignment="CENTER" layoutX="90.0" layoutY="180.0" prefHeight="186.0" prefWidth="210.0">
+      <VBox alignment="CENTER" layoutX="102.0" layoutY="160.0" prefHeight="128.0" prefWidth="174.0">
          <children>
             <Label text="จำนวนคำร้องทั้งหมด">
                <font>
@@ -80,9 +77,9 @@
                   <Insets top="10.0" />
                </padding>
             </Label>
-            <Label text="0">
+            <Label fx:id="totalAppealLabel" text="0">
                <font>
-                  <Font size="40.0" />
+                  <Font size="24.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="20.0" />
@@ -96,9 +93,9 @@
             <Insets />
          </opaqueInsets>
       </VBox>
-      <VBox alignment="CENTER" layoutX="360.0" layoutY="180.0" prefHeight="186.0" prefWidth="210.0">
+      <VBox alignment="CENTER" layoutX="397.0" layoutY="485.0" prefHeight="140.0" prefWidth="205.0">
          <children>
-            <Label prefHeight="46.0" prefWidth="256.0" text="จำนวนคำร้องที่อนุมัติแล้ว">
+            <Label alignment="CENTER" prefHeight="46.0" prefWidth="256.0" text="จำนวนคำร้องที่อนุมัติแล้ว">
                <font>
                   <Font size="20.0" />
                </font>
@@ -109,9 +106,9 @@
                   <Insets top="10.0" />
                </padding>
             </Label>
-            <Label text="0">
+            <Label fx:id="totalAccecptAppealLabel" text="0">
                <font>
-                  <Font size="40.0" />
+                  <Font size="24.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="20.0" />
@@ -125,7 +122,7 @@
             <Insets />
          </opaqueInsets>
       </VBox>
-      <VBox alignment="CENTER" layoutX="90.0" layoutY="485.0" prefHeight="186.0" prefWidth="210.0">
+      <VBox alignment="CENTER" layoutX="398.0" layoutY="192.0" prefHeight="128.0" prefWidth="194.0">
          <children>
             <Label text="จำนวนผู้ใช้ระบบทั้งหมด">
                <font>
@@ -138,9 +135,9 @@
                   <Insets top="10.0" />
                </padding>
             </Label>
-            <Label text="0">
+            <Label fx:id="totalUserLabel" text="0">
                <font>
-                  <Font size="40.0" />
+                  <Font size="24.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="20.0" />
@@ -154,13 +151,13 @@
             <Insets />
          </opaqueInsets>
       </VBox>
-      <ChoiceBox fx:id="facultyReportChoicebox" layoutX="90.0" layoutY="100.0" prefHeight="38.0" prefWidth="194.0" />
-      <ChoiceBox fx:id="departmentReportChoicebox" layoutX="360.0" layoutY="100.0" prefHeight="38.0" prefWidth="194.0" />
-      <PieChart layoutX="710.0" layoutY="116.0" prefHeight="250.0" prefWidth="400.0" title="สถานะคำร้อง" />
-      <ChoiceBox fx:id="roleUserChoicebox" layoutX="90.0" layoutY="430.0" prefHeight="38.0" prefWidth="194.0" />
-      <ChoiceBox fx:id="facultyUserChoicebox" layoutX="359.0" layoutY="430.0" prefHeight="38.0" prefWidth="194.0" />
-      <ChoiceBox fx:id="departmentUserChoicebox" layoutX="358.0" layoutY="533.0" prefHeight="38.0" prefWidth="194.0" />
-      <PieChart layoutX="710.0" layoutY="420.0" prefHeight="250.0" prefWidth="400.0" title="สถานะคำร้อง" />
+      <PieChart fx:id="AppealStatusPieChart" layoutX="6.0" layoutY="302.0" prefHeight="308.0" prefWidth="378.0" title="สถานะคำร้อง" />
+      <ChoiceBox fx:id="facultyUserChoicebox" layoutX="405.0" layoutY="151.0" prefHeight="38.0" prefWidth="194.0" />
+      <PieChart fx:id="AppealInFacultyPieChart" layoutX="570.0" layoutY="415.0" prefHeight="295.0" prefWidth="350.0" title="คำร้องที่อนุมัติแล้วแยกตามคณะ" />
+      <PieChart fx:id="AppealInMajorPieChart" layoutX="918.0" layoutY="415.0" prefHeight="295.0" prefWidth="350.0" title="คำร้องที่อนุมัติแล้วแยกตามภาควิชา" />
+      <ChoiceBox fx:id="facultyAppealChoiceBox" layoutX="405.0" layoutY="442.0" prefHeight="38.0" prefWidth="194.0" />
+      <PieChart fx:id="UserInFacultyPieChart" layoutX="568.0" layoutY="98.0" prefHeight="320.0" prefWidth="350.0" title="ผู้ใช้แยกตามคณะ" />
+      <PieChart fx:id="UserInMajorPieChart" layoutX="918.0" layoutY="100.0" prefHeight="320.0" prefWidth="350.0" title="ผู้ใช้แยกตามภาควิชา" />
    </children>
    <stylesheets>
       <URL value="@../../style/baseOnPageLightMode.css" />

@@ -38,6 +38,7 @@ public class AddStudentController implements Sidebar {
     private PreRegisterStudentListFileDatasource studentFileDatasource;
     @FXML
     public void initialize() {
+        addStudentLabel.setText("");
         Object data = FXRouter.getData();
         if (data instanceof User) {
             user = (User) data;
@@ -64,7 +65,7 @@ public class AddStudentController implements Sidebar {
             addStudentLabel.setText("ชื่อ " + name + " มีอยู่แล้ว");
             return;
         }
-        if (studentList.findSudentByEmail(email) != null) {
+        if (studentList.findStudentByEmail(email) != null) {
             addStudentLabel.setText("Email " + email + " มีอยู่แล้ว");
             return;
         }

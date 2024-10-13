@@ -36,11 +36,16 @@ public class StudentListFileDatasource implements Datasource<StudentList> {
         StudentList studentList = new StudentList();
         String filePath = directoryName + File.separator + fileName;
         File file = new File(filePath);
+        boolean isFirstLine = true;
 
         try (BufferedReader buffer = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {
             String line;
 
             while ((line = buffer.readLine()) != null) {
+                if (isFirstLine) { // ข้ามบรรทัดแรก
+                    isFirstLine = false;
+                    continue;
+                }
                 if (line.isEmpty()) continue;
 
                 String[] data = line.split(",");
@@ -55,8 +60,7 @@ public class StudentListFileDatasource implements Datasource<StudentList> {
                     String major = data[5].trim();
                     String advisorID = data.length > 6 ? data[6].trim() : null;
 
-                    Student student = new Student(name, username, "", id, email, faculty, major, null, null, "");
-                    student.setAdvisorID(advisorID);
+                    Student student = new Student(name, username,id, email, faculty, major,advisorID);
                     studentList.addStudent(student);
                 }
             }
@@ -73,6 +77,8 @@ public class StudentListFileDatasource implements Datasource<StudentList> {
         File file = new File(filePath);
 
         try (BufferedWriter buffer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
+            buffer.write("Username,Name,Id,Email,Faculty,Major,AdvisorID");
+            buffer.newLine();
             for (Student student : data.getStudents()) {
                 String line = String.join(",",
                         student.getUsername(),
@@ -91,3 +97,4 @@ public class StudentListFileDatasource implements Datasource<StudentList> {
         }
     }
 }
+

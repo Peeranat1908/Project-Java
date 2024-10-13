@@ -22,6 +22,16 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
+            <Button layoutX="211.0" layoutY="19.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="LIST">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="onMyTeamButtonClick" layoutX="273.0" layoutY="19.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="MY TEAM">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
             <Group layoutX="134.0" layoutY="28.0">
                <children>
                   <Line endX="-51.0" startX="-100.0" stroke="WHITE" strokeWidth="3.0" />
@@ -64,5 +74,15 @@
             <Font size="20.0" />
          </font>
       </TextField>
+      <Button layoutX="388.0" layoutY="18.0" mnemonicParsing="false" onAction="#onAddEndorserButton" style="-fx-background-color: EAF4FF;" text="แก้ไขระบบอนุมัติคำร้อง">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Button>
+      <Button layoutX="566.0" layoutY="18.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="รายชื่อนิสิต">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

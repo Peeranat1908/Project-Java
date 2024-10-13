@@ -15,6 +15,7 @@ import ku.cs.models.UserList;
 import ku.cs.services.FXRouter;
 import ku.cs.services.UserListFileDatasource;
 
+import java.io.File;
 import java.io.IOException;
 
 public class UserDetailAdminController implements Sidebar {
@@ -69,7 +70,7 @@ public class UserDetailAdminController implements Sidebar {
             userTextLabel.setText("ข้อมูลอาจารย์ที่ปรึกษา");
         } else if (user.getRole().equals("facultyStaff")) {
             userTextLabel.setText("ข้อมูลเจ้าหน้าที่คณะ");
-        } else if (user.getRole().equals("departmentStaff")) {
+        } else if (user.getRole().equals("majorStaff")) {
             userTextLabel.setText("ข้อมูลเจ้าหน้าที่ภาควิชา");
         }
 
@@ -78,20 +79,9 @@ public class UserDetailAdminController implements Sidebar {
         } else {
             DepartmentLabel.setText("ภาควิชา: " +user.getMajor());
         }
-
-
-        String profilePicPath = user.getProfilePicturePath();
-        if (profilePicPath == null || profilePicPath.isEmpty()) {
-            profilePicPath = "/images/profileDeafault2.png"; // รูปเริ่มต้น
-        }
-
-        Image profileImage = new Image(getClass().getResourceAsStream(profilePicPath));
-
-        // ใช้ ImagePattern สำหรับเติมรูปภาพลงใน Circle
-        imagecircle.setFill(new ImagePattern(profileImage));
-        // ตั้งรัศมี (radius) ถ้าจำเป็น
-//        imagecircle.setRadius(75);;
-
+        String imagePath = System.getProperty("user.dir") + File.separator + user.getProfilePicturePath();
+        String url = new File(imagePath).toURI().toString();
+        imagecircle.setFill(new ImagePattern(new Image(url)));
     }
 
     @FXML
@@ -105,7 +95,6 @@ public class UserDetailAdminController implements Sidebar {
             user.setSuspended(true);
             datasource.writeData(userList);
             suspendlabel.setText("ผู้ใช้ " + username + " ถูกระงับเรียบร้อยแล้ว.");
-
         }
     }
     @FXML
@@ -166,6 +155,14 @@ public class UserDetailAdminController implements Sidebar {
     public void homeButtonClick() {
         try {
             FXRouter.goTo("main-admin");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void onManageFacultyButtonClick() {
+        try {
+            FXRouter.goTo("faculty-data-admin");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

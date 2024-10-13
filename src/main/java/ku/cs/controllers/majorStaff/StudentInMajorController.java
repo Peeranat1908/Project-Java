@@ -53,8 +53,6 @@ public class StudentInMajorController implements Sidebar {
         studentTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Student>() {
             @Override
             public void changed(ObservableValue observableValue, Student oldValue, Student newValue) {
-                if (newValue != null){
-                }
             }
         });
 
@@ -99,17 +97,19 @@ public class StudentInMajorController implements Sidebar {
         TableColumn<Student, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        TableColumn<Student, String> usernameColumn = new TableColumn<>("Username");
-        usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
-
         TableColumn<Student, String> emailColumn = new TableColumn<>("email");
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
 
+        TableColumn<Student, String> advisorColumn = new TableColumn<>("AdvisorId");
+        advisorColumn.setCellValueFactory(new PropertyValueFactory<>("advisorID"));
+
         studentTableView.getColumns().clear();
-        studentTableView.getColumns().addAll(idColumn, nameColumn, usernameColumn, emailColumn);
+        studentTableView.getColumns().addAll(idColumn, nameColumn, emailColumn, advisorColumn);
 
         studentTableView.getItems().setAll(studentList.getStudents());
     }
+
+
 
 
     @FXML
@@ -133,6 +133,22 @@ public class StudentInMajorController implements Sidebar {
     public void addStudentButtonClick() {
         try {
             FXRouter.goTo("add-student",user);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void onAddEndorserButton(){
+        try {
+            FXRouter.goTo("add-major-endorser",user);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void homeButtonClick() {
+        try {
+            FXRouter.goTo("departmentStaff",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

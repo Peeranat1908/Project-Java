@@ -19,8 +19,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.time.format.DateTimeFormatter;
 
+<<<<<<< HEAD
 
 public class MainMajorStaffController implements Sidebar {
+=======
+//implements Sidebar
+public class MainMajorStaffController  {
+>>>>>>> 8eb8bbe8bb93cbf52acdcb8499192565ad11fa75
     @FXML
     private VBox appealVBox;
 
@@ -58,8 +63,13 @@ public class MainMajorStaffController implements Sidebar {
         StudentList studentsListInMajor = studentList.getStudentsListBYMajor(user.getMajor());
         appealListInMajor = appealList.findAppealByStudentID(studentsListInMajor);
         loadAppeals(null, null);
+<<<<<<< HEAD
         loadSidebar();// loadSidebar
         toggleSidebarButton.setOnAction(actionEvent -> {toggleSidebar();});
+=======
+//        loadSidebar();// loadSidebar
+//        toggleSidebarButton.setOnAction(actionEvent -> {toggleSidebar();});
+>>>>>>> 8eb8bbe8bb93cbf52acdcb8499192565ad11fa75
 
     }
 
@@ -184,6 +194,7 @@ public class MainMajorStaffController implements Sidebar {
         }
     }
 
+<<<<<<< HEAD
     @Override
     public void loadSidebar(){
         try {
@@ -221,5 +232,44 @@ public class MainMajorStaffController implements Sidebar {
             sidebar.toBack();
         }
     }
+=======
+//    @Override
+//    public void loadSidebar(){
+//        try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/views/other/sidebar.fxml"));
+//            AnchorPane loadedSidebar = loader.load();
+//
+//            // ดึง SidebarController จาก FXML Loader
+//            SidebarController sidebarController = loader.getController();
+//            sidebarController.setSidebar(this); // กำหนด MainAdminController เป็น Sidebar เพื่อให้สามารถปิดได้
+//
+//            sidebar = loadedSidebar; // กำหนด sidebar ที่โหลดเสร็จแล้ว
+//            sidebar.setVisible(false); // ปิด sidebar ไว้ในค่าเริ่มต้น
+//            mainPage.getChildren().add(sidebar); // เพิ่ม sidebar ไปยัง mainPage
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+//    @Override
+//    public void toggleSidebar() {
+//        if (sidebar != null){
+//            sidebar.setVisible(!sidebar.isVisible());
+//            if (sidebar.isVisible()){
+//                sidebar.toFront(); //ให้ sidebar แสดงด้านหน้าสุด
+//            }
+//            else {
+//                sidebar.toBack();
+//            }
+//        }
+//    }
+//
+//    @Override
+//    public void closeSidebar() {
+//        if (sidebar != null){
+//            sidebar.setVisible(false);
+//            sidebar.toBack();
+//        }
+//    }
+>>>>>>> 8eb8bbe8bb93cbf52acdcb8499192565ad11fa75
 
 }

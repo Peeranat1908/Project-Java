@@ -33,21 +33,18 @@ public class ApproverFacultyStaffController {
             user = (User) data;
 
         }
-
     }
     private void showTable(ApproveFacultyStaffList approveFacultyStaffList) {
-        // กำหนด column ให้มี title ว่า Name และใช้ค่าจาก getter name ของ object StudentAdvisor
+
         TableColumn<ApproveFacultyStaff, String> nameColumn = new TableColumn<>("ชื่อ");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        // กำหนด column ให้มี title ว่า Faculty และใช้ค่าจาก getter faculty ของ object StudentAdvisor
         TableColumn<ApproveFacultyStaff, String> roleColumn = new TableColumn<>("ตำแหน่ง");
         roleColumn.setCellValueFactory(new PropertyValueFactory<>("role"));
 
         TableColumn<ApproveFacultyStaff, String> facultyColumn = new TableColumn<>("คณะ");
         facultyColumn.setCellValueFactory(new PropertyValueFactory<>("faculty"));
 
-        // ล้าง column เดิมทั้งหมดที่มีอยู่ใน table แล้วเพิ่ม column ใหม่
         approveFacultyStaffTableView.getColumns().clear();
         approveFacultyStaffTableView.getColumns().add(nameColumn);
         approveFacultyStaffTableView.getColumns().add(roleColumn);
