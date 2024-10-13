@@ -33,10 +33,23 @@ public class AdvisorApproveController {
     @FXML
     private Button applyDecline;
 
-    @FXML Label DeclineWhen;
+    @FXML Label declineWhen;
 
     @FXML Label DeclineDateLabel;
     @FXML Label DeclineReasonLabel;
+
+    @FXML
+    private Label majorApprovedateLabel;
+    @FXML
+    private Label facultyApprovedateLabel;
+    @FXML
+    private Label majorApproveWhen;
+    @FXML
+    private Label facultyApproveWhen;
+    @FXML
+    private Label majorSignatureLabel;
+    @FXML
+    private Label facultySignatureLabel;
 
 
     @FXML private TextField declineTextField;
@@ -59,18 +72,34 @@ public class AdvisorApproveController {
             requestLabel.setText(appeal.getRequest());
             dateLabel.setText(appeal.getDate().toString());
             signatureLabel.setText(appeal.getStudentSignature());
-            DeclineReasonLabel.setText(appeal.getDeclineReason());
-            if(appeal.getStatus().equals("ปฏิเสธโดยอาจารย์ที่ปรึกษา คำร้องถูกปฏิเสธ")){
+
+            if(appeal.getStatus().contains("ปฏิเสธ")){
                 confirmButton.setVisible(false);
                 declineButton.setVisible(false);
-                DeclineWhen.setVisible(true);
+                declineWhen.setVisible(true);
                 DeclineDateLabel.setVisible(true);
+                DeclineReasonLabel.setText(appeal.getDeclineReason());
                 DeclineReasonLabel.setVisible(true);
                 LocalDateTime time = appeal.getDeclineDateTime();
                 DeclineDateLabel.setText(time.getDayOfMonth() + "/" + time.getMonth() + "/" + time.getYear() + "  " + time.getHour() + ":" + time.getMinute() + ":" + time.getSecond());
-            } else if(appeal.getStatus().equals("อนุมัติโดยอาจารย์ที่ปรึกษา คำร้องส่งต่อให้หัวหน้าภาควิชา")) {
+            } else if(appeal.getStatus().contains("อนุมัติ")) {
                 confirmButton.setVisible(false);
                 declineButton.setVisible(false);
+                if (appeal.getMajorEndorserDate() != null ){
+                    majorApprovedateLabel.setText(appeal.getMajorEndorserDate().toString());
+                    majorApprovedateLabel.setVisible(true);
+                    majorApproveWhen.setVisible(true);
+                    majorSignatureLabel.setText(appeal.getMajorEndorserSignature());
+                    majorSignatureLabel.setVisible(true);
+                }
+                if (appeal.getFacultyEndorserDate() != null ){
+                    facultyApprovedateLabel.setText(appeal.getFacultyEndorserDate().toString());
+                    facultyApprovedateLabel.setVisible(true);
+                    facultyApproveWhen.setVisible(true);
+                    facultySignatureLabel.setText(appeal.getFacultyEndorserSignature());
+                    facultySignatureLabel.setVisible(true);
+                }
+
             }
         }
 

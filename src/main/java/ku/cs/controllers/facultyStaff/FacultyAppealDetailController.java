@@ -44,8 +44,18 @@ public class FacultyAppealDetailController {
     @FXML private Label declineLabel;
     @FXML private Label FacultyApproveWhen;
     @FXML private Label FacultySignatureLabel;
+    @FXML private Label FacultyEndorsers;
+    @FXML
+    private Label majorApprovedateLabel;
+    @FXML
+    private Label majorApproveWhen;
+    @FXML
+    private Label majorSignatureLabel;
+
+    @FXML private Button confirmButton;
+
+    @FXML private Button declineButton;
     @FXML private ChoiceBox<String> approveChoiceBox;
-    @FXML private Label FacultySignatureName;
 
     private ApproveFacultyStaffListDatasource approveDataSource;
 
@@ -68,29 +78,38 @@ public class FacultyAppealDetailController {
             FacultySignatureLabel.setVisible(false);
             FacultyApprovedDate.setVisible(false);
             approveCheckLabel.setVisible(false);
-            FacultySignatureName.setVisible(false);
 
 
-            if (appeal.getStatus().equals("ปฏิเสธโดยคณบดี คำร้องถูกปฏิเสธ")){
+            if (appeal.getStatus().contains("ปฏิเสธโดยคณบดี คำร้องถูกปฏิเสธ")) {
+                FacultyEndorsers.setVisible(false);
+                approveChoiceBox.setVisible(false);
+                confirmButton.setVisible(false);
+                declineButton.setVisible(false);
                 declineWhen.setVisible(true);
-                LocalDateTime time = appeal.getDeclineDateTime();
-                DeclineDateLabel.setText(time.getDayOfMonth() + "/" + time.getMonth() + "/" + time.getYear() + "  " + time.getHour() + ":" + time.getMinute() + ":" + time.getSecond());
                 DeclineDateLabel.setVisible(true);
                 declineLabel.setText(appeal.getDeclineReason());
                 declineLabel.setVisible(true);
-                FacultySignatureName.setVisible(true);
-                FacultySignatureName.setTextFill(Color.RED);
-                FacultySignatureLabel.setText(appeal.getFacultyEndorserSignature());
-                FacultySignatureLabel.setTextFill(Color.RED);
-                FacultySignatureLabel.setVisible(true);
-
+                LocalDateTime time = appeal.getDeclineDateTime();
+                DeclineDateLabel.setText(time.getDayOfMonth() + "/" + time.getMonth() + "/" + time.getYear() + "  " + time.getHour() + ":" + time.getMinute() + ":" + time.getSecond());
             } else if (appeal.getStatus().equals("อนุมัติโดยคณบดี คำร้องดำเนินการครบถ้วน")) {
-                FacultyApproveWhen.setVisible(true);
-                FacultySignatureName.setVisible(true);
-                FacultySignatureLabel.setText(appeal.getFacultyEndorserSignature());
-                FacultySignatureLabel.setVisible(true);
-                FacultyApprovedDate.setText(appeal.getFacultyEndorserDate().toString());
-                FacultyApprovedDate.setVisible(true);
+                confirmButton.setVisible(false);
+                declineButton.setVisible(false);
+                FacultyEndorsers.setVisible(false);
+                approveChoiceBox.setVisible(false);
+                if (appeal.getMajorEndorserDate() != null) {
+                    majorApprovedateLabel.setText(appeal.getMajorEndorserDate().toString());
+                    majorApprovedateLabel.setVisible(true);
+                    majorApproveWhen.setVisible(true);
+                    majorSignatureLabel.setText(appeal.getMajorEndorserSignature());
+                    majorSignatureLabel.setVisible(true);
+                }
+                if (appeal.getFacultyEndorserDate() != null) {
+                    FacultyApproveWhen.setVisible(true);
+                    FacultyApprovedDate.setText(appeal.getFacultyEndorserDate().toString());
+                    FacultyApprovedDate.setVisible(true);
+                    FacultySignatureLabel.setText(appeal.getFacultyEndorserSignature());
+                    FacultySignatureLabel.setVisible(true);
+                }
             }
         }
 

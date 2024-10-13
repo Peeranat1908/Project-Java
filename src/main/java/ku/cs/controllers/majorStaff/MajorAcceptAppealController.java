@@ -42,7 +42,7 @@ public class MajorAcceptAppealController {
     @FXML private TextField declineTextField;
     @FXML private CheckBox sendingToDean;
     @FXML private Label majorSignatureLabel;
-    @FXML private Label majorDateLabel;
+    @FXML private Label majorApprovedateLabel;
     @FXML private Button applyDeclineButton;
     @FXML private Button approveAppealButton;
     @FXML private Button declineButton;
@@ -52,6 +52,12 @@ public class MajorAcceptAppealController {
     @FXML private Label declineWhen;
     @FXML private Label DeclineDateLabel;
     @FXML private Label MajorEndorsers;
+    @FXML
+    private Label facultySignatureLabel;
+    @FXML
+    private Label facultyApproveWhen;
+    @FXML
+    private Label facultyApprovedateLabel;
 
     private MajorEndorserListFileDatasource approveDataSource;
 
@@ -70,7 +76,7 @@ public class MajorAcceptAppealController {
             signatureLabel.setText(appeal.getStudentSignature());
 
 
-            if(appeal.getStatus().equals("ปฏิเสธโดยหัวหน้าภาควิชา คำร้องถูกปฏิเสธ")){
+                if(appeal.getStatus().contains("ปฏิเสธ")){
                 MajorEndorsers.setVisible(false);
                 declineWhen.setVisible(true);
                 LocalDateTime time = appeal.getDeclineDateTime();
@@ -79,13 +85,21 @@ public class MajorAcceptAppealController {
                 declineLabel.setText(appeal.getDeclineReason());
                 declineLabel.setVisible(true);
             }
-            if (appeal.getStatus().contains("อนุมัติโดยหัวหน้าภาควิชา")){
-                MajorEndorsers.setVisible(false);
-                majorDateLabel.setText(appeal.getMajorEndorserDate().toString());
-                majorDateLabel.setVisible(true);
-                majorApproveWhen.setVisible(true);
-                majorSignatureLabel.setText(appeal.getMajorEndorserSignature());
-                majorSignatureLabel.setVisible(true);
+            if (appeal.getStatus().contains("อนุมัติ")){
+                if (appeal.getMajorEndorserDate() != null){
+                    majorApprovedateLabel.setText(appeal.getMajorEndorserDate().toString());
+                    majorApprovedateLabel.setVisible(true);
+                    majorApproveWhen.setVisible(true);
+                    majorSignatureLabel.setText(appeal.getMajorEndorserSignature());
+                    majorSignatureLabel.setVisible(true);
+                }
+                if (appeal.getFacultyEndorserDate() != null){
+                    facultyApprovedateLabel.setText(appeal.getFacultyEndorserDate().toString());
+                    facultyApprovedateLabel.setVisible(true);
+                    facultyApproveWhen.setVisible(true);
+                    facultySignatureLabel.setText(appeal.getFacultyEndorserSignature());
+                    facultySignatureLabel.setVisible(true);
+                }
             }
 
         }
@@ -93,10 +107,11 @@ public class MajorAcceptAppealController {
         // โหลดรายชื่อจากไฟล์ CSV ลงใน ChoiceBox
         loadEndorsersFromCSV("data/major-endorser.csv");
 
-        if(appeal.getStatus().contains("โดยหัวหน้าภาควิชา") || appeal.getStatus().equals("ปฏิเสธโดยอาจารย์ที่ปรึกษา คำร้องถูกปฏิเสธ")){
+        if(appeal.getStatus().contains("โดยหัวหน้าภาควิชา")){
             applyDeclineButton.setVisible(false);
             approveAppealButton.setVisible(false);
             endorserBox.setVisible(false);
+            MajorEndorsers.setVisible(false);
             sendingToDean.setVisible(false);
             declineButton.setVisible(false);
         }

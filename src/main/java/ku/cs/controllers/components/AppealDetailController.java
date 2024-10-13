@@ -8,6 +8,7 @@ import ku.cs.services.AppealSharedData;
 import ku.cs.services.FXRouter;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 
 public class AppealDetailController {
@@ -54,9 +55,18 @@ public class AppealDetailController {
 
             if(appeal.getDeclineDateTime() != null && appeal.getStatus().contains("ปฏิเสธ")){
                 declineWhen.setVisible(true);
-                DeclineDateLabel.setText(appeal.getDeclineDateTime().toString());
+                LocalDateTime time = appeal.getDeclineDateTime();
+                DeclineDateLabel.setText(time.getDayOfMonth() + "/" + time.getMonth() + "/" + time.getYear() + "  " + time.getHour() + ":" + time.getMinute() + ":" + time.getSecond());
                 DeclineDateLabel.setVisible(true);
                 declineLabel.setText(appeal.getDeclineReason());
+                if(appeal.getStatus().contains("หัวหน้าภาค") && (appeal.getMajorEndorserSignature() != null || appeal.getMajorEndorserSignature() == "")){
+                    String who = appeal.getMajorEndorserSignature();
+                    declineLabel.setText(appeal.getDeclineReason() + " ปฏิเสธโดย " + who);
+                }
+                if(appeal.getStatus().contains("คณบดี") && (appeal.getFacultyEndorserSignature() != null || appeal.getFacultyEndorserSignature() == "")){
+                    String who = appeal.getFacultyEndorserSignature();
+                    declineLabel.setText(appeal.getDeclineReason() + " ปฏิเสธโดย " + who);
+                }
                 declineLabel.setVisible(true);
             }
             if (appeal.getMajorEndorserDate() != null && appeal.getStatus().contains("อนุมัติ")){
