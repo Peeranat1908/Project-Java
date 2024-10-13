@@ -1,10 +1,14 @@
 package ku.cs.controllers.majorStaff;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import ku.cs.controllers.components.Sidebar;
+import ku.cs.controllers.components.SidebarController;
 import ku.cs.models.MajorEndorserList;
 import ku.cs.models.User;
 import ku.cs.services.Datasource;
@@ -13,13 +17,19 @@ import ku.cs.services.MajorEndorserListFileDatasource;
 
 import java.io.IOException;
 
-public class AddMajorEndorserController {
+public class AddMajorEndorserController implements Sidebar {
     @FXML private Label nameLabel;
     @FXML private Button confirmButton;
     @FXML private Label errorLabel1;
     @FXML private Label errorLabel2;
     @FXML private Label errorLabel3;
     @FXML private TextField nameId, positionId;
+    @FXML
+    private AnchorPane sidebar;
+    @FXML
+    private AnchorPane mainPage;
+    @FXML
+    private Button toggleSidebarButton; // ปุ่มสำหรับแสดง/ซ่อน Sidebar
 
     private User user;
     private Datasource<MajorEndorserList> datasource;
@@ -42,6 +52,8 @@ public class AddMajorEndorserController {
         majorEndorserList = datasource.readData();
 
         confirmButton.setOnAction(actionEvent -> addMajorEndorser());
+        loadSidebar();// loadSidebar
+        toggleSidebarButton.setOnAction(actionEvent -> {toggleSidebar();});
     }
 
     private void addMajorEndorser() {
@@ -111,11 +123,6 @@ public class AddMajorEndorserController {
     }
 
     @FXML
-    public void onUserProfileButton() {
-        navigateTo("user-profile", user);
-    }
-
-    @FXML
     public void onStudentListButton(){
         navigateTo("student-in-major", user);
     }
@@ -130,6 +137,44 @@ public class AddMajorEndorserController {
             FXRouter.goTo(route, data);
         } catch (IOException e) {
             System.err.println("Navigation to " + route + " failed: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void loadSidebar(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/views/other/sidebar.fxml"));
+            AnchorPane loadedSidebar = loader.load();
+
+            // ดึง SidebarController จาก FXML Loader
+            SidebarController sidebarController = loader.getController();
+            sidebarController.setSidebar(this); // กำหนด MainAdminController เป็น Sidebar เพื่อให้สามารถปิดได้
+
+            sidebar = loadedSidebar; // กำหนด sidebar ที่โหลดเสร็จแล้ว
+            sidebar.setVisible(false); // ปิด sidebar ไว้ในค่าเริ่มต้น
+            mainPage.getChildren().add(sidebar); // เพิ่ม sidebar ไปยัง mainPage
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Override
+    public void toggleSidebar() {
+        if (sidebar != null){
+            sidebar.setVisible(!sidebar.isVisible());
+            if (sidebar.isVisible()){
+                sidebar.toFront(); //ให้ sidebar แสดงด้านหน้าสุด
+            }
+            else {
+                sidebar.toBack();
+            }
+        }
+    }
+
+    @Override
+    public void closeSidebar() {
+        if (sidebar != null){
+            sidebar.setVisible(false);
+            sidebar.toBack();
         }
     }
 }

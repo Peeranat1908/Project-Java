@@ -28,28 +28,23 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button layoutX="243.0" layoutY="20.0" mnemonicParsing="false" onAction="#onMyTeamButtonClick" styleClass="ButtonNavbarNotMain" text="MY TEAM">
-               <font>
-                  <Font name="Arial Bold" size="16.0" />
-               </font>
-            </Button>
             <ImageView fitHeight="69.0" fitWidth="68.0" layoutX="1190.0" layoutY="7.0">
                <image>
                   <Image url="@../../../../images/admin.png" />
                </image>
             </ImageView>
-            <Button layoutX="362.0" layoutY="20.0" mnemonicParsing="false" onAction="#onManageFacultyButtonClick" styleClass="ButtonNavbarNotMain" text="จัดการข้อมูลคณะและภาควิชา">
+            <Button layoutX="237.0" layoutY="17.0" mnemonicParsing="false" onAction="#onManageFacultyButtonClick" styleClass="ButtonNavbarNotMain" text="จัดการข้อมูลคณะและภาควิชา">
                <font>
                   <Font name="Arial Bold" size="16.0" />
                </font>
             </Button>
-            <Button layoutX="596.0" layoutY="20.0" mnemonicParsing="false" onAction="#manageStaffDataButtonClick" styleClass="ButtonNavbarNotMain" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
+            <Button layoutX="471.0" layoutY="17.0" mnemonicParsing="false" onAction="#manageStaffDataButtonClick" styleClass="ButtonNavbarNotMain" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
                <font>
                   <Font name="Arial Bold" size="16.0" />
                </font>
             </Button>
 
-            <Button layoutX="856.0" layoutY="20.0" mnemonicParsing="false" onAction="#dashboardButtonClick" styleClass="ButtonNavbarNotMain" text="dashboard">
+            <Button layoutX="731.0" layoutY="17.0" mnemonicParsing="false" onAction="#dashboardButtonClick" styleClass="ButtonNavbarNotMain" text="dashboard">
 
                <font>
                   <Font name="System Bold" size="16.0" />

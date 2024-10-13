@@ -2,11 +2,15 @@ package ku.cs.controllers.majorStaff;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 import ku.cs.controllers.components.AppealItemController;
+import ku.cs.controllers.components.Sidebar;
+import ku.cs.controllers.components.SidebarController;
 import ku.cs.models.*;
 import ku.cs.services.*;
 
@@ -16,7 +20,7 @@ import java.util.stream.Collectors;
 import java.time.format.DateTimeFormatter;
 
 
-public class MainMajorStaffController{
+public class MainMajorStaffController implements Sidebar {
     @FXML
     private VBox appealVBox;
 
@@ -30,6 +34,12 @@ public class MainMajorStaffController{
     private AppealList appealList;
     private AppealListDatasource datasource;
     private AppealList appealListInMajor;
+    @FXML
+    private AnchorPane sidebar;
+    @FXML
+    private AnchorPane mainPage;
+    @FXML
+    private Button toggleSidebarButton; // ปุ่มสำหรับแสดง/ซ่อน Sidebar
 
     @FXML
     private void initialize() {
@@ -48,6 +58,8 @@ public class MainMajorStaffController{
         StudentList studentsListInMajor = studentList.getStudentsListBYMajor(user.getMajor());
         appealListInMajor = appealList.findAppealByStudentID(studentsListInMajor);
         loadAppeals(null, null);
+        loadSidebar();// loadSidebar
+        toggleSidebarButton.setOnAction(actionEvent -> {toggleSidebar();});
 
     }
 
@@ -172,5 +184,42 @@ public class MainMajorStaffController{
         }
     }
 
+    @Override
+    public void loadSidebar(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/views/other/sidebar.fxml"));
+            AnchorPane loadedSidebar = loader.load();
+
+            // ดึง SidebarController จาก FXML Loader
+            SidebarController sidebarController = loader.getController();
+            sidebarController.setSidebar(this); // กำหนด MainAdminController เป็น Sidebar เพื่อให้สามารถปิดได้
+
+            sidebar = loadedSidebar; // กำหนด sidebar ที่โหลดเสร็จแล้ว
+            sidebar.setVisible(false); // ปิด sidebar ไว้ในค่าเริ่มต้น
+            mainPage.getChildren().add(sidebar); // เพิ่ม sidebar ไปยัง mainPage
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Override
+    public void toggleSidebar() {
+        if (sidebar != null){
+            sidebar.setVisible(!sidebar.isVisible());
+            if (sidebar.isVisible()){
+                sidebar.toFront(); //ให้ sidebar แสดงด้านหน้าสุด
+            }
+            else {
+                sidebar.toBack();
+            }
+        }
+    }
+
+    @Override
+    public void closeSidebar() {
+        if (sidebar != null){
+            sidebar.setVisible(false);
+            sidebar.toBack();
+        }
+    }
 
 }

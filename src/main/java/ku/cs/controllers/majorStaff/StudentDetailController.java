@@ -1,14 +1,19 @@
 package ku.cs.controllers.majorStaff;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.util.Pair;
 import ku.cs.controllers.NavigationHistoryService;
+import ku.cs.controllers.components.Sidebar;
+import ku.cs.controllers.components.SidebarController;
 import ku.cs.models.Student;
 import ku.cs.models.StudentList;
 import ku.cs.models.User;
@@ -20,7 +25,7 @@ import ku.cs.services.UserListFileDatasource;
 
 import java.io.IOException;
 
-public class StudentDetailController {
+public class StudentDetailController implements Sidebar {
     @FXML
     private Label userTextLabel;
     @FXML
@@ -47,6 +52,12 @@ public class StudentDetailController {
     private TextField idTextField;
     @FXML
     private Label errorLabel;
+    @FXML
+    private AnchorPane sidebar;
+    @FXML
+    private AnchorPane mainPage;
+    @FXML
+    private Button toggleSidebarButton; // ปุ่มสำหรับแสดง/ซ่อน Sidebar
 
 
     private UserList userList;
@@ -72,6 +83,8 @@ public class StudentDetailController {
             displayUserInfo(student);
 
         }
+        loadSidebar();// loadSidebar
+        toggleSidebarButton.setOnAction(actionEvent -> {toggleSidebar();});
     }
     private void displayUserInfo(Student student1) {
         userTextLabel.setText("ข้อมูลนิสิต");
@@ -171,6 +184,43 @@ public class StudentDetailController {
             FXRouter.goTo("departmentStaff",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+    @Override
+    public void loadSidebar(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/views/other/sidebar.fxml"));
+            AnchorPane loadedSidebar = loader.load();
+
+            // ดึง SidebarController จาก FXML Loader
+            SidebarController sidebarController = loader.getController();
+            sidebarController.setSidebar(this); // กำหนด MainAdminController เป็น Sidebar เพื่อให้สามารถปิดได้
+
+            sidebar = loadedSidebar; // กำหนด sidebar ที่โหลดเสร็จแล้ว
+            sidebar.setVisible(false); // ปิด sidebar ไว้ในค่าเริ่มต้น
+            mainPage.getChildren().add(sidebar); // เพิ่ม sidebar ไปยัง mainPage
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Override
+    public void toggleSidebar() {
+        if (sidebar != null){
+            sidebar.setVisible(!sidebar.isVisible());
+            if (sidebar.isVisible()){
+                sidebar.toFront(); //ให้ sidebar แสดงด้านหน้าสุด
+            }
+            else {
+                sidebar.toBack();
+            }
+        }
+    }
+
+    @Override
+    public void closeSidebar() {
+        if (sidebar != null){
+            sidebar.setVisible(false);
+            sidebar.toBack();
         }
     }
 }

@@ -3,9 +3,13 @@ package ku.cs.controllers.majorStaff;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Pair;
+import ku.cs.controllers.components.Sidebar;
+import ku.cs.controllers.components.SidebarController;
 import ku.cs.models.Student;
 import ku.cs.models.StudentList;
 import ku.cs.models.User;
@@ -13,7 +17,7 @@ import ku.cs.services.*;
 
 import java.io.IOException;
 
-public class StudentInMajorController {
+public class StudentInMajorController implements Sidebar {
 
     @FXML
     private TableView<Student> studentTableView;
@@ -21,6 +25,12 @@ public class StudentInMajorController {
     private StudentList studentList;
     @FXML
     private TextField searchUserTextfield;
+    @FXML
+    private AnchorPane sidebar;
+    @FXML
+    private AnchorPane mainPage;
+    @FXML
+    private Button toggleSidebarButton; // ปุ่มสำหรับแสดง/ซ่อน Sidebar
 
     private Datasource<StudentList> datasource;
     private User user;
@@ -66,6 +76,8 @@ public class StudentInMajorController {
                 }
             }
         });
+        loadSidebar();// loadSidebar
+        toggleSidebarButton.setOnAction(actionEvent -> {toggleSidebar();});
     }
 
     private void filterTable(String searchText) {
@@ -102,11 +114,6 @@ public class StudentInMajorController {
 
     @FXML
     public void onMyTeamButtonClick() throws RuntimeException {
-//        Object temp = FXRouter.getData();
-//        if (temp instanceof String) {
-//            previousPage = (String)temp;
-//        }
-
         try {
             FXRouter.goTo("my-team");
         } catch (IOException e) {
@@ -114,14 +121,7 @@ public class StudentInMajorController {
         }
     }
 
-    @FXML
-    public void onRequestButtonClick() {
-        try {
-            FXRouter.goTo("request-page");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 
     @FXML
     public void addStudentButtonClick() {
@@ -129,6 +129,44 @@ public class StudentInMajorController {
             FXRouter.goTo("add-student",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void loadSidebar(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/views/other/sidebar.fxml"));
+            AnchorPane loadedSidebar = loader.load();
+
+            // ดึง SidebarController จาก FXML Loader
+            SidebarController sidebarController = loader.getController();
+            sidebarController.setSidebar(this); // กำหนด MainAdminController เป็น Sidebar เพื่อให้สามารถปิดได้
+
+            sidebar = loadedSidebar; // กำหนด sidebar ที่โหลดเสร็จแล้ว
+            sidebar.setVisible(false); // ปิด sidebar ไว้ในค่าเริ่มต้น
+            mainPage.getChildren().add(sidebar); // เพิ่ม sidebar ไปยัง mainPage
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Override
+    public void toggleSidebar() {
+        if (sidebar != null){
+            sidebar.setVisible(!sidebar.isVisible());
+            if (sidebar.isVisible()){
+                sidebar.toFront(); //ให้ sidebar แสดงด้านหน้าสุด
+            }
+            else {
+                sidebar.toBack();
+            }
+        }
+    }
+
+    @Override
+    public void closeSidebar() {
+        if (sidebar != null){
+            sidebar.setVisible(false);
+            sidebar.toBack();
         }
     }
 

@@ -101,12 +101,4 @@ public class RegisterController {
             throw new RuntimeException(e);
         }
     }
-    @FXML
-    private void onBackButton() {
-        try {
-            FXRouter.goTo("login-page");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
