@@ -14,6 +14,7 @@ import ku.cs.services.AppealSharedData;
 import ku.cs.services.FXRouter;
 import ku.cs.services.MajorEndorserListFileDatasource;
 
+
 import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -33,15 +34,15 @@ public class MajorAcceptAppealController {
     private Label requestLabel;
     @FXML
     private Label dateLabel;
-
-
+    @FXML
+    private Label errorLabel;
 
     @FXML
     private ChoiceBox<String> endorserBox;
     @FXML private TextField declineTextField;
     @FXML private CheckBox sendingToDean;
     @FXML private Label majorSignatureLabel;
-    @FXML private Label majorDateLabel;
+    @FXML private Label majorApprovedateLabel;
     @FXML private Button applyDeclineButton;
     @FXML private Button approveAppealButton;
     @FXML private Button declineButton;
@@ -50,10 +51,13 @@ public class MajorAcceptAppealController {
     @FXML private Label majorApproveWhen;
     @FXML private Label declineWhen;
     @FXML private Label DeclineDateLabel;
-    @FXML private Label facultyApproveWhen;
-    @FXML private Label facultyApprovedateLabel;
-    @FXML private Label facultySignatureLabel;
     @FXML private Label MajorEndorsers;
+    @FXML
+    private Label facultySignatureLabel;
+    @FXML
+    private Label facultyApproveWhen;
+    @FXML
+    private Label facultyApprovedateLabel;
 
     private MajorEndorserListFileDatasource approveDataSource;
 
@@ -72,29 +76,30 @@ public class MajorAcceptAppealController {
             signatureLabel.setText(appeal.getStudentSignature());
 
 
-            if(appeal.getDeclineDateTime() != null){
+            if(appeal.getStatus().contains("ปฏิเสธ")){
                 MajorEndorsers.setVisible(false);
                 declineWhen.setVisible(true);
-                DeclineDateLabel.setText(appeal.getDeclineDateTime().toString());
+                LocalDateTime time = appeal.getDeclineDateTime();
+                DeclineDateLabel.setText(time.getDayOfMonth() + "/" + time.getMonth() + "/" + time.getYear() + "  " + time.getHour() + ":" + time.getMinute() + ":" + time.getSecond());
                 DeclineDateLabel.setVisible(true);
                 declineLabel.setText(appeal.getDeclineReason());
                 declineLabel.setVisible(true);
             }
-            if (appeal.getMajorEndorserDate() != null){
-                MajorEndorsers.setVisible(false);
-                majorDateLabel.setText(appeal.getMajorEndorserDate().toString());
-                majorDateLabel.setVisible(true);
-                majorApproveWhen.setVisible(true);
-                majorSignatureLabel.setText(appeal.getMajorEndorserSignature());
-                majorSignatureLabel.setVisible(true);
-            }
-            if (appeal.getFacultyEndorserDate() != null){
-                MajorEndorsers.setVisible(false);
-                facultyApprovedateLabel.setText(appeal.getFacultyEndorserDate().toString());
-                facultyApprovedateLabel.setVisible(true);
-                facultyApproveWhen.setVisible(true);
-                facultySignatureLabel.setText(appeal.getFacultyEndorserSignature());
-                facultySignatureLabel.setVisible(true);
+            if (appeal.getStatus().contains("อนุมัติ")){
+                if (appeal.getMajorEndorserDate() != null){
+                    majorApprovedateLabel.setText(appeal.getMajorEndorserDate().toString());
+                    majorApprovedateLabel.setVisible(true);
+                    majorApproveWhen.setVisible(true);
+                    majorSignatureLabel.setText(appeal.getMajorEndorserSignature());
+                    majorSignatureLabel.setVisible(true);
+                }
+                if (appeal.getFacultyEndorserDate() != null){
+                    facultyApprovedateLabel.setText(appeal.getFacultyEndorserDate().toString());
+                    facultyApprovedateLabel.setVisible(true);
+                    facultyApproveWhen.setVisible(true);
+                    facultySignatureLabel.setText(appeal.getFacultyEndorserSignature());
+                    facultySignatureLabel.setVisible(true);
+                }
             }
 
         }
@@ -102,10 +107,11 @@ public class MajorAcceptAppealController {
         // โหลดรายชื่อจากไฟล์ CSV ลงใน ChoiceBox
         loadEndorsersFromCSV("data/major-endorser.csv");
 
-        if(appeal.getStatus().contains("โดยหัวหน้าภาควิชา") || appeal.getStatus().equals("ปฏิเสธโดยอาจารย์ที่ปรึกษา คำร้องถูกปฏิเสธ")){
+        if(appeal.getStatus().contains("โดยหัวหน้าภาควิชา")){
             applyDeclineButton.setVisible(false);
             approveAppealButton.setVisible(false);
             endorserBox.setVisible(false);
+            MajorEndorsers.setVisible(false);
             sendingToDean.setVisible(false);
             declineButton.setVisible(false);
         }
@@ -146,6 +152,11 @@ public class MajorAcceptAppealController {
             String majorName = user.getMajor();
             long second = new Date().getTime();
             appeal.setSecond(second);
+
+            if (endorserValue == null || endorserValue.isEmpty()) {
+                errorLabel.setVisible(true);
+                return; // ถ้ายังไม่เลือกคนอนุมัติ
+            }
             if (endorserValue.contains(majorName)) {
                 appeal.setMajorEndorserSignature(endorserValue);
                 appeal.setMajorEndorserDate(today);
@@ -156,6 +167,7 @@ public class MajorAcceptAppealController {
                     appeal.setStatus("อนุมัติโดยหัวหน้าภาควิชา คำร้องดำเนินการครบถ้วน");
                 }
             }
+
 
             AppealListDatasource datasource = new AppealListDatasource("data/appeals.csv");
             AppealList appealList = AppealSharedData.getNormalAppealList();
@@ -201,8 +213,6 @@ public class MajorAcceptAppealController {
     }
 
 
-
-    // ฟังก์ชันสำหรับโหลดรายชื่อจาก CSV และเพิ่มเข้า ChoiceBox
     private void loadEndorsersFromCSV(String filePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;

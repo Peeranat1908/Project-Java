@@ -21,6 +21,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.io.File;
 import java.io.IOException;
 
 public class StaffEditController {
@@ -107,15 +108,9 @@ public class StaffEditController {
 
         }
 
-
-        String profilePicPath = user.getProfilePicturePath();
-        if (profilePicPath == null || profilePicPath.isEmpty()) {
-            profilePicPath = "/images/profileDeafault2.png";
-        }
-
-        Image profileImage = new Image(getClass().getResourceAsStream(profilePicPath));
-        imagecircle.setFill(new ImagePattern(profileImage));
-        imagecircle.setRadius(75);
+        String imagePath = System.getProperty("user.dir") + File.separator + user.getProfilePicturePath();
+        String url = new File(imagePath).toURI().toString();
+        imagecircle.setFill(new ImagePattern(new Image(url)));
     }
 
     private void loadMajorChoices(String facultyId) {

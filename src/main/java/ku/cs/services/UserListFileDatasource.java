@@ -104,19 +104,19 @@ public class UserListFileDatasource implements Datasource<UserList> {
                 String profilePicturePath = "/images/defaultProfilePicture.png";
                 switch (user.getRole()) {
                     case "admin":
-                        profilePicturePath = user.getProfilePicturePath() != null ? user.getProfilePicturePath() : "/images/adminDefaultPicture.png";
+                        profilePicturePath = user.getProfilePicturePath() != null ? user.getProfilePicturePath() : "data" + File.separator + "userProfileImage" + File.separator + "adminDefaultPicture.png";
                         break;
                     case "advisor":
-                        profilePicturePath = user.getProfilePicturePath() != null ? user.getProfilePicturePath() : "/images/advisorStaffDefaultPicture.png";
+                        profilePicturePath = user.getProfilePicturePath() != null ? user.getProfilePicturePath() : "data" + File.separator + "userProfileImage" + File.separator +"advisorStaffDefaultPicture.png";
                         break;
                     case "student":
-                        profilePicturePath = user.getProfilePicturePath() != null ? user.getProfilePicturePath() : "/images/studentDefaultPicture.png";
+                        profilePicturePath = user.getProfilePicturePath() != null ? user.getProfilePicturePath() : "data" + File.separator + "userProfileImage" + File.separator +"studentDefaultPicture.png";
                         break;
                     case "facultyStaff":
-                        profilePicturePath = user.getProfilePicturePath() != null ? user.getProfilePicturePath() : "/images/facultyStaffDefaultPicture.png";
+                        profilePicturePath = user.getProfilePicturePath() != null ? user.getProfilePicturePath() : "data" + File.separator + "userProfileImage" + File.separator +"facultyStaffDefaultPicture.png";
                         break;
                     case "majorStaff":
-                        profilePicturePath = user.getProfilePicturePath() != null ? user.getProfilePicturePath() : "/images/majorStaffDefaultPicture.png";
+                        profilePicturePath = user.getProfilePicturePath() != null ? user.getProfilePicturePath() : "data" + File.separator + "userProfileImage" + File.separator +"majorStaffDefaultPicture.png";
                         break;
                     default:
                         break;

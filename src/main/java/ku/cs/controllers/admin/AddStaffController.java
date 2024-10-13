@@ -190,7 +190,7 @@ public class AddStaffController implements Sidebar {
             newUser = new User(name, username, hashedPassword, null, null, role, null, false, faculty, major, true, advisorId);
         } else if (role.equals("facultyStaff")) {
             newUser = new User(name, username, hashedPassword, null, null, role, null, false, faculty, null, true, null);
-        } else if (role.equals("departmentStaff")) {
+        } else if (role.equals("majorStaff")) {
             newUser = new User(name, username, hashedPassword, null, null, role, null, false, faculty, major, true, null);
         } else {
             throw new IllegalArgumentException("บทบาทไม่ถูกต้อง");

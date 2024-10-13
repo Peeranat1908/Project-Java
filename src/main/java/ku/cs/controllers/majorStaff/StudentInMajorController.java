@@ -126,6 +126,22 @@ public class StudentInMajorController {
             throw new RuntimeException(e);
         }
     }
+    @FXML
+    public void onAddEndorserButton(){
+        try {
+            FXRouter.goTo("add-major-endorser",user);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void homeButtonClick() {
+        try {
+            FXRouter.goTo("departmentStaff",user);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
 

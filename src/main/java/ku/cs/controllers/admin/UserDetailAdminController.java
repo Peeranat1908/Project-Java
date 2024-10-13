@@ -15,6 +15,7 @@ import ku.cs.models.UserList;
 import ku.cs.services.FXRouter;
 import ku.cs.services.UserListFileDatasource;
 
+import java.io.File;
 import java.io.IOException;
 
 public class UserDetailAdminController implements Sidebar {
@@ -78,9 +79,9 @@ public class UserDetailAdminController implements Sidebar {
         } else {
             DepartmentLabel.setText("ภาควิชา: " +user.getMajor());
         }
-        String profilePicPath = user.getProfilePicturePath();
-        Image profileImage = new Image(getClass().getResourceAsStream(profilePicPath));
-        imagecircle.setFill(new ImagePattern(profileImage));
+        String imagePath = System.getProperty("user.dir") + File.separator + user.getProfilePicturePath();
+        String url = new File(imagePath).toURI().toString();
+        imagecircle.setFill(new ImagePattern(new Image(url)));
     }
 
     @FXML

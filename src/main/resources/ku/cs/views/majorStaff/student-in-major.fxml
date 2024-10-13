@@ -23,7 +23,7 @@
                   <Font name="System Bold" size="28.0" />
                </font>
             </Label>
-            <Button layoutX="135.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="HOME">
+            <Button layoutX="135.0" layoutY="20.0" mnemonicParsing="false" onAction="#homeButtonClick" style="-fx-background-color: EAF4FF;" text="HOME">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -80,5 +80,15 @@
             <Font size="20.0" />
          </font>
       </TextField>
+      <Button layoutX="388.0" layoutY="18.0" mnemonicParsing="false" onAction="#onAddEndorserButton" style="-fx-background-color: EAF4FF;" text="แก้ไขระบบอนุมัติคำร้อง">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Button>
+      <Button layoutX="566.0" layoutY="18.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="รายชื่อนิสิต">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

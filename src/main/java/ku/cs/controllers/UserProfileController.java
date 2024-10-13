@@ -157,7 +157,7 @@ public class UserProfileController {
                 }
 
                 String[] fileSplit = selectedFile.getName().split("\\.");
-                String filename = user.getUsername() + fileSplit[fileSplit.length - 1].toLowerCase();
+                String filename = user.getUsername() + "."+ fileSplit[fileSplit.length - 1].toLowerCase();
                 Path target = FileSystems.getDefault().getPath(destDir.getAbsolutePath() + File.separator + filename);
                 Files.copy(selectedFile.toPath(), target, StandardCopyOption.REPLACE_EXISTING);
                 String profilePicPath = "data/userProfileImage" + File.separator + filename;

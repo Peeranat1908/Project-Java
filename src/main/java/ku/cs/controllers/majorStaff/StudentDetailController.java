@@ -17,6 +17,7 @@ import ku.cs.services.FXRouter;
 import ku.cs.services.StudentListFileDatasource;
 import ku.cs.services.UserListFileDatasource;
 
+import java.io.File;
 import java.io.IOException;
 
 public class StudentDetailController {
@@ -87,13 +88,9 @@ public class StudentDetailController {
         advisorLabel.setText(advisorName);
         advisorIdLabel.setText( student1.getAdvisorID());
         userStudent = userList.findUserByUsername(student1.getUsername());
-        String profilePicPath = userStudent.getProfilePicturePath();
-        if (profilePicPath == null || profilePicPath.isEmpty()) {
-            profilePicPath = "/images/profileDeafault2.png";
-        }
-        Image profileImage = new Image(getClass().getResourceAsStream(profilePicPath));
-        imagecircle.setFill(new ImagePattern(profileImage));
-        imagecircle.setRadius(75);
+        String imagePath = System.getProperty("user.dir") + File.separator + userStudent.getProfilePicturePath();
+        String url = new File(imagePath).toURI().toString();
+        imagecircle.setFill(new ImagePattern(new Image(url)));
     }
     @FXML
     public void enterEditButtonClick() {

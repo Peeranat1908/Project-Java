@@ -22,7 +22,7 @@ public class MajorList {
         majors.add(new Major(facultyId, majorId, majorName));
     }
 
-    // เพิ่มฟังก์ชันนี้เพื่อตามหาสาขาวิชาตาม facultyId
+
     public ArrayList<String> getMajorsByFacultyId(String facultyId) {
         ArrayList<String> majorNames = new ArrayList<>();
         for (Major major : majors) {
