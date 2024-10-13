@@ -48,11 +48,11 @@ public class DashboardController implements Sidebar {
             throw new RuntimeException(e);
         }
     }
+
     @FXML
-    public void onMyTeamButtonClick() throws RuntimeException {
-        NavigationHistoryService.getInstance().pushPage("dashboard");
+    public void onManageFacultyButtonClick() {
         try {
-            FXRouter.goTo("staff-table-admin");
+            FXRouter.goTo("faculty-data-admin");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

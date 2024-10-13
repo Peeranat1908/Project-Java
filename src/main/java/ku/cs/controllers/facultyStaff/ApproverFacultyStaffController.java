@@ -23,17 +23,17 @@ public class ApproverFacultyStaffController {
 
     private User user;
 
+
+
     @FXML
     public void initialize() {
         datasource = new ApproveFacultyStaffListDatasource("data", "approveFacultyStaff.csv");
         approveFacultyStaffList = datasource.readData();
-        showTable(approveFacultyStaffList);
         Object data = FXRouter.getData();
         if (data instanceof User) {
             user = (User) data;
-
+            showTable(approveFacultyStaffList);
         }
-
     }
     private void showTable(ApproveFacultyStaffList approveFacultyStaffList) {
         // กำหนด column ให้มี title ว่า Name และใช้ค่าจาก getter name ของ object StudentAdvisor
@@ -56,7 +56,10 @@ public class ApproverFacultyStaffController {
         approveFacultyStaffTableView.getItems().clear();
 
         for (ApproveFacultyStaff approveFacultyStaff: approveFacultyStaffList.getApproveFacultyStaffList()) {
-            approveFacultyStaffTableView.getItems().add(approveFacultyStaff);
+            if (approveFacultyStaff.getFaculty().contains(user.getFaculty())){
+                approveFacultyStaffTableView.getItems().add(approveFacultyStaff);
+            }
+
         }
     }
 

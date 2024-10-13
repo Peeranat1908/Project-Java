@@ -37,7 +37,6 @@ public class MainApplication extends Application {
         FXRouter.when("student-appeal", viewPath + "student/student-appeal.fxml");
         FXRouter.when("normal-appeal", viewPath + "student/normal-appeal.fxml");
         FXRouter.when("main-admin", viewPath + "admin/main-admin.fxml");
-        FXRouter.when("faculty-data-admin", viewPath + "facultyStaff/faculty-data-admin.fxml");
         FXRouter.when("appeal-tracking", viewPath + "student/appeal-list.fxml");
         FXRouter.when("user-profile", viewPath + "student/user-profile.fxml");
         FXRouter.when("facultyStaff", viewPath + "facultyStaff/faculty-staff.fxml");
@@ -51,7 +50,6 @@ public class MainApplication extends Application {
         FXRouter.when("add-new-major", viewPath + "admin/add-new-major.fxml");
         FXRouter.when("departmentStaff", viewPath + "majorStaff/main-major-staff.fxml");
         FXRouter.when("majorEndorser", viewPath + "majorStaff/major-endorser-staff.fxml");
-        FXRouter.when("faculty-data-admin", viewPath + "admin/faculty-data-admin.fxml");
         FXRouter.when("appeal-tracking", viewPath + "student/appeal-list.fxml");
         FXRouter.when("facultyStaff", viewPath + "facultyStaff/faculty-staff.fxml");
         FXRouter.when("add-major-endorser", viewPath + "majorStaff/major-endorser-staff.fxml");
@@ -74,7 +72,6 @@ public class MainApplication extends Application {
         FXRouter.when("facultyDetail", viewPath  + "facultyStaff/appeal-detail-facultyStaff.fxml");
         FXRouter.when("setting", viewPath + "other/setting.fxml");
     }
-
 
     public static void main(String[] args) {
         launch();

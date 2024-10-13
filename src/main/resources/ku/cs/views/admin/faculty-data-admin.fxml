@@ -26,27 +26,22 @@
                         <Font name="System Bold" size="16.0" />
                     </font>
                 </Button>
-                <Button layoutX="223.0" layoutY="20.0" mnemonicParsing="false" onAction="#onMyTeamButtonClick" styleClass="ButtonNavbarNotMain" text="MY TEAM">
-                    <font>
-                        <Font name="System Bold" size="16.0" />
-                    </font>
-                </Button>
                 <ImageView fitHeight="69.0" fitWidth="68.0" layoutX="1190.0" layoutY="7.0">
                     <image>
                         <Image url="@../../../../images/admin.png" />
                     </image>
                 </ImageView>
-                <Button layoutX="350.0" layoutY="20.0" mnemonicParsing="false" styleClass="ButtonNavbar" text="จัดการข้อมูลคณะและภาควิชา" textFill="WHITE">
+                <Button layoutX="230.0" layoutY="20.0" mnemonicParsing="false" onAction="#onManageFacultyButtonClick" styleClass="ButtonNavbar" text="จัดการข้อมูลคณะและภาควิชา" textFill="WHITE">
                     <font>
                         <Font name="Arial Bold" size="16.0" />
                     </font>
                 </Button>
-                <Button layoutX="595.0" layoutY="20.0" mnemonicParsing="false" onAction="#manageStaffdataButtonClick" styleClass="ButtonNavbarNotMain" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
+                <Button layoutX="475.0" layoutY="20.0" mnemonicParsing="false" onAction="#manageStaffdataButtonClick" styleClass="ButtonNavbarNotMain" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
                     <font>
                         <Font name="Arial Bold" size="16.0" />
                     </font>
                 </Button>
-                <Button layoutX="864.0" layoutY="19.0" mnemonicParsing="false" onAction="#dashboardButtonClick" styleClass="ButtonNavbarNotMain" text="Dashboard">
+                <Button layoutX="744.0" layoutY="19.0" mnemonicParsing="false" onAction="#dashboardButtonClick" styleClass="ButtonNavbarNotMain" text="Dashboard">
                     <font>
                         <Font name="System Bold" size="16.0" />
                     </font>

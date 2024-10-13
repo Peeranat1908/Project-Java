@@ -122,30 +122,7 @@ public class UserDetailAdminController implements Sidebar {
 
         }
     }
-    @FXML
-    private void onListButtonClick() {
-        try {
-            FXRouter.goTo("main-admin");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    @FXML
-    public void onMyTeamButtonClick() {
-        try {
-            FXRouter.goTo("my-team");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    @FXML
-    public void onLogoutButtonClick() {
-        try {
-            FXRouter.goTo("login-page");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
     @FXML
     public void dashboardButtonClick() {
         try {
@@ -166,6 +143,14 @@ public class UserDetailAdminController implements Sidebar {
     public void homeButtonClick() {
         try {
             FXRouter.goTo("main-admin");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void onManageFacultyButtonClick() {
+        try {
+            FXRouter.goTo("faculty-data-admin");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
