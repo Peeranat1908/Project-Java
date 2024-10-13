@@ -120,8 +120,14 @@ public class StudentInMajorController implements Sidebar {
             throw new RuntimeException(e);
         }
     }
-
-
+    @FXML
+    public void homeButtonClick() {
+        try {
+            FXRouter.goTo("departmentStaff",user);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @FXML
     public void addStudentButtonClick() {
