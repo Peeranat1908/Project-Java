@@ -1,15 +1,14 @@
 package ku.cs.controllers.admin;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import ku.cs.controllers.components.Sidebar;
-import ku.cs.controllers.components.SidebarController;
 import ku.cs.models.Faculty;
 import ku.cs.models.Major;
 import ku.cs.models.User;
@@ -20,10 +19,12 @@ import ku.cs.services.MajorListFileDatasource;
 import ku.cs.services.UserListFileDatasource;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.mindrot.jbcrypt.BCrypt;
 
+import java.io.File;
 import java.io.IOException;
 
-public class StaffEditController implements Sidebar {
+public class StaffEditController {
 
     @FXML
     private Label userTextLabel;
@@ -57,11 +58,7 @@ public class StaffEditController implements Sidebar {
     @FXML
     private Label majorChoiceBoxLabel;
     @FXML
-    private AnchorPane sidebar;
-    @FXML
-    private AnchorPane mainPage;
-    @FXML
-    private Button toggleSidebarButton; // ปุ่มสำหรับแสดง/ซ่อน Sidebar
+    private Label errorLabel;
 
 
     private UserList userList;
@@ -71,18 +68,18 @@ public class StaffEditController implements Sidebar {
     private MajorListFileDatasource majorDatasource;
 
     public void initialize() {
+        errorLabel.setText("");
         Object data = FXRouter.getData();
         if (data instanceof User) {
             user = (User) data;
         }
-        displayUserInfo();
+        displayUserInfo(user);
         editStaffPane.setVisible(false);
-        loadSidebar();// loadSidebar
-        toggleSidebarButton.setOnAction(actionEvent -> {toggleSidebar();});
-
+        datasource = new UserListFileDatasource("data", "user.csv");
+        userList = datasource.readData();
     }
 
-    private void displayUserInfo() {
+    private void displayUserInfo(User user) {
         nameLabel.setText("ชื่อ: " + user.getName());
         usernameLabel.setText("ชื่อผู้ใช้: " + user.getUsername());
         facultyLabel.setText("คณะ: " + user.getFaculty());
@@ -93,8 +90,8 @@ public class StaffEditController implements Sidebar {
             userTextLabel.setText("ข้อมูลอาจารย์ที่ปรึกษา");
         } else if (user.getRole().equals("facultyStaff")) {
             userTextLabel.setText("ข้อมูลเจ้าหน้าที่คณะ");
-            IdorDepartmentLabel.setText(""); // ไม่แสดงภาควิชา
-        } else if (user.getRole().equals("departmentStaff")) {
+            IdorDepartmentLabel.setText("");
+        } else if (user.getRole().equals("majorStaff")) {
             userTextLabel.setText("ข้อมูลเจ้าหน้าที่ภาควิชา");
         }
 
@@ -111,15 +108,9 @@ public class StaffEditController implements Sidebar {
 
         }
 
-
-        String profilePicPath = user.getProfilePicturePath();
-        if (profilePicPath == null || profilePicPath.isEmpty()) {
-            profilePicPath = "/images/profileDeafault2.png";
-        }
-
-        Image profileImage = new Image(getClass().getResourceAsStream(profilePicPath));
-        imagecircle.setFill(new ImagePattern(profileImage));
-        imagecircle.setRadius(75);
+        String imagePath = System.getProperty("user.dir") + File.separator + user.getProfilePicturePath();
+        String url = new File(imagePath).toURI().toString();
+        imagecircle.setFill(new ImagePattern(new Image(url)));
     }
 
     private void loadMajorChoices(String facultyId) {
@@ -170,59 +161,58 @@ public class StaffEditController implements Sidebar {
     }
     @FXML
     public void enterEditButtonClick() {
+        User findUser = userList.findUserByUsername(user.getUsername());
         String newName = nameTextField.getText();
         if (!newName.isEmpty()) {
-            user.setName(newName);
+            findUser.setName(newName);
         }
 
         String newUsername = usernameTextField.getText();
         if (!newUsername.isEmpty()) {
-            user.setUsername(newUsername);
+            if (userList.findUserByUsername(newUsername) != null) {
+                errorLabel.setText("Username " + newUsername + " มีอยู่แล้ว");
+                return;
+            }
+            findUser.setUsername(newUsername);
         }
 
         String newPassword = passwordTextField.getText();
         if (!newPassword.isEmpty()) {
-            user.setPassword(newPassword);
+            String hashedPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
+            findUser.setPassword(hashedPassword);
         }
 
         String newId = advisorIdTextfield.getText();
         if (!newId.isEmpty()) {
-            user.setId(newId);
+            if (userList.findUserById(newId) != null) {
+                errorLabel.setText("Id " + newId + " มีอยู่แล้ว");
+                return;
+            }
+            findUser.setId(newId);
         }
 
         String selectedFaculty = facultyChoiceBox.getValue();
         if (selectedFaculty != null) {
-            user.setFaculty(selectedFaculty);
+            findUser.setFaculty(selectedFaculty);
         }
 
         String selectedMajor = majorChoiceBox.getValue();
         if (selectedMajor != null) {
-            user.setMajor(selectedMajor);
+            findUser.setMajor(selectedMajor);
         }
 
-        datasource = new UserListFileDatasource("data", "user.csv");
-        userList = datasource.readData();
 
-        for (User findUser : userList.getUsers()) {
-            if (findUser.getUsername().equals(user.getUsername())) {
-                findUser.setName(user.getName());
-                findUser.setPassword(user.getPassword());
-                findUser.setFaculty(user.getFaculty());
-                findUser.setMajor(user.getMajor());
-                findUser.setId(user.getId());
-                break;
-            }
-        }
 
-        UserListFileDatasource userDatasource = new UserListFileDatasource("data", "user.csv");
-        userDatasource.writeData(userList);
+        datasource.writeData(userList);
 
-        displayUserInfo();
+        displayUserInfo(findUser);
+        editStaffButtonClick();
+        clearInputFields();
         editStaffPane.setVisible(false);
     }
     @FXML
     private void editStaffButtonClick() {
-        editStaffPane.setVisible(true);
+        editStaffPane.setVisible(!editStaffPane.isVisible());
         loadFacultyChoices();
         majorChoiceBox.setDisable(true);
         if (user.getRole().equals("advisor")) {
@@ -234,7 +224,6 @@ public class StaffEditController implements Sidebar {
             majorChoiceBox.setVisible(true);
             facultyChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
                 if (newValue != null) {
-//                    loadMajorChoices(newValue);
                     majorChoiceBox.setDisable(false);
                 } else {
                     majorChoiceBox.setDisable(true);
@@ -243,15 +232,32 @@ public class StaffEditController implements Sidebar {
         }
 
     }
+    private void clearInputFields() {
+        nameTextField.clear();
+        usernameTextField.clear();
+        passwordTextField.clear();
+        advisorIdTextfield.clear();
+        facultyChoiceBox.getSelectionModel().clearSelection();
+        majorChoiceBox.getSelectionModel().clearSelection();
+
+    }
+
     @FXML
-    public void onManageFacultyButtonClick() {
+    public void onMyTeamButtonClick() {
         try {
-            FXRouter.goTo("faculty-data-admin");
+            FXRouter.goTo("my-team");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
+    @FXML
+    public void onLogoutButtonClick() {
+        try {
+            FXRouter.goTo("login-page");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
     @FXML
     public void dashboardButtonClick() {
         try {
@@ -276,43 +282,12 @@ public class StaffEditController implements Sidebar {
             throw new RuntimeException(e);
         }
     }
-
-    @Override
-    public void loadSidebar() {
+    @FXML
+    public void onManageFacultyButtonClick() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/views/other/sidebar.fxml"));
-            AnchorPane loadedSidebar = loader.load();
-
-            // ดึง SidebarController จาก FXML Loader
-            SidebarController sidebarController = loader.getController();
-            sidebarController.setSidebar(this); // กำหนด MainAdminController เป็น Sidebar เพื่อให้สามารถปิดได้
-
-            sidebar = loadedSidebar; // กำหนด sidebar ที่โหลดเสร็จแล้ว
-            sidebar.setVisible(false); // ปิด sidebar ไว้ในค่าเริ่มต้น
-            mainPage.getChildren().add(sidebar); // เพิ่ม sidebar ไปยัง mainPage
+            FXRouter.goTo("faculty-data-admin");
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public void toggleSidebar() {
-        if (sidebar != null){
-            sidebar.setVisible(!sidebar.isVisible());
-            if (sidebar.isVisible()){
-                sidebar.toFront(); //ให้ sidebar แสดงด้านหน้าสุด
-            }
-            else {
-                sidebar.toBack();
-            }
-        }
-    }
-
-    @Override
-    public void closeSidebar() {
-        if (sidebar != null){
-            sidebar.setVisible(false);
-            sidebar.toBack();
         }
     }
 }

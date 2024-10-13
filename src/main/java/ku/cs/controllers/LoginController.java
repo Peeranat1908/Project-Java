@@ -70,10 +70,9 @@ public class LoginController {
             errorLabel.setText("Username or password is incorrect. Please try again.");
             return;
         }
-
         userList.updateLastLogin(username);
-
-
+        UserListFileDatasource userDatasource = new UserListFileDatasource("data", "user.csv");
+        userDatasource.writeData(userList);
         navigateByRole(user);
     }
 
@@ -88,24 +87,24 @@ public class LoginController {
                 FXRouter.goTo("main-admin", user);
                 break;
             case "advisor":
-//                if (!user.isFirstlogin()){
-//                    errorLabel.setText("Please change your password before your first login.");
-//                    return;
-//                }
+                if (user.isFirstlogin()){
+                    errorLabel.setText("Please change your password before your first login.");
+                    return;
+                }
                 FXRouter.goTo("main-advisor", user);
                 break;
             case "facultyStaff":
-//                if (!user.isFirstlogin()){
-//                    errorLabel.setText("Please change your password before your first login.");
-//                    return;
-//                }
+                if (user.isFirstlogin()){
+                    errorLabel.setText("Please change your password before your first login.");
+                    return;
+                }
                 FXRouter.goTo("facultyStaff", user);
                 break;
-            case "departmentStaff":
-//                if (!user.isFirstlogin()){
-//                    errorLabel.setText("Please change your password before your first login.");
-//                    return;
-//                }
+            case "majorStaff":
+                if (user.isFirstlogin()){
+                    errorLabel.setText("Please change your password before your first login.");
+                    return;
+                }
                 FXRouter.goTo("departmentStaff", user);
                 break;
             default:

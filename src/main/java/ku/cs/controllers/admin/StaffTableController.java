@@ -1,11 +1,9 @@
 package ku.cs.controllers.admin;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 import ku.cs.models.User;
 import ku.cs.models.UserList;
 import ku.cs.services.Datasource;
@@ -21,6 +19,14 @@ public class StaffTableController {
     private TableView<User> tableView;
     @FXML
     private TextField searchUserTextfield;
+    @FXML
+    private CheckBox facultyStaffCheckBox;
+    @FXML
+    private CheckBox departmentStaffCheckBox;
+    @FXML
+    private CheckBox advisorCheckBox;
+    @FXML
+    private Pane roleSelectionPane;
 
     private UserList userList;
     private Datasource<UserList> datasource;
@@ -41,22 +47,37 @@ public class StaffTableController {
                 User selectedUser = tableView.getSelectionModel().getSelectedItem();
                 if (selectedUser != null) {
                     try {
-                        FXRouter.goTo("staffedit", selectedUser);
+                        FXRouter.goTo("staff-edit", selectedUser);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                 }
             }
         });
+        roleSelectionPane.setVisible(false);
     }
 
     private void filterTable(String searchText) {
         tableView.getItems().clear();
 
         for (User user : userList.getUsers()) {
-            boolean matchesRole = user.getRole().equals("facultyStaff") ||
-                    user.getRole().equals("departmentStaff") ||
-                    user.getRole().equals("advisor");
+            boolean matchesRole = false;
+
+            if (!facultyStaffCheckBox.isSelected() && !departmentStaffCheckBox.isSelected() && !advisorCheckBox.isSelected()) {
+                if (user.getRole().equals("facultyStaff") || user.getRole().equals("majorStaff") || user.getRole().equals("advisor")) {
+                    matchesRole = true;
+                }
+            } else {
+                if (facultyStaffCheckBox.isSelected() && user.getRole().equals("facultyStaff")) {
+                    matchesRole = true;
+                }
+                if (departmentStaffCheckBox.isSelected() && user.getRole().equals("majorStaff")) {
+                    matchesRole = true;
+                }
+                if (advisorCheckBox.isSelected() && user.getRole().equals("advisor")) {
+                    matchesRole = true;
+                }
+            }
 
             if (matchesRole &&
                     (user.getName().toLowerCase().contains(searchText.toLowerCase()) ||
@@ -65,6 +86,8 @@ public class StaffTableController {
             }
         }
     }
+
+
 
     private void showTable(UserList userList) {
         tableView.getItems().clear(); // เคลียร์ตารางก่อน
@@ -85,9 +108,9 @@ public class StaffTableController {
         facultyColumn.setCellValueFactory(new PropertyValueFactory<>("faculty"));
         facultyColumn.setPrefWidth(155);
 
-        TableColumn<User, String> departmentColumn = new TableColumn<>("Major");
-        departmentColumn.setCellValueFactory(new PropertyValueFactory<>("major"));
-        departmentColumn.setPrefWidth(155);
+        TableColumn<User, String> majorColumn = new TableColumn<>("Major");
+        majorColumn.setCellValueFactory(new PropertyValueFactory<>("major"));
+        majorColumn.setPrefWidth(155);
 
         TableColumn<User, String> roleColumn = new TableColumn<>("Role");
         roleColumn.setCellValueFactory(new PropertyValueFactory<>("role"));
@@ -110,14 +133,22 @@ public class StaffTableController {
         });
 
         tableView.getColumns().clear();
-        tableView.getColumns().addAll(nameColumn, usernameColumn, facultyColumn, departmentColumn, roleColumn, suspendColumn);
+        tableView.getColumns().addAll(nameColumn, usernameColumn, facultyColumn, majorColumn, roleColumn, suspendColumn);
 
-        // แสดงผู้ใช้ใน TableView
         for (User user : userList.getUsers()) {
-            if (user.getRole().equals("facultyStaff") || user.getRole().equals("departmentStaff") || user.getRole().equals("advisor")) {
+            if (user.getRole().equals("facultyStaff") || user.getRole().equals("majorStaff") || user.getRole().equals("advisor")) {
                 tableView.getItems().add(user);
             }
         }
+    }
+    @FXML
+    private void RoleSelectedButtonClick() {
+        roleSelectionPane.setVisible(!roleSelectionPane.isVisible());
+    }
+
+    @FXML
+    private void enterselectedRoleButtonClick() {
+        filterTable(searchUserTextfield.getText());
     }
 
 
@@ -168,6 +199,14 @@ public class StaffTableController {
     public void homeButtonClick() {
         try {
             FXRouter.goTo("main-admin");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void onManageFacultyButtonClick() {
+        try {
+            FXRouter.goTo("faculty-data-admin");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

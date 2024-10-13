@@ -7,7 +7,6 @@ public class FacultyStaff {
     private String faculty;
     private String staffType;
 
-    // for faculty
     public FacultyStaff(String name, String username, String password, String faculty) {
         this.name = name;
         this.username = username;

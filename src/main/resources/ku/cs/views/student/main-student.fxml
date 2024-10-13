@@ -25,11 +25,6 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button layoutX="230.0" layoutY="20.0" mnemonicParsing="false" onAction="#onMyTeamButtonClick" style="-fx-background-color: EAF4FF;" text="MY TEAM">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Button>
             <Group layoutX="137.0" layoutY="30.0">
                <children>
                   <Line endX="-51.0" startX="-100.0" stroke="WHITE" strokeWidth="3.0" />
@@ -50,14 +45,9 @@
             <Image url="@../../../../images/document_cartoon.png" />
          </image>
       </ImageView>
-      <Pane layoutX="344.0" layoutY="244.0" prefHeight="245.0" prefWidth="605.0" style="-fx-background-color: BEDCFE; -fx-background-radius: 20;">
+      <Pane layoutX="344.0" layoutY="244.0" prefHeight="149.0" prefWidth="606.0" style="-fx-background-color: BEDCFE; -fx-background-radius: 20;">
          <children>
             <Button layoutX="25.0" layoutY="40.0" mnemonicParsing="false" onAction="#selectAppealButtonClick" prefHeight="66.0" prefWidth="563.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, gray, 10, 0.5, 2 ,2);" text="เลือกประเภทคำร้อง">
-               <font>
-                  <Font name="Arial Bold" size="16.0" />
-               </font>
-            </Button>
-            <Button layoutX="25.0" layoutY="134.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="563.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, gray, 10, 0.5, 2 ,2);" text="สร้างแบบคำร้องใหม่">
                <font>
                   <Font name="Arial Bold" size="16.0" />
                </font>

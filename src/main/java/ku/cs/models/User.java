@@ -10,7 +10,7 @@ public class User implements Comparable<User> {
     protected LocalDate lastLoginDate;
     protected LocalTime lastLoginTime;
     protected String role;
-    protected String profilePicturePath;  // เพิ่ม field สำหรับเก็บรูปภาพ
+    protected String profilePicturePath;
     protected boolean suspend;
     protected String faculty;
     protected String major;
@@ -38,6 +38,11 @@ public class User implements Comparable<User> {
     public User(String name, String username, String password, String role, String profilePicturePath,String id,String faculty,String major) {
         this(name , username, password, null, null, role, profilePicturePath, false, faculty, major,false, id);
     }
+    public User(String name, String username, String password, String role, String id, String faculty, String major) {
+        this(name,username,password,role,null,id,faculty,major);
+    }
+
+
 
 
     public boolean isSuspended() {
@@ -88,7 +93,6 @@ public class User implements Comparable<User> {
         this.major = major;
     }
 
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -112,8 +116,6 @@ public class User implements Comparable<User> {
     public String getName() {
         return name;
     }
-
-
 
     public String getUsername() {
         return username;

@@ -8,10 +8,7 @@ import ku.cs.models.Student;
 import ku.cs.models.StudentList;
 import ku.cs.models.User;
 import ku.cs.models.UserList;
-import ku.cs.services.Datasource;
-import ku.cs.services.FXRouter;
-import ku.cs.services.StudentListFileDatasource;
-import ku.cs.services.UserListFileDatasource;
+import ku.cs.services.*;
 import org.mindrot.jbcrypt.BCrypt;
 
 
@@ -25,10 +22,12 @@ public class RegisterController {
     @FXML private TextField idTextField;
     @FXML private PasswordField passwordTextField;
     @FXML private PasswordField confirmPasswordTextField;
-
     private StudentList studentList;
     private UserList userList;
-
+    private UserListFileDatasource Userdatasource;
+    private StudentListFileDatasource Studentdatasource;
+    private PreRegisterStudentListFileDatasource Preregisterstudentlistfiledatasource;
+    private  StudentList Preregisterstudentlist;
     @FXML
     private void initialize() {
         errorLabel.setText("");
@@ -36,11 +35,14 @@ public class RegisterController {
     }
 
     private void loadData() {
-        Datasource<StudentList> studentDatasource = new StudentListFileDatasource("data", "student-info.csv");
-        studentList = studentDatasource.readData();
+        Studentdatasource = new StudentListFileDatasource("data", "student-info.csv");
+        studentList = Studentdatasource.readData();
 
-        Datasource<UserList> userDatasource = new UserListFileDatasource("data", "user.csv");
-        userList = userDatasource.readData();
+        Userdatasource = new UserListFileDatasource("data", "user.csv");
+        userList = Userdatasource.readData();
+
+        Preregisterstudentlistfiledatasource = new PreRegisterStudentListFileDatasource("data", "studentPreRegister.csv");
+        Preregisterstudentlist = Preregisterstudentlistfiledatasource.readData();
     }
 
 
@@ -71,16 +73,23 @@ public class RegisterController {
 
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
+        if(Preregisterstudentlist.isExists(name, id,email)) {
+            Student findStudent = Preregisterstudentlist.findStudentById(id);
+            Student newStudent = new Student(name, username, id, email, findStudent.getFaculty(), findStudent.getMajor(),findStudent.getAdvisorID());
+            studentList.addStudent(newStudent);
+            Datasource<StudentList> studentDatasource = new StudentListFileDatasource("data", "student-info.csv");
+            studentDatasource.writeData(studentList);
 
-        Student newStudent = new Student(name, username, null, id, email, null, null, null, null, null);
-        studentList.addStudent(newStudent);
-        Datasource<StudentList> studentDatasource = new StudentListFileDatasource("data", "student-info.csv");
-        studentDatasource.writeData(studentList);
+            User newUser = new User(name, username, hashedPassword,"student",id,findStudent.getFaculty(),findStudent.getMajor());
+            userList.addUser(newUser);
+            UserListFileDatasource userDatasource = new UserListFileDatasource("data", "user.csv");
+            userDatasource.writeData(userList);
+        }
+        else {
+            errorLabel.setText("ไม่มีข้อมูลนิสิตในระบบ.");
+            return;
+        }
 
-        User newUser = new User(name, username, hashedPassword, "student", null,id);
-        userList.addUser(newUser);
-        UserListFileDatasource userDatasource = new UserListFileDatasource("data", "user.csv");
-        userDatasource.writeData(userList);
 
         try {
             FXRouter.goTo("login-page");
@@ -95,14 +104,6 @@ public class RegisterController {
     }
     @FXML
     private void onLoginButtonClick() {
-        try {
-            FXRouter.goTo("login-page");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    @FXML
-    private void onBackButton() {
         try {
             FXRouter.goTo("login-page");
         } catch (IOException e) {

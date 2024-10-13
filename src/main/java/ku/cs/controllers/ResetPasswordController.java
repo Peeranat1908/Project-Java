@@ -73,8 +73,10 @@ public class ResetPasswordController {
 
         String hashedNewPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
         user.setPassword(hashedNewPassword);
-        user.setFirstlogin(true);
-        userList.addUser(user);
+
+        if (user.getRole().equals("advisor") || user.getRole().equals("facultyStaff") || user.getRole().equals("majorStaff")) {
+            user.setFirstlogin(false);
+        }
 
         UserListFileDatasource userDatasource = new UserListFileDatasource("data", "user.csv");
         userDatasource.writeData(userList);
@@ -82,5 +84,6 @@ public class ResetPasswordController {
         errorLabel.setText("Password successfully reset.");
         FXRouter.goTo("login-page");
     }
+
 
 }

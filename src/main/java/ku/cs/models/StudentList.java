@@ -70,7 +70,7 @@ public class StudentList extends UserList{
         return null;
     }
 
-    public Student findSudentByEmail(String name){
+    public Student findStudentByEmail(String name){
         for (Student student : students){
             if (student.getEmail().equalsIgnoreCase(name.trim())){
                 return student;

@@ -37,7 +37,6 @@ public class AddStaffController implements Sidebar {
     private Label addStaffLabel;
 
     private UserList userList;
-    private UserListFileDatasource datasource;
     private User user;
     private FacultyListFileDatasource facultyDatasource;
     private MajorListFileDatasource majorDatasource;
@@ -62,12 +61,16 @@ public class AddStaffController implements Sidebar {
         loadSidebar();// loadSidebar
         toggleSidebarButton.setOnAction(actionEvent -> {toggleSidebar();});
     }
+
+
     private void loadData() {
         Datasource<UserList> userDatasource = new UserListFileDatasource("data", "user.csv");
         userList = userDatasource.readData();
     }
 
+
     private void loadRoleChoices() {
+        roleChoiceBox.getItems().clear();
         roleChoiceBox.getItems().addAll("อาจารย์ที่ปรึกษา", "เจ้าหน้าที่คณะ", "เจ้าหน้าที่ภาควิชา");
     }
 
@@ -90,10 +93,10 @@ public class AddStaffController implements Sidebar {
 
     }
 
+
     private void loadMajorChoices(String facultyId) {
         majorDatasource = new MajorListFileDatasource("data", "major.csv");
         majorChoiceBox.getItems().clear();
-
         ObservableList<String> majorNames = FXCollections.observableArrayList();
         for (Major major : majorDatasource.readData().getMajors()) {
             if (major.getFacultyId().equals(facultyId)) {
@@ -102,6 +105,7 @@ public class AddStaffController implements Sidebar {
         }
         majorChoiceBox.getItems().addAll(majorNames);
     }
+
 
     private void loadFacultyChoices() {
         facultyDatasource = new FacultyListFileDatasource("data", "faculty.csv");
@@ -132,9 +136,11 @@ public class AddStaffController implements Sidebar {
             }
         });
     }
+
     private void processSelectedFacultyId(String facultyId) {
         loadMajorChoices(facultyId);
     }
+
     @FXML
     public void addStaffButtonClick() {
         String name = nameTextField.getText();
@@ -145,59 +151,79 @@ public class AddStaffController implements Sidebar {
         String major = majorChoiceBox.getValue();
         String advisorId = advisorIdTextfield.getText();
 
-        // ตรวจสอบว่ามีข้อมูลว่างหรือไม่
         if (name.isEmpty() || username.isEmpty() || password.isEmpty() || role == null || faculty == null) {
             addStaffLabel.setText("กรุณากรอกข้อมูลให้ครบถ้วน");
             return;
         }
-
-        // แปลงบทบาท
         if (role.equals("อาจารย์ที่ปรึกษา")) {
             role = "advisor";
         } else if (role.equals("เจ้าหน้าที่คณะ")) {
             role = "facultyStaff";
         } else if (role.equals("เจ้าหน้าที่ภาควิชา")) {
-            role = "departmentStaff";
+            role = "majorStaff";
         }
 
-        // ตรวจสอบชื่อผู้ใช้
         if (userList.findUserByUsername(username) != null) {
             addStaffLabel.setText("ชื่อผู้ใช้ " + username + " มีอยู่แล้ว กรุณาใช้ชื่ออื่น");
             return;
         }
 
-        // ตรวจสอบชื่อ
         if (userList.findUserByName(name) != null) {
             addStaffLabel.setText("ชื่อ " + name + " มีอยู่แล้ว กรุณาใช้ชื่ออื่น");
             return;
         }
 
-        // ตรวจสอบ advisorId ถ้ามี
-        if (advisorId != null && userList.findUserById(advisorId) != null) {
-            addStaffLabel.setText("ID " + advisorId + " มีอยู่แล้ว กรุณาใช้ ID อื่น");
-            return;
+        if (advisorId != null && !advisorId.isEmpty()) {
+            User foundUser = userList.findUserById(advisorId);
+            if (foundUser != null && advisorId.equals(foundUser.getId())) {
+                addStaffLabel.setText("ID " + advisorId + " มีอยู่แล้ว กรุณาใช้ ID อื่น");
+                return;
+            }
         }
 
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
         User newUser = null;
 
-        // สร้างผู้ใช้ใหม่ตามบทบาท
         if (role.equals("advisor")) {
-            newUser = new User(name, username, hashedPassword, null, null, role, null, false, faculty, major, false, advisorId);
+
+            newUser = new User(name, username, hashedPassword, null, null, role, null, false, faculty, major, true, advisorId);
         } else if (role.equals("facultyStaff")) {
-            newUser = new User(name, username, hashedPassword, null, null, role, null, false, faculty, null, false, null);
-        } else if (role.equals("departmentStaff")) {
-            newUser = new User(name, username, hashedPassword, null, null, role, null, false, faculty, major, false, null);
+            newUser = new User(name, username, hashedPassword, null, null, role, null, false, faculty, null, true, null);
+        } else if (role.equals("majorStaff")) {
+            newUser = new User(name, username, hashedPassword, null, null, role, null, false, faculty, major, true, null);
         } else {
             throw new IllegalArgumentException("บทบาทไม่ถูกต้อง");
         }
 
-        // เพิ่มผู้ใช้ใหม่ในรายชื่อผู้ใช้
         userList.addUser(newUser);
         UserListFileDatasource userDatasource = new UserListFileDatasource("data", "user.csv");
         userDatasource.writeData(userList);
         addStaffLabel.setText("เพิ่มผู้ใช้สำเร็จ: " + username);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("สำเร็จ");
+        alert.setHeaderText(null);
+        alert.setContentText("เพิ่มผู้ใช้สำเร็จ: " + username);
+
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+
+                initialize();
+                clearInputFields();
+            }
+        });;
+    }
+
+    private void clearInputFields() {
+        nameTextField.clear();
+        usernameTextField.clear();
+        passwordTextField.clear();
+        advisorIdTextfield.clear();
+        roleChoiceBox.getSelectionModel().clearSelection();
+        facultyChoiceBox.getSelectionModel().clearSelection();
+        majorChoiceBox.getSelectionModel().clearSelection();
+
     }
 
 
@@ -248,6 +274,15 @@ public class AddStaffController implements Sidebar {
         }
     }
 
+    @FXML
+    public void onManageFacultyButtonClick() {
+        try {
+            FXRouter.goTo("faculty-data-admin");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public void loadSidebar() {
         try {
@@ -286,4 +321,5 @@ public class AddStaffController implements Sidebar {
             sidebar.toBack();
         }
     }
+
 }
