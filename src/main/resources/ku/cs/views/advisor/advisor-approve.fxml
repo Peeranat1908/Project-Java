@@ -28,21 +28,6 @@
                         <Font name="Arial" size="14.0" />
                     </font>
                 </Label>
-            <Label fx:id="DeclineDateLabel" layoutX="146.0" layoutY="507.0" prefHeight="16.0" prefWidth="277.0" text="DeclineDate" textFill="RED" visible="false">
-               <font>
-                  <Font name="Arial Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="DeclineWhen" alignment="CENTER" layoutX="47.0" layoutY="507.0" text="ถูกปฎิเสธวันที่:" textFill="RED" visible="false">
-               <font>
-                  <Font name="Arial Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="DeclineReasonLabel" alignment="TOP_LEFT" layoutX="47.0" layoutY="536.0" prefHeight="66.0" prefWidth="402.0" text="DeclineReason" textAlignment="CENTER" textFill="RED" visible="false" wrapText="true">
-               <font>
-                  <Font name="Arial Bold" size="14.0" />
-               </font>
-            </Label>
             <Label fx:id="signatureLabel" alignment="CENTER" layoutX="563.0" layoutY="531.0" prefHeight="16.0" prefWidth="270.0" text="Signature" textFill="#807a7a">
                <font>
                   <Font name="Arial Bold" size="14.0" />
@@ -71,6 +56,51 @@
             <Label layoutX="409.0" layoutY="97.0" text="เรื่อง">
                <font>
                   <Font name="Arial Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="DeclineReasonLabel" alignment="TOP_LEFT" layoutX="34.0" layoutY="525.0" prefHeight="66.0" prefWidth="405.0" text="DeclineReason" textFill="RED" visible="false" wrapText="true">
+               <font>
+                  <Font name="Arial Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="majorApprovedateLabel" layoutX="40.0" layoutY="622.0" text="MajorApprovedDate" textFill="GREEN" visible="false">
+               <font>
+                  <Font name="Arial Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="facultyApprovedateLabel" layoutX="37.0" layoutY="666.0" text="FacultyApprovedDate" textFill="GREEN" visible="false">
+               <font>
+                  <Font name="Arial Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="DeclineDateLabel" alignment="TOP_LEFT" layoutX="136.0" layoutY="496.0" prefHeight="16.0" prefWidth="277.0" text="DeclineDate" textFill="RED" visible="false" wrapText="true">
+               <font>
+                  <Font name="Arial Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="declineWhen" layoutX="37.0" layoutY="496.0" text="ถูกปฎิเสธวันที่:" textFill="RED" visible="false">
+               <font>
+                  <Font name="Arial Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="majorApproveWhen" layoutX="35.0" layoutY="599.0" text="เจ้าหน้าที่ภาคผู้อนุมัติ / วันที่:" textFill="#096109" visible="false">
+               <font>
+                  <Font name="Arial Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="facultyApproveWhen" layoutX="34.0" layoutY="645.0" text="เจ้าหน้าที่คณะผู้อนุมัติ / วันที่:" textFill="#096109" visible="false">
+               <font>
+                  <Font name="Arial Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="majorSignatureLabel" layoutX="219.0" layoutY="599.0" text="majorSignatureLabel" textFill="GREEN" visible="false">
+               <font>
+                  <Font name="Arial Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="facultySignatureLabel" layoutX="219.0" layoutY="645.0" text="FacultySignatureLabel" textFill="GREEN" visible="false">
+               <font>
+                  <Font name="Arial Bold" size="14.0" />
                </font>
             </Label>
             </children>

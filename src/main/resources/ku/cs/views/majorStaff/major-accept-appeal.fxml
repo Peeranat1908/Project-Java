@@ -60,32 +60,7 @@
                   <Font name="Arial Bold" size="16.0" />
                </font>
             </Label>
-            <Label fx:id="majorDateLabel" alignment="CENTER" layoutX="229.0" layoutY="661.0" prefHeight="15.0" prefWidth="270.0" text="majorDate" textFill="#1a7903" visible="false">
-               <font>
-                  <Font name="Arial Bold" size="14.0" />
-               </font>
-            </Label>
             <Label fx:id="declineWhen" layoutX="47.0" layoutY="507.0" text="ถูกปฏิเสธวันที่:" textFill="RED" visible="false">
-               <font>
-                  <Font name="Arial Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="majorApproveWhen" layoutX="47.0" layoutY="661.0" text="เจ้าหน้าที่ภาควิชาผู้อนุมัติ/วันที่:" textFill="#1a7903" visible="false">
-               <font>
-                  <Font name="Arial Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="facultyApproveWhen" layoutX="47.0" layoutY="618.0" text="เจ้าหน้าที่คณะผู้อนุมัติ/วันที่:" textFill="#1a7903" visible="false">
-               <font>
-                  <Font name="Arial Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="facultySignatureLabel" alignment="CENTER" layoutX="114.0" layoutY="634.0" prefHeight="16.0" prefWidth="500.0" text="facultySignature" textFill="#1a7903" visible="false">
-               <font>
-                  <Font name="Arial Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="facultyApprovedateLabel" alignment="CENTER" layoutX="226.0" layoutY="618.0" prefHeight="16.0" prefWidth="281.0" text="facultyDate" textFill="#1a7903" visible="false">
                <font>
                   <Font name="Arial Bold" size="14.0" />
                </font>
@@ -95,7 +70,7 @@
                   <Font name="Arial Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="declineLabel" alignment="TOP_LEFT" layoutX="47.0" layoutY="536.0" prefHeight="66.0" prefWidth="402.0" text="DeclineReason" textFill="RED" visible="false">
+            <Label fx:id="declineLabel" alignment="TOP_LEFT" layoutX="47.0" layoutY="536.0" prefHeight="58.0" prefWidth="483.0" text="DeclineReason" textFill="RED" visible="false">
                <font>
                   <Font name="Arial Bold" size="14.0" />
                </font>
@@ -119,7 +94,32 @@
                   <Font name="Arial Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="majorSignatureLabel" alignment="CENTER" layoutX="100.0" layoutY="677.0" prefHeight="16.0" prefWidth="524.0" text="majorSignature" textFill="#1a7903" visible="false">
+            <Label fx:id="majorApprovedateLabel" layoutX="40.0" layoutY="622.0" text="MajorApprovedDate" textFill="GREEN" visible="false">
+               <font>
+                  <Font name="Arial Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="facultyApprovedateLabel" layoutX="35.0" layoutY="665.0" text="FacultyApprovedDate" textFill="GREEN" visible="false">
+               <font>
+                  <Font name="Arial Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="majorApproveWhen" layoutX="35.0" layoutY="598.0" text="เจ้าหน้าที่ภาคผู้อนุมัติ / วันที่:" textFill="#096109" visible="false">
+               <font>
+                  <Font name="Arial Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="facultyApproveWhen" layoutX="35.0" layoutY="645.0" text="เจ้าหน้าที่คณะผู้อนุมัติ / วันที่:" textFill="#096109" visible="false">
+               <font>
+                  <Font name="Arial Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="majorSignatureLabel" layoutX="219.0" layoutY="599.0" text="majorSignatureLabel" textFill="GREEN" visible="false">
+               <font>
+                  <Font name="Arial Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="facultySignatureLabel" layoutX="219.0" layoutY="645.0" text="FacultySignatureLabel" textFill="GREEN" visible="false">
                <font>
                   <Font name="Arial Bold" size="14.0" />
                </font>
@@ -153,5 +153,10 @@
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Button>
+      <Label fx:id="errorLabel" layoutX="1072.0" layoutY="255.0" text="Select Staff first!" textFill="RED" visible="false">
+         <font>
+            <Font name="Arial Bold" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
