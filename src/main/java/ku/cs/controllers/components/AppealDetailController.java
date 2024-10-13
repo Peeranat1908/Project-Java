@@ -52,21 +52,21 @@ public class AppealDetailController {
             dateLabel.setText(appeal.getDate().toString());
             signatureLabel.setText(appeal.getStudentSignature());
 
-            if(appeal.getDeclineDateTime() != null){
+            if(appeal.getDeclineDateTime() != null && appeal.getStatus().contains("ปฏิเสธ")){
                 declineWhen.setVisible(true);
                 DeclineDateLabel.setText(appeal.getDeclineDateTime().toString());
                 DeclineDateLabel.setVisible(true);
                 declineLabel.setText(appeal.getDeclineReason());
                 declineLabel.setVisible(true);
             }
-            if (appeal.getMajorEndorserDate() != null){
+            if (appeal.getMajorEndorserDate() != null && appeal.getStatus().contains("อนุมัติ")){
                 majorApprovedateLabel.setText(appeal.getMajorEndorserDate().toString());
                 majorApprovedateLabel.setVisible(true);
                 majorApproveWhen.setVisible(true);
                 majorSignatureLabel.setText(appeal.getMajorEndorserSignature());
                 majorSignatureLabel.setVisible(true);
             }
-            if (appeal.getFacultyEndorserDate() != null){
+            if (appeal.getFacultyEndorserDate() != null && appeal.getStatus().contains("อนุมัติ")){
                 facultyApprovedateLabel.setText(appeal.getFacultyEndorserDate().toString());
                 facultyApprovedateLabel.setVisible(true);
                 facultyApproveWhen.setVisible(true);
