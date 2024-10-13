@@ -2,13 +2,17 @@ package ku.cs.controllers.majorStaff;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import ku.cs.controllers.NavigationHistoryService;
 import ku.cs.controllers.components.Sidebar;
 import ku.cs.controllers.components.SidebarController;
 import ku.cs.models.*;
 import ku.cs.services.*;
 
+import java.io.File;
 import java.io.IOException;
 
 import javafx.scene.control.Alert.AlertType;
@@ -30,6 +34,7 @@ public class AddStudentController implements Sidebar {
     private AnchorPane mainPage;
     @FXML
     private Button toggleSidebarButton; // ปุ่มสำหรับแสดง/ซ่อน Sidebar
+    @FXML private Circle imagecircle;
 
     private UserList userList;
     private UserListFileDatasource datasource;
@@ -47,6 +52,10 @@ public class AddStudentController implements Sidebar {
         studentList = studentFileDatasource.readData();
         loadSidebar();// loadSidebar
         toggleSidebarButton.setOnAction(actionEvent -> {toggleSidebar();});
+        String imagePath = System.getProperty("user.dir") + File.separator + user.getProfilePicturePath();
+        String url = new File(imagePath).toURI().toString();
+        imagecircle.setFill(new ImagePattern(new Image(url)));
+
     }
 
     @FXML
@@ -162,6 +171,17 @@ public class AddStudentController implements Sidebar {
         if (sidebar != null){
             sidebar.setVisible(false);
             sidebar.toBack();
+        }
+    }
+    @FXML
+    public void onUserProfileButton(){
+        navigateTo("user-profile", user);
+    }
+    private void navigateTo(String route, Object data) {
+        try {
+            FXRouter.goTo(route, data);
+        } catch (IOException e) {
+            System.err.println("Navigation to " + route + " failed: " + e.getMessage());
         }
     }
 }

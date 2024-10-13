@@ -41,17 +41,17 @@
                         <Font name="Arial Bold" size="16.0" />
                     </font>
                 </Label>
-                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="364.0" layoutY="24.0" text="เธเธณเธฃเนเธญเธเธเธฃเธฐเน€เธ เธ—">
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="364.0" layoutY="24.0" text="คำร้องประเภท">
                     <font>
                         <Font name="Arial Bold" size="24.0" />
                     </font>
                 </Label>
-                <Label alignment="CENTER" layoutX="409.0" layoutY="97.0" style="-fx-font-weight: bold;" text="เน€เธฃเธทเนเธญเธ">
+                <Label alignment="CENTER" layoutX="409.0" layoutY="97.0" style="-fx-font-weight: bold;" text="เรื่อง">
                     <font>
                         <Font name="Arial Bold" size="16.0" />
                     </font>
                 </Label>
-                <Label fx:id="declineWhen" layoutX="30.0" layoutY="504.0" text="เธ–เธนเธเธเธเธดเน€เธชเธเธงเธฑเธเธ—เธตเน:" textFill="RED">
+                <Label fx:id="declineWhen" layoutX="30.0" layoutY="504.0" text="ถูกปฎิเสธวันที่:" textFill="RED">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font></Label>
@@ -59,8 +59,6 @@
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font></Label>
-                <Label layoutX="472.0" layoutY="504.0" text="เธเธทเนเธญเธเธนเนเธชเนเธ" />
-                <Label layoutX="472.0" layoutY="557.0" text="เธงเธฑเธเธ—เธตเนเธชเนเธ" />
                 <Label layoutX="676.0" layoutY="504.0" text="ชื่อผู้ส่ง" />
                 <Label layoutX="676.0" layoutY="555.0" text="วันที่ส่ง" />
                 <Label fx:id="declineLabel" alignment="TOP_LEFT" layoutX="30.0" layoutY="530.0" prefHeight="55.0" prefWidth="366.0" text="DeclineReason" textFill="RED">
@@ -79,25 +77,21 @@
                     <font>
                         <Font size="14.0" />
                     </font></Label>
-                <Label fx:id="FacultySignatureName" layoutX="30.0" layoutY="658.0" text="เธฅเธฒเธขเน€เธเนเธ:" textFill="#2f8a1f">
+                <Label fx:id="majorApprovedateLabel" layoutX="40.0" layoutY="622.0" text="MajorApprovedDate" textFill="GREEN" visible="false">
                     <font>
-                        <Font size="14.0" />
-                    </font></Label>
-            <Label fx:id="majorApprovedateLabel" layoutX="40.0" layoutY="622.0" text="MajorApprovedDate" textFill="GREEN" visible="false">
-               <font>
-                  <Font name="Arial Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="majorApproveWhen" layoutX="35.0" layoutY="599.0" text="เจ้าหน้าที่ภาคผู้อนุมัติ / วันที่:" textFill="#096109" visible="false">
-               <font>
-                  <Font name="Arial Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="majorSignatureLabel" layoutX="219.0" layoutY="599.0" text="majorSignatureLabel" textFill="GREEN" visible="false">
-               <font>
-                  <Font name="Arial Bold" size="14.0" />
-               </font>
-            </Label>
+                        <Font name="Arial Bold" size="14.0" />
+                    </font>
+                </Label>
+                <Label fx:id="majorApproveWhen" layoutX="35.0" layoutY="599.0" text="เจ้าหน้าที่ภาคผู้อนุมัติ / วันที่:" textFill="#096109" visible="false">
+                    <font>
+                        <Font name="Arial Bold" size="14.0" />
+                    </font>
+                </Label>
+                <Label fx:id="majorSignatureLabel" layoutX="219.0" layoutY="599.0" text="majorSignatureLabel" textFill="GREEN" visible="false">
+                    <font>
+                        <Font name="Arial Bold" size="14.0" />
+                    </font>
+                </Label>
             </children>
         </Pane>
         <Pane layoutX="63.0" layoutY="48.0" prefHeight="34.0" prefWidth="35.0">
@@ -114,13 +108,11 @@
                 </Button>
             </children>
         </Pane>
-        <Button layoutX="1030.0" layoutY="45.0" minHeight="40.0" minWidth="170.0" mnemonicParsing="false" onAction="#onApproveAppealClick" prefHeight="49.0" prefWidth="170.0" style="-fx-background-color: #07752c; -fx-effect: dropshadow(gaussian, gray, 20, 0.1, 0 ,0);" styleClass="AcceptButton" text="เธญเธเธธเธกเธฑเธ•เธดเธเธณเธฃเนเธญเธ" textFill="WHITE"/>
         <Button fx:id="confirmButton" layoutX="1030.0" layoutY="45.0" minHeight="40.0" minWidth="170.0" mnemonicParsing="false" onAction="#onApproveAppealClick" prefHeight="49.0" prefWidth="170.0" style="-fx-background-color: #07752c; -fx-effect: dropshadow(gaussian, gray, 20, 0.1, 0 ,0);" styleClass="AcceptButton" text="อนุมัติคำร้อง" textFill="WHITE">
             <font>
                 <Font name="Arial Bold" size="16.0" />
             </font>
         </Button>
-        <Button layoutX="1030.0" layoutY="100.0" minHeight="40.0" minWidth="170.0" mnemonicParsing="false" onAction="#onDeclineAppealClick" styleClass="CancelButton" text="เธเธเธดเน€เธชเธเธเธณเธฃเนเธญเธ" textFill="WHITE"/>
         <Button fx:id="declineButton" layoutX="1030.0" layoutY="100.0" minHeight="40.0" minWidth="170.0" mnemonicParsing="false" onAction="#onDeclineAppealClick" styleClass="CancelButton" text="ปฏิเสธคำร้อง" textFill="WHITE">
             <font>
                 <Font name="Arial Bold" size="16.0" />
@@ -148,7 +140,6 @@
         </Label>
         <ChoiceBox fx:id="approveChoiceBox" layoutX="1046.0" layoutY="187.0" prefWidth="150.0" />
         <Label fx:id="approveCheckLabel" layoutX="1065.0" layoutY="233.0" text="approveCheckLabel" textFill="RED" />
-        <Label fx:id="MajorEndorsers" layoutX="1055.0" layoutY="161.0" text="เธฅเธเธเธฒเธกเน€เธเนเธฒเธซเธเนเธฒเธ—เธตเนเธเธ“เธฐ:"/>
         <Label fx:id="FacultyEndorsers" layoutX="1055.0" layoutY="161.0" text="ลงนามเจ้าหน้าที่คณะ:">
             <font>
                 <Font name="Arial Bold" size="16.0" />

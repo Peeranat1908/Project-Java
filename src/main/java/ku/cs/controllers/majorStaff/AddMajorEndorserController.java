@@ -40,7 +40,7 @@ public class AddMajorEndorserController implements Sidebar {
         Object data = FXRouter.getData();
         if (data instanceof User) {
             user = (User) data;
-            updateUI();
+
         } else {
             nameLabel.setText("Invalid user data");
         }
@@ -111,11 +111,6 @@ public class AddMajorEndorserController implements Sidebar {
         alert.showAndWait();
     }
 
-    private void updateUI() {
-        if (user != null) {
-            nameLabel.setText(user.getUsername());
-        }
-    }
 
     @FXML
     public void onHomeButtonClick() {

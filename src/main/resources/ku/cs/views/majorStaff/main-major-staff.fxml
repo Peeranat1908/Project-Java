@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
@@ -29,11 +30,6 @@
                         <Font name="System Bold" size="16.0" />
                     </font>
                 </Button>
-                <Button layoutX="211.0" layoutY="19.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="LIST">
-                    <font>
-                        <Font name="System Bold" size="16.0" />
-                    </font>
-                </Button>
                 <Group layoutX="134.0" layoutY="28.0">
                     <children>
                         <Line endX="-51.0" startX="-100.0" stroke="WHITE" strokeWidth="3.0" />
@@ -41,18 +37,14 @@
                         <Line endX="-51.857139587402344" layoutX="1.0" layoutY="21.0" startX="-100.85713958740234" stroke="WHITE" strokeWidth="3.0" />
                     </children>
                 </Group>
-                <ImageView fitHeight="68.0" fitWidth="71.0" layoutX="1195.0" layoutY="12.0">
-                    <image>
-                        <Image url="@../../../../images/major-staff.png" />
-                    </image>
-                </ImageView>
-                <Button layoutX="263.0" layoutY="21.0" mnemonicParsing="false" onAction="#onAddEndorserButton" style="-fx-background-color: EAF4FF;" text="แก้ไขระบบอนุมัติคำร้อง">
+            <Circle fx:id="imagecircle" fill="DODGERBLUE" layoutX="1225.0" layoutY="40.0" radius="34.0" stroke="BLACK" strokeType="INSIDE" />
+                <Button layoutX="204.0" layoutY="22.0" mnemonicParsing="false" onAction="#onAddEndorserButton" style="-fx-background-color: EAF4FF;" text="แก้ไขผู้อนุมัติคำร้อง">
                     <font>
                         <Font name="Arial Bold" size="16.0" />
                     </font>
                 </Button>
-                <Button layoutX="1205.0" layoutY="18.0" mnemonicParsing="false" onAction="#onUserProfileButton" opacity="0.0" prefHeight="51.0" prefWidth="52.0" text="Button" />
-                <Button layoutX="441.0" layoutY="21.0" mnemonicParsing="false" onAction="#onStudentListButton" style="-fx-background-color: EAF4FF;" text="รายชื่อนิสิต">
+                <Button layoutX="1199.0" layoutY="19.0" mnemonicParsing="false" onAction="#onUserProfileButton" opacity="0.0" prefHeight="51.0" prefWidth="52.0" text="Button" />
+                <Button layoutX="359.0" layoutY="22.0" mnemonicParsing="false" onAction="#onStudentListButton" style="-fx-background-color: EAF4FF;" text="รายชื่อนิสิต">
                     <font>
                         <Font name="Arial Bold" size="16.0" />
                     </font>

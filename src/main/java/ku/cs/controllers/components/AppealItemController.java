@@ -77,7 +77,7 @@ public class AppealItemController {
 
             if(user.getRole().equals("student")) {
                 FXRouter.goTo("appeal-detail", user);
-            }else if(user.getRole().equals("departmentStaff")){
+            }else if(user.getRole().equals("majorStaff")){
                 FXRouter.goTo("major-accept-appeal", user);
             }else if(user.getRole().equals("advisor")){
                 FXRouter.goTo("advisor-approve", new Pair<>(user, studentID));

@@ -9,6 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
@@ -37,16 +38,8 @@
                         <Font name="System Bold" size="16.0" />
                     </font>
                 </Button>
-                <Button layoutX="211.0" layoutY="19.0" mnemonicParsing="false" style="-fx-background-color: EAF4FF;" text="LIST">
-                    <font>
-                        <Font name="System Bold" size="16.0" />
-                    </font>
-                </Button>
-                <ImageView fitHeight="69.0" fitWidth="68.0" layoutX="1190.0" layoutY="7.0">
-                    <image>
-                        <Image url="@../../../../images/admin.png" />
-                    </image>
-                </ImageView>
+            <Circle fx:id="imagecircle" fill="DODGERBLUE" layoutX="1234.0" layoutY="42.0" radius="34.0" stroke="BLACK" strokeType="INSIDE" />
+            <Button layoutX="1208.0" layoutY="18.0" mnemonicParsing="false" onAction="#onUserProfileButton" opacity="0.0" prefHeight="47.0" prefWidth="52.0" text="Button" />
             </children>
         </Pane>
         <Button layoutX="1208.0" layoutY="677.0" mnemonicParsing="false" onAction="#onLogoutButtonClick" text="logout" />

@@ -76,11 +76,7 @@ public class MajorAcceptAppealController {
             signatureLabel.setText(appeal.getStudentSignature());
 
 
-<<<<<<< HEAD
-                if(appeal.getStatus().contains("ปฏิเสธ")){
-=======
             if(appeal.getStatus().contains("ปฏิเสธ")){
->>>>>>> 8eb8bbe8bb93cbf52acdcb8499192565ad11fa75
                 MajorEndorsers.setVisible(false);
                 declineWhen.setVisible(true);
                 LocalDateTime time = appeal.getDeclineDateTime();
@@ -217,6 +213,8 @@ public class MajorAcceptAppealController {
     }
 
 
+
+    // ฟังก์ชันสำหรับโหลดรายชื่อจาก CSV และเพิ่มเข้า ChoiceBox
     private void loadEndorsersFromCSV(String filePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -239,7 +237,7 @@ public class MajorAcceptAppealController {
                 FXRouter.goTo("appeal-tracking", user);
             } else if (user.getRole().equals("advisor")) {
                 FXRouter.goTo("advisor-appeal-page", user);
-            } else if (user.getRole().equals("departmentStaff")) {
+            } else if (user.getRole().equals("majorStaff")) {
                 FXRouter.goTo("departmentStaff", user);
             }
         } catch (IOException e) {

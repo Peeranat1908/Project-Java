@@ -6,7 +6,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.util.Pair;
 import ku.cs.controllers.components.Sidebar;
 import ku.cs.controllers.components.SidebarController;
@@ -15,6 +18,7 @@ import ku.cs.models.StudentList;
 import ku.cs.models.User;
 import ku.cs.services.*;
 
+import java.io.File;
 import java.io.IOException;
 
 public class StudentInMajorController implements Sidebar {
@@ -31,7 +35,7 @@ public class StudentInMajorController implements Sidebar {
     private AnchorPane mainPage;
     @FXML
     private Button toggleSidebarButton; // ปุ่มสำหรับแสดง/ซ่อน Sidebar
-
+    @FXML private Circle imagecircle;
     private Datasource<StudentList> datasource;
     private User user;
     Datasource<StudentList> studentDatasource;
@@ -44,6 +48,10 @@ public class StudentInMajorController implements Sidebar {
             user = (User) data;
 
         }
+        String imagePath = System.getProperty("user.dir") + File.separator + user.getProfilePicturePath();
+        String url = new File(imagePath).toURI().toString();
+        imagecircle.setFill(new ImagePattern(new Image(url)));
+
 
         studentDatasource = new StudentListFileDatasource("data", "student-info.csv");
         studentList = studentDatasource.readData();
@@ -145,14 +153,6 @@ public class StudentInMajorController implements Sidebar {
             throw new RuntimeException(e);
         }
     }
-    @FXML
-    public void homeButtonClick() {
-        try {
-            FXRouter.goTo("departmentStaff",user);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Override
     public void loadSidebar(){
@@ -189,6 +189,17 @@ public class StudentInMajorController implements Sidebar {
         if (sidebar != null){
             sidebar.setVisible(false);
             sidebar.toBack();
+        }
+    }
+    @FXML
+    public void onUserProfileButton(){
+        navigateTo("user-profile", user);
+    }
+    private void navigateTo(String route, Object data) {
+        try {
+            FXRouter.goTo(route, data);
+        } catch (IOException e) {
+            System.err.println("Navigation to " + route + " failed: " + e.getMessage());
         }
     }
 
