@@ -31,7 +31,7 @@
                         <Image url="@../../../../images/admin.png" />
                     </image>
                 </ImageView>
-                <Button layoutX="230.0" layoutY="20.0" mnemonicParsing="false" onAction="#onManageFacultyButtonClick" styleClass="ButtonNavbar" text="จัดการข้อมูลคณะและภาควิชา" textFill="WHITE">
+                <Button layoutX="230.0" layoutY="20.0" mnemonicParsing="false" styleClass="ButtonNavbar" text="จัดการข้อมูลคณะและภาควิชา" textFill="WHITE">
                     <font>
                         <Font name="Arial Bold" size="16.0" />
                     </font>
