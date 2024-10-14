@@ -169,7 +169,7 @@ public class FacultyAppealDetailController {
 
         datasource.writeData(appealList);
         try {
-            FXRouter.goTo("facultyAppeal", user);
+            FXRouter.goTo("facultyStaff", user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -206,7 +206,7 @@ public class FacultyAppealDetailController {
 
         datasource.writeData(appealList);
         try {
-            FXRouter.goTo("facultyAppeal", user);
+            FXRouter.goTo("facultyStaff", user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -227,7 +227,7 @@ public class FacultyAppealDetailController {
     @FXML
     public void onBackButtonClick() {
         try {
-            FXRouter.goTo("facultyAppeal", user);
+            FXRouter.goTo("facultyStaff", user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
