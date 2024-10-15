@@ -7,6 +7,18 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
 <AnchorPane fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.majorStaff.StudentDetailController">
     <children>
         <Label fx:id="userTextLabel" layoutX="590.0" layoutY="123.0" text="ข้อมูลuser">
@@ -36,26 +48,21 @@
         </Label>
         <Pane layoutX="6.0" layoutY="-1.0" prefHeight="80.0" prefWidth="1275.0" style="-fx-background-color: EAF4FF;">
             <children>
-                <Button fx:id="toggleSidebarButton" layoutX="-7.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="124.0" style="-fx-background-color: #2F80ED; -fx-background-radius: 0;" textFill="WHITE">
-                    <graphic>
-                        <Group>
-                            <children>
-                                <Line endX="-51.0" startX="-100.0" stroke="WHITE" strokeWidth="3.0" />
-                                <Line endX="-51.0" layoutY="11.0" startX="-100.0" stroke="WHITE" strokeWidth="3.0" />
-                                <Line endX="-51.857139587402344" layoutX="1.0" layoutY="21.0" startX="-100.85713958740234" stroke="WHITE" strokeWidth="3.0" />
-                            </children>
-                        </Group>
-                    </graphic>
-                </Button>
-                <Button layoutX="135.0" layoutY="22.0" mnemonicParsing="false" onAction="#homeButtonClick" style="-fx-background-color: EAF4FF;" text="HOME">
+                <Button fx:id="toggleSidebarButton" layoutX="-7.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="124.0" style="-fx-background-color: #2F80ED; -fx-background-radius: 0;" textFill="WHITE" />
+                <Button layoutX="135.0" layoutY="20.0" mnemonicParsing="false" onAction="#homeButtonClick" styleClass="ButtonNavbar" text="HOME">
                     <font>
                         <Font name="System Bold" size="16.0" />
                     </font>
                 </Button>
+            <ImageView fitHeight="29.0" fitWidth="43.0" layoutX="40.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../images/Hamburger.png" />
+               </image>
+            </ImageView>
             </children>
         </Pane>
         <Circle fx:id="imagecircle" fill="DODGERBLUE" layoutX="262.0" layoutY="393.0" radius="155.0" stroke="BLACK" strokeType="INSIDE" />
-        <Button layoutX="1028.0" layoutY="130.0" mnemonicParsing="false" onAction="#editStudentButtonClick" style="-fx-background-color: #FFFFFF;" text="แก้ไขข้อมูลนิสิต">
+        <Button layoutX="1028.0" layoutY="130.0" mnemonicParsing="false" onAction="#editStudentButtonClick" text="แก้ไขข้อมูลนิสิต">
             <graphic>
                 <ImageView fitHeight="31.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -94,7 +101,7 @@
       </Label>
         <Pane fx:id="editStaffPane" layoutX="440.0" layoutY="182.0" prefHeight="442.0" prefWidth="746.0" style="-fx-background-color: #FFFFFF;">
             <children>
-                <Button layoutX="462.0" layoutY="354.0" mnemonicParsing="false" onAction="#enterEditButtonClick" style="-fx-background-color: #FFFFFF;" text="ยืนยันการแก้ไข">
+                <Button layoutX="462.0" layoutY="354.0" mnemonicParsing="false" onAction="#enterEditButtonClick" text="ยืนยันการแก้ไข">
                     <graphic>
                         <ImageView fitHeight="31.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -111,7 +118,7 @@
                         <Font size="14.0" />
                     </font>
                 </Label>
-                <TextField fx:id="nameTextField" layoutX="36.0" layoutY="81.0" prefHeight="38.0" prefWidth="396.0" style="-fx-background-radius: 10;">
+                <TextField fx:id="nameTextField" layoutX="36.0" layoutY="81.0" prefHeight="38.0" prefWidth="396.0">
                     <font>
                         <Font size="14.0" />
                     </font>
@@ -121,7 +128,7 @@
                         <Font size="14.0" />
                     </font>
                 </Label>
-                <TextField fx:id="idTextField" layoutX="36.0" layoutY="158.0" prefHeight="37.0" prefWidth="396.0" style="-fx-background-radius: 10;">
+                <TextField fx:id="idTextField" layoutX="36.0" layoutY="158.0" prefHeight="37.0" prefWidth="396.0">
                     <font>
                         <Font size="14.0" />
                     </font>
@@ -131,8 +138,8 @@
                         <Font size="14.0" />
                     </font>
                 </Label>
-                <PasswordField fx:id="emailTextField" layoutX="36.0" layoutY="230.0" prefHeight="37.0" prefWidth="396.0" style="-fx-background-radius: 10;" />
-                <TextField fx:id="advisorIdTextfield" layoutX="36.0" layoutY="307.0" prefHeight="37.0" prefWidth="396.0" style="-fx-background-radius: 10;">
+                <PasswordField fx:id="emailTextField" layoutX="36.0" layoutY="230.0" prefHeight="37.0" prefWidth="396.0" />
+                <TextField fx:id="advisorIdTextfield" layoutX="36.0" layoutY="307.0" prefHeight="37.0" prefWidth="396.0">
                     <font>
                         <Font size="14.0" />
                     </font>
@@ -144,10 +151,14 @@
                 </Label>
             <Label fx:id="errorLabel" layoutX="130.0" layoutY="387.0" text="errorLabel" textFill="RED">
                <font>
-                  <Font name="System Bold" size="22.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
             </Label>
             </children>
         </Pane>
     </children>
+   <stylesheets>
+      <URL value="@../../style/baseOnPageLightMode.css" />
+      <URL value="@../../style/noto.css" />
+   </stylesheets>
 </AnchorPane>

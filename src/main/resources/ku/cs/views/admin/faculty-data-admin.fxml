@@ -9,9 +9,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.FacultyDataAdminController">
+<AnchorPane fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.FacultyDataAdminController">
     <children>
         <Pane layoutX="2.0" layoutY="-1.0" prefHeight="80.0" prefWidth="1275.0" style="-fx-background-color: EAF4FF;">
             <children>
@@ -26,27 +27,23 @@
                         <Font name="System Bold" size="16.0" />
                     </font>
                 </Button>
-                <Button layoutX="223.0" layoutY="20.0" mnemonicParsing="false" onAction="#onMyTeamButtonClick" styleClass="ButtonNavbarNotMain" text="MY TEAM">
-                    <font>
-                        <Font name="System Bold" size="16.0" />
-                    </font>
-                </Button>
-                <ImageView fitHeight="69.0" fitWidth="68.0" layoutX="1190.0" layoutY="7.0">
-                    <image>
-                        <Image url="@../../../../images/admin.png" />
-                    </image>
-                </ImageView>
-                <Button layoutX="350.0" layoutY="20.0" mnemonicParsing="false" styleClass="ButtonNavbar" text="จัดการข้อมูลคณะและภาควิชา" textFill="WHITE">
+
+                <Button layoutX="219.0" layoutY="20.0" mnemonicParsing="false" styleClass="ButtonNavbar" text="จัดการข้อมูลคณะและภาควิชา" textFill="WHITE">
+
                     <font>
                         <Font name="Arial Bold" size="16.0" />
                     </font>
                 </Button>
-                <Button layoutX="595.0" layoutY="20.0" mnemonicParsing="false" onAction="#manageStaffdataButtonClick" styleClass="ButtonNavbarNotMain" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
+
+                <Button layoutX="465.0" layoutY="20.0" mnemonicParsing="false" onAction="#manageStaffdataButtonClick" styleClass="ButtonNavbarNotMain" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
+
                     <font>
                         <Font name="Arial Bold" size="16.0" />
                     </font>
                 </Button>
-                <Button layoutX="864.0" layoutY="19.0" mnemonicParsing="false" onAction="#dashboardButtonClick" styleClass="ButtonNavbarNotMain" text="Dashboard">
+
+                <Button layoutX="734.0" layoutY="19.0" mnemonicParsing="false" onAction="#dashboardButtonClick" styleClass="ButtonNavbarNotMain" text="Dashboard">
+
                     <font>
                         <Font name="System Bold" size="16.0" />
                     </font>
@@ -63,7 +60,7 @@
                 <Font name="Arial" size="32.0" />
             </font>
         </Label>
-        <TableView fx:id="facultyDataAdminTableView" layoutX="122.0" layoutY="203.0" prefHeight="462.0" prefWidth="1056.0" styleClass="tableview" stylesheets="@../../style/Style.css">
+        <TableView fx:id="facultyDataAdminTableView" layoutX="122.0" layoutY="203.0" prefHeight="462.0" prefWidth="1056.0" styleClass="tableview">
             <columns>
                 <TableColumn prefWidth="75.0" styleClass="table-row-cell" text="No" />
                 <TableColumn prefWidth="75.0" styleClass="table-row-cell" text="Faculty ID" />
@@ -77,6 +74,8 @@
                 <Font name="Arial" size="18.0" />
             </font>
         </Button>
+      <Circle fx:id="imagecircleuser" fill="DODGERBLUE" layoutX="1237.0" layoutY="44.0" radius="34.0" stroke="BLACK" strokeType="INSIDE" />
+      <Button layoutX="1211.0" layoutY="17.0" mnemonicParsing="false" onAction="#onUserProfileButton" opacity="0.0" prefHeight="51.0" prefWidth="52.0" text="Button" />
     </children>
    <stylesheets>
       <URL value="@../../style/baseOnPageLightMode.css" />

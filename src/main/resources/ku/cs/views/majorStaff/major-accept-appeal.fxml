@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -133,22 +134,22 @@
          </font>
       </Button>
       <Group layoutX="30.0" layoutY="513.0" />
-      <Label fx:id="MajorEndorsers" layoutX="1032.0" layoutY="152.0" text="ลงนามเจ้าหน้าที่ภาควิชา:">
+      <Label fx:id="MajorEndorsers" layoutX="1032.0" layoutY="162.0" text="ลงนามเจ้าหน้าที่ภาควิชา:">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="endorserBox" layoutX="1032.0" layoutY="182.0" prefHeight="25.0" prefWidth="175.0" style="-fx-background-color: FFFFFF; -fx-effect: dropshadow(gaussian, gray, 20, 0.1, 0 ,0); -fx-background-radius: 20;" />
-      <CheckBox fx:id="sendingToDean" layoutX="1030.0" layoutY="226.0" mnemonicParsing="false" text="คำร้องส่งต่อให้คณบดี">
+      <ChoiceBox fx:id="endorserBox" layoutX="1032.0" layoutY="192.0" prefHeight="25.0" prefWidth="175.0" />
+      <CheckBox fx:id="sendingToDean" layoutX="1030.0" layoutY="236.0" mnemonicParsing="false" text="คำร้องส่งต่อให้คณบดี">
          <font>
             <Font name="Arial Bold" size="14.0" />
          </font></CheckBox>
-      <Button fx:id="declineButton" layoutX="1030.0" layoutY="95.0" minHeight="40.0" minWidth="170.0" mnemonicParsing="false" onAction="#DeclineApplyClick" style="-fx-background-color: RED; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, gray, 20, 0.1, 0 ,0);" text="ปฏิเสธคำร้อง" textFill="WHITE">
+      <Button fx:id="declineButton" layoutX="1030.0" layoutY="105.0" minHeight="40.0" minWidth="170.0" mnemonicParsing="false" onAction="#DeclineApplyClick" styleClass="CancelButton" text="ปฏิเสธคำร้อง" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Button>
-      <Button fx:id="approveAppealButton" layoutX="1030.0" layoutY="45.0" minHeight="40.0" minWidth="170.0" mnemonicParsing="false" onAction="#onApplyAppealClick" style="-fx-background-color: #07752c; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, gray, 20, 0.1, 0 ,0);" text="อนุมัติคำร้อง" textFill="WHITE">
+      <Button fx:id="approveAppealButton" layoutX="1030.0" layoutY="45.0" minHeight="40.0" minWidth="170.0" mnemonicParsing="false" onAction="#onApplyAppealClick" styleClass="AcceptButton" text="อนุมัติคำร้อง" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
@@ -159,4 +160,8 @@
          </font>
       </Label>
    </children>
+   <stylesheets>
+      <URL value="@../../style/baseOnPageLightMode.css" />
+      <URL value="@../../style/noto.css" />
+   </stylesheets>
 </AnchorPane>

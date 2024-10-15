@@ -41,12 +41,9 @@ public class UserProfileController {
     @FXML private Label majorLabel;
     @FXML private Label facultyLabel;
 
-
-
     private UserList userList;
     private UserListFileDatasource datasource;
     private User user;
-    private User updatedUser;
     @FXML
     public void initialize() {
         errorLabel.setText("");
@@ -67,16 +64,13 @@ public class UserProfileController {
         }
     }
 
-    private User updateUser(User user) {
-        userList = datasource.readData();
-        updatedUser = userList.findUserByUsername(user.getUsername());
-        return updatedUser;
-    }
-
     private void updateUI(User user) {
         if (user != null) {
             usernameLabel.setText(user.getUsername());
             roleLabel.setText(user.getRole());
+            if(user.getRole().equals("admin")) {
+                facultyLabel.setVisible(false);
+            }
             if (user.getRole().equals("majorStaff")) {
                 majorLabel.setVisible(true);
                 majorLabel1.setVisible(true);
@@ -93,6 +87,7 @@ public class UserProfileController {
             String imagePath = System.getProperty("user.dir") + File.separator + user.getProfilePicturePath();
             String url = new File(imagePath).toURI().toString();
             imagecircle.setFill(new ImagePattern(new Image(url)));
+
         }
     }
     @FXML
@@ -133,9 +128,8 @@ public class UserProfileController {
     }
     @FXML
     private void onChangeProfileImageButtonClick() {
-        // สร้าง FileChooser
+
         FileChooser fileChooser = new FileChooser();
-        // เปลี่ยนไปใช้เส้นทางที่ตรงไปยัง data/userProfileImage
         File initialDirectory = new File("data/userProfileImage");
         if (!initialDirectory.exists()) {
             initialDirectory.mkdirs();
@@ -161,10 +155,9 @@ public class UserProfileController {
                 Path target = FileSystems.getDefault().getPath(destDir.getAbsolutePath() + File.separator + filename);
                 Files.copy(selectedFile.toPath(), target, StandardCopyOption.REPLACE_EXISTING);
                 String profilePicPath = "data/userProfileImage" + File.separator + filename;
-                User findUser = userList.findUserByUsername(user.getUsername());
-                findUser.setProfilePicturePath(profilePicPath);
+                updateUI(user);
+                user.setProfilePicturePath(profilePicPath);
                 datasource.writeData(userList);
-                updateUI(updateUser(findUser));
                 errorLabel.setText("อัพเดตรูปโปรไฟล์สำเร็จ.");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -186,14 +179,6 @@ public class UserProfileController {
             e.printStackTrace();
         }
     }
-    @FXML
-    private void onLogOutButtonClick(){
-        try{
-            FXRouter.goTo("login-page");
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-    }
 
     private void navigateByRole(User user) throws IOException {
         if (user == null) {
@@ -212,7 +197,7 @@ public class UserProfileController {
                     System.out.println("Please change your password before your first login."); // Print a message instead of using a label
                     return;
                 }
-                FXRouter.goTo("main-advisor", user);
+                FXRouter.goTo("advisor", user);
                 break;
             case "facultyStaff":
                 if (user.isFirstlogin()) {

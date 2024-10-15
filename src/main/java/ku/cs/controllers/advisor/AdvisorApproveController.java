@@ -99,7 +99,6 @@ public class AdvisorApproveController {
                     facultySignatureLabel.setText(appeal.getFacultyEndorserSignature());
                     facultySignatureLabel.setVisible(true);
                 }
-
             }
         }
 
