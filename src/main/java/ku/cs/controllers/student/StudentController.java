@@ -1,8 +1,13 @@
 package ku.cs.controllers.student;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import ku.cs.controllers.NavigationHistoryService;
+import ku.cs.controllers.components.Sidebar;
+import ku.cs.controllers.components.SidebarController;
 import ku.cs.models.StudentList;
 import ku.cs.models.User;
 import ku.cs.models.Student;
@@ -11,7 +16,7 @@ import ku.cs.services.FXRouter;
 import ku.cs.services.StudentListFileDatasource;
 
 import java.io.IOException;
-public class StudentController {
+public class StudentController implements Sidebar {
     @FXML
     private Label usernameLabel;
 
@@ -20,6 +25,13 @@ public class StudentController {
     private Student student;
 
     @FXML Label errorLabel;
+    @FXML
+    private AnchorPane sidebar;
+    @FXML
+    private AnchorPane mainPage;
+    @FXML
+    private Button toggleSidebarButton; // ปุ่มสำหรับแสดง/ซ่อน Sidebar
+
 
     @FXML
     private void initialize() {
@@ -31,6 +43,9 @@ public class StudentController {
         Datasource<StudentList> studentDatasource = new StudentListFileDatasource("data", "student-info.csv");
         StudentList studentList = studentDatasource.readData();
         student = studentList.findStudentById(user.getId());
+
+        loadSidebar();// loadSidebar
+        toggleSidebarButton.setOnAction(actionEvent -> {toggleSidebar();});
     }
 
     private void updateUI() {
@@ -84,4 +99,42 @@ public class StudentController {
         }
     }
 
+    @Override
+    public void loadSidebar() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/views/other/sidebar.fxml"));
+            AnchorPane loadedSidebar = loader.load();
+
+            // ดึง SidebarController จาก FXML Loader
+            SidebarController sidebarController = loader.getController();
+            sidebarController.setSidebar(this); // กำหนด MainAdminController เป็น Sidebar เพื่อให้สามารถปิดได้
+
+            sidebar = loadedSidebar; // กำหนด sidebar ที่โหลดเสร็จแล้ว
+            sidebar.setVisible(false); // ปิด sidebar ไว้ในค่าเริ่มต้น
+            mainPage.getChildren().add(sidebar); // เพิ่ม sidebar ไปยัง mainPage
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void toggleSidebar() {
+        if (sidebar != null){
+            sidebar.setVisible(!sidebar.isVisible());
+            if (sidebar.isVisible()){
+                sidebar.toFront(); //ให้ sidebar แสดงด้านหน้าสุด
+            }
+            else {
+                sidebar.toBack();
+            }
+        }
+    }
+
+    @Override
+    public void closeSidebar() {
+        if (sidebar != null){
+            sidebar.setVisible(false);
+            sidebar.toBack();
+        }
+    }
 }

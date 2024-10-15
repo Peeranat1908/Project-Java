@@ -88,22 +88,6 @@ public class MajorDataAdminController implements Sidebar {
     }
 
     @FXML
-    public void onMyTeamButtonClick() {
-        try {
-            FXRouter.goTo("my-team");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    @FXML
-    public void onLogoutButtonClick() {
-        try {
-            FXRouter.goTo("login-page");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    @FXML
     public void dashboardButtonClick() {
         try {
             FXRouter.goTo("dashboard");

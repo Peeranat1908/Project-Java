@@ -66,8 +66,8 @@ public class LeaveAppealController {
         daySpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 31, LocalDate.now().getDayOfMonth()));
         monthSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12, LocalDate.now().getMonthValue()));
         yearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1900, LocalDate.now().getYear(), LocalDate.now().getYear()));
-        endyearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1900, LocalDate.now().getYear(), LocalDate.now().getYear()));
-        startyearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1900, LocalDate.now().getYear(), LocalDate.now().getYear()));
+        endyearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(2567,3000, LocalDate.now().getYear()));
+        startyearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(2567, 3000, LocalDate.now().getYear()));
 
         datasource = new AppealListDatasource("data/appeals.csv");
         AppealList loadedAppeals = datasource.readData();

@@ -36,12 +36,12 @@
                         <Font name="Arial Bold" size="16.0" />
                     </font>
                 </Button>
-                <Button layoutX="475.0" layoutY="20.0" mnemonicParsing="false" onAction="#manageStaffdataButtonClick" styleClass="ButtonNavbarNotMain" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
+                <Button layoutX="465.0" layoutY="20.0" mnemonicParsing="false" onAction="#manageStaffdataButtonClick" styleClass="ButtonNavbarNotMain" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
                     <font>
                         <Font name="Arial Bold" size="16.0" />
                     </font>
                 </Button>
-                <Button layoutX="744.0" layoutY="19.0" mnemonicParsing="false" onAction="#dashboardButtonClick" styleClass="ButtonNavbarNotMain" text="Dashboard">
+                <Button layoutX="734.0" layoutY="19.0" mnemonicParsing="false" onAction="#dashboardButtonClick" styleClass="ButtonNavbarNotMain" text="Dashboard">
                     <font>
                         <Font name="System Bold" size="16.0" />
                     </font>
@@ -58,7 +58,7 @@
                 <Font name="Arial" size="32.0" />
             </font>
         </Label>
-        <TableView fx:id="facultyDataAdminTableView" layoutX="122.0" layoutY="203.0" prefHeight="462.0" prefWidth="1056.0" styleClass="tableview" stylesheets="@../../style/Style.css">
+        <TableView fx:id="facultyDataAdminTableView" layoutX="122.0" layoutY="203.0" prefHeight="462.0" prefWidth="1056.0" styleClass="tableview">
             <columns>
                 <TableColumn prefWidth="75.0" styleClass="table-row-cell" text="No" />
                 <TableColumn prefWidth="75.0" styleClass="table-row-cell" text="Faculty ID" />

@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.MainAdminController">
+<AnchorPane fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.MainAdminController">
     <children>
         <Pane layoutX="2.0" layoutY="-1.0" prefHeight="80.0" prefWidth="1275.0" style="-fx-background-color: EAF4FF;">
             <children>
@@ -44,7 +44,7 @@
                     </font>
                 </Button>
 
-                <Button layoutX="731.0" layoutY="17.0" mnemonicParsing="false" onAction="#dashboardButtonClick" styleClass="ButtonNavbarNotMain" text="dashboard">
+                <Button layoutX="731.0" layoutY="17.0" mnemonicParsing="false" onAction="#dashboardButtonClick" styleClass="ButtonNavbarNotMain" text="Dashboard">
 
                     <font>
                         <Font name="System Bold" size="16.0" />
@@ -66,15 +66,15 @@
                 <Font size="20.0" />
             </font>
         </TextField>
-        <TableView fx:id="tableView" layoutX="218.0" layoutY="249.0" prefHeight="428.0" prefWidth="863.0" stylesheets="@../../style/Style.css">
+        <TableView fx:id="tableView" layoutX="218.0" layoutY="249.0" prefHeight="428.0" prefWidth="863.0">
             <columns>
-                <TableColumn prefWidth="145.0" style="-fx-background-color: #2F80ED;" text="C1" />
-                <TableColumn prefWidth="178.4000244140625" style="-fx-background-color: #2F80ED;" text="C2" />
+                <TableColumn prefWidth="145.0" styleClass="table-row-cell" text="C1" />
+                <TableColumn prefWidth="178.4000244140625" styleClass="table-row-cell" text="C2" />
                 <TableColumn minWidth="0.0" prefWidth="0.0" text="3" />
-                <TableColumn prefWidth="94.39996337890625" style="-fx-background-color: #2F80ED;" text="4" />
-                <TableColumn prefWidth="151.20001220703125" style="-fx-background-color: #2F80ED;" text="5" />
-                <TableColumn prefWidth="151.99993896484375" style="-fx-background-color: #2F80ED;" text="6" />
-                <TableColumn prefWidth="130.4000244140625" style="-fx-background-color: #2F80ED;" text="7" />
+                <TableColumn prefWidth="94.39996337890625" styleClass="table-row-cell" text="4" />
+                <TableColumn prefWidth="151.20001220703125" styleClass="table-row-cell" text="5" />
+                <TableColumn prefWidth="151.99993896484375" styleClass="table-row-cell" text="6" />
+                <TableColumn prefWidth="130.4000244140625" styleClass="table-row-cell" text="7" />
                 <TableColumn prefWidth="116.0" style="-fx-background-color: #2F80ED;" text="8" />
                 <TableColumn prefWidth="116.0" text="9" />
             </columns>
@@ -113,8 +113,8 @@
             </font>
         </Button>
     </children>
-    <stylesheets>
-        <URL value="@../../style/baseOnPageLightMode.css" />
-        <URL value="@../../style/noto.css" />
-    </stylesheets>
+   <stylesheets>
+      <URL value="@../../style/noto.css" />
+      <URL value="@../../style/baseOnPageLightMode.css" />
+   </stylesheets>
 </AnchorPane>

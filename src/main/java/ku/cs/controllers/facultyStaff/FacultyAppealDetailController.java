@@ -169,7 +169,7 @@ public class FacultyAppealDetailController {
 
         datasource.writeData(appealList);
         try {
-            FXRouter.goTo("facultyAppeal", user);
+            FXRouter.goTo("facultyStaff", user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -184,7 +184,8 @@ public class FacultyAppealDetailController {
 
     @FXML
     public void DeclineApplyClick(){
-        String DeclineReason = declineTextField.getText();
+
+        String DeclineReason = "ถูกปฎิเสธเนื่องจาก" + declineTextField.getText();
 
         Appeal appeal = AppealSharedData.getSelectedAppeal();
         // ตรวจสอบว่าได้เลือกชื่อคนอนุมัติจาก ChoiceBox แล้วหรือยัง
@@ -206,7 +207,7 @@ public class FacultyAppealDetailController {
 
         datasource.writeData(appealList);
         try {
-            FXRouter.goTo("facultyAppeal", user);
+            FXRouter.goTo("facultyStaff", user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -227,7 +228,7 @@ public class FacultyAppealDetailController {
     @FXML
     public void onBackButtonClick() {
         try {
-            FXRouter.goTo("facultyAppeal", user);
+            FXRouter.goTo("facultyStaff", user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -1,10 +1,6 @@
-/* baseOnPageDarkMode.css */
-.root {
-    -fx-background-color: #333; /* สีพื้นหลังดำ */
-    -fx-text-fill: white; /* สีข้อความขาว */
-}
-.background {
+.root{
     -fx-background-color: #121212; /* สีพื้นหลังเข้ม */
+    -fx-text-fill: white;
 }
 .button {
     -fx-background-radius: 25px;
@@ -71,7 +67,7 @@
     -fx-background-color: #1E1E1E; /* สีของ choice box */
     -fx-border-radius: 15px;
     -fx-border-color: #BFC9CA;
-    -fx-text-fill: white; /* ข้อความขาว */
+    -fx-text-fill: black;
 }
 .text-field {
     -fx-background-color: #1E1E1E; /* สีของ text field */
