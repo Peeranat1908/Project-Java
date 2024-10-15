@@ -5,11 +5,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.util.Pair;
 import ku.cs.controllers.components.Sidebar;
 import ku.cs.controllers.components.SidebarController;
+import ku.cs.models.Student;
 import ku.cs.models.User;
 import ku.cs.models.UserList;
 import ku.cs.services.FXRouter;
@@ -33,11 +36,14 @@ public class UserDetailAdminController implements Sidebar {
     private Label DepartmentLabel;
 
     @FXML
+    private Circle imagecircleuser;
+    @FXML
     private Circle imagecircle;
 
     private UserList userList;
     private UserListFileDatasource datasource;
     private User user;
+    private User userdetail;
 
     @FXML
     private AnchorPane sidebar;
@@ -48,38 +54,43 @@ public class UserDetailAdminController implements Sidebar {
 
     public void initialize() {
         Object data = FXRouter.getData();
-        if (data instanceof User) {
-            user = (User) data;
+        if (data instanceof Pair) {
+            Pair<User, User> userPair = (Pair<User, User>) data;
+            user = userPair.getKey();
+            userdetail = userPair.getValue();
         }
         suspendlabel.setText("");
         displayUserInfo();
         loadSidebar();// loadSidebar
         toggleSidebarButton.setOnAction(actionEvent -> {toggleSidebar();});
+        String imagePath = System.getProperty("user.dir") + File.separator + user.getProfilePicturePath();
+        String url = new File(imagePath).toURI().toString();
+        imagecircleuser.setFill(new ImagePattern(new Image(url)));
     }
 
 
     private void displayUserInfo() {
-        nameLabel.setText("ชื่อ: " + user.getName());
-        usernameLabel.setText("ชื่อผู้ใช้: " + user.getUsername());
-        facultyLabel.setText("คณะ: " + user.getFaculty());
+        nameLabel.setText("ชื่อ: " + userdetail.getName());
+        usernameLabel.setText("ชื่อผู้ใช้: " + userdetail.getUsername());
+        facultyLabel.setText("คณะ: " + userdetail.getFaculty());
 
 
-        if (user.getRole().equals("student")) {
+        if (userdetail.getRole().equals("student")) {
             userTextLabel.setText("ข้อมูลนิสิต");
-        } else if (user.getRole().equals("advisor")) {
+        } else if (userdetail.getRole().equals("advisor")) {
             userTextLabel.setText("ข้อมูลอาจารย์ที่ปรึกษา");
-        } else if (user.getRole().equals("facultyStaff")) {
+        } else if (userdetail.getRole().equals("facultyStaff")) {
             userTextLabel.setText("ข้อมูลเจ้าหน้าที่คณะ");
-        } else if (user.getRole().equals("majorStaff")) {
+        } else if (userdetail.getRole().equals("majorStaff")) {
             userTextLabel.setText("ข้อมูลเจ้าหน้าที่ภาควิชา");
         }
 
-        if (user.getRole().equals("facultyStaff")) {
+        if (userdetail.getRole().equals("facultyStaff")) {
             DepartmentLabel.setText("");
         } else {
-            DepartmentLabel.setText("ภาควิชา: " +user.getMajor());
+            DepartmentLabel.setText("ภาควิชา: " +userdetail.getMajor());
         }
-        String imagePath = System.getProperty("user.dir") + File.separator + user.getProfilePicturePath();
+        String imagePath = System.getProperty("user.dir") + File.separator + userdetail.getProfilePicturePath();
         String url = new File(imagePath).toURI().toString();
         imagecircle.setFill(new ImagePattern(new Image(url)));
     }
@@ -88,7 +99,7 @@ public class UserDetailAdminController implements Sidebar {
     public void suspendButtonclick() {
         datasource = new UserListFileDatasource("data", "user.csv");
         userList = datasource.readData();
-        String username = user.getUsername();
+        String username = userdetail.getUsername();
 
         User user = userList.findUserByUsername(username);
         if (user != null) {
@@ -112,10 +123,11 @@ public class UserDetailAdminController implements Sidebar {
         }
     }
 
+
     @FXML
     public void dashboardButtonClick() {
         try {
-            FXRouter.goTo("dashboard");
+            FXRouter.goTo("dashboard",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -123,7 +135,7 @@ public class UserDetailAdminController implements Sidebar {
     @FXML
     public void manageStaffdataButtonClick() {
         try {
-            FXRouter.goTo("staff-table-admin");
+            FXRouter.goTo("staff-table-admin",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -131,7 +143,7 @@ public class UserDetailAdminController implements Sidebar {
     @FXML
     public void homeButtonClick() {
         try {
-            FXRouter.goTo("main-admin");
+            FXRouter.goTo("main-admin",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -139,7 +151,16 @@ public class UserDetailAdminController implements Sidebar {
     @FXML
     public void onManageFacultyButtonClick() {
         try {
-            FXRouter.goTo("faculty-data-admin");
+            FXRouter.goTo("faculty-data-admin",user);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void onUserProfileButton() {
+        try {
+            FXRouter.goTo("user-profile",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

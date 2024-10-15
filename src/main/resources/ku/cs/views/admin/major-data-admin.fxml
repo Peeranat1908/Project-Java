@@ -9,9 +9,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.MajorDataAdminController">
+<AnchorPane fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.MajorDataAdminController">
     <children>
         <Pane layoutX="2.0" layoutY="-1.0" prefHeight="80.0" prefWidth="1275.0" style="-fx-background-color: EAF4FF;">
             <children>
@@ -26,22 +27,22 @@
                         <Font name="System Bold" size="16.0" />
                     </font>
                 </Button>
-                <ImageView fitHeight="69.0" fitWidth="68.0" layoutX="1190.0" layoutY="7.0">
-                    <image>
-                        <Image url="@../../../../images/admin.png" />
-                    </image>
-                </ImageView>
-                <Button layoutX="238.0" layoutY="20.0" mnemonicParsing="false" styleClass="ButtonNavbar" text="จัดการข้อมูลคณะและภาควิชา">
+
+                <Button layoutX="225.0" layoutY="20.0" mnemonicParsing="false" styleClass="ButtonNavbar" text="จัดการข้อมูลคณะและภาควิชา">
+
                     <font>
                         <Font name="Arial Bold" size="17.0" />
                     </font>
                 </Button>
+
                 <Button layoutX="476.0" layoutY="20.0" mnemonicParsing="false" onAction="#manageStaffdataButtonClick" styleClass="ButtonNavbarNotMain" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
                     <font>
                         <Font name="Arial Bold" size="17.0" />
                     </font>
                 </Button>
+
                 <Button layoutX="744.0" layoutY="20.0" mnemonicParsing="false" onAction="#dashboardButtonClick" styleClass="ButtonNavbarNotMain" text="Dashboard">
+
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
@@ -79,6 +80,8 @@
             </image>
         </ImageView>
         <Button layoutX="107.0" layoutY="142.0" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="34.0" prefWidth="59.0" text="Button" />
+      <Circle fx:id="imagecircleuser" fill="DODGERBLUE" layoutX="1237.0" layoutY="40.0" radius="34.0" stroke="BLACK" strokeType="INSIDE" />
+      <Button layoutX="1210.0" layoutY="16.0" mnemonicParsing="false" onAction="#onUserProfileButton" opacity="0.0" prefHeight="51.0" prefWidth="52.0" />
     </children>
     <stylesheets>
         <URL value="@../../style/baseOnPageLightMode.css" />

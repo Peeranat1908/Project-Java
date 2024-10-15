@@ -6,26 +6,30 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import ku.cs.controllers.NavigationHistoryService;
 import ku.cs.controllers.components.Sidebar;
 import ku.cs.controllers.components.SidebarController;
 import ku.cs.models.Faculty;
+import ku.cs.models.User;
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
 import ku.cs.services.FacultyListFileDatasource;
 import ku.cs.models.FacultyList;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 
 public class FacultyDataAdminController implements Sidebar {
     @FXML private TableView<Faculty> facultyDataAdminTableView;
 
-    private FacultyList facultyList;
-
-    private Datasource<FacultyList> datasource;
-
+    @FXML
+    private Circle imagecircleuser;
     @FXML
     private AnchorPane sidebar;
     @FXML
@@ -33,8 +37,17 @@ public class FacultyDataAdminController implements Sidebar {
     @FXML
     private Button toggleSidebarButton; // ปุ่มสำหรับแสดง/ซ่อน Sidebar
 
+    private User user;
+    private FacultyList facultyList;
+    private Datasource<FacultyList> datasource;
+
     @FXML
     public void initialize() {
+        Object data = FXRouter.getData();
+        if (data instanceof User) {
+            user = (User) data;
+
+        }
         datasource = new FacultyListFileDatasource("data", "Faculty.csv");
         facultyList = datasource.readData();
         if (facultyList != null){
@@ -58,6 +71,9 @@ public class FacultyDataAdminController implements Sidebar {
         });
         loadSidebar();// loadSidebar
         toggleSidebarButton.setOnAction(actionEvent -> {toggleSidebar();});
+        String imagePath = System.getProperty("user.dir") + File.separator + user.getProfilePicturePath();
+        String url = new File(imagePath).toURI().toString();
+        imagecircleuser.setFill(new ImagePattern(new Image(url)));
     }
 
 
@@ -83,6 +99,14 @@ public class FacultyDataAdminController implements Sidebar {
     }
 
     @FXML
+    public void onUserProfileButton() {
+        try {
+            FXRouter.goTo("user-profile",user);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
     public void onMyTeamButtonClick() throws RuntimeException {
         NavigationHistoryService.getInstance().pushPage("faculty-data-admin");
         try {
@@ -95,25 +119,18 @@ public class FacultyDataAdminController implements Sidebar {
     @FXML
     public void onHomeButtonClick() {
         try {
-            FXRouter.goTo("main-admin");
+            FXRouter.goTo("main-admin",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    @FXML
-    public void onLogOutButtonClick(){
-        try {
-            FXRouter.goTo("main-admin");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 
     @FXML
     public void onEditFacultyButtonClick(){
         try {
-            FXRouter.goTo("edit-data-faculty");
+            FXRouter.goTo("edit-data-faculty",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -122,7 +139,7 @@ public class FacultyDataAdminController implements Sidebar {
     @FXML
     public void dashboardButtonClick() {
         try {
-            FXRouter.goTo("dashboard");
+            FXRouter.goTo("dashboard",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -130,7 +147,7 @@ public class FacultyDataAdminController implements Sidebar {
     @FXML
     public void manageStaffdataButtonClick() {
         try {
-            FXRouter.goTo("staff-table-admin");
+            FXRouter.goTo("staff-table-admin",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

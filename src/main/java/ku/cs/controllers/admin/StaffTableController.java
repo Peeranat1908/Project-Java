@@ -4,6 +4,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
+import javafx.util.Pair;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import ku.cs.controllers.components.Sidebar;
@@ -14,6 +21,7 @@ import ku.cs.services.Datasource;
 import ku.cs.services.UserListFileDatasource;
 import ku.cs.services.FXRouter;
 
+import java.io.File;
 import java.io.IOException;
 
 
@@ -31,7 +39,9 @@ public class StaffTableController implements Sidebar {
     private CheckBox advisorCheckBox;
     @FXML
     private Pane roleSelectionPane;
-
+    @FXML
+    private Circle imagecircleuser;
+    private User user;
     private UserList userList;
     private Datasource<UserList> datasource;
 
@@ -47,6 +57,11 @@ public class StaffTableController implements Sidebar {
         datasource = new UserListFileDatasource("data", "user.csv");
         userList = datasource.readData();
         showTable(userList);
+        Object data = FXRouter.getData();
+        if (data instanceof User) {
+            user = (User) data;
+
+        }
 
         searchUserTextfield.textProperty().addListener((observable, oldValue, newValue) -> {
             filterTable(newValue);
@@ -58,7 +73,8 @@ public class StaffTableController implements Sidebar {
                 User selectedUser = tableView.getSelectionModel().getSelectedItem();
                 if (selectedUser != null) {
                     try {
-                        FXRouter.goTo("staff-edit", selectedUser);
+                        Pair<User, User> userPair = new Pair<>(user, selectedUser);
+                        FXRouter.goTo("staff-edit", userPair);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -66,8 +82,12 @@ public class StaffTableController implements Sidebar {
             }
         });
         roleSelectionPane.setVisible(false);
+        String imagePath = System.getProperty("user.dir") + File.separator + user.getProfilePicturePath();
+        String url = new File(imagePath).toURI().toString();
+        imagecircleuser.setFill(new ImagePattern(new Image(url)));
         loadSidebar();// loadSidebar
         toggleSidebarButton.setOnAction(actionEvent -> {toggleSidebar();});
+
     }
 
     private void filterTable(String searchText) {
@@ -168,20 +188,12 @@ public class StaffTableController implements Sidebar {
     @FXML
     public void addStaffButtonClick() {
         try {
-            FXRouter.goTo("add-staff");
+            FXRouter.goTo("add-staff",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    @FXML
-    public void onMyTeamButtonClick() {
-        try {
-            FXRouter.goTo("my-team");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @FXML
     public void onLogoutButtonClick() {
@@ -194,7 +206,7 @@ public class StaffTableController implements Sidebar {
     @FXML
     public void dashboardButtonClick() {
         try {
-            FXRouter.goTo("dashboard");
+            FXRouter.goTo("dashboard",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -202,7 +214,7 @@ public class StaffTableController implements Sidebar {
     @FXML
     public void manageStaffdataButtonClick() {
         try {
-            FXRouter.goTo("staff-table-admin");
+            FXRouter.goTo("staff-table-admin",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -211,7 +223,7 @@ public class StaffTableController implements Sidebar {
     @FXML
     public void homeButtonClick() {
         try {
-            FXRouter.goTo("main-admin");
+            FXRouter.goTo("main-admin",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -219,7 +231,15 @@ public class StaffTableController implements Sidebar {
     @FXML
     public void onManageFacultyButtonClick() {
         try {
-            FXRouter.goTo("faculty-data-admin");
+            FXRouter.goTo("faculty-data-admin",user);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void onUserProfileButton() {
+        try {
+            FXRouter.goTo("user-profile",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

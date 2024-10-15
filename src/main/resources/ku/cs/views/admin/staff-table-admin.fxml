@@ -11,6 +11,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.StaffTableController">
@@ -23,27 +27,33 @@
                         <Font name="System Bold" size="33.0" />
                     </font>
                 </Label>
+
+
                 <Button layoutX="135.0" layoutY="20.0" mnemonicParsing="false" onAction="#homeButtonClick" styleClass="ButtonNavbarNotMain" text="HOME">
+
                     <font>
                         <Font name="System Bold" size="16.0" />
                     </font>
                 </Button>
-                <ImageView fitHeight="69.0" fitWidth="68.0" layoutX="1190.0" layoutY="7.0">
-                    <image>
-                        <Image url="@../../../../images/admin.png" />
-                    </image>
-                </ImageView>
+
+
                 <Button layoutX="229.0" layoutY="18.0" mnemonicParsing="false" onAction="#onManageFacultyButtonClick" styleClass="ButtonNavbarNotMain" text="จัดการข้อมูลคณะและภาควิชา">
+
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
                 </Button>
+
+
                 <Button layoutX="464.0" layoutY="20.0" mnemonicParsing="false" onAction="#manageStaffdataButtonClick" styleClass="ButtonNavbar" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
+
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
                 </Button>
+
                 <Button layoutX="742.0" layoutY="21.0" mnemonicParsing="false" onAction="#dashboardButtonClick" styleClass="ButtonNavbarNotMain" text="Dashboard">
+
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
@@ -108,6 +118,8 @@
                 </CheckBox>
             </children>
         </Pane>
+      <Circle fx:id="imagecircleuser" fill="DODGERBLUE" layoutX="1228.0" layoutY="43.0" radius="34.0" stroke="BLACK" strokeType="INSIDE" />
+      <Button layoutX="1200.0" layoutY="17.0" mnemonicParsing="false" onAction="#onUserProfileButton" opacity="0.0" prefHeight="51.0" prefWidth="52.0" text="Button" />
     </children>
     <stylesheets>
         <URL value="@../../style/noto.css" />

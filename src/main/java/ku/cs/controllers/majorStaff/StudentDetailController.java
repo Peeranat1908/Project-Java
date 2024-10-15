@@ -136,8 +136,10 @@ public class StudentDetailController implements Sidebar {
         }
 
 
-        String newAdvisorId = advisorIdTextfield.getText().isEmpty() ? null : advisorIdTextfield.getText();
-        findStudent.setAdvisorID(newAdvisorId);
+        if(!advisorIdTextfield.getText().isEmpty()){
+            String newAdvisorId = advisorIdTextfield.getText().isEmpty() ? null : advisorIdTextfield.getText();
+            findStudent.setAdvisorID(newAdvisorId);
+        }
 
         studentFileDatasource.writeData(studentList);
         datasource.writeData(userList);
@@ -166,14 +168,7 @@ public class StudentDetailController implements Sidebar {
         }
     }
 
-    @FXML
-    public void onLogoutButtonClick() {
-        try {
-            FXRouter.goTo("login-page");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
     @FXML
     public void homeButtonClick() {
         try {

@@ -8,6 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.util.Pair;
 import ku.cs.controllers.components.Sidebar;
 import ku.cs.controllers.components.SidebarController;
 import ku.cs.models.Faculty;
@@ -60,6 +61,8 @@ public class StaffEditController implements Sidebar {
     private Label majorChoiceBoxLabel;
     @FXML
     private Label errorLabel;
+    @FXML
+    private Circle imagecircleuser;
 
     @FXML
     private AnchorPane sidebar;
@@ -72,19 +75,25 @@ public class StaffEditController implements Sidebar {
     private UserList userList;
     private UserListFileDatasource datasource;
     private User user;
+    private User userdetail;
     private FacultyListFileDatasource facultyDatasource;
     private MajorListFileDatasource majorDatasource;
 
     public void initialize() {
         errorLabel.setText("");
         Object data = FXRouter.getData();
-        if (data instanceof User) {
-            user = (User) data;
+        if (data instanceof Pair) {
+            Pair<User, User> userPair = (Pair<User, User>) data;
+            user = userPair.getKey();
+            userdetail = userPair.getValue();
         }
-        displayUserInfo(user);
+        displayUserInfo(userdetail);
         editStaffPane.setVisible(false);
         datasource = new UserListFileDatasource("data", "user.csv");
         userList = datasource.readData();
+        String imagePath = System.getProperty("user.dir") + File.separator + user.getProfilePicturePath();
+        String url = new File(imagePath).toURI().toString();
+        imagecircleuser.setFill(new ImagePattern(new Image(url)));
         loadSidebar();// loadSidebar
         toggleSidebarButton.setOnAction(actionEvent -> {toggleSidebar();});
     }
@@ -225,10 +234,10 @@ public class StaffEditController implements Sidebar {
         editStaffPane.setVisible(!editStaffPane.isVisible());
         loadFacultyChoices();
         majorChoiceBox.setDisable(true);
-        if (user.getRole().equals("advisor")) {
+        if (userdetail.getRole().equals("advisor")) {
             majorChoiceBox.setVisible(false);
         }
-        if (user.getRole().equals("facultyStaff")) {
+        if (userdetail.getRole().equals("facultyStaff")) {
             majorChoiceBox.setVisible(false);
         } else {
             majorChoiceBox.setVisible(true);
@@ -252,10 +261,11 @@ public class StaffEditController implements Sidebar {
 
     }
 
+
     @FXML
     public void onMyTeamButtonClick() {
         try {
-            FXRouter.goTo("my-team");
+            FXRouter.goTo("my-team",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -271,7 +281,7 @@ public class StaffEditController implements Sidebar {
     @FXML
     public void dashboardButtonClick() {
         try {
-            FXRouter.goTo("dashboard");
+            FXRouter.goTo("dashboard",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -279,7 +289,7 @@ public class StaffEditController implements Sidebar {
     @FXML
     public void manageStaffdataButtonClick() {
         try {
-            FXRouter.goTo("staff-table-admin");
+            FXRouter.goTo("staff-table-admin",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -287,7 +297,7 @@ public class StaffEditController implements Sidebar {
     @FXML
     public void homeButtonClick() {
         try {
-            FXRouter.goTo("main-admin");
+            FXRouter.goTo("main-admin",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -295,7 +305,15 @@ public class StaffEditController implements Sidebar {
     @FXML
     public void onManageFacultyButtonClick() {
         try {
-            FXRouter.goTo("faculty-data-admin");
+            FXRouter.goTo("faculty-data-admin",user);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void onUserProfileButton() {
+        try {
+            FXRouter.goTo("user-profile",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

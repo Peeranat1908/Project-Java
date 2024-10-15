@@ -170,7 +170,14 @@ public class MainMajorStaffController implements Sidebar {
 
         }
     }
-
+    @FXML
+    public void homeButtonClick() {
+        try {
+            FXRouter.goTo("departmentStaff",user);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
     @FXML
     public void onAddEndorserButton(){
         navigateTo("add-major-endorser", user);
@@ -230,5 +237,4 @@ public class MainMajorStaffController implements Sidebar {
             sidebar.toBack();
         }
     }
-
 }
