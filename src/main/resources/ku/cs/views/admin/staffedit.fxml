@@ -15,7 +15,6 @@
 
 <AnchorPane fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.StaffEditController">
    <children>
-      <Button layoutX="1166.0" layoutY="657.0" mnemonicParsing="false" onAction="#onLogoutButtonClick" stylesheets="@../../style/Button.css" text="logout" />
       <Label fx:id="userTextLabel" layoutX="590.0" layoutY="123.0" text="ข้อมูลuser">
          <font>
             <Font name="System Bold" size="22.0" />

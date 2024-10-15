@@ -83,7 +83,7 @@
                 <Font size="20.0" />
             </font>
         </Button>
-        <Button layoutX="807.0" layoutY="176.0" mnemonicParsing="false" onAction="#RoleSelectedButtonClick" prefHeight="43.0" prefWidth="150.0" style="-fx-background-color: EAF4FF; -fx-border-radius: 10; -fx-background-radius: 20;" text="กรองตามบทบาท">
+        <Button layoutX="807.0" layoutY="176.0" mnemonicParsing="false" onAction="#RoleSelectedButtonClick" prefHeight="49.0" prefWidth="170.0" style="-fx-background-color: EAF4FF; -fx-border-radius: 10; -fx-background-radius: 20;" text="กรองตามบทบาท">
             <font>
                 <Font size="18.0" />
             </font>
