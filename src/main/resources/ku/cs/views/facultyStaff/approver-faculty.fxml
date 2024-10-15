@@ -40,7 +40,7 @@
                         <Image url="@../../../../images/faculty-staff.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="onMyTeamButtonClick1" layoutX="220.0" layoutY="20.0" mnemonicParsing="false" styleClass="ButtonNavbar" text="ข้อมูลผู้อนุมัติคำร้อง" textFill="WHITE">
+                <Button fx:id="onMyTeamButtonClick1" layoutX="231.0" layoutY="20.0" mnemonicParsing="false" styleClass="ButtonNavbar" text="ข้อมูลผู้อนุมัติคำร้อง" textFill="WHITE">
                     <font>
                         <Font name="Arial Bold" size="16.0" />
                     </font>
@@ -54,8 +54,8 @@
         </Label>
         <TableView fx:id="approveFacultyStaffTableView" layoutX="122.0" layoutY="200.0" prefHeight="462.0" prefWidth="1056.0" stylesheets="@../../style/Style.css">
             <columns>
-                <TableColumn prefWidth="75.0" text="ชื่อ" />
-                <TableColumn prefWidth="75.0" text="ตำแหน่ง" />
+                <TableColumn prefWidth="75.0" styleClass="table-row-cell" text="ชื่อ" />
+                <TableColumn prefWidth="75.0" styleClass="table-row-cell" text="ตำแหน่ง" />
             </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

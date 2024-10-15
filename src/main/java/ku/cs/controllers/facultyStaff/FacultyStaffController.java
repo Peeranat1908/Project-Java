@@ -35,7 +35,8 @@ public class FacultyStaffController implements Sidebar {
     @FXML
     private AnchorPane sidebar;
     @FXML
-    private AnchorPane mainPage;    @FXML
+    private AnchorPane mainPage;
+    @FXML
     private Button toggleSidebarButton; // ปุ่มสำหรับแสดง/ซ่อน Sidebar
 
 

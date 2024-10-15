@@ -123,22 +123,7 @@ public class UserDetailAdminController implements Sidebar {
         }
     }
 
-    @FXML
-    public void onMyTeamButtonClick() {
-        try {
-            FXRouter.goTo("my-team",user);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    @FXML
-    public void onLogoutButtonClick() {
-        try {
-            FXRouter.goTo("login-page",user);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
     @FXML
     public void dashboardButtonClick() {
         try {

@@ -108,7 +108,7 @@
                 </Button>
             </children>
         </Pane>
-        <Button fx:id="confirmButton" layoutX="1030.0" layoutY="45.0" minHeight="40.0" minWidth="170.0" mnemonicParsing="false" onAction="#onApproveAppealClick" prefHeight="49.0" prefWidth="170.0" style="-fx-background-color: #07752c; -fx-effect: dropshadow(gaussian, gray, 20, 0.1, 0 ,0);" styleClass="AcceptButton" text="อนุมัติคำร้อง" textFill="WHITE">
+        <Button fx:id="confirmButton" layoutX="1030.0" layoutY="45.0" minHeight="40.0" minWidth="170.0" mnemonicParsing="false" onAction="#onApproveAppealClick" prefHeight="49.0" prefWidth="170.0" styleClass="AcceptButton" text="อนุมัติคำร้อง" textFill="WHITE">
             <font>
                 <Font name="Arial Bold" size="16.0" />
             </font>

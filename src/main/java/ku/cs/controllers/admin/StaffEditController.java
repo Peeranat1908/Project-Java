@@ -1,15 +1,16 @@
 package ku.cs.controllers.admin;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.util.Pair;
+import ku.cs.controllers.components.Sidebar;
+import ku.cs.controllers.components.SidebarController;
 import ku.cs.models.Faculty;
 import ku.cs.models.Major;
 import ku.cs.models.User;
@@ -25,7 +26,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import java.io.File;
 import java.io.IOException;
 
-public class StaffEditController {
+public class StaffEditController implements Sidebar {
 
     @FXML
     private Label userTextLabel;
@@ -63,6 +64,13 @@ public class StaffEditController {
     @FXML
     private Circle imagecircleuser;
 
+    @FXML
+    private AnchorPane sidebar;
+    @FXML
+    private AnchorPane mainPage;
+    @FXML
+    private Button toggleSidebarButton; // ปุ่มสำหรับแสดง/ซ่อน Sidebar
+
 
     private UserList userList;
     private UserListFileDatasource datasource;
@@ -86,6 +94,8 @@ public class StaffEditController {
         String imagePath = System.getProperty("user.dir") + File.separator + user.getProfilePicturePath();
         String url = new File(imagePath).toURI().toString();
         imagecircleuser.setFill(new ImagePattern(new Image(url)));
+        loadSidebar();// loadSidebar
+        toggleSidebarButton.setOnAction(actionEvent -> {toggleSidebar();});
     }
 
     private void displayUserInfo(User user) {
@@ -251,6 +261,7 @@ public class StaffEditController {
 
     }
 
+
     @FXML
     public void onMyTeamButtonClick() {
         try {
@@ -305,6 +316,45 @@ public class StaffEditController {
             FXRouter.goTo("user-profile",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void loadSidebar() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/views/other/sidebar.fxml"));
+            AnchorPane loadedSidebar = loader.load();
+
+            // ดึง SidebarController จาก FXML Loader
+            SidebarController sidebarController = loader.getController();
+            sidebarController.setSidebar(this); // กำหนด MainAdminController เป็น Sidebar เพื่อให้สามารถปิดได้
+
+            sidebar = loadedSidebar; // กำหนด sidebar ที่โหลดเสร็จแล้ว
+            sidebar.setVisible(false); // ปิด sidebar ไว้ในค่าเริ่มต้น
+            mainPage.getChildren().add(sidebar); // เพิ่ม sidebar ไปยัง mainPage
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void toggleSidebar() {
+        if (sidebar != null){
+            sidebar.setVisible(!sidebar.isVisible());
+            if (sidebar.isVisible()){
+                sidebar.toFront(); //ให้ sidebar แสดงด้านหน้าสุด
+            }
+            else {
+                sidebar.toBack();
+            }
+        }
+    }
+
+    @Override
+    public void closeSidebar() {
+        if (sidebar != null){
+            sidebar.setVisible(false);
+            sidebar.toBack();
         }
     }
 }

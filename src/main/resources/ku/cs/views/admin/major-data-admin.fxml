@@ -27,17 +27,22 @@
                         <Font name="System Bold" size="16.0" />
                     </font>
                 </Button>
+
                 <Button layoutX="225.0" layoutY="20.0" mnemonicParsing="false" styleClass="ButtonNavbar" text="จัดการข้อมูลคณะและภาควิชา">
+
                     <font>
                         <Font name="Arial Bold" size="17.0" />
                     </font>
                 </Button>
-                <Button layoutX="459.0" layoutY="20.0" mnemonicParsing="false" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
+
+                <Button layoutX="476.0" layoutY="20.0" mnemonicParsing="false" onAction="#manageStaffdataButtonClick" styleClass="ButtonNavbarNotMain" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
                     <font>
                         <Font name="Arial Bold" size="17.0" />
                     </font>
                 </Button>
-                <Button layoutX="729.0" layoutY="20.0" mnemonicParsing="false" text="dashboard">
+
+                <Button layoutX="744.0" layoutY="20.0" mnemonicParsing="false" onAction="#dashboardButtonClick" styleClass="ButtonNavbarNotMain" text="Dashboard">
+
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
@@ -61,7 +66,7 @@
         </Button>
         <TableView fx:id="majorDataAdminTableView" layoutX="122.0" layoutY="203.0" prefHeight="462.0" prefWidth="1056.0" styleClass="tableview" stylesheets="@../../style/Style.css">
             <columns>
-                <TableColumn prefWidth="75.0" text="Faculty ID" />
+                <TableColumn prefWidth="75.0" styleClass="table-row-cell" text="Faculty ID" />
                 <TableColumn prefWidth="75.0" styleClass="table-row-cell" text="Major ID" />
                 <TableColumn prefWidth="75.0" styleClass="table-row-cell" text="Major Name" />
             </columns>

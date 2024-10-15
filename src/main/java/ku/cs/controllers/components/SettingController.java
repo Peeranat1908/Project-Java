@@ -6,8 +6,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import ku.cs.models.User;
+import org.w3c.dom.ls.LSOutput;
+
+import java.io.File;
+import java.net.URL;
 
 public class SettingController {
     @FXML private ChoiceBox<String> themeChoiceBox;
@@ -16,6 +21,10 @@ public class SettingController {
     @FXML private Button applyButton;
     @FXML private Button backButton;
     private Scene previousScene;
+    @FXML private AnchorPane mainPage;
+
+    String lightModePath = new File(System.getProperty("user.dir") + File.separator + "/style/baseOnPageLightMode.css").toURI().toString();
+    String darkModePath = new File(System.getProperty("user.dir") + File.separator + "/style/baseOnPageDarkMode.css").toURI().toString();
 
     @FXML
     public void initialize() {
@@ -23,7 +32,7 @@ public class SettingController {
         loadFontChoice();
         loadFontSizeChoice();
         themeChoiceBox.getSelectionModel().selectFirst(); // ตั้งค่าเริ่มต้น
-        setupThemeChangeListener();
+        applyButton.setOnAction(actionEvent -> {applySettings();});
     }
 
     public void setPreviousScene(Scene previousScene) {
@@ -46,19 +55,35 @@ public class SettingController {
         fontSizeChoiceBox.setItems(fontSize);
     }
 
-    private void setupThemeChangeListener() {
-        themeChoiceBox.setOnAction(event -> {
-            String selectedTheme = themeChoiceBox.getValue();
-            Stage stage = (Stage) themeChoiceBox.getScene().getWindow();
-            if ("DarkMode".equals(selectedTheme)) {
-                stage.getScene().getStylesheets().clear();
-                stage.getScene().getStylesheets().add(getClass().getResource("/ku/cs/style/baseOnPageDarkMode.css").toExternalForm());
-            } else {
-                stage.getScene().getStylesheets().clear();
-                stage.getScene().getStylesheets().add(getClass().getResource("/ku/cs/style/baseOnPageLightMode.css").toExternalForm());
-            }
-        });
+    private void applySettings() {
+        // เรียกใช้การเปลี่ยนธีมที่นี่
+        changeTheme();
+        // คุณสามารถเพิ่มการตั้งค่าอื่นๆ เช่น เปลี่ยนฟอนต์หรือขนาดฟอนต์ที่นี่ได้
     }
+
+
+    private void changeTheme() {
+        String selectedTheme = themeChoiceBox.getValue();
+        Stage stage = (Stage) themeChoiceBox.getScene().getWindow();
+
+        String cssPath = "";
+        if ("DarkMode".equals(selectedTheme)) {
+            cssPath = "/ku/cs/style/baseOnPageDarkMode.css";
+        } else {
+            cssPath = "/ku/cs/style/baseOnPageLightMode.css";
+        }
+
+        // ตรวจสอบว่า resource ถูกพบหรือไม่
+        URL resource = getClass().getResource(cssPath);
+        if (resource != null) {
+            System.out.println("CSS Path: " + resource.toExternalForm());
+            stage.getScene().getStylesheets().clear();
+            stage.getScene().getStylesheets().add(resource.toExternalForm());
+        } else {
+            System.err.println("Resource not found: " + cssPath);
+        }
+    }
+
 
 
     @FXML
@@ -74,4 +99,6 @@ public class SettingController {
             System.out.println("Previous scene is null");
         }
     }
+
+
 }

@@ -184,7 +184,8 @@ public class FacultyAppealDetailController {
 
     @FXML
     public void DeclineApplyClick(){
-        String DeclineReason = declineTextField.getText();
+
+        String DeclineReason = "ถูกปฎิเสธเนื่องจาก" + declineTextField.getText();
 
         Appeal appeal = AppealSharedData.getSelectedAppeal();
         // ตรวจสอบว่าได้เลือกชื่อคนอนุมัติจาก ChoiceBox แล้วหรือยัง

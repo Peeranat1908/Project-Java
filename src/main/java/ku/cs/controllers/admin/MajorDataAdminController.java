@@ -104,15 +104,6 @@ public class MajorDataAdminController implements Sidebar {
         }
     }
 
-
-    @FXML
-    public void onLogoutButtonClick() {
-        try {
-            FXRouter.goTo("login-page");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
     @FXML
     public void dashboardButtonClick() {
         try {
