@@ -63,7 +63,6 @@ public class MainApplication extends Application {
 
         //facultyStaff
         FXRouter.when("facultyStaff", viewPath + "facultyStaff/faculty-staff.fxml");
-        FXRouter.when("facultyAppeal", viewPath + "facultyStaff/facultyAppeal.fxml");
         FXRouter.when("facultyDetail", viewPath  + "facultyStaff/appeal-detail-facultyStaff.fxml");
         FXRouter.when("approve-faculty-staff", viewPath + "facultyStaff/approver-faculty.fxml");
         FXRouter.when("editApproveFacultyStaff", viewPath + "facultyStaff/edit-approve-faculty-staff.fxml");

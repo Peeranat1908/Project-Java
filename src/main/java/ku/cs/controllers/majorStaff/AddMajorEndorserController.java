@@ -58,7 +58,7 @@ public class AddMajorEndorserController implements Sidebar {
 
     private void addMajorEndorser() {
         String name = nameId.getText().trim();
-        String position = positionId.getText().trim() + " " + user.getMajor() + "สาขา" + user.getFaculty();
+        String position = positionId.getText().trim() + user.getMajor() + user.getFaculty();
 
         if (isInputValid(name, position)) {
             majorEndorserList.addNewMajorEndorser(name, position); // ใช้ค่าที่ได้จากการป้อนข้อมูล
@@ -126,6 +126,12 @@ public class AddMajorEndorserController implements Sidebar {
     public void onEditMajorEndorserButton(){
         navigateTo("edit-major-endorser", user);
     }
+
+    @FXML
+    public void onAddEndorserButton(){
+        navigateTo("add-major-endorser", user);
+    }
+
 
     private void navigateTo(String route, Object data) {
         try {

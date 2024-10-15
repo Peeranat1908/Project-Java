@@ -136,6 +136,18 @@ public class AddStudentController implements Sidebar {
             throw new RuntimeException(e);
         }
     }
+    @FXML
+    public void onAddEndorserButton(){
+        try {
+            FXRouter.goTo("add-major-endorser",user);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void onStudentListButton(){
+        navigateTo("student-in-major", user);
+    }
     @Override
     public void loadSidebar(){
         try {
