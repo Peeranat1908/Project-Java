@@ -8,16 +8,21 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import ku.cs.controllers.components.Sidebar;
 import ku.cs.controllers.components.SidebarController;
 import ku.cs.models.Faculty;
 import ku.cs.models.Major;
 import ku.cs.models.MajorList;
+import ku.cs.models.User;
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
 import ku.cs.services.MajorListFileDatasource;
 
+import java.io.File;
 import java.io.IOException;
 
 public class MajorDataAdminController implements Sidebar {
@@ -32,9 +37,18 @@ public class MajorDataAdminController implements Sidebar {
     private AnchorPane mainPage;
     @FXML
     private Button toggleSidebarButton; // ปุ่มสำหรับแสดง/ซ่อน Sidebar
+    @FXML
+    private Circle imagecircleuser;
+
+    private User user;
 
     @FXML
-    public void initialize() {
+    public void initialize(){
+        Object data = FXRouter.getData();
+        if (data instanceof User) {
+            user = (User) data;
+
+        }
         datasource = new MajorListFileDatasource("data", "Major.csv");
         majorList = datasource.readData();
         if (majorList != null){
@@ -53,6 +67,9 @@ public class MajorDataAdminController implements Sidebar {
         });
         loadSidebar();// loadSidebar
         toggleSidebarButton.setOnAction(actionEvent -> {toggleSidebar();});
+        String imagePath = System.getProperty("user.dir") + File.separator + user.getProfilePicturePath();
+        String url = new File(imagePath).toURI().toString();
+        imagecircleuser.setFill(new ImagePattern(new Image(url)));
     }
 
     private void filterByFacultyId(String facultyId) {
@@ -87,14 +104,7 @@ public class MajorDataAdminController implements Sidebar {
         }
     }
 
-    @FXML
-    public void onMyTeamButtonClick() {
-        try {
-            FXRouter.goTo("my-team");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
     @FXML
     public void onLogoutButtonClick() {
         try {
@@ -106,7 +116,7 @@ public class MajorDataAdminController implements Sidebar {
     @FXML
     public void dashboardButtonClick() {
         try {
-            FXRouter.goTo("dashboard");
+            FXRouter.goTo("dashboard",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -114,7 +124,7 @@ public class MajorDataAdminController implements Sidebar {
     @FXML
     public void manageStaffdataButtonClick() {
         try {
-            FXRouter.goTo("staff-table-admin");
+            FXRouter.goTo("staff-table-admin",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -122,7 +132,7 @@ public class MajorDataAdminController implements Sidebar {
     @FXML
     public void onHomeButtonClick() {
         try {
-            FXRouter.goTo("main-admin");
+            FXRouter.goTo("main-admin",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -130,7 +140,7 @@ public class MajorDataAdminController implements Sidebar {
     @FXML
     public void onManageFacultyButtonClick() {
         try {
-            FXRouter.goTo("faculty-data-admin");
+            FXRouter.goTo("faculty-data-admin",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -139,7 +149,7 @@ public class MajorDataAdminController implements Sidebar {
     @FXML
     public void onLogOutButtonClick(){
         try {
-            FXRouter.goTo("main-admin");
+            FXRouter.goTo("main-admin",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -148,7 +158,7 @@ public class MajorDataAdminController implements Sidebar {
     @FXML
     public void onBackButtonClick() {
         try{
-            FXRouter.goTo("faculty-data-admin");
+            FXRouter.goTo("faculty-data-admin",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -157,7 +167,15 @@ public class MajorDataAdminController implements Sidebar {
     @FXML
     public void onAddNewMajorButtonClick() {
         try{
-            FXRouter.goTo("edit-data-major");
+            FXRouter.goTo("edit-data-major",user);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void onUserProfileButton() {
+        try {
+            FXRouter.goTo("user-profile",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

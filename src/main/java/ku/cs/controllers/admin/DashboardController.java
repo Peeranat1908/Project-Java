@@ -9,13 +9,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import ku.cs.controllers.NavigationHistoryService;
 import ku.cs.controllers.components.Sidebar;
 import ku.cs.controllers.components.SidebarController;
 import ku.cs.models.*;
 import ku.cs.services.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -49,8 +53,10 @@ public class DashboardController implements Sidebar {
     private Label totalUserLabel;
     @FXML
     private Label totalAccecptAppealLabel;
+    @FXML
+    private Circle imagecircleuser;
 
-
+    private User user;
     private MajorListFileDatasource majorDatasource;
     private FacultyListFileDatasource facultyDatasource;
     private UserList userList;
@@ -61,6 +67,11 @@ public class DashboardController implements Sidebar {
 
     @FXML
     public void initialize() {
+        Object data = FXRouter.getData();
+        if (data instanceof User) {
+            user = (User) data;
+
+        }
         UserInMajorPieChart.setVisible(false);
         AppealInMajorPieChart.setVisible(false);
         facultyDatasource = new FacultyListFileDatasource("data", "faculty.csv");
@@ -85,6 +96,10 @@ public class DashboardController implements Sidebar {
 
         Map<String, Integer> facultyAppealCountMap = countAppealsByFaculty();
         setAppealInFacultyPieChartData(facultyAppealCountMap);
+
+        String imagePath = System.getProperty("user.dir") + File.separator + user.getProfilePicturePath();
+        String url = new File(imagePath).toURI().toString();
+        imagecircleuser.setFill(new ImagePattern(new Image(url)));
     }
 
     private void updateTotalUserLabel() {
@@ -374,7 +389,7 @@ public class DashboardController implements Sidebar {
     @FXML
     public void dashboardButtonClick() {
         try {
-            FXRouter.goTo("dashboard");
+            FXRouter.goTo("dashboard",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -382,7 +397,7 @@ public class DashboardController implements Sidebar {
     @FXML
     public void manageStaffdataButtonClick() {
         try {
-            FXRouter.goTo("staff-table-admin");
+            FXRouter.goTo("staff-table-admin",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -390,7 +405,7 @@ public class DashboardController implements Sidebar {
     @FXML
     public void homeButtonClick() {
         try {
-            FXRouter.goTo("main-admin");
+            FXRouter.goTo("main-admin",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -404,6 +419,23 @@ public class DashboardController implements Sidebar {
             throw new RuntimeException(e);
         }
     }
+    @FXML
+    public void onManageFacultyButtonClick() {
+        try {
+            FXRouter.goTo("faculty-data-admin",user);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void onUserProfileButton() {
+        try {
+            FXRouter.goTo("user-profile",user);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 
     @Override

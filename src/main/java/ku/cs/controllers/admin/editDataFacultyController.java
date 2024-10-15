@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import ku.cs.models.Faculty;
 import ku.cs.models.FacultyList;
+import ku.cs.models.User;
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
 import ku.cs.services.FacultyListFileDatasource;
@@ -22,8 +23,16 @@ public class editDataFacultyController {
     @FXML private Label errorLabel1;
     @FXML private Label errorLabel2;
     @FXML private Label errorLabel3;
+
+    private User user;
+
     @FXML
     public void initialize(){
+        Object data = FXRouter.getData();
+        if (data instanceof User) {
+            user = (User) data;
+
+        }
         errorLabel1.setText("");
         errorLabel2.setText("");
         errorLabel3.setText("");
@@ -99,7 +108,7 @@ public class editDataFacultyController {
     @FXML
     public void onBackButtonClick(){
         try{
-            FXRouter.goTo("faculty-data-admin");
+            FXRouter.goTo("faculty-data-admin",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -108,7 +117,7 @@ public class editDataFacultyController {
     @FXML
     public void onAddNewFacultyButtonClicked(){
         try {
-            FXRouter.goTo("add-new-faculty");
+            FXRouter.goTo("add-new-faculty",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

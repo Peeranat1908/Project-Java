@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.StaffEditController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.StaffEditController">
    <children>
       <Button layoutX="1166.0" layoutY="657.0" mnemonicParsing="false" onAction="#onLogoutButtonClick" stylesheets="@../../style/Button.css" text="logout" />
       <Label fx:id="userTextLabel" layoutX="590.0" layoutY="123.0" text="ข้อมูลuser">
@@ -66,27 +66,17 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button layoutX="283.0" layoutY="22.0" mnemonicParsing="false" onAction="#onMyTeamButtonClick" styleClass="ButtonNavbarNotMain" text="MY TEAM">
+            <Button layoutX="233.0" layoutY="22.0" mnemonicParsing="false" styleClass="ButtonNavbarNotMain" text="จัดการข้อมูลคณะและภาควิชา">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <ImageView fitHeight="69.0" fitWidth="68.0" layoutX="1190.0" layoutY="7.0">
-               <image>
-                  <Image url="@../../../../images/admin.png" />
-               </image>
-            </ImageView>
-            <Button layoutX="402.0" layoutY="22.0" mnemonicParsing="false" styleClass="ButtonNavbarNotMain" text="จัดการข้อมูลคณะและภาควิชา">
+            <Button layoutX="464.0" layoutY="22.0" mnemonicParsing="false" onAction="#manageStaffdataButtonClick" styleClass="ButtonNavbarNotMain" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button layoutX="633.0" layoutY="22.0" mnemonicParsing="false" onAction="#manageStaffdataButtonClick" styleClass="ButtonNavbarNotMain" text="จัดการข้อมูลเจ้าหน้าที่และอาจารย์">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Button>
-            <Button layoutX="882.0" layoutY="22.0" mnemonicParsing="false" onAction="#dashboardButtonClick" styleClass="ButtonNavbarNotMain" text="Dashboard">
+            <Button layoutX="713.0" layoutY="22.0" mnemonicParsing="false" onAction="#dashboardButtonClick" styleClass="ButtonNavbarNotMain" text="Dashboard">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -106,7 +96,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Pane fx:id="editStaffPane" layoutX="440.0" layoutY="182.0" prefHeight="423.0" prefWidth="746.0" style="-fx-background-color: #FFFFFF;">
+      <Pane fx:id="editStaffPane" layoutX="440.0" layoutY="182.0" prefHeight="461.0" prefWidth="746.0" style="-fx-background-color: #FFFFFF;">
          <children>
             <Button layoutX="473.0" layoutY="350.0" mnemonicParsing="false" onAction="#enterEditButtonClick" text="ยืนยันการแก้ไข">
                <graphic>
@@ -168,13 +158,15 @@
                   <Font size="14.0" />
                </font>
             </Label>
+            <Label fx:id="errorLabel" layoutX="37.0" layoutY="412.0" text="errorLabel" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
-      <Label fx:id="errorLabel" layoutX="118.0" layoutY="424.0" text="errorLabel" textFill="RED">
-         <font>
-            <Font name="System Bold" size="22.0" />
-         </font>
-      </Label>
+      <Circle fx:id="imagecircleuser" fill="DODGERBLUE" layoutX="1228.0" layoutY="41.0" radius="34.0" stroke="BLACK" strokeType="INSIDE" />
+      <Button layoutX="1201.0" layoutY="16.0" mnemonicParsing="false" onAction="#onUserProfileButton" opacity="0.0" prefHeight="51.0" prefWidth="52.0" text="Button" />
    </children>
    <stylesheets>
       <URL value="@../../style/noto.css" />
