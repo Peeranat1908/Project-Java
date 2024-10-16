@@ -2,6 +2,7 @@ package ku.cs.controllers.advisor;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.util.Pair;
@@ -12,6 +13,8 @@ import ku.cs.services.AppealListDatasource;
 import ku.cs.services.AppealSharedData;
 import ku.cs.services.FXRouter;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -57,6 +60,10 @@ public class AdvisorApproveController {
     @FXML private Button confirmButton;
 
     @FXML private Button declineButton;
+    @FXML
+    private Hyperlink pdfLink;  // Hyperlink ที่จะแสดงไฟล์ PDF
+    @FXML private Button downloadPDF;
+    @FXML private Label errorLabel;
 
     private User user;
 
@@ -180,6 +187,42 @@ public class AdvisorApproveController {
             FXRouter.goTo("advisor-appeal-page", new Pair<>(user, studentID));
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    private void showPDFInProject() {
+        Appeal appeal = AppealSharedData.getSelectedAppeal();
+        // กำหนด path ของไฟล์ PDF ที่อยู่ในโฟลเดอร์ของโปรเจค
+        String pdfFilePath = appeal.getPathPDF();
+
+        File pdfFile = new File(pdfFilePath);
+
+        if (pdfFile.exists()) {
+            // แสดงลิงก์ไฟล์ PDF ใน UI
+            pdfLink.setText("เปิดไฟล์ PDF");
+            pdfLink.setVisible(true);
+
+            // ตั้งค่าให้เมื่อคลิกลิงก์จะเปิดไฟล์ PDF
+            pdfLink.setOnAction(event -> openPDF(pdfFilePath));
+        } else {
+            errorLabel.setText("ไม่พบไฟล์ PDF.");
+        }
+        downloadPDF.setVisible(false);
+    }
+
+    // Method สำหรับเปิดไฟล์ PDF ในโปรแกรมดู PDF ภายนอก
+    private void openPDF(String filePath) {
+        try {
+            File pdfFile = new File(filePath);
+            if (pdfFile.exists()) {
+                Desktop.getDesktop().open(pdfFile);  // เปิดไฟล์ PDF ด้วยโปรแกรมที่ติดตั้งในเครื่อง
+            } else {
+                errorLabel.setText("ไม่พบไฟล์ PDF.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            errorLabel.setText("ไม่สามารถเปิดไฟล์ PDF ได้.");
         }
     }
 }

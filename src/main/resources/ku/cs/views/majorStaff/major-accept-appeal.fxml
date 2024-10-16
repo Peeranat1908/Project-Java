@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -159,6 +160,13 @@
             <Font name="Arial Bold" size="12.0" />
          </font>
       </Label>
+      <Button fx:id="onUploadPDFButtonClick" layoutX="1056.0" layoutY="601.0" mnemonicParsing="false" onAction="#onUploadPDFButtonClick" style="-fx-background-color: blue;" text="Upload PDF" textFill="WHITE" />
+      <Button fx:id="downloadPDF" layoutX="1045.0" layoutY="545.0" mnemonicParsing="false" onAction="#showPDFInProject" style="-fx-background-color: blue;" text="download PDF" textFill="WHITE" />
+      <Hyperlink fx:id="pdfLink" layoutX="1101.0" layoutY="554.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Hyperlink>
    </children>
    <stylesheets>
       <URL value="@../../style/baseOnPageLightMode.css" />

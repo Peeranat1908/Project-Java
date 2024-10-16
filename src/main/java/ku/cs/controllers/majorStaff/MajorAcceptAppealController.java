@@ -4,6 +4,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Pair;
 import ku.cs.models.Appeal;
 import ku.cs.models.AppealList;
@@ -16,9 +21,15 @@ import ku.cs.services.MajorEndorserListFileDatasource;
 
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -58,6 +69,10 @@ public class MajorAcceptAppealController {
     private Label facultyApproveWhen;
     @FXML
     private Label facultyApprovedateLabel;
+    @FXML private Button onUploadPDFButtonClick;
+    @FXML
+    private Hyperlink pdfLink;  // Hyperlink ที่จะแสดงไฟล์ PDF
+    @FXML private Button downloadPDF;
 
     private MajorEndorserListFileDatasource approveDataSource;
 
@@ -153,9 +168,10 @@ public class MajorAcceptAppealController {
             long second = new Date().getTime();
             appeal.setSecond(second);
 
+
             if (endorserValue == null || endorserValue.isEmpty()) {
                 errorLabel.setVisible(true);
-                return; // ถ้ายังไม่เลือกคนอนุมัติ
+                return;
             }
             if (endorserValue.contains(majorName)) {
                 appeal.setMajorEndorserSignature(endorserValue);
@@ -166,6 +182,11 @@ public class MajorAcceptAppealController {
                 } else {
                     appeal.setStatus("อนุมัติโดยหัวหน้าภาควิชา คำร้องดำเนินการครบถ้วน");
                 }
+            }
+            if (appeal.getPathPDF() == null) {
+                errorLabel.setText("กรุณาอัปโหลดไฟล์ PDF ก่อนอนุมัติคำร้อง.");
+                errorLabel.setVisible(true);
+                return;
             }
 
 
@@ -242,6 +263,84 @@ public class MajorAcceptAppealController {
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    private void onUploadPDFButtonClick() {
+        Appeal appeal = AppealSharedData.getSelectedAppeal();
+        FileChooser fileChooser = new FileChooser();
+        File initialDirectory = new File("data/appealPDF");  // เปลี่ยนโฟลเดอร์ปลายทางสำหรับไฟล์ PDF
+        if (!initialDirectory.exists()) {
+            initialDirectory.mkdirs();
+        }
+        fileChooser.setInitialDirectory(initialDirectory);
+
+        // กำหนด filter ให้เลือกเฉพาะไฟล์ PDF
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PDF Files", "*.pdf")
+        );
+
+        Stage stage = (Stage) onUploadPDFButtonClick.getScene().getWindow();  // เปลี่ยนตัวแปรจาก onChangeProfileImageButtonClick
+        File selectedFile = fileChooser.showOpenDialog(stage);
+
+        if (selectedFile != null) {
+            try {
+                File destDir = new File("data/appealPDF");
+                if (!destDir.exists()) {
+                    destDir.mkdirs();
+                }
+
+                String[] fileSplit = selectedFile.getName().split("\\.");
+                String filename = appeal.getAppealID() + "." + fileSplit[fileSplit.length - 1].toLowerCase();  // ใช้ username ของ user เพื่อสร้างชื่อไฟล์ใหม่
+                Path target = FileSystems.getDefault().getPath(destDir.getAbsolutePath() + File.separator + filename);
+
+                Files.copy(selectedFile.toPath(), target, StandardCopyOption.REPLACE_EXISTING);
+                String pdfFilePath = "data/appealPDF" + File.separator + filename;
+                appeal.setPathPDF(pdfFilePath);  // สมมติว่า user มี method setPdfFilePath สำหรับเก็บ path ของ PDF
+                datasource.writeData(appealList);  // บันทึกข้อมูล user ที่มีการเปลี่ยนแปลง
+                errorLabel.setText("อัพโหลดไฟล์ PDF สำเร็จ.");
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                errorLabel.setText("เกิดข้อผิดพลาดในการอัพโหลดไฟล์ PDF.");
+            }
+        } else {
+            errorLabel.setText("ไม่มีไฟล์ที่เลือก.");
+        }
+    }
+    @FXML
+    private void showPDFInProject() {
+        Appeal appeal = AppealSharedData.getSelectedAppeal();
+        // กำหนด path ของไฟล์ PDF ที่อยู่ในโฟลเดอร์ของโปรเจค
+        String pdfFilePath = appeal.getPathPDF();
+
+        File pdfFile = new File(pdfFilePath);
+
+        if (pdfFile.exists()) {
+            // แสดงลิงก์ไฟล์ PDF ใน UI
+            pdfLink.setText("เปิดไฟล์ PDF");
+            pdfLink.setVisible(true);
+
+            // ตั้งค่าให้เมื่อคลิกลิงก์จะเปิดไฟล์ PDF
+            pdfLink.setOnAction(event -> openPDF(pdfFilePath));
+        } else {
+            errorLabel.setText("ไม่พบไฟล์ PDF.");
+        }
+        downloadPDF.setVisible(false);
+    }
+
+    // Method สำหรับเปิดไฟล์ PDF ในโปรแกรมดู PDF ภายนอก
+    private void openPDF(String filePath) {
+        try {
+            File pdfFile = new File(filePath);
+            if (pdfFile.exists()) {
+                Desktop.getDesktop().open(pdfFile);  // เปิดไฟล์ PDF ด้วยโปรแกรมที่ติดตั้งในเครื่อง
+            } else {
+                errorLabel.setText("ไม่พบไฟล์ PDF.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            errorLabel.setText("ไม่สามารถเปิดไฟล์ PDF ได้.");
         }
     }
 }

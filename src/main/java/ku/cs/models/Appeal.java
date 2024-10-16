@@ -20,11 +20,13 @@ public class Appeal {
     private LocalDateTime DeclineDateTime; //วันเวลาที่ปฎิเสธ (ใช้ร่วมกัน)
     private LocalDate majorEndorserDate; //วันอนุมัติของ จนท ภาค
     private LocalDate FacultyEndorserDate; //วันอนุมัติของ จนท คณะ
+    private String pathPDF;
+    private String appealID;
 
 
     public Appeal(String studentID, String type , String subject, String request, LocalDate date, String studentSignature,
                   long second, String status, LocalTime sendtime, String DeclineReason, String majorEndorserSignature, LocalDate majorEndorserDate,
-                  LocalDate FacultyEndorserDate, LocalDateTime DeclineDateTime, String FacultyEndorserSignature) {
+                  LocalDate FacultyEndorserDate, LocalDateTime DeclineDateTime, String FacultyEndorserSignature,String appealID, String pathPDF) {
 
         this.studentID = studentID;
         this.type = type;
@@ -41,6 +43,8 @@ public class Appeal {
         this.FacultyEndorserDate = FacultyEndorserDate;
         this.DeclineDateTime = DeclineDateTime;
         this.FacultyEndorserSignature = FacultyEndorserSignature;
+        this.appealID = appealID;
+        this.pathPDF = pathPDF;
     }
 
     public String getStudentID(){
@@ -141,6 +145,22 @@ public class Appeal {
 
     public void setFacultyEndorserSignature(String facultyEndorserSignature) {
         FacultyEndorserSignature = facultyEndorserSignature;
+    }
+
+    public String getPathPDF() {
+        return pathPDF;
+    }
+
+    public void setPathPDF(String pathPDF) {
+        this.pathPDF = pathPDF;
+    }
+
+    public String getAppealID() {
+        return appealID;
+    }
+
+    public void setAppealID(String appealID) {
+        this.appealID = appealID;
     }
 
     @Override

@@ -14,11 +14,12 @@ import javafx.scene.control.Label;
 import ku.cs.services.AppealSharedData;
 
 import java.time.LocalDateTime;
-import java.time.chrono.ThaiBuddhistDate;
+
 import ku.cs.services.AppealListDatasource;
 
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.UUID;
 
 public class LeaveAppealController {
     @FXML
@@ -110,6 +111,8 @@ public class LeaveAppealController {
         LocalDate FacultyDate = null;
         String FacultyEndorserSignature = "";
         LocalDateTime DeclineDatetime = null;
+        String pathPDF = null;
+        String appealID = generateRandomAppealID(6);
 
         int day = daySpinner.getValue();
         int month = monthSpinner.getValue();
@@ -129,7 +132,7 @@ public class LeaveAppealController {
             return;
         }
         try {
-            Appeal appeal = new Appeal(studentID ,type , subject, request, date, studentSignature, second, status, time, declineReason, majorEndorserSignature, majorDate, FacultyDate, DeclineDatetime, FacultyEndorserSignature);
+            Appeal appeal = new Appeal(studentID ,type , subject, request, date, studentSignature, second, status, time, declineReason, majorEndorserSignature, majorDate, FacultyDate, DeclineDatetime, FacultyEndorserSignature, appealID, pathPDF);
             AppealSharedData.getNormalAppealList().addAppeal(appeal);
             datasource.writeData(AppealSharedData.getNormalAppealList());
             clearFields();
@@ -161,5 +164,9 @@ public class LeaveAppealController {
         daySpinner.getValueFactory().setValue(LocalDate.now().getDayOfMonth());
         monthSpinner.getValueFactory().setValue(LocalDate.now().getMonthValue());
         yearSpinner.getValueFactory().setValue(LocalDate.now().getYear());
+    }
+    private String generateRandomAppealID(int length) {
+        String uuid = UUID.randomUUID().toString().replace("-", ""); // สร้าง UUID และลบเครื่องหมาย "-"
+        return uuid.substring(0, Math.min(length, uuid.length())) ; // ตัดความยาวและเพิ่มนามสกุล
     }
 }

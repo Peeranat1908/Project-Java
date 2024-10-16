@@ -19,6 +19,7 @@ import ku.cs.services.AppealListDatasource;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.UUID;
 
 public class NormalAppealController {
     @FXML
@@ -101,7 +102,8 @@ public class NormalAppealController {
         LocalDate FacultyDate = null;
         String FacultyEndorserSignature = "";
         LocalDateTime DeclineDatetime = null;
-
+        String pathPDF = null;
+        String appealID = generateRandomAppealID(6);
 
         if (subject.isEmpty() || request.isEmpty() || studentSignature.isEmpty()) {
             ErrorLabel.setVisible(true);
@@ -115,7 +117,7 @@ public class NormalAppealController {
         }
         ErrorLabel.setVisible(false);
         subject = subject.replace(",", " ");
-        Appeal appeal = new Appeal(studentID ,type , subject, request, date, studentSignature, second, status, time, declineReason, majorEndorserSignature, majorDate, FacultyDate, DeclineDatetime, FacultyEndorserSignature);
+        Appeal appeal = new Appeal(studentID ,type , subject, request, date, studentSignature, second, status, time, declineReason, majorEndorserSignature, majorDate, FacultyDate, DeclineDatetime, FacultyEndorserSignature, appealID,pathPDF);
         AppealSharedData.getNormalAppealList().addAppeal(appeal);
         datasource.writeData(AppealSharedData.getNormalAppealList());
         clearFields();
@@ -142,6 +144,10 @@ public class NormalAppealController {
         signatureTextField.clear();
         lostCheckBox.setSelected(false);
         damagedCheckBox.setSelected(false);
+    }
+    private String generateRandomAppealID(int length) {
+        String uuid = UUID.randomUUID().toString().replace("-", ""); // สร้าง UUID และลบเครื่องหมาย "-"
+        return uuid.substring(0, Math.min(length, uuid.length())) ; // ตัดความยาวและเพิ่มนามสกุล
     }
 
 }
