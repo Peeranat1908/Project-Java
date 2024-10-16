@@ -14,25 +14,19 @@
          </image>
       </ImageView>
       <Button fx:id="backButton" layoutX="12.0" layoutY="26.0" mnemonicParsing="false" opacity="0.0" prefHeight="43.0" prefWidth="61.0" />
-      <ImageView fitHeight="243.0" fitWidth="186.0" layoutX="61.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="243.0" fitWidth="186.0" layoutX="61.0" layoutY="198.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../images/kulogo.png" />
          </image>
       </ImageView>
-      <Button fx:id="settingsButton" layoutX="42.0" layoutY="529.0" mnemonicParsing="false" onAction="#onSettingsButtonClick" prefHeight="43.0" prefWidth="208.0" styleClass="setting-button" text="ตั้งค่า" />
       <Button layoutX="62.0" layoutY="595.0" mnemonicParsing="false" onAction="#onLogoutButtonClick" prefHeight="49.0" prefWidth="208.0" styleClass="logout-button" text="ออกจากระบบ" />
       <ImageView fitHeight="30.0" fitWidth="23.0" layoutX="70.0" layoutY="608.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../images/Exit.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="30.0" fitWidth="23.0" layoutX="70.0" layoutY="542.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../images/Setting.png" />
-         </image>
-      </ImageView>
-      <Button fx:id="myTeamButton" layoutX="50.0" layoutY="458.0" mnemonicParsing="false" onAction="#onMyTeamButtonClick" prefHeight="43.0" prefWidth="208.0" styleClass="setting-button" text="Developer" />
-      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="63.0" layoutY="468.0" pickOnBounds="true" preserveRatio="true">
+      <Button fx:id="myTeamButton" layoutX="50.0" layoutY="536.0" mnemonicParsing="false" onAction="#onMyTeamButtonClick" prefHeight="43.0" prefWidth="208.0" styleClass="setting-button" text="Developer" />
+      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="67.0" layoutY="546.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../images/Web%20development.png" />
          </image>

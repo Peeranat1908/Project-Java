@@ -26,7 +26,7 @@ public class AppealListDatasource implements Datasource<AppealList>{
 
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length == 15) {
+                if (parts.length == 17) {
                     String studentID = parts[0];
                     String type = parts[1];
                     String subject = parts[2];
@@ -42,9 +42,11 @@ public class AppealListDatasource implements Datasource<AppealList>{
                     LocalDate FacultyDate = parseDate((parts[12]));
                     LocalDateTime DeclineDatetime = parseLocalDateTime((parts[13]));
                     String FacultyEndorserSignature = parts[14];
+                    String appealID = parts[15];
+                    String pathPDF = parts[16];
 
 
-                    Appeal appeal = new Appeal(studentID, type, subject, request, date, studentSignature, timestamp, status, time, DeclineReason, majorEndorserSignature, majorEndorserDate, FacultyDate, DeclineDatetime, FacultyEndorserSignature);
+                    Appeal appeal = new Appeal(studentID, type, subject, request, date, studentSignature, timestamp, status, time, DeclineReason, majorEndorserSignature, majorEndorserDate, FacultyDate, DeclineDatetime, FacultyEndorserSignature, appealID,pathPDF);
                     appealList.addAppeal(appeal);
 
                 }
@@ -89,6 +91,7 @@ public class AppealListDatasource implements Datasource<AppealList>{
                 String majorEndorserDateString;
                 String FacultyEndorserDateString;
                 String DeclineDateTimeString;
+                String pathPDF = appeal.getPathPDF();
                 if (declineReason == null || declineReason.isEmpty())  {
                     declineReason = "\"\"";
                 }
@@ -129,7 +132,9 @@ public class AppealListDatasource implements Datasource<AppealList>{
                                 + majorEndorserDateString + ","
                                 + FacultyEndorserDateString + ","
                                 + DeclineDateTimeString + ","
-                                + FacultyEndorserSignature);
+                                + FacultyEndorserSignature + ","
+                                + appeal.getAppealID() + ","
+                                + pathPDF);
                 writer.newLine();
             }
         } catch (IOException e) {

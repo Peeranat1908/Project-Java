@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.util.Pair;
 import ku.cs.controllers.NavigationHistoryService;
 import ku.cs.controllers.components.Sidebar;
 import ku.cs.controllers.components.SidebarController;
@@ -40,6 +41,7 @@ public class FacultyDataAdminController implements Sidebar {
     private User user;
     private FacultyList facultyList;
     private Datasource<FacultyList> datasource;
+    private String selectedFaculty;
 
     @FXML
     public void initialize() {
@@ -61,8 +63,9 @@ public class FacultyDataAdminController implements Sidebar {
             @Override
             public void changed(ObservableValue observableValue, Faculty oldValue, Faculty newValue) {
                 if (newValue != null) {
+                    selectedFaculty = newValue.getFacultyId();
                     try{
-                        FXRouter.goTo("major-data-admin", newValue.getFacultyId());
+                        FXRouter.goTo("major-data-admin", new Pair<>(user, selectedFaculty));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }

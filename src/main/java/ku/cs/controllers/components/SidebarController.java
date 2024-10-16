@@ -43,27 +43,6 @@ public class SidebarController{
         }
     }
 
-    @FXML
-    public void onSettingsButtonClick() {
-        try {
-            // เก็บ Scene ปัจจุบันเพื่อใช้ย้อนกลับ
-            Stage stage = (Stage) backButton.getScene().getWindow();
-            Scene currentScene = stage.getScene();
-
-            // โหลดหน้าต่าง Setting
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/views/other/setting.fxml"));
-            Parent root = loader.load();
-
-            // ตั้งค่า Scene ก่อนหน้าให้ SettingController เพื่อใช้ในการย้อนกลับ
-            SettingController controller = loader.getController();
-            controller.setPreviousScene(currentScene);
-
-            // เปลี่ยน Scene ไปหน้า Setting
-            stage.setScene(new Scene(root));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @FXML
     public void onMyTeamButtonClick() {

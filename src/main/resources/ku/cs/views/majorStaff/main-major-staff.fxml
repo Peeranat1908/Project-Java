@@ -38,7 +38,7 @@
                 </Button>
                 <Button layoutX="1199.0" layoutY="19.0" mnemonicParsing="false" onAction="#onUserProfileButton" opacity="0.0" prefHeight="51.0" prefWidth="52.0" text="Button" />
 
-                <Button layoutX="404.0" layoutY="20.0" mnemonicParsing="false" onAction="#onStudentListButton" styleClass="ButtonNavbarNotMain" text="รายชื่อนิสิต">
+                <Button layoutX="411.0" layoutY="20.0" mnemonicParsing="false" onAction="#onStudentListButton" styleClass="ButtonNavbarNotMain" text="รายชื่อนิสิต">
 
                     <font>
                         <Font name="Arial Bold" size="16.0" />
@@ -49,7 +49,7 @@
                         <Image url="@../../../../images/Hamburger.png" />
                     </image>
                 </ImageView>
-            <Button layoutX="234.0" layoutY="20.0" mnemonicParsing="false" onAction="#onApproveMajorButton" styleClass="ButtonNavbarNotMain" text="แสดงรายชื่อผู้อนุมัติ">
+            <Button layoutX="234.0" layoutY="20.0" mnemonicParsing="false" onAction="#onApproveMajorButton" styleClass="ButtonNavbarNotMain" text="รายชื่อผู้อนุมัติคำร้อง">
                <font>
                   <Font name="Arial Bold" size="16.0" />
                </font>

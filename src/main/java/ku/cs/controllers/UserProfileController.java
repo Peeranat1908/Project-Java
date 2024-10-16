@@ -40,10 +40,14 @@ public class UserProfileController {
     @FXML private Label majorLabel1;
     @FXML private Label majorLabel;
     @FXML private Label facultyLabel;
+    @FXML private Label facultytextLabel;
+
+
 
     private UserList userList;
     private UserListFileDatasource datasource;
     private User user;
+
     @FXML
     public void initialize() {
         errorLabel.setText("");
@@ -64,12 +68,19 @@ public class UserProfileController {
         }
     }
 
+    private User updateUser(User user) {
+        userList = datasource.readData();
+        User updatedUser = userList.findUserByUsername(user.getUsername());
+        return updatedUser;
+    }
+
     private void updateUI(User user) {
         if (user != null) {
             usernameLabel.setText(user.getUsername());
             roleLabel.setText(user.getRole());
-            if(user.getRole().equals("admin")) {
+            if (user.getRole().equals("admin")) {
                 facultyLabel.setVisible(false);
+                facultytextLabel.setVisible(false);
             }
             if (user.getRole().equals("majorStaff")) {
                 majorLabel.setVisible(true);
@@ -87,7 +98,6 @@ public class UserProfileController {
             String imagePath = System.getProperty("user.dir") + File.separator + user.getProfilePicturePath();
             String url = new File(imagePath).toURI().toString();
             imagecircle.setFill(new ImagePattern(new Image(url)));
-
         }
     }
     @FXML
@@ -128,8 +138,9 @@ public class UserProfileController {
     }
     @FXML
     private void onChangeProfileImageButtonClick() {
-
+        // สร้าง FileChooser
         FileChooser fileChooser = new FileChooser();
+        // เปลี่ยนไปใช้เส้นทางที่ตรงไปยัง data/userProfileImage
         File initialDirectory = new File("data/userProfileImage");
         if (!initialDirectory.exists()) {
             initialDirectory.mkdirs();
@@ -145,19 +156,29 @@ public class UserProfileController {
 
         if (selectedFile != null) {
             try {
-                File destDir = new File("data/userProfileImage");
+                File destDir = new File("data"+File.separator+"userProfileImage");
                 if (!destDir.exists()) {
                     destDir.mkdirs();
+                }
+                String username = user.getUsername();
+
+                File[] existingFiles = destDir.listFiles((dir, name) -> name.startsWith(username + "."));
+                if (existingFiles != null) {
+                    for (File existingFile : existingFiles) {
+                        existingFile.delete(); // ลบไฟล์เดิม
+                    }
                 }
 
                 String[] fileSplit = selectedFile.getName().split("\\.");
                 String filename = user.getUsername() + "."+ fileSplit[fileSplit.length - 1].toLowerCase();
                 Path target = FileSystems.getDefault().getPath(destDir.getAbsolutePath() + File.separator + filename);
                 Files.copy(selectedFile.toPath(), target, StandardCopyOption.REPLACE_EXISTING);
-                String profilePicPath = "data/userProfileImage" + File.separator + filename;
-                updateUI(user);
+                String profilePicPath = "data"+File.separator+"userProfileImage" + File.separator + filename;
                 user.setProfilePicturePath(profilePicPath);
+                User findUser = userList.findUserByUsername(user.getUsername());
+                findUser.setProfilePicturePath(profilePicPath);
                 datasource.writeData(userList);
+                updateUI(updateUser(findUser));
                 errorLabel.setText("อัพเดตรูปโปรไฟล์สำเร็จ.");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -176,6 +197,14 @@ public class UserProfileController {
         try {
             navigateByRole(user);
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void onLogOutButtonClick(){
+        try{
+            FXRouter.goTo("login-page");
+        } catch (IOException e){
             e.printStackTrace();
         }
     }

@@ -127,7 +127,7 @@
                   <Font name="Arial Bold" size="20.0" />
                </font>
             </Label>
-            <Label layoutX="530.0" layoutY="220.0" text="คณะ:">
+            <Label fx:id="facultytextLabel" layoutX="530.0" layoutY="220.0" text="คณะ:">
                <font>
                   <Font name="Arial Bold" size="20.0" />
                </font>

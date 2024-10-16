@@ -6,7 +6,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import ku.cs.controllers.components.Sidebar;
 import ku.cs.controllers.components.SidebarController;
 import ku.cs.models.MajorEndorserList;
@@ -15,6 +18,7 @@ import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
 import ku.cs.services.MajorEndorserListFileDatasource;
 
+import java.io.File;
 import java.io.IOException;
 
 public class AddMajorEndorserController implements Sidebar {
@@ -34,6 +38,8 @@ public class AddMajorEndorserController implements Sidebar {
     private User user;
     private Datasource<MajorEndorserList> datasource;
     private MajorEndorserList majorEndorserList;
+    @FXML private Circle imagecircle;
+
 
     @FXML
     public void initialize() {
@@ -54,6 +60,9 @@ public class AddMajorEndorserController implements Sidebar {
         confirmButton.setOnAction(actionEvent -> addMajorEndorser());
         loadSidebar();// loadSidebar
         toggleSidebarButton.setOnAction(actionEvent -> {toggleSidebar();});
+        String imagePath = System.getProperty("user.dir") + File.separator + user.getProfilePicturePath();
+        String url = new File(imagePath).toURI().toString();
+        imagecircle.setFill(new ImagePattern(new Image(url)));
     }
 
     private void addMajorEndorser() {
@@ -130,6 +139,15 @@ public class AddMajorEndorserController implements Sidebar {
     @FXML
     public void onAddEndorserButton(){
         navigateTo("add-major-endorser", user);
+    }
+
+    @FXML
+    public void onApproveMajorButton(){
+        navigateTo("approve-major-list", user);
+    }
+    @FXML
+    public void onUserProfileButton(){
+        navigateTo("user-profile", user);
     }
 
 

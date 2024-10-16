@@ -8,6 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="mainPage" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.majorStaff.AddMajorEndorserController">
@@ -20,26 +21,33 @@
                   <Image url="@../../../../images/Hamburger.png" />
                </image>
             </ImageView>
-            <Button layoutX="145.0" layoutY="20.0" mnemonicParsing="false" styleClass="ButtonNavbar" text="HOME">
+            <Button layoutX="145.0" layoutY="20.0" mnemonicParsing="false" onAction="#onHomeButtonClick" styleClass="ButtonNavbarNotMain" text="HOME">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button layoutX="534.0" layoutY="20.0" mnemonicParsing="false" onAction="#onAddEndorserButton" styleClass="ButtonNavbarNotMain" text="แก้ไขผู้อนุมัติคำร้อง">
+            <Button layoutX="541.0" layoutY="20.0" mnemonicParsing="false" styleClass="ButtonNavbar" text="แก้ไขผู้อนุมัติคำร้อง">
                <font>
                   <Font name="Arial Bold" size="16.0" />
                </font>
             </Button>
-            <Button layoutX="414.0" layoutY="20.0" mnemonicParsing="false" onAction="#onStudentListButton" styleClass="ButtonNavbarNotMain" text="รายชื่อนิสิต">
+            <Button layoutX="416.0" layoutY="20.0" mnemonicParsing="false" onAction="#onStudentListButton" styleClass="ButtonNavbarNotMain" text="รายชื่อนิสิต">
                <font>
                   <Font name="Arial Bold" size="16.0" />
                </font>
             </Button>
-            <Button layoutX="244.0" layoutY="20.0" mnemonicParsing="false" onAction="#onApproveMajorButton" styleClass="ButtonNavbarNotMain" text="แสดงรายชื่อผู้อนุมัติ">
+            <Button layoutX="244.0" layoutY="20.0" mnemonicParsing="false" onAction="#onApproveMajorButton" styleClass="ButtonNavbarNotMain" text="รายชื่อผู้อนุมัติคำร้อง">
                <font>
                   <Font name="Arial Bold" size="16.0" />
                </font>
             </Button>
+            <Label fx:id="nameLabel" alignment="CENTER" layoutX="958.0" layoutY="24.0" prefHeight="46.0" prefWidth="214.0" text="Major-Staff">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Circle fx:id="imagecircle" fill="DODGERBLUE" layoutX="1227.0" layoutY="40.0" radius="34.0" stroke="BLACK" strokeType="INSIDE" />
+            <Button layoutX="1201.0" layoutY="19.0" mnemonicParsing="false" onAction="#onUserProfileButton" opacity="0.0" prefHeight="51.0" prefWidth="52.0" text="Button" />
          </children>
       </Pane>
       <TextField fx:id="nameId" layoutX="432.0" layoutY="286.0" prefHeight="47.0" prefWidth="396.0" promptText="Enter name" styleClass="text-field" />

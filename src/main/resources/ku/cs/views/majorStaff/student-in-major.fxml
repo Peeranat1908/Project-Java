@@ -60,17 +60,17 @@
             <Font size="16.0" />
          </font>
       </TextField>
-      <Button layoutX="128.0" layoutY="20.0" mnemonicParsing="false" onAction="#onHomeButton" styleClass="ButtonNavbar" text="HOME">
+      <Button layoutX="128.0" layoutY="20.0" mnemonicParsing="false" onAction="#onHomeButton" styleClass="ButtonNavbarNotMain" text="HOME">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Button>
-      <Button layoutX="225.0" layoutY="20.0" mnemonicParsing="false" onAction="#onApproveMajorButton" styleClass="ButtonNavbarNotMain" text="ข้อมูลผู้อนุมัติคำร้อง" textFill="WHITE">
+      <Button layoutX="217.0" layoutY="20.0" mnemonicParsing="false" onAction="#onApproveMajorButton" styleClass="ButtonNavbarNotMain" text="รายชื่อผู้อนุมัติคำร้อง" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Button>
-      <Button layoutX="402.0" layoutY="20.0" mnemonicParsing="false" onAction="#onStudentListButton" styleClass="ButtonNavbarNotMain" text="รายชื่อนิสิต">
+      <Button layoutX="398.0" layoutY="20.0" mnemonicParsing="false" onAction="#onStudentListButton" styleClass="ButtonNavbar" text="รายชื่อนิสิต">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>

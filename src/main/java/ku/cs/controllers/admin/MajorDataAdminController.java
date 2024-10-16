@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.util.Pair;
 import ku.cs.controllers.components.Sidebar;
 import ku.cs.controllers.components.SidebarController;
 import ku.cs.models.Faculty;
@@ -42,18 +43,21 @@ public class MajorDataAdminController implements Sidebar {
 
     private User user;
 
+    private String selectedFaculty;
+
     @FXML
     public void initialize(){
         Object data = FXRouter.getData();
-        if (data instanceof User) {
-            user = (User) data;
+        if (data instanceof Pair) {
+            Pair<User, String> pair = (Pair<User, String>) data;
+            user = pair.getKey();
+            selectedFaculty = pair.getValue();
 
         }
         datasource = new MajorListFileDatasource("data", "Major.csv");
         majorList = datasource.readData();
         if (majorList != null){
-            String facultyId = (String) FXRouter.getData(); // รับ facultyId ที่ส่งมา
-            filterByFacultyId(facultyId); // กรองข้อมูลด้วย facultyId
+            filterByFacultyId(selectedFaculty); // กรองข้อมูลด้วย facultyId
         }
         else {
             System.out.println("Failed to load major list.");

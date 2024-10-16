@@ -5,12 +5,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import ku.cs.models.*;
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
 import ku.cs.services.MajorEndorserListFileDatasource;
 
+import java.io.File;
 import java.io.IOException;
 
 public class ApproveMajorStaffController {
@@ -27,6 +31,7 @@ public class ApproveMajorStaffController {
     private AnchorPane mainPage;
     @FXML
     private Button toggleSidebarButton; // ปุ่มสำหรับแสดง/ซ่อน Sidebar
+    @FXML private Circle imagecircle;
 
     @FXML
     public void initialize() {
@@ -37,6 +42,9 @@ public class ApproveMajorStaffController {
             user = (User) data;
             showTable(majorEndorserList);
         }
+        String imagePath = System.getProperty("user.dir") + File.separator + user.getProfilePicturePath();
+        String url = new File(imagePath).toURI().toString();
+        imagecircle.setFill(new ImagePattern(new Image(url)));
     }
 
     private void showTable(MajorEndorserList majorEndorserList) {
@@ -80,6 +88,10 @@ public class ApproveMajorStaffController {
     @FXML
     public void onHomeButton(){
         navigateTo("departmentStaff", user);
+    }
+    @FXML
+    public void onUserProfileButton(){
+        navigateTo("user-profile", user);
     }
 
     private void navigateTo(String route, Object data) {
