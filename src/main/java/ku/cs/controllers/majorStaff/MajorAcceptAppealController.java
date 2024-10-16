@@ -168,11 +168,19 @@ public class MajorAcceptAppealController {
             long second = new Date().getTime();
             appeal.setSecond(second);
 
-
             if (endorserValue == null || endorserValue.isEmpty()) {
+                errorLabel.setVisible(true);
+                errorLabel.setText("กรุณาเลือกผู้รับรองก่อนดำเนินการอนุมัติ.");
+                return;
+            }
+
+            // กำหนดว่าไฟล์ PDF ต้องถูกอัปโหลดก่อนอนุมัติ
+            if (appeal.getPathPDF() == null || appeal.getPathPDF().isEmpty()) {
+                errorLabel.setText("กรุณาอัปโหลดไฟล์ PDF ก่อนอนุมัติคำร้อง.");
                 errorLabel.setVisible(true);
                 return;
             }
+
             if (endorserValue.contains(majorName)) {
                 appeal.setMajorEndorserSignature(endorserValue);
                 appeal.setMajorEndorserDate(today);
@@ -183,13 +191,8 @@ public class MajorAcceptAppealController {
                     appeal.setStatus("อนุมัติโดยหัวหน้าภาควิชา คำร้องดำเนินการครบถ้วน");
                 }
             }
-            if (appeal.getPathPDF() == null) {
-                errorLabel.setText("กรุณาอัปโหลดไฟล์ PDF ก่อนอนุมัติคำร้อง.");
-                errorLabel.setVisible(true);
-                return;
-            }
 
-
+            // บันทึกข้อมูลคำร้องหลังจากอัปโหลดและอนุมัติ
             AppealListDatasource datasource = new AppealListDatasource("data/appeals.csv");
             AppealList appealList = AppealSharedData.getNormalAppealList();
             datasource.writeData(appealList);
@@ -223,6 +226,7 @@ public class MajorAcceptAppealController {
         }
         AppealListDatasource datasource = new AppealListDatasource("data/appeals.csv");
         AppealList appealList = AppealSharedData.getNormalAppealList();
+
 
 
         datasource.writeData(appealList);
@@ -268,8 +272,14 @@ public class MajorAcceptAppealController {
     @FXML
     private void onUploadPDFButtonClick() {
         Appeal appeal = AppealSharedData.getSelectedAppeal();
+        if (appeal == null) {
+            errorLabel.setText("ไม่พบคำร้อง กรุณาลองใหม่อีกครั้ง.");
+            errorLabel.setVisible(true);
+            return;
+        }
+
         FileChooser fileChooser = new FileChooser();
-        File initialDirectory = new File("data/appealPDF");  // เปลี่ยนโฟลเดอร์ปลายทางสำหรับไฟล์ PDF
+        File initialDirectory = new File("data/appealPDF");
         if (!initialDirectory.exists()) {
             initialDirectory.mkdirs();
         }
@@ -280,7 +290,7 @@ public class MajorAcceptAppealController {
                 new FileChooser.ExtensionFilter("PDF Files", "*.pdf")
         );
 
-        Stage stage = (Stage) onUploadPDFButtonClick.getScene().getWindow();  // เปลี่ยนตัวแปรจาก onChangeProfileImageButtonClick
+        Stage stage = (Stage) onUploadPDFButtonClick.getScene().getWindow();
         File selectedFile = fileChooser.showOpenDialog(stage);
 
         if (selectedFile != null) {
@@ -291,21 +301,26 @@ public class MajorAcceptAppealController {
                 }
 
                 String[] fileSplit = selectedFile.getName().split("\\.");
-                String filename = appeal.getAppealID() + "." + fileSplit[fileSplit.length - 1].toLowerCase();  // ใช้ username ของ user เพื่อสร้างชื่อไฟล์ใหม่
+                String filename = appeal.getAppealID() + "." + fileSplit[fileSplit.length - 1].toLowerCase();
                 Path target = FileSystems.getDefault().getPath(destDir.getAbsolutePath() + File.separator + filename);
 
                 Files.copy(selectedFile.toPath(), target, StandardCopyOption.REPLACE_EXISTING);
+
+                // อัปเดตเส้นทางไฟล์ PDF ในคำร้อง
                 String pdfFilePath = "data/appealPDF" + File.separator + filename;
-                appeal.setPathPDF(pdfFilePath);  // สมมติว่า user มี method setPdfFilePath สำหรับเก็บ path ของ PDF
-                datasource.writeData(appealList);  // บันทึกข้อมูล user ที่มีการเปลี่ยนแปลง
+                appeal.setPathPDF(pdfFilePath);
+
                 errorLabel.setText("อัพโหลดไฟล์ PDF สำเร็จ.");
+                errorLabel.setVisible(true);
 
             } catch (IOException e) {
                 e.printStackTrace();
                 errorLabel.setText("เกิดข้อผิดพลาดในการอัพโหลดไฟล์ PDF.");
+                errorLabel.setVisible(true);
             }
         } else {
             errorLabel.setText("ไม่มีไฟล์ที่เลือก.");
+            errorLabel.setVisible(true);
         }
     }
     @FXML

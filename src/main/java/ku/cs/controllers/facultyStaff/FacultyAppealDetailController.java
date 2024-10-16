@@ -160,8 +160,9 @@ public class FacultyAppealDetailController {
     }
 
     @FXML
-    public void onApproveAppealClick(){
+    public void onApproveAppealClick() {
         Appeal appeal = AppealSharedData.getSelectedAppeal();
+
         // ตรวจสอบว่าได้เลือกชื่อคนอนุมัติจาก ChoiceBox แล้วหรือยัง
         if (approveChoiceBox.getValue() == null) {
             approveCheckLabel.setText("กรุณาเลือกผู้อนุมัติก่อน");
@@ -169,23 +170,61 @@ public class FacultyAppealDetailController {
             return; // หากยังไม่ได้เลือก ให้หยุดการทำงาน
         }
 
-        if(appeal != null){
-            appeal.setStatus("อนุมัติโดยคณบดี คำร้องดำเนินการครบถ้วน");
-            LocalDate approveDate = LocalDate.now();
-            appeal.setFacultyEndorserDate(approveDate);
-            long second = new Date().getTime();
-            appeal.setSecond(second);
+        // เรียกการอัปโหลดไฟล์ PDF
+        FileChooser fileChooser = new FileChooser();
+        File initialDirectory = new File("data/appealPDF");  // เปลี่ยนโฟลเดอร์ปลายทางสำหรับไฟล์ PDF
+        if (!initialDirectory.exists()) {
+            initialDirectory.mkdirs();
         }
-        AppealListDatasource datasource = new AppealListDatasource("data/appeals.csv");
-        AppealList appealList = AppealSharedData.getNormalAppealList();
+        fileChooser.setInitialDirectory(initialDirectory);
 
-        datasource.writeData(appealList);
-        try {
-            FXRouter.goTo("facultyStaff", user);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        // กำหนด filter ให้เลือกเฉพาะไฟล์ PDF
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PDF Files", "*.pdf")
+        );
+
+        Stage stage = (Stage) confirmButton.getScene().getWindow();
+        File selectedFile = fileChooser.showOpenDialog(stage);
+
+        if (selectedFile != null) {
+            try {
+                File destDir = new File("data/appealPDF");
+                if (!destDir.exists()) {
+                    destDir.mkdirs();
+                }
+
+                String[] fileSplit = selectedFile.getName().split("\\.");
+                String filename = appeal.getAppealID() + "." + fileSplit[fileSplit.length - 1].toLowerCase();
+                Path target = FileSystems.getDefault().getPath(destDir.getAbsolutePath() + File.separator + filename);
+
+                Files.copy(selectedFile.toPath(), target, StandardCopyOption.REPLACE_EXISTING);
+                String pdfFilePath = "data/appealPDF" + File.separator + filename;
+                appeal.setPathPDF(pdfFilePath);
+
+                // อัปเดตสถานะคำร้องว่าอนุมัติแล้ว
+                appeal.setStatus("อนุมัติโดยคณบดี คำร้องดำเนินการครบถ้วน");
+                LocalDate approveDate = LocalDate.now();
+                appeal.setFacultyEndorserDate(approveDate);
+                long second = new Date().getTime();
+                appeal.setSecond(second);
+
+                // บันทึกข้อมูลคำร้องที่เปลี่ยนแปลงลงไฟล์
+                AppealListDatasource datasource = new AppealListDatasource("data/appeals.csv");
+                AppealList appealList = AppealSharedData.getNormalAppealList();
+                datasource.writeData(appealList);
+
+                // เปลี่ยนไปหน้าบุคลากร
+                FXRouter.goTo("facultyStaff", user);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                approveCheckLabel.setText("เกิดข้อผิดพลาดในการอัปโหลดไฟล์ PDF.");
+            }
+        } else {
+            approveCheckLabel.setText("ไม่มีไฟล์ที่เลือก.");
         }
     }
+
 
     @FXML
     public void onDeclineAppealClick(){
@@ -245,49 +284,7 @@ public class FacultyAppealDetailController {
             throw new RuntimeException(e);
         }
     }
-    @FXML
-    private void onUploadPDFButtonClick() {
-        Appeal appeal = AppealSharedData.getSelectedAppeal();
-        FileChooser fileChooser = new FileChooser();
-        File initialDirectory = new File("data/appealPDF");  // เปลี่ยนโฟลเดอร์ปลายทางสำหรับไฟล์ PDF
-        if (!initialDirectory.exists()) {
-            initialDirectory.mkdirs();
-        }
-        fileChooser.setInitialDirectory(initialDirectory);
 
-        // กำหนด filter ให้เลือกเฉพาะไฟล์ PDF
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("PDF Files", "*.pdf")
-        );
-
-        Stage stage = (Stage) onUploadPDFButtonClick.getScene().getWindow();  // เปลี่ยนตัวแปรจาก onChangeProfileImageButtonClick
-        File selectedFile = fileChooser.showOpenDialog(stage);
-
-        if (selectedFile != null) {
-            try {
-                File destDir = new File("data/appealPDF");
-                if (!destDir.exists()) {
-                    destDir.mkdirs();
-                }
-
-                String[] fileSplit = selectedFile.getName().split("\\.");
-                String filename = appeal.getAppealID() + "." + fileSplit[fileSplit.length - 1].toLowerCase();  // ใช้ username ของ user เพื่อสร้างชื่อไฟล์ใหม่
-                Path target = FileSystems.getDefault().getPath(destDir.getAbsolutePath() + File.separator + filename);
-
-                Files.copy(selectedFile.toPath(), target, StandardCopyOption.REPLACE_EXISTING);
-                String pdfFilePath = "data/appealPDF" + File.separator + filename;
-                appeal.setPathPDF(pdfFilePath);  // สมมติว่า user มี method setPdfFilePath สำหรับเก็บ path ของ PDF
-                datasource.writeData(appealList);  // บันทึกข้อมูล user ที่มีการเปลี่ยนแปลง
-                approveCheckLabel.setText("อัพโหลดไฟล์ PDF สำเร็จ.");
-
-            } catch (IOException e) {
-                e.printStackTrace();
-                approveCheckLabel.setText("เกิดข้อผิดพลาดในการอัพโหลดไฟล์ PDF.");
-            }
-        } else {
-            approveCheckLabel.setText("ไม่มีไฟล์ที่เลือก.");
-        }
-    }
     @FXML
     private void showPDFInProject() {
         Appeal appeal = AppealSharedData.getSelectedAppeal();

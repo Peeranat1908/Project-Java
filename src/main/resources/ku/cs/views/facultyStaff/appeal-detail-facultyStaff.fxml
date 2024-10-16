@@ -146,7 +146,6 @@
                 <Font name="Arial Bold" size="16.0" />
             </font>
         </Label>
-      <Button fx:id="onUploadPDFButtonClick" layoutX="1066.0" layoutY="611.0" mnemonicParsing="false" onAction="#onUploadPDFButtonClick" style="-fx-background-color: blue;" text="Upload PDF" textFill="WHITE" />
       <Button fx:id="downloadPDF" layoutX="1055.0" layoutY="555.0" mnemonicParsing="false" onAction="#showPDFInProject" style="-fx-background-color: blue;" text="download PDF" textFill="WHITE" />
       <Hyperlink fx:id="pdfLink" layoutX="1111.0" layoutY="564.0">
          <font>
