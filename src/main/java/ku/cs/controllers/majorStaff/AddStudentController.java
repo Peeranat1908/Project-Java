@@ -110,36 +110,8 @@ public class AddStudentController implements Sidebar {
 
 
     }
-    @FXML
-    public void onMyTeamButtonClick() throws RuntimeException {
-        NavigationHistoryService.getInstance().pushPage("add-student");
-        try {
-            FXRouter.goTo("my-team");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
-    @FXML
-    public void homeButtonClick() {
-        try {
-            FXRouter.goTo("departmentStaff",user);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    @FXML
-    public void onAddEndorserButton(){
-        try {
-            FXRouter.goTo("add-major-endorser",user);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    @FXML
-    public void onStudentListButton(){
-        navigateTo("student-in-major", user);
-    }
+    //Sidebar
     @Override
     public void loadSidebar(){
         try {
@@ -177,10 +149,31 @@ public class AddStudentController implements Sidebar {
             sidebar.toBack();
         }
     }
+
+    //Navbar button
+    public void onApproveMajorButton(){
+        navigateTo("approve-major-list", user);
+    }
+
+    @FXML
+    public void onStudentListButton(){
+        navigateTo("student-in-major", user);
+    }
+
+    @FXML
+    public void onAddEndorserButton(){
+        navigateTo("add-major-endorser", user);
+    }
+
+    @FXML
+    public void onHomeButton(){
+        navigateTo("departmentStaff", user);
+    }
     @FXML
     public void onUserProfileButton(){
         navigateTo("user-profile", user);
     }
+
     private void navigateTo(String route, Object data) {
         try {
             FXRouter.goTo(route, data);

@@ -24,4 +24,6 @@ public class MajorEndorser {
     public String getPosition() {
         return position;
     }
+
+
 }

@@ -160,43 +160,9 @@ public class MainMajorStaffController implements Sidebar {
         loadAppeals(null, null);
     }
 
-
-
-
-
     private void updateUI() {
         if (user != null) {
             nameLabel.setText(user.getUsername());
-
-        }
-    }
-    @FXML
-    public void homeButtonClick() {
-        try {
-            FXRouter.goTo("departmentStaff",user);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    @FXML
-    public void onAddEndorserButton(){
-        navigateTo("add-major-endorser", user);
-    }
-    @FXML
-    public void onUserProfileButton(){
-        navigateTo("user-profile", user);
-    }
-
-    @FXML
-    public void onStudentListButton(){
-        navigateTo("student-in-major", user);
-    }
-
-    private void navigateTo(String route, Object data) {
-        try {
-            FXRouter.goTo(route, data);
-        } catch (IOException e) {
-            System.err.println("Navigation to " + route + " failed: " + e.getMessage());
         }
     }
 
@@ -235,6 +201,39 @@ public class MainMajorStaffController implements Sidebar {
         if (sidebar != null){
             sidebar.setVisible(false);
             sidebar.toBack();
+        }
+    }
+
+    //Navbar button
+    @FXML
+    public void onApproveMajorButton(){
+        navigateTo("approve-major-list", user);
+    }
+
+    @FXML
+    public void onStudentListButton(){
+        navigateTo("student-in-major", user);
+    }
+
+    @FXML
+    public void onAddEndorserButton(){
+        navigateTo("add-major-endorser", user);
+    }
+
+    @FXML
+    public void onHomeButton(){
+        navigateTo("departmentStaff", user);
+    }
+    @FXML
+    public void onUserProfileButton(){
+        navigateTo("user-profile", user);
+    }
+
+    private void navigateTo(String route, Object data) {
+        try {
+            FXRouter.goTo(route, data);
+        } catch (IOException e) {
+            System.err.println("Navigation to " + route + " failed: " + e.getMessage());
         }
     }
 }

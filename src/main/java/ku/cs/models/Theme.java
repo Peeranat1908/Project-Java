@@ -1,20 +1,13 @@
 package ku.cs.models;
 
 public class Theme {
-    private boolean lightMode  = true;
+    private static String currentStyleSheet = "dark-theme.css";  // Default stylesheet
 
-    public boolean isLightMode() {
-        return lightMode;
+    public static String getCurrentStyleSheet() {
+        return currentStyleSheet;
     }
 
-    public void setLightMode(boolean lightMode) {
-        this.lightMode = lightMode;
-    }
-
-    @Override
-    public String toString() {
-        return "Theme{" +
-                "lightMode=" + lightMode +
-                '}';
+    public static void setCurrentStyleSheet(String newStyleSheet) {
+        currentStyleSheet = newStyleSheet;
     }
 }

@@ -5,9 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import ku.cs.controllers.MyteamController;
 import ku.cs.controllers.components.AppealItemController;
@@ -16,6 +19,7 @@ import ku.cs.controllers.components.SidebarController;
 import ku.cs.models.*;
 import ku.cs.services.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -38,6 +42,8 @@ public class FacultyStaffController implements Sidebar {
     private AnchorPane mainPage;
     @FXML
     private Button toggleSidebarButton; // ปุ่มสำหรับแสดง/ซ่อน Sidebar
+    @FXML
+    private Circle imageCircle;
 
 
     @FXML
@@ -52,6 +58,9 @@ public class FacultyStaffController implements Sidebar {
         } else {
             nameLabel.setText("Invalid user data");
         }
+        String imagePath = System.getProperty("user.dir") + File.separator + user.getProfilePicturePath();
+        String url = new File(imagePath).toURI().toString();
+        imageCircle.setFill(new ImagePattern(new Image(url)));
         Datasource<StudentList> studentDatasource = new StudentListFileDatasource("data", "student-info.csv");
         StudentList studentList = studentDatasource.readData();
         StudentList studentsListInFaculty = studentList.getStudentsListBYFaculty(user.getFaculty());

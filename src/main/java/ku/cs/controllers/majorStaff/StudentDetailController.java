@@ -158,25 +158,35 @@ public class StudentDetailController implements Sidebar {
     private void editStudentButtonClick() {
         editStaffPane.setVisible(!editStaffPane.isVisible());
     }
+
     @FXML
-    public void onMyTeamButtonClick() throws RuntimeException {
-        NavigationHistoryService.getInstance().pushPage("student-detail-major-staff");
+    public void onApproveMajorButton(){
+        navigateTo("approve-major-list", user);
+    }
+
+    @FXML
+    public void onStudentListButton(){
+        navigateTo("student-in-major", user);
+    }
+
+    @FXML
+    public void onAddEndorserButton(){
+        navigateTo("add-major-endorser", user);
+    }
+
+    @FXML
+    public void onHomeButton(){
+        navigateTo("departmentStaff", user);
+    }
+
+    private void navigateTo(String route, Object data) {
         try {
-            FXRouter.goTo("my-team");
+            FXRouter.goTo(route, data);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.err.println("Navigation to " + route + " failed: " + e.getMessage());
         }
     }
 
-
-    @FXML
-    public void homeButtonClick() {
-        try {
-            FXRouter.goTo("departmentStaff",user);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
     @Override
     public void loadSidebar(){
         try {

@@ -10,7 +10,6 @@ public class MajorEndorserList {
     public void addNewMajorEndorser(String name, String position) {
         name = name.trim();
         position = position.trim();
-        //major = major.trim();
         for (MajorEndorser majorEndorser : majorEndorsers) {
             if (majorEndorser.getName().equalsIgnoreCase(name)){
                 return;

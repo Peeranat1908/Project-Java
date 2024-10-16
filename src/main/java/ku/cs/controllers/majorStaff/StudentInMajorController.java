@@ -117,43 +117,7 @@ public class StudentInMajorController implements Sidebar {
         studentTableView.getItems().setAll(studentList.getStudents());
     }
 
-
-
-
-    @FXML
-    public void onMyTeamButtonClick() throws RuntimeException {
-        try {
-            FXRouter.goTo("my-team");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    @FXML
-    public void homeButtonClick() {
-        try {
-            FXRouter.goTo("departmentStaff",user);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
-    public void addStudentButtonClick() {
-        try {
-            FXRouter.goTo("add-student",user);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    @FXML
-    public void onAddEndorserButton(){
-        try {
-            FXRouter.goTo("add-major-endorser",user);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
+    //Sidebar
     @Override
     public void loadSidebar(){
         try {
@@ -191,16 +155,44 @@ public class StudentInMajorController implements Sidebar {
             sidebar.toBack();
         }
     }
+
+    //Navbar button
+    @FXML
+    public void onApproveMajorButton(){
+        navigateTo("approve-major-list", user);
+    }
+
+    @FXML
+    public void onStudentListButton(){
+        navigateTo("student-in-major", user);
+    }
+
+    @FXML
+    public void onAddEndorserButton(){
+        navigateTo("add-major-endorser", user);
+    }
+
+    @FXML
+    public void onHomeButton(){
+        navigateTo("departmentStaff", user);
+    }
     @FXML
     public void onUserProfileButton(){
         navigateTo("user-profile", user);
     }
+
     private void navigateTo(String route, Object data) {
         try {
             FXRouter.goTo(route, data);
         } catch (IOException e) {
             System.err.println("Navigation to " + route + " failed: " + e.getMessage());
         }
+    }
+
+    //Button to add student
+    @FXML
+    public void addStudentButtonClick(){
+        navigateTo("add-student", user);
     }
 
 }

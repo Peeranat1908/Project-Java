@@ -27,6 +27,30 @@ public class StudentList extends UserList{
         }
         return null;
     }
+    public List<Student> findFacultyByID(String facultyID) {
+        List<Student> studentsWithFaculty = new ArrayList<>();
+
+        for (Student student : students) {
+            if (student.getFaculty().equals(facultyID)) {
+                studentsWithFaculty.add(student);
+            }
+        }
+
+        return studentsWithFaculty;
+    }
+
+
+    public List<Student> findMajorByID(String majorID) {
+        List<Student> studentsWithMajor = new ArrayList<>();
+
+        for (Student student : students) {
+            if (student.getMajor().equals(majorID)) {
+                studentsWithMajor.add(student);
+            }
+        }
+
+        return studentsWithMajor;
+    }
 
     public boolean isExists(String username, String id) {
         for (Student student : students) {

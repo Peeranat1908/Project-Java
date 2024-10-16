@@ -4,7 +4,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import ku.cs.controllers.NavigationHistoryService;
 import ku.cs.controllers.components.Sidebar;
 import ku.cs.controllers.components.SidebarController;
@@ -15,6 +18,7 @@ import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
 import ku.cs.services.StudentListFileDatasource;
 
+import java.io.File;
 import java.io.IOException;
 public class StudentController implements Sidebar {
     @FXML
@@ -31,6 +35,8 @@ public class StudentController implements Sidebar {
     private AnchorPane mainPage;
     @FXML
     private Button toggleSidebarButton; // ปุ่มสำหรับแสดง/ซ่อน Sidebar
+    @FXML
+    private Circle imagecircle;
 
 
     @FXML
@@ -40,6 +46,9 @@ public class StudentController implements Sidebar {
             user = (User) data;
             updateUI();
         }
+        String imagePath = System.getProperty("user.dir") + File.separator + user.getProfilePicturePath();
+        String url = new File(imagePath).toURI().toString();
+        imagecircle.setFill(new ImagePattern(new Image(url)));
         Datasource<StudentList> studentDatasource = new StudentListFileDatasource("data", "student-info.csv");
         StudentList studentList = studentDatasource.readData();
         student = studentList.findStudentById(user.getId());

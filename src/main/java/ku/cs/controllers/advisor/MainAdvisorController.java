@@ -20,6 +20,9 @@ import ku.cs.services.FXRouter;
 import ku.cs.services.StudentListFileDatasource;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class MainAdvisorController implements Sidebar {
 
@@ -128,17 +131,44 @@ public class MainAdvisorController implements Sidebar {
 
         clearErrorLabels();
 
+        List<Student> foundStudents = new ArrayList<>();
+
+        // Search by student ID
         Student foundStudent = studentList.findStudentById(searchQuery);
-        if (foundStudent == null) {
-            foundStudent = studentList.findStudentByName(searchQuery);
+        if (foundStudent != null) {
+            foundStudents.add(foundStudent);
         }
-        // check ID ของนักเรียนที่โชว์ว่าตรงกับอาจารย์ที่ Login มาไหม
-        if (foundStudent != null && foundStudent.getAdvisorID().equals(user.getId())) {
-            studentAdvisorTableView.setItems(FXCollections.observableArrayList(foundStudent));
+
+        // Search by student name if no student ID match
+        if (foundStudents.isEmpty()) {
+            foundStudent = studentList.findStudentByName(searchQuery);
+            if (foundStudent != null) {
+                foundStudents.add(foundStudent);
+            }
+        }
+
+        // Search by major ID
+        if (foundStudents.isEmpty()) {
+            foundStudents = studentList.findMajorByID(searchQuery);
+        }
+
+        // Search by faculty ID
+        if (foundStudents.isEmpty()) {
+            foundStudents = studentList.findFacultyByID(searchQuery);
+        }
+
+        // Filter based on advisor's ID
+        List<Student> filteredStudents = foundStudents.stream()
+                .filter(student -> student.getAdvisorID().equals(user.getId()))
+                .collect(Collectors.toList());
+
+        if (!filteredStudents.isEmpty()) {
+            studentAdvisorTableView.setItems(FXCollections.observableArrayList(filteredStudents));
         } else {
             studentAdvisorTableView.getItems().clear();
-            errorLabel.setText("Student not found.");
+            errorLabel.setText("No matching student found.");
         }
+
         clearTextFiled();
     }
     private void setError(Label label, String message) {

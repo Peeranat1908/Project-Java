@@ -45,10 +45,10 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <ChoiceBox fx:id="themeChoiceBox" layoutX="224.0" layoutY="124.0" prefWidth="150.0" />
             <ChoiceBox fx:id="fontChoiceBox" layoutX="224.0" layoutY="195.0" prefWidth="150.0" />
             <ChoiceBox fx:id="fontSizeChoiceBox" layoutX="224.0" layoutY="267.0" prefWidth="150.0" />
             <Button fx:id="applyButton" layoutX="197.0" layoutY="339.0" mnemonicParsing="false" styleClass="ok-button" text="Apply" />
+            <Button fx:id="switchThemeButton" layoutX="250.0" layoutY="116.0" mnemonicParsing="false" onAction="#onSwitchThemeButtonClick" text="Button" />
          </children>
       </Pane>
       <ImageView fitHeight="327.0" fitWidth="327.0" layoutX="12.0" layoutY="409.0" pickOnBounds="true" preserveRatio="true">

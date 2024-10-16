@@ -15,21 +15,31 @@
       <Pane layoutX="3.0" prefHeight="80.0" prefWidth="1275.0" style="-fx-background-color: EAF4FF;">
          <children>
             <Button fx:id="toggleSidebarButton" layoutX="-7.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="124.0" style="-fx-background-color: #2F80ED; -fx-background-radius: 0;" textFill="WHITE" />
-            <Button layoutX="135.0" layoutY="20.0" mnemonicParsing="false" onAction="#onHomeButtonClick" styleClass="ButtonNavbar" text="HOME">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Button>
-            <Button layoutX="236.0" layoutY="20.0" mnemonicParsing="false" onAction="#onStudentListButton" styleClass="ButtonNavbarNotMain" text="รายชื่อนิสิต">
-               <font>
-                  <Font name="Arial Bold" size="20.0" />
-               </font>
-            </Button>
             <ImageView fitHeight="29.0" fitWidth="43.0" layoutX="40.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../images/Hamburger.png" />
                </image>
             </ImageView>
+            <Button layoutX="145.0" layoutY="20.0" mnemonicParsing="false" styleClass="ButtonNavbar" text="HOME">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <Button layoutX="534.0" layoutY="20.0" mnemonicParsing="false" onAction="#onAddEndorserButton" styleClass="ButtonNavbarNotMain" text="แก้ไขผู้อนุมัติคำร้อง">
+               <font>
+                  <Font name="Arial Bold" size="16.0" />
+               </font>
+            </Button>
+            <Button layoutX="414.0" layoutY="20.0" mnemonicParsing="false" onAction="#onStudentListButton" styleClass="ButtonNavbarNotMain" text="รายชื่อนิสิต">
+               <font>
+                  <Font name="Arial Bold" size="16.0" />
+               </font>
+            </Button>
+            <Button layoutX="244.0" layoutY="20.0" mnemonicParsing="false" onAction="#onApproveMajorButton" styleClass="ButtonNavbarNotMain" text="แสดงรายชื่อผู้อนุมัติ">
+               <font>
+                  <Font name="Arial Bold" size="16.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
       <TextField fx:id="nameId" layoutX="432.0" layoutY="286.0" prefHeight="47.0" prefWidth="396.0" promptText="Enter name" styleClass="text-field" />
