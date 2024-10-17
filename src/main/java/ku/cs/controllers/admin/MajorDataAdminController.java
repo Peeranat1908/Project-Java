@@ -31,7 +31,6 @@ public class MajorDataAdminController implements Sidebar {
 
     private MajorList majorList;
 
-    private Datasource<MajorList> datasource;
     @FXML
     private AnchorPane sidebar;
     @FXML
@@ -54,7 +53,7 @@ public class MajorDataAdminController implements Sidebar {
             selectedFaculty = pair.getValue();
 
         }
-        datasource = new MajorListFileDatasource("data", "Major.csv");
+        Datasource<MajorList> datasource = new MajorListFileDatasource("data", "Major.csv");
         majorList = datasource.readData();
         if (majorList != null){
             filterByFacultyId(selectedFaculty); // กรองข้อมูลด้วย facultyId
@@ -141,14 +140,6 @@ public class MajorDataAdminController implements Sidebar {
         }
     }
 
-    @FXML
-    public void onLogOutButtonClick(){
-        try {
-            FXRouter.goTo("main-admin",user);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @FXML
     public void onBackButtonClick() {

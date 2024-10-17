@@ -17,6 +17,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class AddStaffController implements Sidebar {
 
@@ -46,7 +47,6 @@ public class AddStaffController implements Sidebar {
     private UserList userList;
     private User user;
     private FacultyListFileDatasource facultyDatasource;
-    private MajorListFileDatasource majorDatasource;
 
     @FXML
     private AnchorPane sidebar;
@@ -108,15 +108,15 @@ public class AddStaffController implements Sidebar {
 
     }
 
-
     private void loadMajorChoices(String facultyId) {
-        majorDatasource = new MajorListFileDatasource("data", "major.csv");
+        MajorListFileDatasource majorDatasource = new MajorListFileDatasource("data", "major.csv");
         majorChoiceBox.getItems().clear();
+        MajorList majorList = majorDatasource.readData();
+        List<Major> filteredMajors = majorList.filterMajorsByFaculty(facultyId);
+
         ObservableList<String> majorNames = FXCollections.observableArrayList();
-        for (Major major : majorDatasource.readData().getMajors()) {
-            if (major.getFacultyId().equals(facultyId)) {
-                majorNames.add(major.getMajorName());
-            }
+        for (Major major : filteredMajors) {
+            majorNames.add(major.getMajorName());
         }
         majorChoiceBox.getItems().addAll(majorNames);
     }
@@ -167,7 +167,7 @@ public class AddStaffController implements Sidebar {
         String advisorId = advisorIdTextfield.getText();
 
         if (name.isEmpty() || username.isEmpty() || password.isEmpty() || role == null || faculty == null) {
-            addStaffLabel.setText("กรุณากรอกข้อมูลให้ครบถ้วน");
+            addStaffLabel.setText("Please fill in all fields.");
             return;
         }
         if (role.equals("อาจารย์ที่ปรึกษา")) {
@@ -252,14 +252,7 @@ public class AddStaffController implements Sidebar {
             throw new RuntimeException(e);
         }
     }
-    @FXML
-    public void onLogoutButtonClick() {
-        try {
-            FXRouter.goTo("login-page");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
     @FXML
     public void dashboardButtonClick() {
         try {

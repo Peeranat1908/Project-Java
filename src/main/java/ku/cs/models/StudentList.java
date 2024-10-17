@@ -3,7 +3,7 @@ package ku.cs.models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudentList extends UserList{
+public class StudentList {
     private List<Student> students;
 
     public StudentList() {

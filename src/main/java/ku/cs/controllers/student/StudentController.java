@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import ku.cs.controllers.NavigationHistoryService;
 import ku.cs.controllers.components.Sidebar;
 import ku.cs.controllers.components.SidebarController;
 import ku.cs.models.StudentList;
@@ -63,16 +62,6 @@ public class StudentController implements Sidebar {
         }
     }
 
-    // Method สำหรับการคลิกปุ่มเพื่อไปยังหน้าทีมของฉัน
-    @FXML
-    public void onMyTeamButtonClick() throws RuntimeException {
-        NavigationHistoryService.getInstance().pushPage("student");
-        try {
-            FXRouter.goTo("my-team");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     // Method สำหรับการคลิกปุ่มเพื่อไปยังหน้าการยื่นคำร้องของนักเรียน
     @FXML

@@ -36,7 +36,6 @@ public class StudentInMajorController implements Sidebar {
     @FXML
     private Button toggleSidebarButton; // ปุ่มสำหรับแสดง/ซ่อน Sidebar
     @FXML private Circle imagecircle;
-    private Datasource<StudentList> datasource;
     private User user;
     Datasource<StudentList> studentDatasource;
     StudentList studentlistInMajor;

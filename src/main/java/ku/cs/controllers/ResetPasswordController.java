@@ -20,8 +20,6 @@ public class ResetPasswordController {
     @FXML private PasswordField confirmPasswordTextfield;
 
     private UserList userList;
-    private StudentList studentList;
-
 
     @FXML
     private void initialize() {

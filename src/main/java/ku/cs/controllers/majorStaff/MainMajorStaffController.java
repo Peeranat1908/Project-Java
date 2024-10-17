@@ -79,12 +79,6 @@ public class MainMajorStaffController implements Sidebar {
         // Fetch the list of appeals in the major
         List<Appeal> appeals = appealListInMajor.getsAppeals();
 
-        // If there are no appeals, show "no appeals" message
-        if (appeals == null || appeals.isEmpty()) {
-            noAppealsLabel.setVisible(true);
-            appealVBox.getChildren().clear(); // Clear the list
-            return; // Exit early if there's nothing to process
-        }
         appeals = appeals.stream()
                 .filter(appeal -> appeal.getStatus().trim().equalsIgnoreCase("อนุมัติโดยอาจารย์ที่ปรึกษา คำร้องส่งต่อให้หัวหน้าภาควิชา") ||
                         appeal.getStatus().contains("หัวหน้าภาควิชา"))
@@ -112,11 +106,12 @@ public class MainMajorStaffController implements Sidebar {
         // Sort appeals using the comparator
         appeals.sort(new AppealSortComparator(filterType));
 
-        // Update the UI based on the filtered appeals
-        appealVBox.getChildren().clear(); // Clear previous list
+
         if (appeals.isEmpty()) {
             noAppealsLabel.setVisible(true); // Show "no appeals" message if list is empty
         } else {
+            // Update the UI based on the filtered appeals
+            appealVBox.getChildren().clear(); // Clear previous list
             noAppealsLabel.setVisible(false); // Hide "no appeals" message if appeals are present
             // Load each filtered appeal into the VBox
             appeals.forEach(appeal -> {

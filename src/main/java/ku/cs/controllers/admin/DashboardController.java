@@ -13,7 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import ku.cs.controllers.NavigationHistoryService;
 import ku.cs.controllers.components.Sidebar;
 import ku.cs.controllers.components.SidebarController;
 import ku.cs.models.*;
@@ -60,8 +59,6 @@ public class DashboardController implements Sidebar {
     private MajorListFileDatasource majorDatasource;
     private FacultyListFileDatasource facultyDatasource;
     private UserList userList;
-    private UserListFileDatasource datasource;
-    private AppealListDatasource appealDatasource;
     private AppealList appealList;
 
 
@@ -75,9 +72,9 @@ public class DashboardController implements Sidebar {
         UserInMajorPieChart.setVisible(false);
         AppealInMajorPieChart.setVisible(false);
         facultyDatasource = new FacultyListFileDatasource("data", "faculty.csv");
-        datasource = new UserListFileDatasource("data", "user.csv");
+        UserListFileDatasource datasource = new UserListFileDatasource("data", "user.csv");
         userList = datasource.readData();
-        appealDatasource = new AppealListDatasource("data/appeals.csv");
+        AppealListDatasource appealDatasource = new AppealListDatasource("data/appeals.csv");
         appealList = appealDatasource.readData();
         loadSidebar();// loadSidebar
         toggleSidebarButton.setOnAction(actionEvent -> {toggleSidebar();});

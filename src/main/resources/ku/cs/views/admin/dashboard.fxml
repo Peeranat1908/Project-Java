@@ -54,7 +54,7 @@
             </ImageView>
             </children>
         </Pane>
-        <VBox alignment="CENTER" layoutX="102.0" layoutY="160.0" prefHeight="128.0" prefWidth="174.0">
+        <VBox alignment="CENTER" layoutX="102.0" layoutY="109.0" prefHeight="128.0" prefWidth="174.0">
             <children>
                 <Label text="จำนวนคำร้องทั้งหมด">
                     <font>
@@ -141,12 +141,12 @@
                 <Insets />
             </opaqueInsets>
         </VBox>
-        <PieChart fx:id="AppealStatusPieChart" layoutX="6.0" layoutY="302.0" prefHeight="308.0" prefWidth="378.0" title="สถานะคำร้อง" />
+        <PieChart fx:id="AppealStatusPieChart" layoutX="6.0" layoutY="233.0" prefHeight="487.0" prefWidth="378.0" title="สถานะคำร้อง" />
         <ChoiceBox fx:id="facultyUserChoicebox" layoutX="405.0" layoutY="151.0" prefHeight="38.0" prefWidth="194.0" />
-        <PieChart fx:id="AppealInFacultyPieChart" layoutX="570.0" layoutY="415.0" prefHeight="295.0" prefWidth="350.0" title="คำร้องที่อนุมัติแล้วแยกตามคณะ" />
+        <PieChart fx:id="AppealInFacultyPieChart" layoutX="570.0" layoutY="415.0" prefHeight="308.0" prefWidth="350.0" title="คำร้องที่อนุมัติแล้วแยกตามคณะ" />
         <PieChart fx:id="AppealInMajorPieChart" layoutX="918.0" layoutY="415.0" prefHeight="295.0" prefWidth="350.0" title="คำร้องที่อนุมัติแล้วแยกตามภาควิชา" />
         <ChoiceBox fx:id="facultyAppealChoiceBox" layoutX="405.0" layoutY="442.0" prefHeight="38.0" prefWidth="194.0" />
-        <PieChart fx:id="UserInFacultyPieChart" layoutX="568.0" layoutY="98.0" prefHeight="320.0" prefWidth="350.0" title="ผู้ใช้แยกตามคณะ" />
+        <PieChart fx:id="UserInFacultyPieChart" layoutX="568.0" layoutY="98.0" prefHeight="326.0" prefWidth="350.0" title="ผู้ใช้แยกตามคณะ" />
         <PieChart fx:id="UserInMajorPieChart" layoutX="918.0" layoutY="100.0" prefHeight="320.0" prefWidth="350.0" title="ผู้ใช้แยกตามภาควิชา" />
         <Circle fx:id="imagecircleuser" fill="DODGERBLUE" layoutX="1228.0" layoutY="40.0" radius="34.0" stroke="BLACK" strokeType="INSIDE" />
         <Button layoutX="1200.0" layoutY="14.0" mnemonicParsing="false" onAction="#onUserProfileButton" opacity="0.0" prefHeight="51.0" prefWidth="52.0" text="Button" />

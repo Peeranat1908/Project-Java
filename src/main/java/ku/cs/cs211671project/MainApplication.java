@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import ku.cs.models.Theme;
 import ku.cs.services.FXRouter;
 
 import java.io.IOException;
@@ -89,12 +88,7 @@ public class MainApplication extends Application {
 
     }
 
-    public static void applyStylesheet(Scene scene) {
-        // ตรวจสอบว่ามีสไตล์ชีตอยู่แล้วหรือไม่
-        scene.getStylesheets().clear(); // ลบสไตล์ชีตปัจจุบันทั้งหมดก่อน
-        String currentStyleSheet = Theme.getCurrentStyleSheet(); // ดึง CSS ปัจจุบันจาก ThemeColor
-        scene.getStylesheets().add(currentStyleSheet); // เพิ่ม CSS ที่จะใช้งาน
-    }
+
 
 
     public static void main(String[] args) {

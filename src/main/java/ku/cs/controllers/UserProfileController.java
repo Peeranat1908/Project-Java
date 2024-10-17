@@ -82,7 +82,7 @@ public class UserProfileController {
                 facultyLabel.setVisible(false);
                 facultytextLabel.setVisible(false);
             }
-            if (user.getRole().equals("majorStaff")) {
+            if (user.getRole().equals("majorStaff") || user.getRole().equals("student")) {
                 majorLabel.setVisible(true);
                 majorLabel1.setVisible(true);
                 majorLabel.setText(user.getMajor());
@@ -179,10 +179,8 @@ public class UserProfileController {
                 findUser.setProfilePicturePath(profilePicPath);
                 datasource.writeData(userList);
                 updateUI(updateUser(findUser));
-                errorLabel.setText("อัพเดตรูปโปรไฟล์สำเร็จ.");
             } catch (IOException e) {
                 e.printStackTrace();
-                errorLabel.setText("เกิดข้อผิดพลาดในการอัพเดตรูปโปรไฟล์.");
             }
         } else {
             errorLabel.setText("ไม่มีไฟล์ที่เลือก.");
@@ -200,14 +198,7 @@ public class UserProfileController {
             e.printStackTrace();
         }
     }
-    @FXML
-    private void onLogOutButtonClick(){
-        try{
-            FXRouter.goTo("login-page");
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-    }
+
 
     private void navigateByRole(User user) throws IOException {
         if (user == null) {

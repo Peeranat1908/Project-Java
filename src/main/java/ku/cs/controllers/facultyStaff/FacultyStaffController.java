@@ -74,12 +74,6 @@ public class FacultyStaffController implements Sidebar {
         // Fetch the list of appeals in the major
         List<Appeal> appeals = appealListInFaculty.getsAppeals();
 
-        // If there are no appeals, show "no appeals" message
-        if (appeals == null || appeals.isEmpty()) {
-            noAppealsLabel.setVisible(true);
-            appealVBox.getChildren().clear(); // Clear the list
-            return; // Exit early if there's nothing to process
-        }
         appeals = appeals.stream()
                 .filter(appeal -> appeal.getStatus().equals("อนุมัติโดยหัวหน้าภาควิชา คำร้องส่งต่อให้คณบดี") ||
                         appeal.getStatus().contains("คณบดี"))
@@ -110,11 +104,12 @@ public class FacultyStaffController implements Sidebar {
         // Sort appeals using the comparator
         appeals.sort(new AppealSortComparator(filterType));
 
-        // Update the UI based on the filtered appeals
-        appealVBox.getChildren().clear(); // Clear previous list
+
         if (appeals.isEmpty()) {
             noAppealsLabel.setVisible(true); // Show "no appeals" message if list is empty
         } else {
+            // Update the UI based on the filtered appeals
+            appealVBox.getChildren().clear(); // Clear previous list
             noAppealsLabel.setVisible(false); // Hide "no appeals" message if appeals are present
             // Load each filtered appeal into the VBox
             appeals.forEach(appeal -> {
@@ -180,27 +175,7 @@ public class FacultyStaffController implements Sidebar {
         navigateTo("approve-faculty-staff", user);
     }
 
-    @FXML
-    public void onMyTeamButtonClick() {
-        try {
-            // เก็บ Scene ปัจจุบันเพื่อใช้ย้อนกลับ
-            Stage stage = (Stage) myTeamButton.getScene().getWindow();
-            Scene currentScene = stage.getScene();
 
-            // โหลดหน้าต่าง My Team
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/views/other/my-team.fxml"));
-            Parent root = loader.load();
-
-            // ตั้งค่า Scene ก่อนหน้าให้ MyteamController เพื่อใช้ในการย้อนกลับ
-            MyteamController controller = loader.getController();  // แก้เป็น MyteamController
-            controller.setPreviousScene(currentScene);  // ต้องมีการตั้ง method setPreviousScene ใน MyteamController
-
-            // เปลี่ยน Scene ไปหน้า My Team
-            stage.setScene(new Scene(root));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     private void navigateTo(String route, Object data) {
         try {

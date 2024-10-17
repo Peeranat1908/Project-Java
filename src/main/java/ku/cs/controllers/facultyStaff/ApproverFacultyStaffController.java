@@ -7,7 +7,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import ku.cs.controllers.NavigationHistoryService;
 import ku.cs.controllers.components.Sidebar;
 import ku.cs.controllers.components.SidebarController;
 import ku.cs.models.ApproveFacultyStaff;
@@ -92,15 +91,6 @@ public class ApproverFacultyStaffController implements Sidebar {
         }
     }
 
-    @FXML
-    public void onMyTeamButtonClick() throws RuntimeException {
-        NavigationHistoryService.getInstance().pushPage("approve-faculty-staff");
-        try {
-            FXRouter.goTo("my-team");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Override
     public void loadSidebar() {

@@ -40,23 +40,6 @@ public class LoginController {
         }
     }
 
-    @FXML
-    public void onRegisterButtonClick() {
-        try {
-            FXRouter.goTo("register");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
-    public void onResetPasswordButton() {
-        try {
-            FXRouter.goTo("resetPassword");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @FXML
     private void handleLogin() throws IOException {
@@ -75,6 +58,7 @@ public class LoginController {
         userDatasource.writeData(userList);
         navigateByRole(user);
     }
+
 
 
 
@@ -110,6 +94,23 @@ public class LoginController {
             default:
                 errorLabel.setText("Invalid role. Please contact the administrator.");
                 throw new IOException("Invalid role.");
+        }
+    }
+    @FXML
+    public void onRegisterButtonClick() {
+        try {
+            FXRouter.goTo("register");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void onResetPasswordButton() {
+        try {
+            FXRouter.goTo("resetPassword");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

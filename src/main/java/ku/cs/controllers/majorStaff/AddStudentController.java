@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import ku.cs.controllers.NavigationHistoryService;
+
 import ku.cs.controllers.components.Sidebar;
 import ku.cs.controllers.components.SidebarController;
 import ku.cs.models.*;
@@ -36,8 +36,7 @@ public class AddStudentController implements Sidebar {
     private Button toggleSidebarButton; // ปุ่มสำหรับแสดง/ซ่อน Sidebar
     @FXML private Circle imagecircle;
 
-    private UserList userList;
-    private UserListFileDatasource datasource;
+
     private User user;
     private StudentList studentList;
     private PreRegisterStudentListFileDatasource studentFileDatasource;
@@ -70,7 +69,7 @@ public class AddStudentController implements Sidebar {
             return;
         }
 
-        if (studentList.findUserByName(name) != null) {
+        if (studentList.findStudentByName(name) != null) {
             addStudentLabel.setText("ชื่อ " + name + " มีอยู่แล้ว");
             return;
         }

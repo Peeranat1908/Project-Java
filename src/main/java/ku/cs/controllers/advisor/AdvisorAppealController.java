@@ -28,7 +28,6 @@ public class AdvisorAppealController {
     @FXML
     private VBox appealVBox;
 
-    private AppealListDatasource datasource;
     private AppealList appealList;
     private User user;
 
@@ -41,7 +40,7 @@ public class AdvisorAppealController {
 
     @FXML
     public void initialize() {
-        datasource = new AppealListDatasource("data/appeals.csv");
+        AppealListDatasource datasource = new AppealListDatasource("data/appeals.csv");
         appealList = datasource.readData();
         AppealSharedData.setNormalAppealList(appealList);
 

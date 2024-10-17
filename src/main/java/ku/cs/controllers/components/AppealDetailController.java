@@ -67,14 +67,6 @@ public class AppealDetailController {
                 DeclineDateLabel.setText(time.getDayOfMonth() + "/" + time.getMonth() + "/" + time.getYear() + "  " + time.getHour() + ":" + time.getMinute() + ":" + time.getSecond());
                 DeclineDateLabel.setVisible(true);
                 declineLabel.setText(appeal.getDeclineReason());
-                if(appeal.getStatus().contains("หัวหน้าภาค") && (appeal.getMajorEndorserSignature() != null || appeal.getMajorEndorserSignature() == "")){
-                    String who = appeal.getMajorEndorserSignature();
-                    declineLabel.setText(appeal.getDeclineReason() + " ปฏิเสธโดย " + who);
-                }
-                if(appeal.getStatus().contains("คณบดี") && (appeal.getFacultyEndorserSignature() != null || appeal.getFacultyEndorserSignature() == "")){
-                    String who = appeal.getFacultyEndorserSignature();
-                    declineLabel.setText(appeal.getDeclineReason() + " ปฏิเสธโดย " + who);
-                }
                 declineLabel.setVisible(true);
             }
             if (appeal.getMajorEndorserDate() != null && appeal.getStatus().contains("อนุมัติ")){

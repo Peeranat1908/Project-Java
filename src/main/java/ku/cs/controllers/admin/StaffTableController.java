@@ -43,7 +43,6 @@ public class StaffTableController implements Sidebar {
     private Circle imagecircleuser;
     private User user;
     private UserList userList;
-    private Datasource<UserList> datasource;
 
     @FXML
     private AnchorPane sidebar;
@@ -54,7 +53,7 @@ public class StaffTableController implements Sidebar {
 
     @FXML
     public void initialize() {
-        datasource = new UserListFileDatasource("data", "user.csv");
+        Datasource<UserList> datasource = new UserListFileDatasource("data", "user.csv");
         userList = datasource.readData();
         showTable(userList);
         Object data = FXRouter.getData();
@@ -194,15 +193,6 @@ public class StaffTableController implements Sidebar {
         }
     }
 
-
-    @FXML
-    public void onLogoutButtonClick() {
-        try {
-            FXRouter.goTo("login-page");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
     @FXML
     public void dashboardButtonClick() {
         try {

@@ -112,7 +112,7 @@ public class UserDetailAdminController implements Sidebar {
     public void unSuspendButtonclick() {
         datasource = new UserListFileDatasource("data", "user.csv");
         userList = datasource.readData();
-        String username = user.getUsername();
+        String username = userdetail.getUsername();
 
         User user = userList.findUserByUsername(username);
         if (user != null) {

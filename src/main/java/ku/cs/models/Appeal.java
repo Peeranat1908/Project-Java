@@ -20,8 +20,9 @@ public class Appeal {
     private LocalDateTime DeclineDateTime; //วันเวลาที่ปฎิเสธ (ใช้ร่วมกัน)
     private LocalDate majorEndorserDate; //วันอนุมัติของ จนท ภาค
     private LocalDate FacultyEndorserDate; //วันอนุมัติของ จนท คณะ
-    private String pathPDF;
     private String appealID;
+    private String pathPDF;
+
 
 
     public Appeal(String studentID, String type , String subject, String request, LocalDate date, String studentSignature,

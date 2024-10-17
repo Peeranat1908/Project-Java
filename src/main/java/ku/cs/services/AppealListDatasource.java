@@ -116,6 +116,9 @@ public class AppealListDatasource implements Datasource<AppealList>{
                 if (FacultyEndorserSignature== null || FacultyEndorserSignature.isEmpty())  {
                     FacultyEndorserSignature = "\"\"";
                 }
+                if(pathPDF == null){
+                    pathPDF = "\"\"";
+                }
 
                 writer.write(
                         appeal.getStudentID() + ","

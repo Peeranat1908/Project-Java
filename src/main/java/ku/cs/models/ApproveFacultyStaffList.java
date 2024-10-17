@@ -27,16 +27,7 @@ public class ApproveFacultyStaffList {
         }
         approveFacultyStaffList.add(new ApproveFacultyStaff(name, role, faculty, position));
     }
-    // ฟังก์ชันกรองตามคณะ
-    public ApproveFacultyStaffList filterByFaculty(String faculty) {
-        List<ApproveFacultyStaff> filteredList = new ArrayList<>();
-        for (ApproveFacultyStaff staff : approveFacultyStaffList) {
-            if (staff.getFaculty().equals(faculty)) {
-                filteredList.add(staff);
-            }
-        }
-        return new ApproveFacultyStaffList(filteredList);  // ใช้ constructor ที่เพิ่มใหม่
-    }
+
 
     public void addNewApproveFacultyStaff(String name, String role, String faculty) {
         name = name.trim();

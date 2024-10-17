@@ -11,10 +11,7 @@ import javafx.scene.shape.Circle;
 import javafx.util.Pair;
 import ku.cs.controllers.components.Sidebar;
 import ku.cs.controllers.components.SidebarController;
-import ku.cs.models.Faculty;
-import ku.cs.models.Major;
-import ku.cs.models.User;
-import ku.cs.models.UserList;
+import ku.cs.models.*;
 import ku.cs.services.FXRouter;
 import ku.cs.services.FacultyListFileDatasource;
 import ku.cs.services.MajorListFileDatasource;
@@ -25,6 +22,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class StaffEditController implements Sidebar {
 
@@ -135,12 +133,12 @@ public class StaffEditController implements Sidebar {
     private void loadMajorChoices(String facultyId) {
         majorDatasource = new MajorListFileDatasource("data", "major.csv");
         majorChoiceBox.getItems().clear();
+        MajorList majorList = majorDatasource.readData();
+        List<Major> filteredMajors = majorList.filterMajorsByFaculty(facultyId);
 
         ObservableList<String> majorNames = FXCollections.observableArrayList();
-        for (Major major : majorDatasource.readData().getMajors()) {
-            if (major.getFacultyId().equals(facultyId)) {
-                majorNames.add(major.getMajorName());
-            }
+        for (Major major : filteredMajors) {
+            majorNames.add(major.getMajorName());
         }
         majorChoiceBox.getItems().addAll(majorNames);
     }
@@ -180,9 +178,13 @@ public class StaffEditController implements Sidebar {
     }
     @FXML
     public void enterEditButtonClick() {
-        User findUser = userList.findUserByUsername(user.getUsername());
+        User findUser = userList.findUserByUsername(userdetail.getUsername());
         String newName = nameTextField.getText();
         if (!newName.isEmpty()) {
+            if (userList.findUserByName(newName) != null) {
+                errorLabel.setText("Username " + newName + " มีอยู่แล้ว");
+                return;
+            }
             findUser.setName(newName);
         }
 
@@ -261,23 +263,6 @@ public class StaffEditController implements Sidebar {
 
     }
 
-
-    @FXML
-    public void onMyTeamButtonClick() {
-        try {
-            FXRouter.goTo("my-team",user);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    @FXML
-    public void onLogoutButtonClick() {
-        try {
-            FXRouter.goTo("login-page");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
     @FXML
     public void dashboardButtonClick() {
         try {

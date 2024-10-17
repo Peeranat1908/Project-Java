@@ -11,7 +11,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.util.Pair;
-import ku.cs.controllers.NavigationHistoryService;
 import ku.cs.controllers.components.Sidebar;
 import ku.cs.controllers.components.SidebarController;
 import ku.cs.models.User;
@@ -53,7 +52,6 @@ public class MainAdminController implements Sidebar {
 
 
     private UserList userList;
-    private Datasource<UserList> datasource;
 
     @FXML
     public void initialize() {
@@ -62,7 +60,7 @@ public class MainAdminController implements Sidebar {
             user = (User) data;
 
         }
-        datasource = new UserListFileDatasource("data", "user.csv");
+        Datasource<UserList> datasource = new UserListFileDatasource("data", "user.csv");
         userList = datasource.readData();
         showTable(userList);
 

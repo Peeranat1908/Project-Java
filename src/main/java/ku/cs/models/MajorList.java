@@ -1,6 +1,7 @@
 package ku.cs.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MajorList {
     private ArrayList<Major> majors;
@@ -32,6 +33,16 @@ public class MajorList {
         }
         return majorNames;
     }
+    public List<Major> filterMajorsByFaculty(String facultyId) {
+        List<Major> filteredMajors = new ArrayList<>();
+        for (Major major : majors) {
+            if (major.getFacultyId().equals(facultyId)) {
+                filteredMajors.add(major);
+            }
+        }
+        return filteredMajors;
+    }
+
 
     public ArrayList<Major> getMajors() {
         return majors;

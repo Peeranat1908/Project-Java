@@ -97,10 +97,6 @@ public class EditApproveMajorStaffController {
 
     }
 
-    private void clearTextFields() {
-        nameId.clear();
-        positionId.clear();
-    }
 
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);

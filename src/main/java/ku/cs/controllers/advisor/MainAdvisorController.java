@@ -10,7 +10,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Pair;
-import ku.cs.controllers.NavigationHistoryService;
 import ku.cs.controllers.components.Sidebar;
 import ku.cs.controllers.components.SidebarController;
 import ku.cs.models.Student;
@@ -171,12 +170,9 @@ public class MainAdvisorController implements Sidebar {
 
         clearTextFiled();
     }
-    private void setError(Label label, String message) {
-        clearErrorLabels();
-        label.setText(message);
-    }
 
     private void clearErrorLabels() {
+
         errorLabel.setText("");
     }
 
@@ -184,15 +180,6 @@ public class MainAdvisorController implements Sidebar {
         searchTextField.clear();
     }
 
-    @FXML
-    public void onMyTeamButtonClick() throws RuntimeException {
-        NavigationHistoryService.getInstance().pushPage("main-advisor");
-        try {
-            FXRouter.goTo("my-team");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
 
     private void updateUI() {

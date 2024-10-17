@@ -11,7 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.util.Pair;
-import ku.cs.controllers.NavigationHistoryService;
+
 import ku.cs.controllers.components.Sidebar;
 import ku.cs.controllers.components.SidebarController;
 import ku.cs.models.Student;
@@ -175,7 +175,7 @@ public class StudentDetailController implements Sidebar {
     }
 
     @FXML
-    public void onHomeButton(){
+    public void homeButtonClick(){
         navigateTo("departmentStaff", user);
     }
 
