@@ -85,7 +85,7 @@ public class PreRegisterStudentListFileDatasource implements Datasource<StudentL
                         student.getEmail(),
                         student.getFaculty(),
                         student.getMajor(),
-                        student.getAdvisorID() != null ? student.getAdvisorID() : ""
+                        student.getAdvisorID()
                 );
                 buffer.write(line);
                 buffer.newLine();
