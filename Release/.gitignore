@@ -1,5 +1,6 @@
 *
+!images/
 !data/
-!*UML/
 !*.jar
+!*.pdf
 !.gitignore
