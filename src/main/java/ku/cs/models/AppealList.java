@@ -18,27 +18,25 @@ public class AppealList {
         appeals.add(appeal);
     }
 
-    public void removeAppeal(Appeal appeal){
-        appeals.remove(appeal);
-    }
 
     public List<Appeal> getsAppeals(){
         return new ArrayList<>(appeals);
     }
 
-    public Appeal findAppealBySubject(String subject) {
+    public AppealList findAppealByStudentID(StudentList studentlist) {
+        AppealList appealList1 = new AppealList();
         for (Appeal appeal : appeals) {
-            if (appeal.getSubject().equalsIgnoreCase(subject)) {
-                return appeal;
+            for (Student student : studentlist.getStudents()) {
+                if(appeal.getStudentID().equalsIgnoreCase(student.getId())) {
+                    appealList1.addAppeal(appeal);
+                }
             }
         }
-        return null;
+        return appealList1;
     }
 
 
-    public int getAppealCount() {
-        return appeals.size();
-    }
+
 
 
 }

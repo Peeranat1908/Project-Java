@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import ku.cs.models.Major;
 import ku.cs.models.MajorList;
+import ku.cs.models.User;
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
 import ku.cs.services.MajorListFileDatasource;
@@ -33,9 +34,15 @@ public class addNewMajorDataController {
 
     private Datasource<MajorList> datasource;
     private MajorList majorList;
+    private User user;
 
     @FXML
-    public void initialize() {
+    public void initialize(){
+        Object data = FXRouter.getData();
+        if (data instanceof User) {
+            user = (User) data;
+
+        }
         errorLabel1.setText("");
         errorLabel2.setText("");
         errorLabel3.setText("");
@@ -61,24 +68,33 @@ public class addNewMajorDataController {
             setError(errorLabel3, "Major Name cannot be empty");
         }
 
+        boolean foundFaculty = false;
         boolean isUpdate = false;
-        for (Major major : majorList.getMajors()){
-            if (major.getFacultyId().equalsIgnoreCase(facultyID)){
-                if (major.getMajorId().equalsIgnoreCase(majorID)){
+
+        for (Major major : majorList.getMajors()) {
+            if (major.getFacultyId().equalsIgnoreCase(facultyID)) {
+                foundFaculty = true;
+
+                if (major.getMajorId().equalsIgnoreCase(majorID)) {
                     setError(errorLabel4, "Major ID already exists");
+                    break;
                 } else if (major.getMajorName().equalsIgnoreCase(majorNAME)) {
                     setError(errorLabel4, "Major Name already exists");
-                }
-                else {
+                    break;
+                } else {
                     majorList.addNewMajor(facultyID, majorID, majorNAME);
                     isUpdate = true;
                     break;
                 }
             }
-            else {
-                setError(errorLabel4, "Major ID does not match");
-            }
         }
+
+// ถ้าไม่มี facultyID ใน list ให้เพิ่ม faculty ใหม่พร้อมกับ major
+        if (!foundFaculty) {
+            majorList.addNewMajor(facultyID, majorID, majorNAME);
+            isUpdate = true;
+        }
+
 
         if (isUpdate) {
             datasource.writeData(majorList);
@@ -116,7 +132,7 @@ public class addNewMajorDataController {
     @FXML
     public void backButtonClicked() throws IOException {
         try {
-            FXRouter.goTo("faculty-data-admin");
+            FXRouter.goTo("faculty-data-admin",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

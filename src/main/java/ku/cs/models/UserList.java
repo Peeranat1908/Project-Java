@@ -15,7 +15,6 @@ public class UserList {
     }
 
 
-
     public void addUser(User user) {
         users.add(user);
     }
@@ -43,7 +42,6 @@ public class UserList {
     public User authenticate(String username, String password) {
         User user = findUserByUsername(username);
         if (user != null && BCrypt.checkpw(password, user.getPassword())) {
-            // Update last login time when authenticated
             updateLastLogin(username);
             return user;
         }
@@ -70,15 +68,6 @@ public class UserList {
 
 
 
-    public boolean updatePassword(String username, String newPassword) {
-        User user = findUserByUsername(username);
-        if (user != null) {
-            String hashedPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
-            user.setPassword(hashedPassword);
-            return true; // Password updated successfully
-        }
-        return false; //not found
-    }
 
     public void sortUsersByLastLogin() {
         Collections.sort(users, new LastLoginComparator());

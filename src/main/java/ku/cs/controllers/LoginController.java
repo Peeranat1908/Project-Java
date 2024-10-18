@@ -40,6 +40,62 @@ public class LoginController {
         }
     }
 
+
+    @FXML
+    private void handleLogin() throws IOException {
+        String username = UsernameTextField.getText().trim();
+        String password = PasswordTextField.getText().trim();
+
+        User user = userList.authenticate(username, password);
+
+
+        if (user == null) {
+            errorLabel.setText("Username or password is incorrect. Please try again.");
+            return;
+        }
+        userList.updateLastLogin(username);
+        UserListFileDatasource userDatasource = new UserListFileDatasource("data", "user.csv");
+        userDatasource.writeData(userList);
+        navigateByRole(user);
+    }
+
+
+
+
+    private void navigateByRole(User user) throws IOException {
+        switch (user.getRole()) {
+            case "student":
+                FXRouter.goTo("student", user);
+                break;
+            case "admin":
+                FXRouter.goTo("main-admin", user);
+                break;
+            case "advisor":
+                if (user.isFirstlogin()){
+                    errorLabel.setText("Please change your password before your first login.");
+                    return;
+                }
+                FXRouter.goTo("main-advisor", user);
+                break;
+            case "facultyStaff":
+                if (user.isFirstlogin()){
+                    errorLabel.setText("Please change your password before your first login.");
+                    return;
+                }
+                FXRouter.goTo("facultyStaff", user);
+                break;
+            case "majorStaff":
+                if (user.isFirstlogin()){
+                    errorLabel.setText("Please change your password before your first login.");
+                    return;
+                }
+                FXRouter.goTo("departmentStaff", user);
+                break;
+            default:
+                errorLabel.setText("Invalid role. Please contact the administrator.");
+                throw new IOException("Invalid role.");
+        }
+    }
     @FXML
     public void onRegisterButtonClick() {
         try {
@@ -55,62 +111,6 @@ public class LoginController {
             FXRouter.goTo("resetPassword");
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
-    private void handleLogin() throws IOException {
-        String username = UsernameTextField.getText().trim();
-        String password = PasswordTextField.getText().trim();
-
-        User user = userList.authenticate(username, password);
-
-
-        if (user == null) {
-            errorLabel.setText("Username or password is incorrect. Please try again.");
-            return;
-        }
-
-        userList.updateLastLogin(username);
-
-
-        navigateByRole(user);
-    }
-
-
-
-    private void navigateByRole(User user) throws IOException {
-        switch (user.getRole()) {
-            case "student":
-                FXRouter.goTo("student", user);
-                break;
-            case "admin":
-                FXRouter.goTo("main-admin", user);
-                break;
-            case "advisor":
-                if (!user.isFirstlogin()){
-                    errorLabel.setText("Please change your password before your first login.");
-                    return;
-                }
-                FXRouter.goTo("advisor", user);
-                break;
-            case "facultyStaff":
-                if (!user.isFirstlogin()){
-                    errorLabel.setText("Please change your password before your first login.");
-                    return;
-                }
-                FXRouter.goTo("facultyStaff", user);
-                break;
-            case "departmentStaff":
-                if (!user.isFirstlogin()){
-                    errorLabel.setText("Please change your password before your first login.");
-                    return;
-                }
-                FXRouter.goTo("departmentStaff", user);
-                break;
-            default:
-                errorLabel.setText("Invalid role. Please contact the administrator.");
-                throw new IOException("Invalid role.");
         }
     }
 }

@@ -10,14 +10,14 @@ public class User implements Comparable<User> {
     protected LocalDate lastLoginDate;
     protected LocalTime lastLoginTime;
     protected String role;
-    protected String profilePicturePath;  // เพิ่ม field สำหรับเก็บรูปภาพ
+    protected String profilePicturePath;
     protected boolean suspend;
     protected String faculty;
     protected String major;
     protected boolean firstlogin;
     protected String Id;
 
-    public User(String name, String username, String password, LocalDate lastLoginDate, LocalTime lastLoginTime, String role, String profilePicturePath, boolean banned, String faculty, String department, boolean firstlogin, String Id) {
+    public User(String name, String username, String password, LocalDate lastLoginDate, LocalTime lastLoginTime, String role, String profilePicturePath, boolean banned, String faculty, String major, boolean firstlogin, String Id) {
         this.name = name;
         this.username = username;
         this.password = password;
@@ -27,14 +27,22 @@ public class User implements Comparable<User> {
         this.profilePicturePath = profilePicturePath;
         this.suspend = banned;
         this.faculty = faculty;
-        this.major = department;
-        this.firstlogin = false;
+        this.major = major;
+        this.firstlogin = firstlogin;
         this.Id = Id;
     }
 
     public User(String name, String username, String password, String role, String profilePicturePath,String id) {
         this(name , username, password, null, null, role, profilePicturePath, false, null, null,false, id);
     }
+    public User(String name, String username, String password, String role, String profilePicturePath,String id,String faculty,String major) {
+        this(name , username, password, null, null, role, profilePicturePath, false, faculty, major,false, id);
+    }
+    public User(String name, String username, String password, String role, String id, String faculty, String major) {
+        this(name,username,password,role,null,id,faculty,major);
+    }
+
+
 
 
     public boolean isSuspended() {
@@ -85,7 +93,6 @@ public class User implements Comparable<User> {
         this.major = major;
     }
 
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -109,8 +116,6 @@ public class User implements Comparable<User> {
     public String getName() {
         return name;
     }
-
-
 
     public String getUsername() {
         return username;

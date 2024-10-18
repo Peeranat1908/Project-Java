@@ -13,8 +13,11 @@ import ku.cs.models.Appeal;
 import ku.cs.models.User;
 import java.time.LocalDate;
 import ku.cs.services.AppealSharedData;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.time.LocalTime;
+import java.util.UUID;
 
 import ku.cs.services.AppealListDatasource;
 
@@ -136,6 +139,14 @@ public class EnrollAppealController {
         LocalDate date = LocalDate.of(year, month, day);
         String studentSignature = signatureTextField.getText();
         String status = "ใบคำร้องใหม่ คำร้องส่งต่อให้อาจารย์ที่ปรึกษา";
+        String declineReason = "";
+        String majorEndorserSignature = "";
+        LocalDate majorDate = null;
+        LocalDate FacultyDate = null;
+        String FacultyEndorserSignature = "";
+        LocalDateTime DeclineDatetime = null;
+        String pathPDF = null;
+        String appealID = generateRandomAppealId(6);
 
         if (!lateRegisCheck.isSelected() && !lateAddDropCheck.isSelected() && !OverRegisCheck.isSelected() &&
                 !LessRegisCheck.isSelected() && !PostPayCheck.isSelected() && !TransferMajorCheck.isSelected()) {
@@ -163,7 +174,7 @@ public class EnrollAppealController {
         }
         ErrorLabel.setVisible(false);
 
-        Appeal appeal = new Appeal(studentID    ,type , subject, request, date, studentSignature, second, status, time);
+        Appeal appeal = new Appeal(studentID ,type , subject, request, date, studentSignature, second, status, time, declineReason, majorEndorserSignature, majorDate, FacultyDate, DeclineDatetime, FacultyEndorserSignature, appealID, pathPDF);
         AppealSharedData.getNormalAppealList().addAppeal(appeal);
         datasource.writeData(AppealSharedData.getNormalAppealList());
         clearFields();
@@ -191,6 +202,10 @@ public class EnrollAppealController {
         LessRegisCheck.setSelected(false);
         PostPayCheck.setSelected(false);
         TransferMajorCheck.setSelected(false);
+    }
+    private String generateRandomAppealId(int length) {
+        String uuid = UUID.randomUUID().toString().replace("-", ""); // สร้าง UUID และลบเครื่องหมาย "-"
+        return uuid.substring(0, Math.min(length, uuid.length())) ; // ตัดความยาวและเพิ่มนามสกุล
     }
 
 

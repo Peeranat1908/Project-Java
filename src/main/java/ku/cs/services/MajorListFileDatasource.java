@@ -93,14 +93,14 @@ public class MajorListFileDatasource implements Datasource<MajorList>{
         );
         BufferedWriter buffer = new BufferedWriter(outputStreamWriter);
         try {
-            for (Major major : data.getMajors()){
-                String line = major.toString();
+            for (Major major : data.getMajors()) {
+                String line = major.getFacultyId() + "," + major.getMajorId() + "," + major.getMajorName();
                 buffer.append(line);
                 buffer.append("\n");
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }finally {
+        } finally {
             try {
                 buffer.flush();
                 buffer.close();

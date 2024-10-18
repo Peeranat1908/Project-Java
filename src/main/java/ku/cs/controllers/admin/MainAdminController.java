@@ -1,24 +1,31 @@
 package ku.cs.controllers.admin;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
+import javafx.util.Pair;
+import ku.cs.controllers.components.Sidebar;
+import ku.cs.controllers.components.SidebarController;
 import ku.cs.models.User;
 import ku.cs.models.UserList;
 import ku.cs.services.Datasource;
 import ku.cs.services.UserListFileDatasource;
 import ku.cs.services.FXRouter;
-
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import javafx.scene.control.CheckBox;
+
 import javafx.scene.layout.Pane;
 
-public class MainAdminController {
+public class MainAdminController implements Sidebar {
     @FXML
     private TableView<User> tableView;
     @FXML
@@ -33,13 +40,27 @@ public class MainAdminController {
     private CheckBox departmentStaffCheckBox;
     @FXML
     private CheckBox advisorCheckBox;
+    @FXML
+    private AnchorPane sidebar;
+    @FXML
+    private AnchorPane mainPage;
+    @FXML
+    private Button toggleSidebarButton; // ปุ่มสำหรับแสดง/ซ่อน Sidebar
+    @FXML
+    private Circle imagecircleuser;
+    private User user;
+
 
     private UserList userList;
-    private Datasource<UserList> datasource;
 
     @FXML
     public void initialize() {
-        datasource = new UserListFileDatasource("data", "user.csv");
+        Object data = FXRouter.getData();
+        if (data instanceof User) {
+            user = (User) data;
+
+        }
+        Datasource<UserList> datasource = new UserListFileDatasource("data", "user.csv");
         userList = datasource.readData();
         showTable(userList);
 
@@ -53,7 +74,8 @@ public class MainAdminController {
                 User selectedUser = tableView.getSelectionModel().getSelectedItem();
                 if (selectedUser != null) {
                     try {
-                        FXRouter.goTo("user-details", selectedUser);
+                        Pair<User, User> userPair = new Pair<>(user, selectedUser);
+                        FXRouter.goTo("user-details", userPair);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -61,6 +83,11 @@ public class MainAdminController {
             }
         });
         roleSelectionPane.setVisible(false);
+        loadSidebar();// loadSidebar
+        toggleSidebarButton.setOnAction(actionEvent -> {toggleSidebar();});
+        String imagePath = System.getProperty("user.dir") + File.separator + user.getProfilePicturePath();
+        String url = new File(imagePath).toURI().toString();
+        imagecircleuser.setFill(new ImagePattern(new Image(url)));
     }
 
     private void filterTable(String searchText) {
@@ -75,7 +102,7 @@ public class MainAdminController {
             if (facultyStaffCheckBox.isSelected() && user.getRole().equals("facultyStaff")) {
                 matchesRole = true;
             }
-            if (departmentStaffCheckBox.isSelected() && user.getRole().equals("departmentStaff")) {
+            if (departmentStaffCheckBox.isSelected() && user.getRole().equals("majorStaff")) {
                 matchesRole = true;
             }
             if (advisorCheckBox.isSelected() && user.getRole().equals("advisor")) {
@@ -133,9 +160,20 @@ public class MainAdminController {
                 }
             }
         });
+        TableColumn<User, ImageView> profilePictureColumn = new TableColumn<>("Profile Picture");
+        profilePictureColumn.setCellValueFactory(cellData -> {
+            String imagePath = System.getProperty("user.dir") + File.separator + cellData.getValue().getProfilePicturePath();
+            String url = new File(imagePath).toURI().toString();
+            ImageView imageView = new ImageView(new Image(url));
+            imageView.setFitHeight(50);
+            imageView.setFitWidth(50);
+            return new SimpleObjectProperty<>(imageView);
+
+        });
+        profilePictureColumn.setPrefWidth(100);
 
         tableView.getColumns().clear();
-        tableView.getColumns().addAll(nameColumn, usernameColumn, dateColumn, timeColumn, roleColumn, suspendColumn);
+        tableView.getColumns().addAll(profilePictureColumn,nameColumn, usernameColumn, dateColumn, timeColumn, roleColumn, suspendColumn);
 
         for (User user : userList.getUsers()) {
             if (!user.getRole().equals("admin")) {
@@ -143,7 +181,6 @@ public class MainAdminController {
             }
         }
     }
-
     @FXML
     private void RoleSelectedButtonClick() {
         roleSelectionPane.setVisible(!roleSelectionPane.isVisible());
@@ -155,35 +192,17 @@ public class MainAdminController {
     }
 
     @FXML
-    public void onMyTeamButtonClick() {
-        try {
-            FXRouter.goTo("my-team");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
-    public void onLogoutButtonClick() {
-        try {
-            FXRouter.goTo("login-page");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
     public void dashboardButtonClick() {
         try {
-            FXRouter.goTo("dashboard");
+            FXRouter.goTo("dashboard",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
     @FXML
-    public void manageStaffdataButtonClick() {
+    public void manageStaffDataButtonClick() {
         try {
-            FXRouter.goTo("staff-table-admin");
+            FXRouter.goTo("staff-table-admin",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -191,7 +210,7 @@ public class MainAdminController {
     @FXML
     public void homeButtonClick() {
         try {
-            FXRouter.goTo("main-admin");
+            FXRouter.goTo("main-admin",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -199,9 +218,55 @@ public class MainAdminController {
     @FXML
     public void onManageFacultyButtonClick() {
         try {
-            FXRouter.goTo("edit-data-faculty");
+            FXRouter.goTo("faculty-data-admin",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void onUserProfileButton() {
+        try {
+            FXRouter.goTo("user-profile",user);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void loadSidebar(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/views/other/sidebar.fxml"));
+            AnchorPane loadedSidebar = loader.load();
+
+            // ดึง SidebarController จาก FXML Loader
+            SidebarController sidebarController = loader.getController();
+            sidebarController.setSidebar(this); // กำหนด MainAdminController เป็น Sidebar เพื่อให้สามารถปิดได้
+
+            sidebar = loadedSidebar; // กำหนด sidebar ที่โหลดเสร็จแล้ว
+            sidebar.setVisible(false); // ปิด sidebar ไว้ในค่าเริ่มต้น
+            mainPage.getChildren().add(sidebar); // เพิ่ม sidebar ไปยัง mainPage
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Override
+    public void toggleSidebar() {
+        if (sidebar != null){
+            sidebar.setVisible(!sidebar.isVisible());
+            if (sidebar.isVisible()){
+                sidebar.toFront(); //ให้ sidebar แสดงด้านหน้าสุด
+            }
+            else {
+                sidebar.toBack();
+            }
+        }
+    }
+
+    @Override
+    public void closeSidebar() {
+        if (sidebar != null){
+            sidebar.setVisible(false);
+            sidebar.toBack();
         }
     }
 }

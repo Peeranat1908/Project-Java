@@ -3,126 +3,195 @@ package ku.cs.controllers.majorStaff;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
+import javafx.util.Pair;
+import ku.cs.controllers.components.Sidebar;
+import ku.cs.controllers.components.SidebarController;
 import ku.cs.models.Student;
 import ku.cs.models.StudentList;
 import ku.cs.models.User;
 import ku.cs.services.*;
 
+import java.io.File;
 import java.io.IOException;
 
-public class StudentInMajorController {
-    @FXML
-    private Label nameLabel;
+public class StudentInMajorController implements Sidebar {
+
     @FXML
     private TableView<Student> studentTableView;
-    @FXML
-    private TextField searchTextField;
-
-    @FXML
-    private Button searchButtonClick;
 
     private StudentList studentList;
-
-    private Datasource<StudentList> datasource;
+    @FXML
+    private TextField searchUserTextfield;
+    @FXML
+    private AnchorPane sidebar;
+    @FXML
+    private AnchorPane mainPage;
+    @FXML
+    private Button toggleSidebarButton; // ปุ่มสำหรับแสดง/ซ่อน Sidebar
+    @FXML private Circle imagecircle;
     private User user;
+    Datasource<StudentList> studentDatasource;
+    StudentList studentlistInMajor;
 
     @FXML
     public void initialize() {
         Object data = FXRouter.getData();
         if (data instanceof User) {
             user = (User) data;
-            nameLabel.setText(user.getName());
-        }
 
-//        errorLabel.setText("");
-        datasource = new MajorStaffListFileDataSource("data", "student-in-department.csv");
-        studentList = datasource.readData();
-        showTable(studentList);
+        }
+        String imagePath = System.getProperty("user.dir") + File.separator + user.getProfilePicturePath();
+        String url = new File(imagePath).toURI().toString();
+        imagecircle.setFill(new ImagePattern(new Image(url)));
+
+
+        studentDatasource = new StudentListFileDatasource("data", "student-info.csv");
+        studentList = studentDatasource.readData();
+        studentlistInMajor = studentList.getStudentsListBYMajor(user.getMajor());
+        showTable(studentlistInMajor);
 
         studentTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Student>() {
             @Override
             public void changed(ObservableValue observableValue, Student oldValue, Student newValue) {
-                if (newValue != null){
-                }
             }
         });
 
-        //searchButtonClick.setOnAction(actionEvent -> searchStudent());
+        searchUserTextfield.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterTable(newValue);
+        });
+        studentTableView.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 1) {
+                Student selectedStudent  = studentTableView.getSelectionModel().getSelectedItem();
+            } else if (event.getClickCount() == 2) {
+                Student selectedStudent  = studentTableView.getSelectionModel().getSelectedItem();
+                if (selectedStudent != null) {
+                    try {
+                        Pair<User, Student> userStudentPair = new Pair<>(user, selectedStudent);
+                        FXRouter.goTo("student-detail-major-staff", userStudentPair);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
+        loadSidebar();// loadSidebar
+        toggleSidebarButton.setOnAction(actionEvent -> {toggleSidebar();});
+    }
+
+    private void filterTable(String searchText) {
+        StudentList filteredList = new StudentList();
+        for (Student student : studentlistInMajor.getStudents()) {
+            if (student.getName().toLowerCase().contains(searchText.toLowerCase()) ||
+                    student.getUsername().toLowerCase().contains(searchText.toLowerCase()) ||
+                    student.getEmail().toLowerCase().contains(searchText.toLowerCase())) {
+                filteredList.addStudent(student);
+            }
+        }
+        studentTableView.getItems().setAll(filteredList.getStudents());
     }
 
     private void showTable(StudentList studentList) {
-        // กำหนด column ให้มี title ว่า ID และใช้ค่าจาก getter id ของ object StudentAdvisor
         TableColumn<Student, String> idColumn = new TableColumn<>("Student ID");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
-        // กำหนด column ให้มี title ว่า Name และใช้ค่าจาก getter name ของ object StudentAdvisor
         TableColumn<Student, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        TableColumn<Student, String>  usernameColumn = new TableColumn<>("Username");
-        usernameColumn.setCellValueFactory(new PropertyValueFactory<>("Username"));
-
-        // กำหนด column ให้มี title ว่า Faculty และใช้ค่าจาก getter faculty ของ object StudentAdvisor
         TableColumn<Student, String> emailColumn = new TableColumn<>("email");
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
 
-        // ล้าง column เดิมทั้งหมดที่มีอยู่ใน table แล้วเพิ่ม column ใหม่
+        TableColumn<Student, String> advisorColumn = new TableColumn<>("AdvisorId");
+        advisorColumn.setCellValueFactory(new PropertyValueFactory<>("advisorID"));
+
         studentTableView.getColumns().clear();
-        studentTableView.getColumns().add(idColumn);
-        studentTableView.getColumns().add(nameColumn);
-        studentTableView.getColumns().add(usernameColumn);
-        studentTableView.getColumns().add(emailColumn);
+        studentTableView.getColumns().addAll(idColumn, nameColumn, emailColumn, advisorColumn);
 
-        studentTableView.getItems().clear();
-
-        for (Student student: studentList.getStudents()) {
-            studentTableView.getItems().add(student);
-        }
+        studentTableView.getItems().setAll(studentList.getStudents());
     }
 
-//    private void searchStudent() {
-//        String searchQuery = searchTextField.getText().trim();
-//        if (searchQuery.isEmpty()) {
-//            studentTableView.getItems().setAll(studentAdvisorList.getStudentAdvisor());
-////            errorLabel.setText("กรุณาใส่ข้อมูล");
-//            return;
-//        }
-
-//        StudentAdvisor fondStudent = studentAdvisorList.findStudentById(searchQuery);
-//        if (fondStudent == null) {
-//            fondStudent = studentAdvisorList.findStudentByName(searchQuery);
-//        }
-//
-//        if (fondStudent != null) {
-//            studentTableView.getItems().setAll(fondStudent);
-//        } else {
-//            studentTableView.getItems().clear();
-//        }
-//    }
-
-    @FXML
-    public void onMyTeamButtonClick() throws RuntimeException {
-//        Object temp = FXRouter.getData();
-//        if (temp instanceof String) {
-//            previousPage = (String)temp;
-//        }
-
+    //Sidebar
+    @Override
+    public void loadSidebar(){
         try {
-            FXRouter.goTo("my-team");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/views/other/sidebar.fxml"));
+            AnchorPane loadedSidebar = loader.load();
+
+            // ดึง SidebarController จาก FXML Loader
+            SidebarController sidebarController = loader.getController();
+            sidebarController.setSidebar(this); // กำหนด MainAdminController เป็น Sidebar เพื่อให้สามารถปิดได้
+
+            sidebar = loadedSidebar; // กำหนด sidebar ที่โหลดเสร็จแล้ว
+            sidebar.setVisible(false); // ปิด sidebar ไว้ในค่าเริ่มต้น
+            mainPage.getChildren().add(sidebar); // เพิ่ม sidebar ไปยัง mainPage
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+    @Override
+    public void toggleSidebar() {
+        if (sidebar != null){
+            sidebar.setVisible(!sidebar.isVisible());
+            if (sidebar.isVisible()){
+                sidebar.toFront(); //ให้ sidebar แสดงด้านหน้าสุด
+            }
+            else {
+                sidebar.toBack();
+            }
+        }
+    }
+
+    @Override
+    public void closeSidebar() {
+        if (sidebar != null){
+            sidebar.setVisible(false);
+            sidebar.toBack();
+        }
+    }
+
+    //Navbar button
+    @FXML
+    public void onApproveMajorButton(){
+        navigateTo("approve-major-list", user);
+    }
 
     @FXML
-    public void onRequestButtonClick() {
+    public void onStudentListButton(){
+        navigateTo("student-in-major", user);
+    }
+
+    @FXML
+    public void onAddEndorserButton(){
+        navigateTo("add-major-endorser", user);
+    }
+
+    @FXML
+    public void onHomeButton(){
+        navigateTo("departmentStaff", user);
+    }
+    @FXML
+    public void onUserProfileButton(){
+        navigateTo("user-profile", user);
+    }
+
+    private void navigateTo(String route, Object data) {
         try {
-            FXRouter.goTo("request-page");
+            FXRouter.goTo(route, data);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.err.println("Navigation to " + route + " failed: " + e.getMessage());
         }
+    }
+
+    //Button to add student
+    @FXML
+    public void addStudentButtonClick(){
+        navigateTo("add-student", user);
     }
 
 }

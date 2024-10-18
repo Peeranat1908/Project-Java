@@ -12,11 +12,14 @@ import ku.cs.models.User;
 import java.time.LocalDate;
 import javafx.scene.control.Label;
 import ku.cs.services.AppealSharedData;
-import java.time.chrono.ThaiBuddhistDate;
+
+import java.time.LocalDateTime;
+
 import ku.cs.services.AppealListDatasource;
 
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.UUID;
 
 public class LeaveAppealController {
     @FXML
@@ -64,8 +67,8 @@ public class LeaveAppealController {
         daySpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 31, LocalDate.now().getDayOfMonth()));
         monthSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12, LocalDate.now().getMonthValue()));
         yearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1900, LocalDate.now().getYear(), LocalDate.now().getYear()));
-        endyearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1900, LocalDate.now().getYear(), LocalDate.now().getYear()));
-        startyearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1900, LocalDate.now().getYear(), LocalDate.now().getYear()));
+        endyearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(2567,3000, LocalDate.now().getYear()));
+        startyearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(2567, 3000, LocalDate.now().getYear()));
 
         datasource = new AppealListDatasource("data/appeals.csv");
         AppealList loadedAppeals = datasource.readData();
@@ -100,8 +103,16 @@ public class LeaveAppealController {
         String endSemester = endSemesterfield.getText();
         String endYear = String.valueOf(endyearSpinner.getValue());
         String courseDetails = courseTextfield.getText();
-        String signature = signatureTextField.getText();
+        String studentSignature = signatureTextField.getText();
         String status = "ใบคำร้องใหม่ คำร้องส่งต่อให้อาจารย์ที่ปรึกษา";
+        String declineReason = "";
+        String majorEndorserSignature = "";
+        LocalDate majorDate = null;
+        LocalDate FacultyDate = null;
+        String FacultyEndorserSignature = "";
+        LocalDateTime DeclineDatetime = null;
+        String pathPDF = null;
+        String appealID = generateRandomAppealID(6);
 
         int day = daySpinner.getValue();
         int month = monthSpinner.getValue();
@@ -115,14 +126,13 @@ public class LeaveAppealController {
                 " ปีการศึกษา " + endYear + " วิชาที่ลงทะเบียน: " + courseDetails;
 
         if (subject.isEmpty() || nYears.isEmpty() || startSemester.isEmpty() || endSemester.isEmpty() ||
-                courseDetails.isEmpty() || signature.isEmpty()) {
+                courseDetails.isEmpty() ||studentSignature.isEmpty()) {
             ErrorLabel.setText("Please fill out all fields.");
             ErrorLabel.setVisible(true);
             return;
         }
         try {
-
-            Appeal appeal = new Appeal(studentID ,type , subject, request, date, signature, second, status, time);
+            Appeal appeal = new Appeal(studentID ,type , subject, request, date, studentSignature, second, status, time, declineReason, majorEndorserSignature, majorDate, FacultyDate, DeclineDatetime, FacultyEndorserSignature, appealID, pathPDF);
             AppealSharedData.getNormalAppealList().addAppeal(appeal);
             datasource.writeData(AppealSharedData.getNormalAppealList());
             clearFields();
@@ -154,5 +164,9 @@ public class LeaveAppealController {
         daySpinner.getValueFactory().setValue(LocalDate.now().getDayOfMonth());
         monthSpinner.getValueFactory().setValue(LocalDate.now().getMonthValue());
         yearSpinner.getValueFactory().setValue(LocalDate.now().getYear());
+    }
+    private String generateRandomAppealID(int length) {
+        String uuid = UUID.randomUUID().toString().replace("-", ""); // สร้าง UUID และลบเครื่องหมาย "-"
+        return uuid.substring(0, Math.min(length, uuid.length())) ; // ตัดความยาวและเพิ่มนามสกุล
     }
 }

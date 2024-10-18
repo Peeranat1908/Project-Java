@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import ku.cs.models.Major;
 import ku.cs.models.MajorList;
+import ku.cs.models.User;
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
 import ku.cs.services.MajorListFileDatasource;
@@ -32,9 +33,15 @@ public class editMajorDataController {
     private Datasource<MajorList> datasource;
     private MajorList majorList;
     @FXML private Button okButton;
+    private User user;
 
     @FXML
-    public void initialize() {
+    public void initialize(){
+        Object data = FXRouter.getData();
+        if (data instanceof User) {
+            user = (User) data;
+
+        }
         errorLabel1.setText("");
         errorLabel2.setText("");
         errorLabel3.setText("");
@@ -109,7 +116,7 @@ public class editMajorDataController {
     @FXML
     public void onBackButtonClicked() {
         try{
-            FXRouter.goTo("faculty-data-admin");
+            FXRouter.goTo("faculty-data-admin",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -118,7 +125,7 @@ public class editMajorDataController {
     @FXML
     public void onAddMajorButtonClicked() {
         try{
-            FXRouter.goTo("add-new-major");
+            FXRouter.goTo("add-new-major",user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

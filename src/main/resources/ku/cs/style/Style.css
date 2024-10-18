@@ -80,6 +80,12 @@
 .label{
     -fx-font-family: Sana;
 }
+.choice-box{
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 25px;
+    -fx-border-color: #000000;
+    -fx-border-radius: 25px;
+}
 
 #Button{
     -fx-background-color:  #6EB1FF;

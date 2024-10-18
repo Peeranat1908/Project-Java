@@ -5,6 +5,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import ku.cs.services.FXRouter;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 
 public class FirstPageController {
@@ -36,5 +38,18 @@ public class FirstPageController {
             throw new RuntimeException(e);
         }
     }
+    @FXML
+    public void IntroductionToProgramUsage() {
+        try {
+            File pdfFile = new File(System.getProperty("user.dir") + File.separator + "data" + File.separator +"วิธีการใช้งานMYMEE.pdf");
 
+            if (pdfFile.exists()) {
+                Desktop.getDesktop().open(pdfFile);
+            } else {
+                System.out.println("ไฟล์ PDF ไม่พบ: " + pdfFile.getAbsolutePath());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
