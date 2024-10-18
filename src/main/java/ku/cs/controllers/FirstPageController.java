@@ -41,7 +41,7 @@ public class FirstPageController {
     @FXML
     public void IntroductionToProgramUsage() {
         try {
-            File pdfFile = new File(System.getProperty("user.dir") + File.separator + "data" + File.separator +"วิธีการใช้งานMYMEE.pdf");
+            File pdfFile = new File(System.getProperty("user.dir") + File.separator + "data" + File.separator +"InstructionMYMEE.pdf");
 
             if (pdfFile.exists()) {
                 Desktop.getDesktop().open(pdfFile);
